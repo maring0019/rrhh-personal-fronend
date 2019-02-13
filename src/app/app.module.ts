@@ -13,14 +13,17 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
-import { LoginPage } from './pages/login/login.component';
+// Pages
+import { HomePage } from './pages/home/home.page';
+import { LoginPage } from './pages/login/login.page';
 
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginPage
+        LoginPage,
+        HomePage
     ],
     imports: [
         BrowserModule,
