@@ -1,5 +1,7 @@
-import { IContacto } from './IContacto';
+
 import { Direccion } from './Direccion';
+import { Contacto } from './Contacto';
+import { Educacion } from './Educacion';
 import { IPais } from './IPais';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
 
@@ -19,8 +21,8 @@ export class Agente {
     genero: Genero;
     fechaNacimiento: Date;
     direccion: [Direccion];
-    contacto: [IContacto];
-    // educacion: [EducacionSchema];
+    contactos: Contacto[];
+    educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
     // situacion: SituacionEnPlantaSchema;
     // cargos: [CargoSchema];
@@ -43,6 +45,11 @@ export class Agente {
         if (agente.direccion){
             agente.direccion.forEach(e => {
                 this.direccion.push(new Direccion(e))
+            });
+        }
+        if (agente.contactos){
+            agente.contactos.forEach(e => {
+                this.contactos.push(new Contacto(e))
             });
         }
     }

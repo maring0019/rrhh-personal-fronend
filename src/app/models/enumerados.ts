@@ -24,25 +24,43 @@ export enum EstadoCivil {
 }
 
 export enum TipoComunicacion {
-    telefonoFijo = 'Teléfono Fijo',
-    telefonoCelular = 'Teléfono Celular',
+    fijo = 'Teléfono Fijo',
+    celular = 'Teléfono Celular',
     email = 'Email'
 }
 
-export enum estados {
-    'temporal',
-    'identificado',
-    'validado',
-    'recienNacido',
-    'extranjero'
+
+export enum TipoEducacion {
+    primario = 'Primario',
+    secundario = 'Secundario',
+    terciario = 'Terciario',
+    universitario = 'Universitario',
+    postgrado = 'Postgrado',
 }
 
-export enum relacionTutor {
-    'padre',
-    'madre',
-    'hijo',
-    'tutor'
+export function getObjTipoEducacion() {
+    let arrTC = Object.keys(TipoComunicacion);
+    let salida = arrTC.map(elem => {
+        return {
+            'id': elem,
+            'nombre': titleCase(TipoComunicacion[elem])
+        };
+    });
+    return salida;
 }
+
+export function getObjTipos(className) {
+    let objKeys = Object.keys(className);
+    let salida = objKeys.map(elem => {
+        return {
+            'id': elem,
+            'nombre': className[elem]
+        };
+    });
+    return salida;
+}
+
+
 
 export enum UnidadEdad {
     'años',
@@ -51,24 +69,7 @@ export enum UnidadEdad {
     'horas'
 }
 
-export enum EstadosAuditorias {
-    'pendiente',
-    'aprobada',
-    'desaprobada'
-}
 
-export enum PrioridadesPrestacion {
-    'no prioritario',
-    'urgencia',
-    'emergencia'
-}
-
-export enum EstadosEspacios {
-    'disponible',
-    'mantenimiento',
-    'clausurado',
-    'baja permanente'
-}
 
 export function titleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
@@ -175,56 +176,3 @@ export function getObjEstadoCivil() {
     return salida;
 }
 
-export function getEstados() {
-    let arrEstados = Object.keys(estados);
-    arrEstados = arrEstados.slice(arrEstados.length / 2);
-    return arrEstados;
-}
-
-export function getPrioridades() {
-    let arrPrioridades = Object.keys(PrioridadesPrestacion);
-    arrPrioridades = arrPrioridades.slice(arrPrioridades.length / 2);
-    return arrPrioridades;
-}
-
-export function getEstadosAuditorias() {
-    let arrEstados = Object.keys(EstadosAuditorias);
-    arrEstados = arrEstados.slice(arrEstados.length / 2);
-    let salida = arrEstados.map(elem => {
-        return {
-            'id': elem,
-            'nombre': titleCase(elem)
-        };
-    });
-    return salida;
-}
-
-export function getEstadosEspacios() {
-    let arrEstados = Object.keys(EstadosEspacios);
-    arrEstados = arrEstados.slice(arrEstados.length / 2);
-    let salida = arrEstados.map(elem => {
-        return {
-            'id': elem,
-            'nombre': titleCase(elem)
-        };
-    });
-    return salida;
-}
-
-export function getRelacionTutor() {
-    let arrRT = Object.keys(relacionTutor);
-    arrRT = arrRT.slice(arrRT.length / 2);
-    return arrRT;
-}
-
-export function getObjRelacionTutor() {
-    let arrRT = Object.keys(relacionTutor);
-    arrRT = arrRT.slice(arrRT.length / 2);
-    let salida = arrRT.map(elem => {
-        return {
-            'id': elem,
-            'nombre': titleCase(elem)
-        };
-    });
-    return salida;
-}

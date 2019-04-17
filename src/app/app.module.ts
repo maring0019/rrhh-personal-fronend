@@ -32,6 +32,7 @@ import { AgenteRegistroComponent } from './modules/agente/pages/registro/agente-
 import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/datos-basicos/agente-datos-basicos.component';
 import { AgenteDatosDireccionComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-contacto.component';
+import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/datos-educacion/agente-datos-educacion.component';
 
 
 
@@ -45,7 +46,8 @@ import { AgenteDatosContactoComponent } from './modules/agente/pages/registro/da
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
         AgenteDatosDireccionComponent,
-        AgenteDatosContactoComponent
+        AgenteDatosContactoComponent,
+        AgenteDatosEducacionComponent
     ],
     imports: [
         BrowserModule,
