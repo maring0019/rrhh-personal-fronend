@@ -1,0 +1,43 @@
+
+<plex-layout main="9">
+    <plex-layout-main>
+        <plex-tabs>
+            <plex-tab label="DATOS BÁSICOS">
+                <agente-datos-basicos 
+                    [agente]="agente">
+                </agente-datos-basicos>
+            </plex-tab>
+            <plex-tab label="DATOS DE CONTACTO">
+                <agente-datos-direccion 
+                    [direccion]="direccion">
+                </agente-datos-direccion>
+                <agente-datos-contacto 
+                    [contactos]="contactos">
+                </agente-datos-contacto>
+            </plex-tab>
+            <plex-tab label="EDUCACIÓN">
+
+            </plex-tab>
+            <plex-tab label="SITUACIÓN Y CARGO">
+
+            </plex-tab>
+            <plex-tab label="REGÍMENES">
+
+            </plex-tab>
+        </plex-tabs>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <header>
+            Detalle del Agente
+        </header>
+    </plex-layout-sidebar>
+    <plex-layout-footer>
+        <plex-button label="Cancelar" type="danger" position="right"></plex-button>
+        <plex-button
+            label="Guardar Agente"
+            type="success"
+            position="right"
+            (click)="saveAgente()">
+        </plex-button>
+    </plex-layout-footer>
+</plex-layout>

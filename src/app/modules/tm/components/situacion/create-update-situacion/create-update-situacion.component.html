@@ -1,0 +1,37 @@
+<plex-layout>
+    <plex-layout-main>
+
+        <form #formulario="ngForm">
+                <div class="row">
+                    <div class="col-6">
+                        <plex-text 
+                            [(ngModel)]="modelo.nombre"
+                            [required]="true"
+                            id="nombre" name="nombre" label="Nombre"
+                            placeholder="Ingrese el nombre de la situacion"
+                            required>
+                        </plex-text>
+                    </div>
+                    <div class="col-6">
+                        <br>
+                        <br>
+                        <plex-bool [(ngModel)]="modelo.requiereVencimiento"
+                            label="Requiere Vencimiento"
+                            name="requiereVencimiento">
+                        </plex-bool>
+                    </div>
+                </div>
+        </form>
+
+    </plex-layout-main>
+    <plex-layout-footer>
+        <plex-button type="danger" label="Cancelar" position="left" (click)="onCancel()"></plex-button>
+        <plex-button 
+            type="success"
+            label="Guardar"
+            position="right"
+            [validateForm]="formulario" 
+            (click)="onSave($event)">
+        </plex-button>
+    </plex-layout-footer>
+</plex-layout>

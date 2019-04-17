@@ -1,0 +1,53 @@
+
+<br>
+<fieldset>
+    <legend>Otros Datos de Contacto</legend>
+</fieldset>
+<form name="datosContactoForm" [formGroup]="datosContactoForm">
+    <div class="row">
+        <div class="col-12 text-right">
+            <plex-button 
+                title="Agregar contacto"
+                titlePosition="left"
+                type="primary btn-sm"
+                icon="phone-plus"
+                (click)="addContacto()">
+            </plex-button>
+        </div>
+    </div>
+    <div formArrayName="contactos">
+        <div *ngFor="let contacto of contactoForms.controls; let i=index" 
+                [formGroupName]="i">
+            <div class="row">
+                <div class="col-4">
+                    <plex-select
+                        [data]="tiposContacto"
+                        name="tipo"
+                        formControlName="tipo"
+                        label="Tipo de contacto"
+                        placeholder="Seleccione..."
+                        [required]="false">
+                    </plex-select>
+                </div>
+                <div class="col-md-4">
+                    <plex-text
+                        name="valor"
+                        formControlName="valor" 
+                        label="Dato de contacto"
+                        placeholder="Ingrese valor..."
+                        [required]="false">
+                    </plex-text>
+                </div>
+                <div class="col-2" *ngIf="i > 0">
+                    <br>
+                    <br>
+                    <plex-button
+                        label=""
+                        type="danger btn-sm"
+                        icon="close"
+                        (click)="deleteContacto(i)"></plex-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

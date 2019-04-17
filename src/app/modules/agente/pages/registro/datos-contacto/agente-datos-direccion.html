@@ -1,0 +1,58 @@
+<br>
+<form name="direccionForm" [formGroup]="direccionForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <plex-text
+                        name="valor"
+                        formControlName="valor"
+                        label="Dirección"
+                        placeholder="Ingrese Dirección..."
+                        [required]="true">
+                    </plex-text>
+                </div>
+                <div class="col-md-6">
+                    <plex-select 
+                        [data]="provincias"
+                        name="provincia"
+                        formControlName="provincia"
+                        label="Provincia"
+                        placeholder="Seleccione..."
+                        [required]="false">
+                    </plex-select>
+                </div>
+                <div class="col-md-6">
+                    <plex-select 
+                        [data]="localidades"
+                        name="localidad"
+                        formControlName="localidad"
+                        label="Localidad"
+                        placeholder="Seleccione..."
+                        [required]="false">
+                    </plex-select>
+                </div>
+                <div class="col-md-6">
+                    <plex-text
+                        name="barrio"
+                        formControlName="barrio" 
+                        label="Barrio"
+                        placeholder="Ingrese Barrio"
+                        [required]="false">
+                    </plex-text>
+                </div>
+                <div class="col-md-6">
+                    <plex-text
+                        name="codigoPostal"
+                        formControlName="codigoPostal" 
+                        label="CP"
+                        placeholder="Ingrese CP..."
+                        [required]="false">
+                    </plex-text>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+</form>
