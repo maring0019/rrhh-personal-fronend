@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray  } from '@angular/forms';
 import * as enumerados from 'src/app/models/enumerados';
 import { Educacion } from 'src/app/models/Educacion';

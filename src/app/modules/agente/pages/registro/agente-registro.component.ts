@@ -14,8 +14,6 @@ import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
 
 
-
-
 @Component({
     selector: 'app-agente-registro',
     templateUrl: './agente-registro.html',
@@ -37,6 +35,7 @@ export class AgenteRegistroComponent implements AfterViewInit {
     constructor(private agenteService:AgenteService){}
 
     ngOnInit() {
+        // this.agente = new Agente();
         this.agente = new Agente({
             documento:28588178,
             nombre:'David',
@@ -45,7 +44,6 @@ export class AgenteRegistroComponent implements AfterViewInit {
             sexo:'masculino',
             genero:'masculino',
             estadoCivil:'soltero'});
-        // this.agente = new Agente();
         this.direccion = new Direccion({valor:'Tte. Ibañez 1966'});
         this.contactos = [new Contacto({tipo:'fijo', valor:'4776612'})];
         this.educacion = [];

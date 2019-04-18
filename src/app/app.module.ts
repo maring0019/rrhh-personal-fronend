@@ -28,11 +28,16 @@ import { RoutingGuard, RoutingNavBar} from './app-guard';
 
 import { ListSituacionComponent } from './modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { CreateUpdateSituacionComponent } from './modules/tm/components/situacion/create-update-situacion/create-update-situacion.component';
+
 import { AgenteRegistroComponent } from './modules/agente/pages/registro/agente-registro.component';
 import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/datos-basicos/agente-datos-basicos.component';
 import { AgenteDatosDireccionComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/datos-educacion/agente-datos-educacion.component';
+
+import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
+import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
+import { AgenteListadoComponent } from './modules/agente/pages/search/agente-listado/agente-listado.component';
 
 
 
@@ -47,7 +52,10 @@ import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/d
         AgenteDatosBasicosComponent,
         AgenteDatosDireccionComponent,
         AgenteDatosContactoComponent,
-        AgenteDatosEducacionComponent
+        AgenteDatosEducacionComponent,
+        AgenteSearchComponent,
+        AgenteSearchFormComponent,
+        AgenteListadoComponent
     ],
     imports: [
         BrowserModule,

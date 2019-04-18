@@ -1,6 +1,5 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Agente } from 'src/app/models/Agente';
 import { Direccion } from 'src/app/models/Direccion';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { IProvincia } from 'src/app/models/IProvincia';

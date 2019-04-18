@@ -1,0 +1,20 @@
+<plex-layout main="9">
+    <plex-layout-main>
+        <app-agente-search-form
+            (searchEnd)="verResultados($event)">
+        </app-agente-search-form>
+        <br>
+        <app-agente-listado
+            [agentes]="agentes"
+            (selected)="seleccionarAgente($event)"
+            (hover)="hoverAgente($event)">
+        </app-agente-listado>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <header>
+            Detalle del Agente
+        </header>
+    </plex-layout-sidebar>
+
+</plex-layout>
+

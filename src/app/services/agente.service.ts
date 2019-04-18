@@ -18,6 +18,10 @@ export class AgenteService {
         return this.server.post(this.agenteUrl, agente);
     }
 
+    search(params?: any): Observable<Agente[]> {
+        return this.server.get(this.agenteUrl + '/search', { params: params, showError: true });
+    }
+
     // put(agente: Agente): Observable<Agente> {
     //     return this.server.put(this.agenteUrl + '/' + agente.id, agente);
     // }
