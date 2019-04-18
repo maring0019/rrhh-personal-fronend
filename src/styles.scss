@@ -1,2 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@andes/plex/src/lib/styles.scss';
+@import "./app/assets/constantes/colores";
+
+// Links
+a, ul, li {
+	text-decoration: none;
+	color: inherit;
+	list-style: none;
+	margin: inherit;
+	padding-left: 0;
+
+}
+
+li {
+	border-bottom: solid 1px white;
+	&:hover {
+		color: $andes-cyan;
+		cursor: pointer;
+		}
+
+	&:visited {
+		color: $andes-azul-oscuro;
+		}
+}
+
+
+// Elementos
+hr {
+	// Dimensiones
+	&.sm {
+		width: 20px;
+	}
+
+	// Colores
+	&.white {
+		background-color: white;
+	}
+
+}
+
+// Imagenes
+.item-img {
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}
+
+// Overide PLEX
+.card-header,.card-block {
+    background-color: $andes-azul-oscuro!important;
+}
+
+
+// Badges
+%badge {
+    background: transparent;
+    border: 1.5px solid;
+    font-size: 0.75em;
+    font-weight: normal;
+    padding: 5px;
+	text-transform: uppercase;
+
+
+}
+
+.badge:first-child {
+	margin-right: 5px;
+}
+
+[class^="badge"] {
+	@extend %badge;
+
+	&.badge-baja {
+		border-color: $red;
+		color: $red;
+	}
+	
+	&.badge-alta {
+		border-color: $green;
+		color: $green;
+	}
+}

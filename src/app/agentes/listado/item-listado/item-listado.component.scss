@@ -1,0 +1,50 @@
+@import '../../../assets/constantes/colores';
+
+.success {
+    color: green;
+  }
+  
+  .error {
+    color: red;
+    letter-spacing: 0.1rem;
+  }
+  
+  .warning {
+    color: orange;
+  }
+
+// Item lista
+.item-listado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    // Estilo
+    border-bottom: solid 1px $andes-gris-claro;
+    padding: 1rem 0;
+
+    .contenedor-img-texto,.contenedor-badges,.contenedor-botones {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        .badge,plex-button {
+            margin-right: 0.25rem;
+        }
+
+        .contenedor-texto {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            
+            
+            // Estilo
+            margin: 0 0.5rem; 
+            
+            .item-titulo {
+                margin: 0.5rem 0;   
+            }
+        }
+    }
+}

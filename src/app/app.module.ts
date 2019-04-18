@@ -19,11 +19,30 @@ import { LoginPage } from './pages/login/login.page';
 
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
+// Componentes
+import { ListadoComponent } from './agentes/listado/listado.component';
+import { ItemListadoComponent } from './agentes/listado/item-listado/item-listado.component';
+import { BuscadorComponent } from './agentes/buscador/buscador.component';
+import { DetalleComponent } from './agentes/detalle/detalle.component';
+import { TabsComponent } from './agentes/tabs/tabs.component';
+import { TabContactoComponent } from './agentes/tabs/tab-contacto/tab-contacto.component';
+import { EdicionComponent } from './agentes/edicion/edicion.component';
+import { EditPage } from './pages/edit/edit.page';
+
+
 @NgModule({
     declarations: [
         AppComponent,
         LoginPage,
-        HomePage
+        HomePage,
+        EditPage,
+        ListadoComponent,
+        ItemListadoComponent,
+        BuscadorComponent,
+        DetalleComponent,
+        TabsComponent,
+        TabContactoComponent,
+        EdicionComponent,
     ],
     imports: [
         BrowserModule,
@@ -32,6 +51,7 @@ import { RoutingGuard, RoutingNavBar} from './app-guard';
         HttpClientModule,
         HttpModule,
         AppRoutingModule,
+
         PlexModule,
         AuthModule
     ],
