@@ -12,6 +12,7 @@ import { AgenteService } from 'src/app/services/agente.service';
 import { Direccion } from 'src/app/models/Direccion';
 import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,7 +33,10 @@ export class AgenteRegistroComponent implements AfterViewInit {
     contactos: Contacto[];
     educacion: Educacion[];
 
-    constructor(private agenteService:AgenteService){}
+    constructor(
+        private agenteService:AgenteService,
+        private router: Router,
+        ){}
 
     ngOnInit() {
         // this.agente = new Agente();
@@ -111,4 +115,7 @@ export class AgenteRegistroComponent implements AfterViewInit {
         }
     }
 
+    volverInicio() {
+        this.router.navigate(['/inicio'])
+    }
 }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 import { HomePage } from './pages/home/home.page';
+import { DetalleComponent } from './componentes/detalle/detalle.component';
 
 // Components
 import { ListSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
@@ -16,14 +17,21 @@ const routes: Routes = [
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
-    { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar, RoutingGuard] },
+    { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar] },
 
+
+    // Ruteos hijos
+    { path: 'inicio/detalle/:id', component: DetalleComponent },
+
+    
         // dejar siempre al último porque no encuentra las url después de esta
     { path: '**', redirectTo: 'inicio' }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [
+      RouterModule.forRoot(routes)
+    ],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

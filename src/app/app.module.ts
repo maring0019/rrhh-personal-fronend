@@ -38,8 +38,14 @@ import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/d
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
 import { AgenteListadoComponent } from './modules/agente/pages/search/agente-listado/agente-listado.component';
-
-
+// Componentes
+import { ListadoComponent } from './componentes/listado/listado.component';
+import { ItemListadoComponent } from './componentes/listado/item-listado/item-listado.component';
+import { BuscadorComponent } from './componentes/buscador/buscador.component';
+import { DetalleComponent } from './componentes/detalle/detalle.component';
+import { TabsComponent } from './componentes/tabs/tabs.component';
+import { TabContactoComponent } from './componentes/tabs/tab-contacto/tab-contacto.component';
+import { EdicionComponent } from './componentes/edicion/edicion.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +62,14 @@ import { AgenteListadoComponent } from './modules/agente/pages/search/agente-lis
         AgenteSearchComponent,
         AgenteSearchFormComponent,
         AgenteListadoComponent
+        AgenteDatosEducacionComponent,
+        ListadoComponent,
+        ItemListadoComponent,
+        BuscadorComponent,
+        DetalleComponent,
+        TabsComponent,
+        TabContactoComponent,
+        EdicionComponent,
     ],
     imports: [
         BrowserModule,
@@ -64,6 +78,7 @@ import { AgenteListadoComponent } from './modules/agente/pages/search/agente-lis
         HttpClientModule,
         HttpModule,
         AppRoutingModule,
+
         PlexModule,
         AuthModule
     ],
