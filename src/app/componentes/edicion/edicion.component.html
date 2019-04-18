@@ -1,0 +1,24 @@
+<ng-container *ngIf="agentes$ | async as agente">
+  <!-- aca van los tabs y formularios -->
+  <header class="d-flex d-row justify-content-between">
+      <h5>Editar {{ agente.nombre }}</h5>
+      <div>
+          <plex-button type="warning" (click)="volver()">Volver</plex-button>
+          <plex-button type="success">Guardar</plex-button>
+      </div>
+  </header>
+  <hr>
+  <plex-tabs>
+      <plex-tab label="datos basicos">
+  
+      </plex-tab>
+      <plex-tab label="datos de contacto">
+              {{ agente.dni }}
+              {{ agente.id }}
+              {{ agente.apellido }}
+      </plex-tab>
+      <plex-tab label="educación">
+  
+      </plex-tab>
+  </plex-tabs>
+</ng-container>
