@@ -15,6 +15,7 @@ const routes: Routes = [
     { path: 'tm/situacion', component: ListSituacionComponent, canActivate: [RoutingNavBar, RoutingGuard] },
     { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar, RoutingGuard] },
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar, RoutingGuard] },
+    { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
     { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar] },

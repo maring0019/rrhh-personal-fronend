@@ -1,24 +1,36 @@
 
-<plex-layout main="9">
+<plex-layout main="8">
     <plex-layout-main>
         <plex-tabs>
             <plex-tab label="DATOS BÁSICOS">
-                <agente-datos-basicos 
-                    [agente]="agente">
-                </agente-datos-basicos>
+                <div *ngIf="agente">
+                    <agente-datos-basicos 
+                        [agente]="agente"
+                        (outputAgente)='onValueChangeAgente($event)'>
+                    </agente-datos-basicos>
+                </div>
             </plex-tab>
             <plex-tab label="DATOS DE CONTACTO">
-                <agente-datos-direccion 
-                    [direccion]="direccion">
-                </agente-datos-direccion>
-                <agente-datos-contacto 
-                    [contactos]="contactos">
-                </agente-datos-contacto>
+                <div *ngIf="direccion">
+                    <agente-datos-direccion 
+                        [direccion]="direccion"
+                        (outputDireccion)='onValueChangeDireccion($event)'>
+                    </agente-datos-direccion>
+                </div>
+                <div *ngIf="contactos">
+                    <agente-datos-contacto 
+                        [contactos]="contactos"
+                        (outputContactos)='onValueChangeContactos($event)'>
+                    </agente-datos-contacto>
+                </div>
             </plex-tab>
             <plex-tab label="EDUCACIÓN">
-                <agente-datos-educacion 
-                    [educacion]="educacion">
-                </agente-datos-educacion>
+                <div *ngIf="educacion">
+                    <agente-datos-educacion 
+                        [educacion]="educacion"
+                        (outputEducacion)='onValueChangeEducacion($event)'>
+                    </agente-datos-educacion>
+                </div>
             </plex-tab>
             <plex-tab label="SITUACIÓN Y CARGO">
 
@@ -28,10 +40,13 @@
             </plex-tab>
         </plex-tabs>
     </plex-layout-main>
-    <plex-layout-sidebar>
-        <header>
-            Detalle del Agente
-        </header>
+    <plex-layout-sidebar type="invert">
+        <app-agente-detalle
+            [agente]="agente"
+            [direccion]="direccion"
+            [contactos]="contactos"
+            [educacion]="educacion">
+        </app-agente-detalle>
     </plex-layout-sidebar>
     <plex-layout-footer>
         <plex-button label="Cancelar" type="danger" position="right" (click)="volverInicio()"></plex-button>

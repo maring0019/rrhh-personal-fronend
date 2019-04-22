@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Agente } from 'src/app/models/Agente';
 import * as enumerados from 'src/app/models/enumerados';
@@ -11,6 +11,8 @@ import * as enumerados from 'src/app/models/enumerados';
 export class AgenteDatosBasicosComponent implements OnInit {
 
     @Input() agente: Agente;
+    @Output() outputAgente: EventEmitter<Agente> = new EventEmitter<Agente>();
+
     datosBasicosForm: FormGroup;
     // Form select options
     sexos = enumerados.getObjSexos();
@@ -20,6 +22,9 @@ export class AgenteDatosBasicosComponent implements OnInit {
     
     ngOnInit() {
         this.datosBasicosForm = this.createDatosBasicosForm();
+        this.datosBasicosForm.valueChanges.subscribe(() => {
+            this.outputAgente.emit(this.datosBasicosForm.value);
+        });
     }
 
     createDatosBasicosForm()

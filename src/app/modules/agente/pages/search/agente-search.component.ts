@@ -11,6 +11,7 @@ import { Agente } from 'src/app/models/Agente';
 export class AgenteSearchComponent implements OnInit {
 
     agentes:Agente[];
+    agenteSeleccionado: Agente;
     
     public ngOnInit() {
         this.agentes = [];
@@ -22,11 +23,12 @@ export class AgenteSearchComponent implements OnInit {
     }
 
     seleccionarAgente(obj:any){
-        console.log('Seleccionar Evento de Salida ');
         console.log(obj);
+        this.agenteSeleccionado = obj;
     }
 
     verResultados(obj:any){
         this.agentes = obj;
+        this.agenteSeleccionado = null;
     }
 }

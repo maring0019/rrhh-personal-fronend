@@ -1,6 +1,48 @@
-<plex-text
-    [(ngModel)]="textoLibre"
-    (change)="buscar($event)"
-    [autoFocus]="autoFocus"
-    placeholder="Ingrese un parámetro de búsqueda. (Nombre, Apellido, DNI o CUIL)">
-</plex-text>
+<header>
+    <div class="row">
+        <div class="col-md-10">
+            <plex-text
+                [(ngModel)]="textoLibre"
+                (change)="buscar($event)"
+                [autoFocus]="autoFocus"
+                placeholder="Ingrese un parámetro de búsqueda. (Nombre, Apellido, DNI o CUIL)">
+            </plex-text>
+        </div>
+
+        <!-- <div class="col-md-2 text-right">
+            <label>&nbsp;</label>
+            <plex-button type="default" [icon]="mostrarMasOpciones ? 'chevron-up' : 'chevron-down'" (click)="mostrarMasOpciones = !mostrarMasOpciones"></plex-button>
+        </div> -->
+    </div>
+    <!-- <div class="row" *ngIf="mostrarMasOpciones">
+        <div class="col-md-4">
+            <plex-select
+                [(ngModel)]="paises"
+                name="paises"
+                (getData)="cargarPaises($event)"
+                label="Paises"
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-datetime
+                type="date"
+                [(ngModel)]="fechaDesde"
+                (change)="refreshSelection()"
+                name="fechaDesde"
+                label="Desde"
+                [required]="true">
+            </plex-datetime>
+        </div>
+        <div class="col-md-4">
+            <plex-datetime
+                type="date"
+                [(ngModel)]="fechaHasta"
+                (change)="refreshSelection()"
+                name="fechaHasta"
+                label="Hasta"
+                [required]="true">
+            </plex-datetime>
+        </div>
+    </div> -->
+</header>

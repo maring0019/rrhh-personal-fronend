@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray  } from '@angular/forms';
 import * as enumerados from 'src/app/models/enumerados';
 import { Educacion } from 'src/app/models/Educacion';
@@ -11,6 +11,7 @@ import { Educacion } from 'src/app/models/Educacion';
 export class AgenteDatosEducacionComponent implements OnInit {
 
     @Input() educacion: Educacion[];
+    @Output() outputEducacion: EventEmitter<Educacion[]> = new EventEmitter<Educacion[]>();
     
     datosEducacionForm: FormGroup;
     tiposEducacion = enumerados.getObjTipos(enumerados.TipoEducacion);
@@ -19,10 +20,12 @@ export class AgenteDatosEducacionComponent implements OnInit {
     
     ngOnInit() {
         this.datosEducacionForm = this.createDatosEducacionForm();
+        this.educacionForms.valueChanges.subscribe(() => {
+            this.outputEducacion.emit(this.educacionForms.value);
+        });
     }
 
-    createDatosEducacionForm()
-    {
+    createDatosEducacionForm(){
         let educacionForms = [];
         if (this.educacion.length > 0){
             this.educacion.forEach(e => {
@@ -50,12 +53,12 @@ export class AgenteDatosEducacionComponent implements OnInit {
             titulo             : [titulo],
         })
     }
-      
+
     addEducacion() {
         const educacion = this.createEducacionForm('', '');
         this.educacionForms.push(educacion);
     }
-    
+
     deleteEducacion(i) {
         this.educacionForms.removeAt(i)
     }

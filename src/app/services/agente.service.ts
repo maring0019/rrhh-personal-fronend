@@ -14,6 +14,11 @@ export class AgenteService {
         return this.server.get(this.agenteUrl, { params: params, showError: true });
     }
 
+    // TODO: Review this
+    getByID(params?: any): Observable<Agente> {
+        return this.server.get(this.agenteUrl + '/' + params);
+    }
+
     post(agente: Agente): Observable<Agente> {
         return this.server.post(this.agenteUrl, agente);
     }

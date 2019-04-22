@@ -11,6 +11,7 @@ import { Contacto } from 'src/app/models/Contacto';
 export class AgenteDatosContactoComponent implements OnInit {
 
     @Input() contactos: Contacto[];
+    @Output() outputContactos: EventEmitter<Contacto[]> = new EventEmitter<Contacto[]>();
     
     datosContactoForm: FormGroup;
     tiposContacto = enumerados.getObjTipoComunicacion();
@@ -19,6 +20,9 @@ export class AgenteDatosContactoComponent implements OnInit {
     
     ngOnInit() {
         this.datosContactoForm = this.createDatosContactoForm();
+        this.contactoForms.valueChanges.subscribe(() => {
+            this.outputContactos.emit(this.contactoForms.value);
+        });
     }
 
     createDatosContactoForm()

@@ -1,4 +1,8 @@
-import { Component, OnInit, HostBinding, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+
+import { AgenteService } from 'src/app/services/agente.service';
 
 import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basicos.component';
 import { AgenteDatosDireccionComponent } from './datos-contacto/agente-datos-direccion.component';
@@ -7,12 +11,9 @@ import { AgenteDatosEducacionComponent } from './datos-educacion/agente-datos-ed
 
 import { Contacto } from 'src/app/models/Contacto';
 import { Agente } from 'src/app/models/Agente';
-
-import { AgenteService } from 'src/app/services/agente.service';
 import { Direccion } from 'src/app/models/Direccion';
 import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { Router } from '@angular/router';
     // styleUrls: ['./age.scss']
   })
 
-export class AgenteRegistroComponent implements AfterViewInit {
+export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosBasicosComponent) datosBasicos: AgenteDatosBasicosComponent;
     @ViewChild(AgenteDatosDireccionComponent) datosDireccion: AgenteDatosDireccionComponent;
     @ViewChild(AgenteDatosContactoComponent) datosContacto: AgenteDatosContactoComponent;
@@ -35,25 +36,39 @@ export class AgenteRegistroComponent implements AfterViewInit {
 
     constructor(
         private agenteService:AgenteService,
+        private route: ActivatedRoute,
         private router: Router,
         ){}
 
     ngOnInit() {
-        // this.agente = new Agente();
-        this.agente = new Agente({
-            documento:28588178,
-            nombre:'David',
-            apellido:'Nievas',
-            fechaNacimiento: new Date(),
-            sexo:'masculino',
-            genero:'masculino',
-            estadoCivil:'soltero'});
-        this.direccion = new Direccion({valor:'Tte. Ibañez 1966'});
-        this.contactos = [new Contacto({tipo:'fijo', valor:'4776612'})];
-        this.educacion = [];
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const agenteID = params.get('id');
+            this.agenteService.getByID(agenteID).subscribe((data) => {
+                this.agente = new Agente(data);
+                this.direccion = this.agente.direccion;
+                this.contactos = this.agente.contactos;
+                this.educacion = this.agente.educacion;
+            });
+        });
     }
 
-    ngAfterViewInit() {}
+    onValueChangeAgente(obj: Agente){
+        this.agente = obj;
+    }
+
+    onValueChangeDireccion(obj: Direccion){
+        this.direccion = obj;
+        this.direccion.ubicacion = (new Ubicacion(obj));
+
+    }
+
+    onValueChangeContactos(obj: Contacto[]){
+        this.contactos = obj;
+    }
+    
+    onValueChangeEducacion(obj: Educacion[]){
+        this.educacion = obj;
+    }
 
     markFormAsInvalid(form){
         Object.keys(form.controls).forEach(field => {
@@ -90,7 +105,7 @@ export class AgenteRegistroComponent implements AfterViewInit {
             const ubicacion = new Ubicacion(this.datosDireccion.direccionForm.value);
             const direccion = new Direccion(this.datosDireccion.direccionForm.value);
             direccion.ubicacion = ubicacion;
-            agente.direccion = [direccion];
+            agente.direccion = direccion;
 
             // Contactos
             const contactos:Contacto[] = []
@@ -118,4 +133,6 @@ export class AgenteRegistroComponent implements AfterViewInit {
     volverInicio() {
         this.router.navigate(['/inicio'])
     }
+
+    
 }
