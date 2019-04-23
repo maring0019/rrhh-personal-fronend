@@ -1,3 +1,7 @@
+<app-search-leyenda
+    *ngIf="!listado.length"
+    [header]="'No se encontraron resultados!'">
+</app-search-leyenda>
 <li class="d-flex flex-row justify-content-between align-items-center py-2"
     [ngClass]="{'bg-inverse text-white': agente.id == seleccionado?.id}"
     *ngFor="let agente of listado">

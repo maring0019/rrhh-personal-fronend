@@ -37,6 +37,7 @@ import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/d
 
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
+import { SearchLeyendaComponent } from './modules/agente/components/search-leyenda/search-leyenda.component';
 import { AgenteListadoComponent } from './modules/agente/pages/search/agente-listado/agente-listado.component';
 import { AgenteItemListadoComponent } from './modules/agente/pages/search/item-listado/agente-item-listado.component';
 // Componentes
@@ -52,6 +53,7 @@ import { AgenteDetalleComponent } from './modules/agente/components/agente-detal
 import { FechaPipe } from './pipes/fecha.pipe';
 
 
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -64,8 +66,11 @@ import { FechaPipe } from './pipes/fecha.pipe';
         AgenteDatosDireccionComponent,
         AgenteDatosContactoComponent,
         AgenteDatosEducacionComponent,
+        
         AgenteSearchComponent,
         AgenteSearchFormComponent,
+        SearchLeyendaComponent,
+
         AgenteListadoComponent,
         AgenteItemListadoComponent,
         AgenteDetalleComponent,

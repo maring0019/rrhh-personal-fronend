@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { AgenteService } from 'src/app/services/agente.service';
 import { Agente } from 'src/app/models/Agente';
 
@@ -56,9 +56,11 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
                     resultado => {
                         this.searchEnd.emit(resultado);
                     },
-                    (err) => this.searchEnd.emit([])
+                    (err) => {
+                        this.searchEnd.emit([])
+                    }
                 );
-            }, 200);
+            }, 1000);
         } else {
             this.searchClear.emit();
         }

@@ -12,23 +12,38 @@ export class AgenteSearchComponent implements OnInit {
 
     agentes:Agente[];
     agenteSeleccionado: Agente;
+    searching = false;
     
     public ngOnInit() {
-        this.agentes = [];
+        this.agentes = null;
     }
 
     hoverAgente(obj:any){
-        console.log('Hover Evento de Salida ');
         console.log(obj);
     }
 
     seleccionarAgente(obj:any){
-        console.log(obj);
         this.agenteSeleccionado = obj;
     }
 
-    verResultados(obj:any){
+    showResultados(obj:any){
+        this.searching = false;
         this.agentes = obj;
+        this.resetAgenteSeleccionado();
+    }
+
+    clearResultados(event:any){
+        this.searching = false;
+        this.agentes = null;
+        this.resetAgenteSeleccionado();
+    }
+
+    waitingResultados(event:any){
+        this.searching = true;
+        this.resetAgenteSeleccionado();
+    }
+
+    resetAgenteSeleccionado(){
         this.agenteSeleccionado = null;
     }
 }
