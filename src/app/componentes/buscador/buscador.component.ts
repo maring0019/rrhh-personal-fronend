@@ -9,6 +9,9 @@ import { AgenteService } from '../../hardcodeo/agente.service';
 })
 export class BuscadorComponent implements OnInit {
 
+  resultados = false;
+
+
   constructor() { }
 
   ngOnInit() {

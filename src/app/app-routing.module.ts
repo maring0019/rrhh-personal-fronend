@@ -8,6 +8,7 @@ import { DetalleComponent } from './componentes/detalle/detalle.component';
 // Components
 import { ListSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { AgenteRegistroComponent } from '../app/modules/agente/pages/registro/agente-registro.component';
+import { ListadoComponent } from './componentes/listado/listado.component';
 
 const routes: Routes = [
     // Tablas maestras
@@ -15,11 +16,13 @@ const routes: Routes = [
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar] },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
-    { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar] },
-
-
-    // Ruteos hijos
-    { path: 'inicio/detalle/:id', component: DetalleComponent },
+    { path: 'inicio', component: HomePage,
+        canActivate: [RoutingNavBar , RoutingGuard],
+        children: [
+            { path: '', component: ListadoComponent },
+            { path: 'detalle/:id', component: DetalleComponent },
+        ] 
+    },
 
     
         // dejar siempre al último porque no encuentra las url después de esta

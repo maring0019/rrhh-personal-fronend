@@ -15,7 +15,7 @@ import { AgenteService } from '../../../hardcodeo/agente.service';
 
 export class ItemListadoComponent implements OnInit {
   agentes$: Observable<Agente[]>;
-  selectedId: number;  
+  selectedId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +31,6 @@ export class ItemListadoComponent implements OnInit {
         return this.service.getAgentes();
       })
     );
-
   }
 
 }

@@ -84,7 +84,7 @@ import { EdicionComponent } from './componentes/edicion/edicion.component';
         AgenteService,
         ProvinciaService,
         LocalidadService
-    ],
+        ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

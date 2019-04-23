@@ -56,7 +56,7 @@ export class DetalleComponent implements OnInit {
   }
 
   volverInicio() {
-    this.router.navigate(['/']);
+    this.router.navigate(['inicio']);
   }
 
 }
