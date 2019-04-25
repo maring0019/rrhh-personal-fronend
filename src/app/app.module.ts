@@ -40,6 +40,8 @@ import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-
 import { SearchLeyendaComponent } from './modules/agente/components/search-leyenda/search-leyenda.component';
 import { AgenteListadoComponent } from './modules/agente/pages/search/agente-listado/agente-listado.component';
 import { AgenteItemListadoComponent } from './modules/agente/pages/search/item-listado/agente-item-listado.component';
+import { AgenteFotoComponent } from './modules/agente/components/imagen-foto/agente-foto.component';
+
 // Componentes
 import { ListadoComponent } from './componentes/listado/listado.component';
 import { ItemListadoComponent } from './componentes/listado/item-listado/item-listado.component';
@@ -51,8 +53,6 @@ import { EdicionComponent } from './componentes/edicion/edicion.component';
 import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle.component';
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
-
-
 
 @NgModule({
     declarations: [
@@ -69,6 +69,7 @@ import { FechaPipe } from './pipes/fecha.pipe';
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,
+        AgenteFotoComponent,
         SearchLeyendaComponent,
 
         AgenteListadoComponent,
