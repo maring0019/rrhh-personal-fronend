@@ -2,7 +2,7 @@
 <plex-layout main="8">
     <plex-layout-main>
         <plex-tabs>
-            <plex-tab label="DATOS BÁSICOS">
+            <plex-tab label="DATOS PERSONALES">
                 <div *ngIf="agente">
                     <agente-datos-basicos 
                         [agente]="agente"
@@ -10,13 +10,15 @@
                     </agente-datos-basicos>
                 </div>
             </plex-tab>
-            <plex-tab label="DATOS DE CONTACTO">
+            <plex-tab label="DOMICILIO">
                 <div *ngIf="direccion">
                     <agente-datos-direccion 
                         [direccion]="direccion"
                         (outputDireccion)='onValueChangeDireccion($event)'>
                     </agente-datos-direccion>
                 </div>
+            </plex-tab>
+            <plex-tab label="DATOS DE CONTACTO">
                 <div *ngIf="contactos">
                     <agente-datos-contacto 
                         [contactos]="contactos"

@@ -18,6 +18,7 @@ import { SituacionService } from './services/tm/situacion.service';
 import { AgenteService } from './services/agente.service';
 import { LocalidadService } from './services/localidad.service';
 import { ProvinciaService } from './services/provincia.service';
+import { PaisService } from './services/pais.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -108,7 +109,8 @@ import { FechaPipe } from './pipes/fecha.pipe';
         SituacionService,
         AgenteService,
         ProvinciaService,
-        LocalidadService
+        LocalidadService,
+        PaisService
     ],
     bootstrap: [AppComponent]
 })

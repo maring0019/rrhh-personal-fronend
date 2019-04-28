@@ -54,6 +54,8 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
                     cadenaInput: textoLibre
                 }).subscribe(
                     resultado => {
+                        console.log('resultados');
+                        console.log(resultado);
                         this.searchEnd.emit(resultado);
                     },
                     (err) => {

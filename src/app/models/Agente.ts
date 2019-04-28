@@ -44,6 +44,7 @@ export class Agente {
         this.sexo = agente.sexo? ((typeof agente.sexo === 'string') ? agente.sexo : agente.sexo.id) : null;
         this.genero = agente.genero? ((typeof agente.genero === 'string') ? agente.genero : agente.genero.id) : null;
         this.fechaNacimiento = agente.fechaNacimiento;
+        this.nacionalidad = agente.nacionalidad || null;
         this.direccion = new Direccion(agente.direccion);
         this.contactos = [];
         if (agente.contactos){
@@ -67,3 +68,16 @@ export class Agente {
     //     return
     // }
 }
+
+
+// padron_provincia_marzo_2019.xlsx
+// padron_afiliados_ATE.xlsx
+
+// Se adjutan dos archivos en formato excel para comparar informacion entre ambos. Ambos
+// archivos son padrones con informacion sobre afiliados obtenidos de diferentes fuentes.
+// Identificar que afiliados tienen en comun ambos archivos, y que afiliados no estan en 
+// uno u otro padron. Se requiere por lo tanto 3 listados de afiliados diferentes.
+
+// Para el listado de afiliados en comun obtener datos personales, fecha alta
+
+

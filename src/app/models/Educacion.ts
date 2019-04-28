@@ -1,10 +1,11 @@
 export class Educacion {
-    tipo: String;
+    tipoEducacion: String;
     titulo: String;
     constructor(estudio?)
     {
         estudio = estudio || {};
-        this.tipo = estudio.tipo? ((typeof estudio.tipo === 'string') ? estudio.tipo : estudio.tipo.id) : null;
+        this.tipoEducacion = estudio.tipoEducacion?
+            ((typeof estudio.tipoEducacion === 'string') ? estudio.tipoEducacion : estudio.tipoEducacion.id) : null;
         this.titulo = estudio.titulo || '';
 
     }

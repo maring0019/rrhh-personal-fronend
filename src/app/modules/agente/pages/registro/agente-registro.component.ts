@@ -34,6 +34,8 @@ export class AgenteRegistroComponent implements OnInit {
     contactos: Contacto[];
     educacion: Educacion[];
 
+    _agenteID:any; // To keep track of agente on edit
+
     constructor(
         private agenteService:AgenteService,
         private route: ActivatedRoute,
@@ -42,8 +44,8 @@ export class AgenteRegistroComponent implements OnInit {
 
     ngOnInit() {
         this.route.paramMap.subscribe((params: ParamMap) => {
-            const agenteID = params.get('id');
-            this.agenteService.getByID(agenteID).subscribe((data) => {
+            this._agenteID = params.get('id');
+            this.agenteService.getByID(this._agenteID).subscribe((data) => {
                 this.agente = new Agente(data);
                 this.direccion = this.agente.direccion;
                 this.contactos = this.agente.contactos;
@@ -53,7 +55,9 @@ export class AgenteRegistroComponent implements OnInit {
     }
 
     onValueChangeAgente(obj: Agente){
+        obj.id = this._agenteID;
         this.agente = obj;
+        console.log(this.agente);
     }
 
     onValueChangeDireccion(obj: Direccion){
