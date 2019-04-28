@@ -70,14 +70,3 @@ export class Agente {
 }
 
 
-// padron_provincia_marzo_2019.xlsx
-// padron_afiliados_ATE.xlsx
-
-// Se adjutan dos archivos en formato excel para comparar informacion entre ambos. Ambos
-// archivos son padrones con informacion sobre afiliados obtenidos de diferentes fuentes.
-// Identificar que afiliados tienen en comun ambos archivos, y que afiliados no estan en 
-// uno u otro padron. Se requiere por lo tanto 3 listados de afiliados diferentes.
-
-// Para el listado de afiliados en comun obtener datos personales, fecha alta
-
-

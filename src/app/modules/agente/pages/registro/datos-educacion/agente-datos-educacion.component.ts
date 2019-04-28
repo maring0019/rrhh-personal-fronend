@@ -49,7 +49,7 @@ export class AgenteDatosEducacionComponent implements OnInit {
 
     createEducacionForm(tipoEducacion, titulo){
         return this.formBuilder.group({ 
-            tipoEducacion       : [tipoEducacion],
+            tipoEducacion      : [tipoEducacion],
             titulo             : [titulo],
         })
     }

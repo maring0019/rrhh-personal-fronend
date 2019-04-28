@@ -33,7 +33,6 @@ export class AgenteDatosBasicosComponent implements OnInit {
         this.paisService.get({})
             .subscribe(data => {
                 this.paises = data;
-                console.log(this.paises);
         });
 
         this.datosBasicosForm = this.createDatosBasicosForm();
@@ -44,7 +43,6 @@ export class AgenteDatosBasicosComponent implements OnInit {
 
     createDatosBasicosForm()
     {
-        console.log(this.agente);
         return this.formBuilder.group({
             nombre          : [this.agente.nombre],
             apellido        : [this.agente.apellido],

@@ -57,7 +57,6 @@ export class AgenteRegistroComponent implements OnInit {
     onValueChangeAgente(obj: Agente){
         obj.id = this._agenteID;
         this.agente = obj;
-        console.log(this.agente);
     }
 
     onValueChangeDireccion(obj: Direccion){
