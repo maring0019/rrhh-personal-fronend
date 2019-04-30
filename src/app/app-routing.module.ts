@@ -18,7 +18,7 @@ const routes: Routes = [
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
-    { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar] },
+    { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar, RoutingGuard] },
 
 
     // Ruteos hijos
