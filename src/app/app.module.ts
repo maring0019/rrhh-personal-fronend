@@ -53,6 +53,7 @@ import { EdicionComponent } from './componentes/edicion/edicion.component';
 import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle.component';
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
+import { AgenteMockService } from './hardcodeo/agente.service';
 
 @NgModule({
     declarations: [
@@ -106,6 +107,7 @@ import { FechaPipe } from './pipes/fecha.pipe';
         RoutingGuard,
         RoutingNavBar,
         SituacionService,
+        // {provide: AgenteService, useClass: AgenteMockService },
         AgenteService,
         ProvinciaService,
         LocalidadService

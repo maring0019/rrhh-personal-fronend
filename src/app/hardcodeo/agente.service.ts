@@ -5,24 +5,43 @@ import { map } from 'rxjs/operators';
 
 import { Agente } from '../hardcodeo/agente';
 import { AGENTES } from './hardcode-agentes';
-import { MensajeService } from './mensaje.service';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AgenteService {
+
+import { Server } from '@andes/shared';
 
 
-  constructor(private MensajeService: MensajeService) {}
-    
-    getAgentes(): Observable<Agente[]> {
-      this.MensajeService.add('AgenteService: fetched agentes');
-      return of (AGENTES);
+@Injectable()
+export class AgenteMockService {
+    private agenteUrl = '/modules/agentes/agentes'; // URL to web api
+    constructor(private server: Server) { }
+
+    get(params?: any): Observable<Agente[]> {
+        return of(AGENTES) ;
     }
-    getAgente(id: number | string) {
-      return this.getAgentes().pipe(
+
+    // TODO: Revisar el tema de los parametros
+    getFoto(params: any): Observable<any> {
+        return this.server.get(this.agenteUrl + '/fotos/' + params);
+    }
+
+    // TODO: Revisar el tema de los parametros
+    getByID(id?: any): Observable<Agente> {
+      return (of(AGENTES)).pipe(
         map((agentes: Agente[]) => agentes.find(agente => agente.id === +id))
       );
     }
-   }
+
+    post(agente: Agente): Observable<Agente> {
+        return this.server.post(this.agenteUrl, agente);
+    }
+
+    search(params?: any): Observable<Agente[]> {
+        return this.server.get(this.agenteUrl + '/search', { params: params, showError: true });
+    }
+
+    // put(agente: Agente): Observable<Agente> {
+    //     return this.server.put(this.agenteUrl + '/' + agente.id, agente);
+    // }
+
+}

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Agente } from '../../hardcodeo/agente';
-import { AgenteService } from '../../hardcodeo/agente.service';
 
 @Component({
   selector: 'app-buscador',

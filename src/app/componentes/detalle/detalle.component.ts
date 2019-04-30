@@ -4,8 +4,8 @@ import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 // Servicios y modelo
-import { AgenteService } from '../../hardcodeo/agente.service';
-import { Agente } from '../../hardcodeo/agente';
+import { AgenteService } from '../../services/agente.service';
+import { Agente } from '../../models/agente';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class DetalleComponent implements OnInit {
 
   ngOnInit() {
     this.agentes$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getAgente(params.get('id')))
+      switchMap((params: ParamMap) => this.service.getByID(params.get('id')))
     );
   }
 

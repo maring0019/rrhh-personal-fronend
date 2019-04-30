@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router, ParamMap } from '@angular/router';
-import { AgenteService } from 'src/app/hardcodeo/agente.service';
+import { AgenteService } from '../../services/agente.service';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 // Modelo
-import { Agente } from '../../hardcodeo/agente';
+import { Agente } from '../../models/agente';
 
 @Component({
   selector: 'app-edicion',
@@ -25,7 +25,7 @@ export class EdicionComponent implements OnInit {
 
   ngOnInit() {
     this.agentes$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getAgente(params.get('id')))
+      switchMap((params: ParamMap) => this.service.getByID(params.get('id')))
       );
   }
 
