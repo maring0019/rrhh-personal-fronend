@@ -8,21 +8,21 @@ import { DetalleComponent } from './componentes/detalle/detalle.component';
 // Components
 import { ListSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { AgenteRegistroComponent } from '../app/modules/agente/pages/registro/agente-registro.component';
-import { ListadoComponent } from './componentes/listado/listado.component';
+import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 
 const routes: Routes = [
     // Tablas maestras
-    { path: 'tm/situacion', component: ListSituacionComponent, canActivate: [RoutingNavBar] },
-    { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar] },
+    { path: 'tm/situacion', component: ListSituacionComponent, canActivate: [RoutingNavBar, RoutingGuard] },
+    { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar, RoutingGuard] },
+    { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar, RoutingGuard] },
+    { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar, RoutingGuard] },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
-    { path: 'inicio', component: HomePage,
-        canActivate: [RoutingNavBar , RoutingGuard],
-        children: [
-            { path: '', component: ListadoComponent },
-            { path: 'detalle/:id', component: DetalleComponent },
-        ] 
-    },
+    { path: 'inicio', component: HomePage, canActivate: [RoutingNavBar, RoutingGuard] },
+
+
+    // Ruteos hijos
+    { path: 'inicio/detalle/:id', component: DetalleComponent },
 
     
         // dejar siempre al último porque no encuentra las url después de esta

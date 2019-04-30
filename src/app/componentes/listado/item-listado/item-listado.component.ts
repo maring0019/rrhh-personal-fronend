@@ -4,8 +4,8 @@ import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 // Servicios y modelo
-import { Agente } from '../../../hardcodeo/agente';
-import { AgenteService } from '../../../hardcodeo/agente.service';
+import { Agente } from '../../../models/Agente';
+import { AgenteService } from '../../../services/agente.service';
 
 @Component({
   selector: 'app-item-listado',
@@ -28,7 +28,7 @@ export class ItemListadoComponent implements OnInit {
     this.agentes$ = this.route.paramMap.pipe(
       switchMap(params => {
         this.selectedId = +params.get('id');
-        return this.service.getAgentes();
+        return this.service.get();
       })
     );
   }

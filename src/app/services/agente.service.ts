@@ -14,8 +14,22 @@ export class AgenteService {
         return this.server.get(this.agenteUrl, { params: params, showError: true });
     }
 
+    // TODO: Revisar el tema de los parametros
+    getFoto(params: any): Observable<any> {
+        return this.server.get(this.agenteUrl + '/fotos/' + params);
+    }
+
+    // TODO: Revisar el tema de los parametros
+    getByID(params?: any): Observable<Agente> {
+        return this.server.get(this.agenteUrl + '/' + params);
+    }
+
     post(agente: Agente): Observable<Agente> {
         return this.server.post(this.agenteUrl, agente);
+    }
+
+    search(params?: any): Observable<Agente[]> {
+        return this.server.get(this.agenteUrl + '/search', { params: params, showError: true });
     }
 
     // put(agente: Agente): Observable<Agente> {

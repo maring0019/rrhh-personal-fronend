@@ -9,6 +9,7 @@ import { EstadoCivil, Sexo, Genero } from './enumerados';
 
 export class Agente {
 
+    id: String;
     numero: String; // En el alta aun no esta disponible este dato
     tipoDocumento: String; // No deberia utilizarse mas. Solo DU
     documento: String;
@@ -20,7 +21,7 @@ export class Agente {
     sexo: Sexo;
     genero: Genero;
     fechaNacimiento: Date;
-    direccion: [Direccion];
+    direccion: Direccion;
     contactos: Contacto[];
     educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
@@ -33,6 +34,7 @@ export class Agente {
     constructor(agente?)
     {
         agente = agente || {};
+        this.id = agente.id || null;
         this.numero = agente.numero || '';
         this.documento = agente.documento || '';
         this.cuil = agente.cuil || '';
@@ -42,23 +44,29 @@ export class Agente {
         this.sexo = agente.sexo? ((typeof agente.sexo === 'string') ? agente.sexo : agente.sexo.id) : null;
         this.genero = agente.genero? ((typeof agente.genero === 'string') ? agente.genero : agente.genero.id) : null;
         this.fechaNacimiento = agente.fechaNacimiento;
-        if (agente.direccion){
-            agente.direccion.forEach(e => {
-                this.direccion.push(new Direccion(e))
-            });
-        }
+        this.nacionalidad = agente.nacionalidad || null;
+        this.direccion = new Direccion(agente.direccion);
+        this.contactos = [];
         if (agente.contactos){
             agente.contactos.forEach(e => {
                 this.contactos.push(new Contacto(e))
             });
         }
+        this.educacion = [];
+        if (agente.educacion){
+            agente.educacion.forEach(e => {
+                this.educacion.push(new Educacion(e))
+            });
+        }
     }
 
-    getDireccionActiva(): Direccion
-    {
-        if (this.direccion){
-            return this.direccion.filter(x => x.activo)[0];
-        }
-        return
-    }
+    // getDireccionActiva(): Direccion
+    // {
+    //     if (this.direccion){
+    //         return this.direccion.filter(x => x.activo)[0];
+    //     }
+    //     return
+    // }
 }
+
+

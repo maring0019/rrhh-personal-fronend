@@ -1,0 +1,114 @@
+
+<ng-container *ngIf="agente">
+<header class="d-flex flex-row justify-content-between">
+    <div>
+        <h5>Detalle Agente</h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button type="succesful" icon="pencil" size="sm" (click)="gotoAgente()">Volver</plex-button>
+        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="volverInicio()">Volver</plex-button>
+    </div>
+</header>
+    <section class="d-flex flex-row mt-2">
+        <div class="d-flex flex-column align-items-center mt-2">
+            <app-agente-foto
+                [agente]="agente">
+            </app-agente-foto>
+        </div>
+        <article class="d-flex flex-column">
+            <div class="d-flex flex-row">
+                <plex-badge type="info">{{ agente.situacion }}</plex-badge>
+                <plex-badge type="{{ agente.estado }}">{{ agente.estado }}</plex-badge>
+            </div>
+            <h3 class="mt-2 mb-4">
+                {{ agente.nombre }}<br>
+                <strong>{{ agente.apellido }}</strong>
+            </h3>
+        </article>
+    </section>
+    <section>
+        <article class="d-flex flex-row">
+            <div class="d-flex flex-column align-items-center mr-4">
+                <b>DNI/D.U</b>
+                <p>{{ agente.documento }}</p>
+            </div>
+            <div class="d-flex flex-column">
+                <b>Fecha de nacimiento</b>
+                <p>{{ agente.fechaNacimiento | fecha:'utc' }}</p>
+            </div>
+        </article>
+    </section>
+    <hr class="white">
+    <ul>
+        <li>
+            <plex-accordion >
+                <plex-panel 
+                    icon="pencil"
+                    tituloPrincipal="Datos Personales">
+                    <p><b>Domicilio:</b> {{ direccion? direccion.valor : '' }}</p>
+                </plex-panel>
+            </plex-accordion>
+        </li>
+        <li>
+            <plex-accordion >
+                <plex-panel 
+                    icon="pencil"
+                    tituloPrincipal="Domicilio">
+                    <div *ngIf=direccion>
+                        <p><b>Dirección:</b> {{ direccion.valor }}</p>
+                        <p><b>Provincia:</b> {{ direccion.ubicacion? direccion.ubicacion.provincia : '' }}</p>
+                        <p><b>Localidad:</b> {{ direccion.ubicacion? direccion.ubicacion.localidad : '' }}</p>
+                        <p><b>Barrio:</b> {{ direccion.ubicacion? direccion.ubicacion.barrio : '' }}</p>
+                        <p><b>CP:</b> {{ direccion.codigoPostal }}</p>
+                    </div>
+                </plex-panel>
+            </plex-accordion>
+        </li>
+        <li>
+            <plex-accordion >
+                <plex-panel 
+                    icon="pencil"
+                    tituloPrincipal="Datos de Contacto">
+                    <p><b>Contactos:</b> </p>
+                        <ul>
+                            <li *ngFor="let contacto of contactos">
+                                {{ contacto.tipo }}:{{ contacto.valor}}
+                            </li>
+                        </ul>
+                </plex-panel>
+            </plex-accordion>
+        </li>
+        <li>
+            <plex-accordion >
+                <plex-panel 
+                    icon="pencil"
+                    tituloPrincipal="Educacion">
+                    <p><b>Educacion:</b> </p>
+                        <ul>
+                            <li *ngFor="let estudio of educacion">
+                                {{ estudio.tipoEducacion }}:{{ estudio.titulo}}
+                            </li>
+                        </ul>
+                </plex-panel>
+            </plex-accordion>
+        </li>
+        <li>
+            <plex-accordion >
+                <plex-panel 
+                    icon="pencil"
+                    tituloPrincipal="Situación y Cargo">
+                </plex-panel>
+            </plex-accordion>
+        </li>
+        <li>
+            <plex-accordion >
+                <plex-panel 
+                    icon="pencil"
+                    tituloPrincipal="Regímenes">
+                </plex-panel>
+            </plex-accordion>
+        </li>
+    </ul>
+    <!-- /Layout detalle -->
+</ng-container>
+

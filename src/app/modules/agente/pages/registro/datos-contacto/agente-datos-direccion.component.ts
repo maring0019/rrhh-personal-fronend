@@ -1,11 +1,13 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Agente } from 'src/app/models/Agente';
+
 import { Direccion } from 'src/app/models/Direccion';
-import { ProvinciaService } from 'src/app/services/provincia.service';
 import { IProvincia } from 'src/app/models/IProvincia';
-import { LocalidadService } from 'src/app/services/localidad.service';
 import { ILocalidad } from 'src/app/models/ILocalidad';
+
+import { LocalidadService } from 'src/app/services/localidad.service';
+import { ProvinciaService } from 'src/app/services/provincia.service';
+import { Ubicacion } from 'src/app/models/Ubicacion';
 
 @Component({
     selector: 'agente-datos-direccion',
@@ -15,6 +17,7 @@ import { ILocalidad } from 'src/app/models/ILocalidad';
 export class AgenteDatosDireccionComponent implements OnInit {
 
     @Input() direccion: Direccion;
+    @Output() outputDireccion: EventEmitter<Direccion> = new EventEmitter<Direccion>();
     direccionForm: FormGroup;
     provincias: IProvincia[] = [];
     localidades: ILocalidad[] = [];
@@ -37,17 +40,21 @@ export class AgenteDatosDireccionComponent implements OnInit {
         });
 
         this.direccionForm = this.createDireccionForm();
+        this.direccionForm.valueChanges.subscribe(() => {
+            this.outputDireccion.emit(this.direccionForm.value);
+        });
     }
 
     createDireccionForm(){
-        let direccion = new Direccion(this.direccion);
+
+        const ubicacion = new Ubicacion(this.direccion.ubicacion);
         
         return this.formBuilder.group({
-            valor           : [direccion.valor],
-            provincia       : [direccion.ubicacion.provincia],
-            localidad       : [direccion.ubicacion.localidad],
-            barrio          : [direccion.ubicacion.barrio],
-            codigoPostal    : [direccion.codigoPostal],
+            valor           : [this.direccion.valor],
+            provincia       : [ubicacion.provincia],
+            localidad       : [ubicacion.localidad],
+            barrio          : [ubicacion.barrio],
+            codigoPostal    : [this.direccion.codigoPostal],
         });
     }
 

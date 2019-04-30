@@ -1,0 +1,48 @@
+<app-search-leyenda
+    *ngIf="!listado.length"
+    [header]="'No se encontraron resultados!'">
+</app-search-leyenda>
+<li class="d-flex flex-row justify-content-between align-items-center py-2"
+    *ngFor="let agente of listado">
+    <div class="d-flex flex-row">
+        <app-agente-foto
+            [agente]="agente">
+        </app-agente-foto>
+        <article class="d-flex flex-column text-left align-self-center"> 
+                <div class="d-flex flex-row">
+                    <plex-badge type="info">
+                        {{ agente.situacion? agente.situacion : 'Sin Situacion'}}
+                    </plex-badge>
+                    <plex-badge [type]="agente.estado? agente.estado: ''">
+                        {{ agente.estado? agente.estado : 'Sin estado' }}
+                    </plex-badge>
+                </div>
+            <h6 class="d-flex flex-row mt-2"
+                (click)="seleccionarAgente(agente)">
+                {{ agente.nombre }} {{ agente.apellido }}
+            </h6>
+        </article>
+    </div>
+    <!-- Botonera -->
+    <div class="d-flex flex-row">
+        <plex-button 
+            *ngIf="agente.estado == 'baja'"
+            type="success"
+            type="sm"
+            icon="star">Alta
+        </plex-button>
+        <plex-button
+            type="success"
+            type="sm"
+            icon="mdi mdi-pencil">Editar
+        </plex-button>
+        <plex-button 
+            (click)="seleccionarAgente(agente)"
+            type="warning"
+            type="sm"
+            icon="mdi mdi-eye">Ver
+        </plex-button>
+        <!-- <plex-button type="success" type="sm" icon="mdi mdi-pencil" [routerLink]="['/agentes/registro/']">Editar</plex-button>
+        <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente.id]">Ver</plex-button> -->
+    </div>
+</li>

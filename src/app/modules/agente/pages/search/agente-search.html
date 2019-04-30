@@ -1,0 +1,39 @@
+<plex-layout main="8">
+    <plex-layout-main>
+        <app-agente-search-form
+            (searchStart)="waitingResultados($event)"
+            (searchEnd)="showResultados($event)"
+            (searchClear)="clearResultados($event)">
+        </app-agente-search-form>
+        <br>
+        <ng-container *ngIf="searching; then mostrarSearchingActivity; else mostrarResultados"></ng-container>
+        <ng-template #mostrarSearchingActivity>
+            <plex-loader 
+                class="d-flex flex-column align-items-center justify-content-center h-75"
+                type="ball-beat">
+            </plex-loader>
+        </ng-template>
+        <ng-template #mostrarResultados>
+            <app-agente-item-listado
+                *ngIf="agentes"
+                [agentes]="agentes"
+                (selected)="seleccionarAgente($event)"
+                (hover)="hoverAgente($event)">
+            </app-agente-item-listado>
+            <app-search-leyenda
+                *ngIf="!agentes">
+            </app-search-leyenda>
+        </ng-template>
+    </plex-layout-main>
+    <plex-layout-sidebar type="invert">
+        <app-agente-detalle *ngIf="agenteSeleccionado"
+            [agente]="agenteSeleccionado"
+            [direccion]="agenteSeleccionado?.direccion"
+            [contactos]="agenteSeleccionado?.contactos"
+            [educacion]="agenteSeleccionado?.educacion">
+        </app-agente-detalle>
+        <app-listado *ngIf="!agenteSeleccionado">
+        </app-listado>
+    </plex-layout-sidebar>
+</plex-layout>
+
