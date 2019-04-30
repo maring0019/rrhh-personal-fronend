@@ -14,10 +14,15 @@ export class AgenteFotoComponent implements OnChanges{
     @Input() agente: Agente;
     foto:any;
 
+    _agenteID:any;
+
     constructor(private sanitizer: DomSanitizer, private agenteService: AgenteService){ }
 
     ngOnChanges(){
-        this.displayFoto();
+        if (!this._agenteID || this._agenteID!=this.agente.id){
+            this._agenteID = this.agente.id;
+            this.displayFoto();
+        }
     }
 
     displayFoto(){

@@ -29,7 +29,7 @@ export class AgenteDatosEducacionComponent implements OnInit {
         let educacionForms = [];
         if (this.educacion.length > 0){
             this.educacion.forEach(e => {
-                const educacion = this.createEducacionForm(e.tipo, e.titulo);
+                const educacion = this.createEducacionForm(e.tipoEducacion, e.titulo);
                 educacionForms.push(educacion);
             });
         }
@@ -49,7 +49,7 @@ export class AgenteDatosEducacionComponent implements OnInit {
 
     createEducacionForm(tipoEducacion, titulo){
         return this.formBuilder.group({ 
-            tipo               : [tipoEducacion],
+            tipoEducacion      : [tipoEducacion],
             titulo             : [titulo],
         })
     }
