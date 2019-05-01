@@ -3,13 +3,13 @@
             <h5>Detalle Agente</h5>
             <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="volverInicio()">Volver</plex-button>
         </header>
+        <hr class="white">
         <ng-container *ngIf="agentes$ | async as agente">
             <section class="d-flex flex-row">
-                <div class="d-flex flex-column align-items-center mr-4">    
+                <div class="d-inline-block mr-4 align-items-center mr-4">    
                     <img class="item-img mb-4" src="{{ agente.foto }}" alt="">
-
                 </div>
-                <article class="d-flex flex-column">
+                <article class="d-inline-block mr-4">
                     <div class="d-flex flex-row">
                         <plex-badge type="info">{{ agente.situacion }}</plex-badge>
                         <plex-badge type="{{ agente.estado }}">{{ agente.estado }}</plex-badge>
@@ -22,11 +22,11 @@
             </section>
             <section>
                 <article class="d-flex flex-row">
-                    <div class="d-flex flex-column align-items-center mr-4">
+                    <div class="d-inline-block mr-4 align-items-center mr-4">
                         <b>DNI/D.U</b>
-                        <p>{{ agente.dni }}</p>
+                        <p>{{ agente.documento }}</p>
                     </div>
-                    <div class="d-flex flex-column">
+                    <div class="d-inline-block mr-4">
                         <b>Fecha de nacimiento</b>
                         <p>{{ agente.fechaNacimiento }}</p>
                     </div>
@@ -34,12 +34,145 @@
             </section>
             <hr class="white">
             <ul>
-                <li *ngFor="let acordion of acordions">
+                <li>
                     <plex-accordion >
-                        <plex-panel icon="{{ acordion.icon }}" tituloPrincipal="{{ acordion.titulo }}" tituloSecundario="Fecha de nacimiento">
-                            <p>{{ acordion.titulo }}</p>
-                            <p>{{ agente.fechaNacimiento }}</p>
+                        <!-- Datos Basicos -->
+                        <plex-panel icon="mdi icon-credencial-paciente" tituloPrincipal="Datos basicos" tituloSecundario="">
+                            <div class="d-inline-block mr-4">
+                                <strong>Edad</strong>
+                                <p>{{ agente.edad }}</p>
+                            </div>
+                            <div class="d-inline-block mr-4">
+                                <strong>Nro. de documento</strong>
+                                <p>{{ agente.documento }}</p>
+                            </div>
+                            <div class="d-inline-block mr-4">
+                                <strong>Sexo/género</strong>
+                                <p>{{ agente.sexo }}</p>
+                            </div>
+                            <div class="d-inline-block mr-4">
+                                <strong>Fecha de Nacimiento</strong>
+                                <p>{{ agente.fechaNacimiento }}</p>
+                            </div>
+                            <div class="d-inline-block mr-4">
+                                <strong>Cuil</strong>
+                                <p>{{ agente.cuil }}</p>
+                            </div>
                         </plex-panel>
+
+                        <!-- Datos Contacto -->
+                        <plex-panel icon="mdi icon-marcador" tituloPrincipal="Datos de contacto" tituloSecundario="">
+                            <article class="d-inline-block mr-4">
+                                <strong>Domicilio</strong>
+                                <p>{{ agente.domicilio }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Piso/Departamento</strong>
+                                <p>{{ agente.departamento }}</p>
+                            </article>
+                        </plex-panel>
+
+                        <!-- Educacion -->
+                        <plex-panel icon="mdi icon-estudiante" tituloPrincipal="Educacion" tituloSecundario="">
+                            <article class="d-inline-block mr-4">
+                                <strong>Nivel obtenido</strong>
+                                <p>{{ agente.nivel }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Titulo obtenido</strong>
+                                <p>{{ agente.titulo }}</p>
+                            </article>
+                        </plex-panel>
+
+                        <!-- Situacion -->
+                        <plex-panel icon="mdi icon-hospital" tituloPrincipal="Situacion" tituloSecundario="">
+                            <article class="d-inline-block mr-4">
+                                <strong>Fecha Ingreso al Estado</strong>
+                                <p>{{ agente.fechaIngresoEstado }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Fecha Ingreso al Hospital</strong>
+                                <p>{{ agente.fechaIngresoHospital }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Antiguedad</strong>
+                                <p>{{ agente.antiguedad }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Situacion en planta</strong>
+                                <p>{{ agente.situacion }}</p>
+                            </article>
+                        </plex-panel>
+
+                        <!-- Cargo -->
+                        <plex-panel icon="mdi icon-paciente-hombre" tituloPrincipal="Cargo" tituloSecundario="">
+                            <article class="d-inline-block mr-4">
+                                <strong>Tipo de norma</strong>
+                                <p>{{ agente.tipoNorma }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Nro. norma legal</strong>
+                                <p>{{ agente.numeroNorma }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Fecha norma</strong>
+                                <p>{{ agente.fechaNorma }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Agrupamiento</strong>
+                                <p>{{ agente.agrupamientoNorma }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Categoria</strong>
+                                <p>{{ agente.categoria }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Funcion</strong>
+                                <p>{{ agente.funcion }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Lugar de trabajo</strong>
+                                <p>{{ agente.lugarTrabajo }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Dependencia</strong>
+                                <p>{{ agente.dependencia }}</p>
+                            </article>
+                        </plex-panel>
+
+                        <!-- Regimenes -->
+                        <plex-panel icon="mdi icon-nodos" tituloPrincipal="Regimenes" tituloSecundario="">
+                            <article class="d-inline-block mr-4">
+                                <strong>Horario</strong>
+                                <p>{{ agente.horario }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Jornada</strong>
+                                <p>{{ agente.jornada }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Dedicacion exclusiva</strong>
+                                <p>{{ agente.dedicacion }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Tiempo pleno</strong>
+                                <p>{{ agente.tiempoPleno }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Guardias activas</strong>
+                                <p>{{ agente.activas }}</p>
+                            </article>
+                            <article class="d-inline-block mr-4">
+                                <strong>Guardias pasivas</strong>
+                                <p>{{ agente.pasivas }}</p>
+                            </article>
+                        </plex-panel>
+
+                        <!-- Ausentismo -->
+                        <plex-panel icon="mdi icon-calendario" tituloPrincipal="Ausentismo" tituloSecundario="">
+                                <plex-button class="d-flex justify-content-center" type="success" size="sm">Ver Calendario</plex-button>
+                        </plex-panel>
+  
                     </plex-accordion>
                 </li>
             </ul>

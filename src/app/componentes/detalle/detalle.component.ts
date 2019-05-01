@@ -13,13 +13,13 @@ import { Agente } from '../../models/agente';
   templateUrl: './detalle.component.html',
   styleUrls: ['./detalle.component.scss']
 })
-export class DetalleComponent implements OnInit {
 
+export class DetalleComponent implements OnInit {
 
     acordions = [
       {
         'titulo':'datos basicos',
-        'icon': 'history',
+        'icon': 'mdi icon-abecedario'
       },
       {
         'titulo':'datos de contacto',

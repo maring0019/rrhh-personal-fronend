@@ -2,6 +2,11 @@
 @import '~@andes/plex/src/lib/styles.scss';
 @import "./app/assets/variables/colores";
 
+// ANDES - Icons
+@import "./app/assets/fonts/andes-font.css";
+
+
+
 // Links
 a, ul, li {
 	text-decoration: none;
@@ -15,7 +20,7 @@ a, ul, li {
 li {
 	border-bottom: solid 1px white;
 	&:hover {
-		color: $andes-cyan;
+		// color: $andes-cyan;
 		cursor: pointer;
 		}
 
@@ -49,7 +54,8 @@ hr {
 
 // Overide PLEX
 .card-header,.card-block {
-    background-color: $andes-azul-oscuro!important;
+	background-color: $andes-azul-oscuro!important;
+	border-bottom: 1px solid white;
 }
 
 
