@@ -3,7 +3,9 @@ import { Direccion } from './Direccion';
 import { Contacto } from './Contacto';
 import { Educacion } from './Educacion';
 import { IPais } from './IPais';
+import { Cargo } from './Cargo';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
+import { SituacionLaboral } from './SituacionLaboral';
 
 // import { EstadoCivil } from './../utils/enumerados';
 
@@ -25,8 +27,8 @@ export class Agente {
     contactos: Contacto[];
     educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
-    // situacion: SituacionEnPlantaSchema;
-    // cargos: [CargoSchema];
+    historiaLaboral: Cargo[];
+    situacionLaboral: SituacionLaboral;
     foto: String;
     codigoFichado: String;
     activo: Boolean
@@ -58,6 +60,13 @@ export class Agente {
                 this.educacion.push(new Educacion(e))
             });
         }
+        this.historiaLaboral = [];
+        if (agente.historiaLaboral){
+            agente.historiaLaboral.forEach(e => {
+                this.historiaLaboral.push(new Cargo(e))
+            });
+        }
+        this.situacionLaboral = new SituacionLaboral(agente.situacionLaboral);
     }
 
     // getDireccionActiva(): Direccion

@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding, Output, EventEmitter, Input } from '@angular/core';
 
-import { ISituacion } from 'src/app/models/ISituacion';
+import { Situacion } from 'src/app/models/Situacion';
 import { SituacionService } from 'src/app/services/tm/situacion.service';
 
 
@@ -12,8 +12,8 @@ import { SituacionService } from 'src/app/services/tm/situacion.service';
   export class CreateUpdateSituacionComponent implements OnInit {
 
     @HostBinding('class.plex-layout') layout = true;  // Permite el uso de flex-box en el componente
-    @Input() situacion: ISituacion;
-    @Output() outputData: EventEmitter<ISituacion> = new EventEmitter<ISituacion>();
+    @Input() situacion: Situacion;
+    @Output() outputData: EventEmitter<Situacion> = new EventEmitter<Situacion>();
 
     public modelo: any = {};
 
@@ -33,7 +33,7 @@ import { SituacionService } from 'src/app/services/tm/situacion.service';
 
     onSave(event){
         if (event.formValid) {
-            const obj:ISituacion = this.modelo;
+            const obj:Situacion = this.modelo;
             if (obj.id){
                 this.situacionService.put(obj)
                     .subscribe(dato => this.outputData.emit(dato));

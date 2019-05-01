@@ -1,0 +1,56 @@
+<br>
+<form name="datosSituacionForm" [formGroup]="datosSituacionForm">
+    <div class="row">
+        <div class="col-md-4">
+            <plex-select 
+                [data]="tiposSituacion"
+                name="situacion"
+                formControlName="situacion"
+                label="Situación en Planta"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-text
+                name="situacionLugarPago"
+                formControlName="situacionLugarPago"
+                label="Lugar de Pago"
+                placeholder="Ingrese lugar de pago...">
+            </plex-text>
+        </div>
+        <!-- <div class="col-md-4">
+            <plex-datetime
+                type="date"
+                label="Fecha de la Norma"
+                name="fechaSituacion"
+                formControlName="fechaSituacion">
+            </plex-datetime>
+        </div> -->
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-12">
+            <plex-text
+                name="observaciones"
+                formControlName="observaciones"
+                label="Observaciones"
+                placeholder="Ingrese observaciones...">
+            </plex-text>
+        </div> -->
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-4">
+            <plex-select 
+                [data]="estados"
+                name="estadoCivil"
+                formControlName="estadoCivil"
+                label="Estado Civil"
+                placeholder="Seleccione...">
+            </plex-select>
+        </div>
+         -->
+    </div>
+</form>

@@ -19,6 +19,7 @@ import { AgenteService } from './services/agente.service';
 import { LocalidadService } from './services/localidad.service';
 import { ProvinciaService } from './services/provincia.service';
 import { PaisService } from './services/pais.service';
+import { TipoNormaLegalService } from './services/tipo-norma-legal.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -35,6 +36,8 @@ import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/dat
 import { AgenteDatosDireccionComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/datos-educacion/agente-datos-educacion.component';
+import { AgenteDatosCargoComponent } from './modules/agente/pages/registro/datos-cargo/agente-datos-cargo.component';
+import { AgenteDatosSituacionComponent } from './modules/agente/pages/registro/datos-situacion/agente-datos-situacion.component';
 
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
@@ -56,6 +59,8 @@ import { AgenteDetalleComponent } from './modules/agente/components/agente-detal
 import { FechaPipe } from './pipes/fecha.pipe';
 import { AgenteMockService } from './hardcodeo/agente.service';
 
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -68,6 +73,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AgenteDatosDireccionComponent,
         AgenteDatosContactoComponent,
         AgenteDatosEducacionComponent,
+        AgenteDatosCargoComponent,
+        AgenteDatosSituacionComponent,
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,
@@ -112,7 +119,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AgenteService,
         ProvinciaService,
         LocalidadService,
-        PaisService
+        PaisService,
+        TipoNormaLegalService
     ],
     bootstrap: [AppComponent]
 })

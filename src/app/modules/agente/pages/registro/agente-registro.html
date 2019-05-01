@@ -35,7 +35,18 @@
                 </div>
             </plex-tab>
             <plex-tab label="SITUACIÓN Y CARGO">
-
+                <div *ngIf="situacion">
+                    <agente-datos-situacion
+                        [situacionLaboral]="situacion"
+                        (outputSituacionLaboral)='onValueChangeSituacion($event)'>
+                    </agente-datos-situacion>
+                </div>
+                <div *ngIf="cargo">
+                    <agente-datos-cargo
+                        [cargo]="cargo"
+                        (outputCargo)='onValueChangeCargo($event)'>
+                    </agente-datos-cargo>
+                </div>
             </plex-tab>
             <plex-tab label="REGÍMENES">
 

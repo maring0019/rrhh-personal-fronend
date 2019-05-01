@@ -1,0 +1,56 @@
+<br>
+<form name="datosCargoForm" [formGroup]="datosCargoForm">
+    <div class="row">
+        <div class="col-md-4">
+            <plex-select 
+                [data]="tiposNormaLegal"
+                name="tipoNormaLegal"
+                formControlName="tipoNormaLegal"
+                label="Tipo Norma"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-text
+                name="numeroNormaLegal"
+                formControlName="numeroNormaLegal"
+                label="Nro. Norma Legal"
+                placeholder="Ingrese Nro...">
+            </plex-text>
+        </div>
+        <div class="col-md-4">
+            <plex-datetime
+                type="date"
+                label="Fecha de la Norma"
+                name="fechaNormaLegal"
+                formControlName="fechaNormaLegal">
+            </plex-datetime>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <plex-text
+                name="observaciones"
+                formControlName="observaciones"
+                label="Observaciones"
+                placeholder="Ingrese observaciones...">
+            </plex-text>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-4">
+            <plex-select 
+                [data]="estados"
+                name="estadoCivil"
+                formControlName="estadoCivil"
+                label="Estado Civil"
+                placeholder="Seleccione...">
+            </plex-select>
+        </div>
+         -->
+    </div>
+</form>

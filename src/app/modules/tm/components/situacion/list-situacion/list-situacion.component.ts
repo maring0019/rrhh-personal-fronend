@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { ISituacion } from 'src/app/models/ISituacion';
+import { Situacion } from 'src/app/models/Situacion';
 import { SituacionService } from 'src/app/services/tm/situacion.service';
 
 @Component({
@@ -12,8 +12,8 @@ export class ListSituacionComponent implements OnInit {
     @HostBinding('class.plex-layout') layout = true;
     loader = false;
     showcreate = false;
-    datos: ISituacion[] = [];
-    seleccion: ISituacion;
+    datos: Situacion[] = [];
+    seleccion: Situacion;
     
     constructor(
         private situacionService: SituacionService,
@@ -32,12 +32,12 @@ export class ListSituacionComponent implements OnInit {
             });
     }
 
-    onEdit(obj: ISituacion){
+    onEdit(obj: Situacion){
         this.showcreate = true;
         this.seleccion = obj;
     }
 
-    changeRequiereVencimiento(obj: ISituacion){
+    changeRequiereVencimiento(obj: Situacion){
         // [TODO] Fixme. No se invoca nunca el metodo en el click
         this.situacionService.put(obj)
             .subscribe(dato => this.loadDatos());
@@ -54,9 +54,9 @@ export class ListSituacionComponent implements OnInit {
      * Metodo invocado al terminar el proceso de alta/edicion de una
      * situacion. Oculta el formulario de carga y recarga los datos
      * del listado
-     * @param {ISituacion} obj valor retornado al terminar el alta/edicion
+     * @param {Situacion} obj valor retornado al terminar el alta/edicion
      */
-    onReturn(obj: ISituacion): void {
+    onReturn(obj: Situacion): void {
         this.showcreate = false;
         this.seleccion = null;
         this.loadDatos();

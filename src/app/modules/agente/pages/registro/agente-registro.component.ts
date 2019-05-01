@@ -8,12 +8,17 @@ import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basico
 import { AgenteDatosDireccionComponent } from './datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './datos-educacion/agente-datos-educacion.component';
+import { AgenteDatosCargoComponent } from './datos-cargo/agente-datos-cargo.component';
+import { AgenteDatosSituacionComponent } from './datos-situacion/agente-datos-situacion.component';
 
 import { Contacto } from 'src/app/models/Contacto';
 import { Agente } from 'src/app/models/Agente';
 import { Direccion } from 'src/app/models/Direccion';
 import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
+import { Cargo } from 'src/app/models/Cargo';
+import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
+
 
 
 @Component({
@@ -27,12 +32,16 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosDireccionComponent) datosDireccion: AgenteDatosDireccionComponent;
     @ViewChild(AgenteDatosContactoComponent) datosContacto: AgenteDatosContactoComponent;
     @ViewChild(AgenteDatosEducacionComponent) datosEducacion: AgenteDatosEducacionComponent;
+    @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
+    @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
     
     @HostBinding('class.plex-layout') layout = true;
     agente: Agente;
     direccion: Direccion;
     contactos: Contacto[];
     educacion: Educacion[];
+    cargo: Cargo;
+    situacion: SituacionLaboral;
 
     _agenteID:any; // To keep track of agente on edit
 
@@ -50,6 +59,8 @@ export class AgenteRegistroComponent implements OnInit {
                 this.direccion = this.agente.direccion;
                 this.contactos = this.agente.contactos;
                 this.educacion = this.agente.educacion;
+                this.cargo = this.agente.historiaLaboral.length? this.agente.historiaLaboral[0]: new Cargo();
+                this.situacion = this.agente.situacionLaboral;
             });
         });
     }
@@ -71,6 +82,14 @@ export class AgenteRegistroComponent implements OnInit {
     
     onValueChangeEducacion(obj: Educacion[]){
         this.educacion = obj;
+    }
+
+    onValueChangeCargo(obj: Cargo){
+        this.cargo = obj;
+    }
+
+    onValueChangeSituacion(obj: SituacionLaboral){
+        this.situacion = obj;
     }
 
     markFormAsInvalid(form){
