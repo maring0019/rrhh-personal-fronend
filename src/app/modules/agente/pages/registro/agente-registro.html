@@ -1,4 +1,18 @@
-
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex flex-row justify-content-end mb-2">
+            <plex-button
+                label="Cancelar"
+                type="danger"
+                (click)="volverInicio()"></plex-button>
+            <plex-button
+                label="Guardar Agente"
+                type="success"
+                (click)="saveAgente()">
+            </plex-button>
+        </div>
+    </div>
+</div>
 <plex-layout main="8">
     <plex-layout-main>
         <plex-tabs>
@@ -18,7 +32,7 @@
                     </agente-datos-direccion>
                 </div>
             </plex-tab>
-            <plex-tab label="DATOS DE CONTACTO">
+            <plex-tab label="CONTACTO">
                 <div *ngIf="contactos">
                     <agente-datos-contacto 
                         [contactos]="contactos"
@@ -61,13 +75,4 @@
             [educacion]="educacion">
         </app-agente-detalle>
     </plex-layout-sidebar>
-    <plex-layout-footer>
-        <plex-button label="Cancelar" type="danger" position="right" (click)="volverInicio()"></plex-button>
-        <plex-button
-            label="Guardar Agente"
-            type="success"
-            position="right"
-            (click)="saveAgente()">
-        </plex-button>
-    </plex-layout-footer>
 </plex-layout>

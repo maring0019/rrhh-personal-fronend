@@ -1,48 +1,28 @@
+import { IPais } from './IPais';
+import { ILocalidad } from './ILocalidad';
+import { IProvincia } from './IProvincia';
+
 export class Ubicacion {
-    // barrio: {
-    //     id: String,
-    //     nombre: String
-    // };
-    // localidad: {
-    //     id: String,
-    //     nombre: String
-    // };
-    // provincia: {
-    //     id: String,
-    //     nombre: String
-    // };
-    // pais: {
-    //     id: String,
-    //     nombre: String
-    // };
 
     barrio: String;
-    localidad: String;
-    provincia: String;
-    pais: String;
+    localidad: ILocalidad;
+    provincia: IProvincia;
+    pais: IPais;
 
     constructor(ubicacion?){
         ubicacion = ubicacion || {};
         if (ubicacion.barrio){
-            this.barrio = ubicacion.barrio || '';
+            this.barrio = ubicacion.barrio || null;
         }
         if (ubicacion.localidad){
-            this.localidad = ubicacion.localidad || '';
+            this.localidad = ubicacion.localidad || null;
         }
         if (ubicacion.provincia){
-            this.provincia = ubicacion.provincia || '';
+            this.provincia = ubicacion.provincia || null;
         }
-        // if (ubicacion.barrio){
-        //     this.barrio.id = ubicacion.barrio.id || '';
-        //     this.barrio.nombre = ubicacion.barrio.nombre || '';
-        // }
-        // if (ubicacion.localidad){
-        //     this.localidad.id = ubicacion.localidad.id || '';
-        //     this.localidad.nombre = ubicacion.localidad.nombre || '';
-        // }
-        // if (ubicacion.provincia){
-        //     this.provincia.id = ubicacion.provincia.id || '';
-        //     this.provincia.nombre = ubicacion.provincia.nombre || '';
-        // }
+        if (ubicacion.pais){
+            this.pais = ubicacion.pais || null;
+        }
+
     }
 }

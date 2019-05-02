@@ -56,7 +56,9 @@ export class AgenteRegistroComponent implements OnInit {
             this._agenteID = params.get('id');
             this.agenteService.getByID(this._agenteID).subscribe((data) => {
                 this.agente = new Agente(data);
+                console.log(this.agente);
                 this.direccion = this.agente.direccion;
+                console.log(this.direccion);
                 this.contactos = this.agente.contactos;
                 this.educacion = this.agente.educacion;
                 this.cargo = this.agente.historiaLaboral.length? this.agente.historiaLaboral[0]: new Cargo();

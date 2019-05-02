@@ -57,7 +57,12 @@ import { EdicionComponent } from './componentes/edicion/edicion.component';
 import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle.component';
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
+import { TitlePipe } from './pipes/title.pipe';
+import { EdadPipe } from './pipes/edad.pipe';
+
 import { AgenteMockService } from './hardcodeo/agente.service';
+
+
 
 
 
@@ -95,7 +100,9 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         EdicionComponent,
 
         // Pipes
-        FechaPipe
+        FechaPipe,
+        TitlePipe,
+        EdadPipe
     ],
     imports: [
         BrowserModule,
