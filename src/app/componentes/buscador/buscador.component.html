@@ -1,4 +1,5 @@
 <header>
+    <!-- Filtros -->
     <div class="row">
         <div class="col-md-10">
             <plex-text [(ngModel)]="apellido" (change)="refreshSelection()" name="apellido" label="Apellido"
@@ -29,14 +30,24 @@
     </div>
 </header>
 <hr>
-<section class="row">
-    <div class="col">
-        <!--Resultados-->
-        <!-- <plex-loader *ngIf="loader" type="ball-beat"></plex-loader>-->
-        <!-- <div *ngIf="!seleccion?.length && !loader" class="alert alert-default"> -->
-            <!-- <i class="mdi mdi-emoticon-sad"></i> No hay resultados que coincidan con los filtros de búsqueda -->
-        <app-item-listado>
-            
-        </app-item-listado>
-    </div>
-</section>
+<ng-container *ngIf="resultados === true; then mostrarResultados; else mostrarLeyenda"></ng-container>
+    <!-- Resultados -->
+    <ng-template #mostrarResultados>
+    <section class="row">
+            <div class="col">
+            <app-item-listado>
+
+            </app-item-listado>
+        </div>
+    </section>
+    </ng-template>
+    <!-- No encuentra resultados -->
+    <ng-template #mostrarLeyenda>
+        <section class="d-flex flex-column align-items-center justify-content-center h-75">
+        <div class="d-flex flex-column text-center text-muted">
+            <span class="mdi mdi-arrow-up-bold-circle-outline mdi-48px"></span>
+            <h3><strong>Buscá un agente en la barra superior</strong></h3>
+            <h5>Podes refinar tu búsqueda a través del botón "Búsqueda avanzada"</h5>
+        </div>
+        </section>
+    </ng-template>

@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuscadorComponent implements OnInit {
 
+  resultados = false;
+
+
   constructor() { }
 
   ngOnInit() {
