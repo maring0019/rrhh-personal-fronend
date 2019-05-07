@@ -122,6 +122,7 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         RoutingGuard,
         RoutingNavBar,
         SituacionService,
+        AgenteMockService,
         // {provide: AgenteService, useClass: AgenteMockService },
         AgenteService,
         ProvinciaService,

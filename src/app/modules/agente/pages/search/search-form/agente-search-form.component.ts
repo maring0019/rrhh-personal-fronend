@@ -1,5 +1,9 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Router} from '@angular/router';
+
 import { AgenteService } from 'src/app/services/agente.service';
+import { SituacionService } from 'src/app/services/tm/situacion.service';
+import { Situacion } from 'src/app/models/Situacion';
 import { Agente } from 'src/app/models/Agente';
 
 
@@ -12,6 +16,13 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     private timeoutHandle: number;
     public textoLibre: string = null;
     public autoFocus = 0;
+    public mostrarMasOpciones = false;
+
+    // Advanced search form inputs
+    public tiposSituacion: Situacion[];
+    public tipoSituacion: Situacion;
+    public fechaDesde: Date = new Date()
+    public fechaHasta: Date = new Date()
 
     // Eventos
     @Output() searchStart: EventEmitter<any> = new EventEmitter<any>();
@@ -19,11 +30,20 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     @Output() searchClear: EventEmitter<any> = new EventEmitter<any>();
 
 
-    constructor(private agenteService: AgenteService) {
+    constructor(
+        private router: Router,
+        private agenteService: AgenteService,
+        private tipoSituacionService: SituacionService) {
     }
 
     public ngOnInit() {
         this.autoFocus = this.autoFocus + 1;
+
+        // Init Tipos Situacion
+        this.tipoSituacionService.get({})
+            .subscribe(data => {
+                this.tiposSituacion = data;
+        });
     }
 
     ngOnDestroy(): void {
@@ -64,5 +84,9 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
         } else {
             this.searchClear.emit();
         }
+    }
+
+    public altaAgente(){
+        this.router.navigate(['/agentes/registro']);
     }
 }

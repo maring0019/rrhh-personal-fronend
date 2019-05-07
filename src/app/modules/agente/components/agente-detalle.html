@@ -34,7 +34,7 @@
             </div>
             <div class="d-flex flex-column">
                 <b>Fecha de nacimiento</b>
-                <p>{{ agente.fechaNacimiento | fecha:'utc' }}</p>
+                <p>{{ agente.fechaNacimiento? (agente.fechaNacimiento | fecha:'utc') : '---' }}</p>
             </div>
         </article>
     </section>
@@ -71,7 +71,7 @@
             </plex-accordion>
         </li>
         <li>
-            <plex-accordion >
+            <plex-accordion>
                 <plex-panel 
                     icon="mdi icon-marcador"
                     tituloPrincipal="Domicilio">
@@ -82,7 +82,11 @@
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Provincia</strong>
-                            <p>{{ direccion.ubicacion? (direccion.ubicacion.provincia | title) : '---' }}</p>
+                            <p *ngIf="direccion.ubicacion && direccion.ubicacion.provincia;else no_content">
+                                {{ direccion.ubicacion.provincia.nombre | title}}
+                            </p>
+                            <ng-template #no_content><p>---</p></ng-template>
+                            
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Localidad</strong>
@@ -112,7 +116,7 @@
                             </article>
                             <article class="d-inline-block mr-4">
                                 <strong>Contacto</strong>
-                                <p>{{ contacto.valor | title }}</p>
+                                <p>{{ contacto.valor }}</p>
                             </article>
                     </ng-container>
                 </plex-panel>

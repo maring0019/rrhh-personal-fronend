@@ -33,7 +33,7 @@ export class AgenteDetalleComponent {
         else{
             this.router.navigate(['/agentes/registro']);
         }
-  }
+    }
 
     volverInicio() {
         this._location.back()

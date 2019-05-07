@@ -54,17 +54,26 @@ export class AgenteRegistroComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._agenteID = params.get('id');
-            this.agenteService.getByID(this._agenteID).subscribe((data) => {
-                this.agente = new Agente(data);
-                console.log(this.agente);
-                this.direccion = this.agente.direccion;
-                console.log(this.direccion);
-                this.contactos = this.agente.contactos;
-                this.educacion = this.agente.educacion;
-                this.cargo = this.agente.historiaLaboral.length? this.agente.historiaLaboral[0]: new Cargo();
-                this.situacion = this.agente.situacionLaboral;
-            });
+            if (this._agenteID){
+                this.agenteService.getByID(this._agenteID).subscribe((data) => {
+                    //TODO Sino se encuentra el agente analizar que hacer
+                    this.agente = new Agente(data);
+                    this.initValueForms(this.agente);
+                });
+            }
+            else{
+                this.agente = new Agente();
+                this.initValueForms(this.agente);
+            }
         });
+    }
+
+    initValueForms(agente){
+        this.direccion = agente.direccion;
+        this.contactos = agente.contactos;
+        this.educacion = agente.educacion;
+        this.cargo = agente.historiaLaboral.length? agente.historiaLaboral[0]: new Cargo();
+        this.situacion = agente.situacionLaboral;
     }
 
     onValueChangeAgente(obj: Agente){
@@ -141,21 +150,31 @@ export class AgenteRegistroComponent implements OnInit {
 
             //Educacion
             const estudios:Educacion[] = []
-            this.datosEducacion.educacionForms.controls.forEach(form => {
-                const educacion = new Educacion(form.value);
-                estudios.push(educacion);
-            });
+            // this.datosEducacion.educacionForms.controls.forEach(form => {
+            //     const educacion = new Educacion(form.value);
+            //     estudios.push(educacion);
+            // });
             agente.educacion = estudios;
 
-            this.agenteService.post(agente)
-                .subscribe(data=> {
-                    return
+            if (this._agenteID){
+                agente.id = this._agenteID;
+                this.agenteService.put(agente)
+                    .subscribe(data=> {
+                        this.volverInicio();
                 })
+            }
+            else{
+                this.agenteService.post(agente)
+                .subscribe(data=> {
+                    this.volverInicio();
+                })
+            }
+            
         }
     }
 
     volverInicio() {
-        this.router.navigate(['/inicio'])
+        this.router.navigate(['/agentes/busqueda'])
     }
 
     

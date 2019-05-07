@@ -19,15 +19,23 @@ export class AgenteFotoComponent implements OnChanges{
     constructor(private sanitizer: DomSanitizer, private agenteService: AgenteService){ }
 
     ngOnChanges(){
-        if (!this._agenteID || this._agenteID!=this.agente.id){
-            this._agenteID = this.agente.id;
-            this.displayFoto();
+        if (this.agente && this.agente.id){
+            if (!this._agenteID || this._agenteID!=this.agente.id){
+                this._agenteID = this.agente.id;
+                this.displayFoto();
+            }
         }
     }
 
     displayFoto(){
         this.agenteService.getFoto(this.agente.id).subscribe(data => {
-            this.foto = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + data);
+            if (data){
+                this.foto = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + data);
+            }
+            else{
+                this.foto = null;
+            }
+            
         });
     }
 }

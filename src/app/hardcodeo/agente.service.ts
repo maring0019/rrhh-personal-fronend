@@ -16,6 +16,10 @@ export class AgenteMockService {
     private agenteUrl = '/modules/agentes/agentes'; // URL to web api
     constructor(private server: Server) { }
 
+    getAgentes():Observable<Agente[]>{
+        return of (AGENTES);
+    }
+
     get(params?: any): Observable<Agente[]> {
         return of(AGENTES) ;
     }
