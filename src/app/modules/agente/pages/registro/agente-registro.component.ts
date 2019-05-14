@@ -150,10 +150,12 @@ export class AgenteRegistroComponent implements OnInit {
 
             //Educacion
             const estudios:Educacion[] = []
-            // this.datosEducacion.educacionForms.controls.forEach(form => {
-            //     const educacion = new Educacion(form.value);
-            //     estudios.push(educacion);
-            // });
+            this.datosEducacion.educacionForms.controls.forEach(form => {
+                if(form.value.educacion && form.value.educacion.tipoEducacion != null){
+                    const educacion = new Educacion(form.value.educacion);
+                    estudios.push(educacion);
+                }
+            });
             agente.educacion = estudios;
 
             if (this._agenteID){

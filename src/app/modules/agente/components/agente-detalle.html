@@ -127,14 +127,14 @@
                  <!-- Educacion -->
                  <plex-panel icon="mdi icon-estudiante" tituloPrincipal="Educacion" tituloSecundario="">
                     <ng-container *ngFor="let estudio of educacion">
-                        <article class="d-inline-block mr-4">
-                                <strong>Nivel obtenido</strong>
-                                <p>{{ estudio.tipoEducacion | title }}</p>
-                            </article>
-                            <article class="d-inline-block mr-4">
-                                <strong>Titulo obtenido</strong>
-                                <p>{{ estudio.titulo}}</p>
-                            </article>
+                        <article *ngIf="estudio" class="d-inline-block mr-4">
+                            <strong>Nivel obtenido</strong>
+                            <p>{{ estudio.tipoEducacion | title }}</p>
+                        </article>
+                        <article *ngIf="estudio" class="d-inline-block mr-4">
+                            <strong>Titulo obtenido</strong>
+                            <p>{{ estudio.titulo}}</p>
+                        </article>
                     </ng-container>
                 </plex-panel>
             </plex-accordion>

@@ -24,17 +24,20 @@
                         formControlName="tipoEducacion"
                         label="Nivel"
                         placeholder="Seleccione..."
-                        [required]="false">
+                        [required]="false"
+                        (change)="changeTitulosOptions($event, i)">
                     </plex-select>
                 </div>
                 <div class="col-md-7">
-                    <plex-text
-                        name="titulo"
-                        formControlName="titulo" 
+                    <plex-select
+                        [data]="titulos[i]? titulos[i]: []"
+                        name="educacion"
+                        formControlName="educacion"
                         label="Título"
-                        placeholder="Ingrese valor..."
+                        labelField="titulo"
+                        placeholder="Seleccione..."
                         [required]="false">
-                    </plex-text>
+                    </plex-select>
                 </div>
                 <div class="col-2" *ngIf="i > 0">
                     <br>

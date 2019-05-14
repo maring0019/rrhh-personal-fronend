@@ -20,6 +20,7 @@ import { LocalidadService } from './services/localidad.service';
 import { ProvinciaService } from './services/provincia.service';
 import { PaisService } from './services/pais.service';
 import { TipoNormaLegalService } from './services/tipo-norma-legal.service';
+import { EducacionService } from './services/educacion.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -128,7 +129,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         ProvinciaService,
         LocalidadService,
         PaisService,
-        TipoNormaLegalService
+        TipoNormaLegalService,
+        EducacionService
     ],
     bootstrap: [AppComponent]
 })

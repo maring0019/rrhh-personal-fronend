@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import * as enumerados from 'src/app/models/enumerados';
 import { Cargo } from 'src/app/models/Cargo';
 import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
 import { TipoNormaLegal } from 'src/app/models/TipoNormaLegal';
