@@ -72,7 +72,7 @@ export class AgenteRegistroComponent implements OnInit {
         this.direccion = agente.direccion;
         this.contactos = agente.contactos;
         this.educacion = agente.educacion;
-        this.cargo = agente.historiaLaboral.length? agente.historiaLaboral[0]: new Cargo();
+        this.cargo = agente.cargoActivo;
         this.situacion = agente.situacionLaboral;
     }
 
@@ -148,7 +148,7 @@ export class AgenteRegistroComponent implements OnInit {
             });
             agente.contactos = contactos;
 
-            //Educacion
+            // Educacion
             const estudios:Educacion[] = []
             this.datosEducacion.educacionForms.controls.forEach(form => {
                 if(form.value.educacion && form.value.educacion.tipoEducacion != null){
@@ -157,6 +157,10 @@ export class AgenteRegistroComponent implements OnInit {
                 }
             });
             agente.educacion = estudios;
+
+            // Situacion y Cargo
+            const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
+            agente.historiaLaboral.push(cargo);
 
             if (this._agenteID){
                 agente.id = this._agenteID;

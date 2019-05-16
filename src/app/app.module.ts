@@ -21,6 +21,7 @@ import { ProvinciaService } from './services/provincia.service';
 import { PaisService } from './services/pais.service';
 import { TipoNormaLegalService } from './services/tipo-norma-legal.service';
 import { EducacionService } from './services/educacion.service';
+import { ServicioService } from './services/servicio.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -62,6 +63,7 @@ import { TitlePipe } from './pipes/title.pipe';
 import { EdadPipe } from './pipes/edad.pipe';
 
 import { AgenteMockService } from './hardcodeo/agente.service';
+
 
 
 
@@ -129,8 +131,9 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         ProvinciaService,
         LocalidadService,
         PaisService,
+        EducacionService,
         TipoNormaLegalService,
-        EducacionService
+        ServicioService
     ],
     bootstrap: [AppComponent]
 })

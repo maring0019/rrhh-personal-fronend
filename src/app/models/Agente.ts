@@ -28,6 +28,7 @@ export class Agente {
     educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
     historiaLaboral: Cargo[];
+    cargoActivo: Cargo; // Para uso interno. Almacena el cargo activo del historial laboral
     situacionLaboral: SituacionLaboral;
     foto: String;
     codigoFichado: String;
@@ -66,6 +67,7 @@ export class Agente {
                 this.historiaLaboral.push(new Cargo(e))
             });
         }
+        this.cargoActivo = this.getCargoActivo();
         this.situacionLaboral = new SituacionLaboral(agente.situacionLaboral);
     }
 
@@ -76,6 +78,16 @@ export class Agente {
     //     }
     //     return
     // }
+
+    getCargoActivo(): Cargo
+    {
+        if (this.historiaLaboral.length){
+            return this.historiaLaboral.filter(x => !(x.inactivo))[0];
+        }
+        else{
+            return new Cargo();
+        }
+    }
 }
 
 

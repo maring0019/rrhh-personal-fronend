@@ -30,6 +30,18 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <plex-select 
+                [data]="servicios"
+                name="servicio"
+                formControlName="servicio"
+                label="Servicio"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <plex-text
                 name="observaciones"
                 formControlName="observaciones"

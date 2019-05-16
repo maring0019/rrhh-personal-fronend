@@ -1,4 +1,5 @@
 import { TipoNormaLegal } from './TipoNormaLegal';
+import { Servicio } from './Servicio';
 
 export class Cargo {
 
@@ -11,8 +12,9 @@ export class Cargo {
     // puestoTrabajo: PuestoSchema, // TODO Es el agrupamiento de la pantalla?
     // subPuestoTrabajo: SubPuestoSchema, // TODO Es la funcion de la pantalla?
     // lugarTrabajo: SectorSchema,
-    // servicio: ServicioSchema,
+    servicio: Servicio;
     observaciones: String;
+    inactivo: Boolean;
 
     constructor(cargo?)
     {
@@ -21,5 +23,7 @@ export class Cargo {
         this.numeroNormaLegal = cargo.numeroNormaLegal || '';
         this.fechaNormaLegal = cargo.fechaNormaLegal;
         this.observaciones = cargo.observaciones || '';
+        this.servicio = new Servicio(cargo.servicio);
+        this.inactivo = cargo.inactivo;
     }
 }

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Cargo } from 'src/app/models/Cargo';
 import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
 import { TipoNormaLegal } from 'src/app/models/TipoNormaLegal';
+import { ServicioService } from 'src/app/services/servicio.service';
+import { Servicio } from 'src/app/models/Servicio';
 
 @Component({
     selector: 'agente-datos-cargo',
@@ -16,16 +18,23 @@ export class AgenteDatosCargoComponent implements OnInit {
 
     datosCargoForm: FormGroup;
     tiposNormaLegal: TipoNormaLegal[] = [];
+    servicios: Servicio[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
-        private tipoNormaLegalService: TipoNormaLegalService){}
+        private tipoNormaLegalService: TipoNormaLegalService,
+        private servicioService: ServicioService){}
     
     ngOnInit() {
         // Init Tipos Normas
         this.tipoNormaLegalService.get({})
             .subscribe(data => {
                 this.tiposNormaLegal = data;
+        });
+        // Init Servicios
+        this.servicioService.get({})
+        .subscribe(data => {
+            this.servicios = data;
         });
 
         this.datosCargoForm = this.createDatosCargoForm();
@@ -38,6 +47,7 @@ export class AgenteDatosCargoComponent implements OnInit {
             numeroNormaLegal    : [this.cargo.numeroNormaLegal],
             fechaNormaLegal     : [this.cargo.fechaNormaLegal],
             observaciones       : [this.cargo.observaciones],
+            servicio            : [this.cargo.servicio]
         });
     }
 
