@@ -1,5 +1,6 @@
 <br>
 <form name="datosCargoForm" [formGroup]="datosCargoForm">
+    <h5 class="subheader">Cargo</h5>
     <div class="row">
         <div class="col-md-4">
             <plex-select 
@@ -29,7 +30,49 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+            <plex-select 
+                [data]="agrupamientos"
+                name="agrupamiento"
+                formControlName="agrupamiento"
+                label="Agrupamiento"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-select 
+                [data]="puestos"
+                name="puesto"
+                formControlName="puesto"
+                label="Puesto/Agrupamiento"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-select 
+                [data]="subpuestos"
+                name="subpuesto"
+                formControlName="subpuesto"
+                label="SubPuesto/Función"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select 
+                [data]="sectores"
+                name="sector"
+                formControlName="sector"
+                label="Lugar de Trabajo/Sector"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-6">
             <plex-select 
                 [data]="servicios"
                 name="servicio"

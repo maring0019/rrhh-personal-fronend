@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 // Servicios
-import { SituacionService } from './services/tm/situacion.service';
+import { TipoSituacionService } from './services/tm/situacion.service';
 import { AgenteService } from './services/agente.service';
 import { LocalidadService } from './services/localidad.service';
 import { ProvinciaService } from './services/provincia.service';
@@ -22,6 +22,10 @@ import { PaisService } from './services/pais.service';
 import { TipoNormaLegalService } from './services/tipo-norma-legal.service';
 import { EducacionService } from './services/educacion.service';
 import { ServicioService } from './services/servicio.service';
+import { AgrupamientoService } from './services/agrupamiento.service';
+import { PuestoService } from './services/puesto.service';
+import { SubPuestoService } from './services/subpuesto.service';
+import { SectorService } from './services/sector.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -30,16 +34,17 @@ import { LoginPage } from './pages/login/login.page';
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
 
-import { ListSituacionComponent } from './modules/tm/components/situacion/list-situacion/list-situacion.component';
-import { CreateUpdateSituacionComponent } from './modules/tm/components/situacion/create-update-situacion/create-update-situacion.component';
+import { ListTipoSituacionComponent } from './modules/tm/components/situacion/list-situacion/list-situacion.component';
+import { CreateUpdateTipoSituacionComponent } from './modules/tm/components/situacion/create-update-situacion/create-update-situacion.component';
 
 import { AgenteRegistroComponent } from './modules/agente/pages/registro/agente-registro.component';
 import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/datos-basicos/agente-datos-basicos.component';
 import { AgenteDatosDireccionComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/datos-educacion/agente-datos-educacion.component';
-import { AgenteDatosCargoComponent } from './modules/agente/pages/registro/datos-cargo/agente-datos-cargo.component';
-import { AgenteDatosSituacionComponent } from './modules/agente/pages/registro/datos-situacion/agente-datos-situacion.component';
+import { AgenteDatosCargoComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
+import { AgenteDatosSituacionComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
+import { AgenteDatosHistoriaLaboralComponent } from './modules/agente/pages/registro/datos-historia-laboral/agente-datos-historia-laboral.component';
 
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
@@ -62,11 +67,8 @@ import { FechaPipe } from './pipes/fecha.pipe';
 import { TitlePipe } from './pipes/title.pipe';
 import { EdadPipe } from './pipes/edad.pipe';
 
+
 import { AgenteMockService } from './hardcodeo/agente.service';
-
-
-
-
 
 
 @NgModule({
@@ -74,8 +76,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AppComponent,
         LoginPage,
         HomePage,
-        ListSituacionComponent,
-        CreateUpdateSituacionComponent,
+        ListTipoSituacionComponent,
+        CreateUpdateTipoSituacionComponent,
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
         AgenteDatosDireccionComponent,
@@ -83,6 +85,7 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AgenteDatosEducacionComponent,
         AgenteDatosCargoComponent,
         AgenteDatosSituacionComponent,
+        AgenteDatosHistoriaLaboralComponent,
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,
@@ -124,7 +127,7 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         Auth,
         RoutingGuard,
         RoutingNavBar,
-        SituacionService,
+        TipoSituacionService,
         AgenteMockService,
         // {provide: AgenteService, useClass: AgenteMockService },
         AgenteService,
@@ -133,7 +136,11 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         PaisService,
         EducacionService,
         TipoNormaLegalService,
-        ServicioService
+        ServicioService,
+        AgrupamientoService,
+        PuestoService,
+        SubPuestoService,
+        SectorService
     ],
     bootstrap: [AppComponent]
 })

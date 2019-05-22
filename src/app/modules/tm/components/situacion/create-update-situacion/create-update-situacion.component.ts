@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding, Output, EventEmitter, Input } from '@angular/core';
 
-import { Situacion } from 'src/app/models/Situacion';
-import { SituacionService } from 'src/app/services/tm/situacion.service';
+import { TipoSituacion } from 'src/app/models/TipoSituacion';
+import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 
 
 @Component({
@@ -9,15 +9,15 @@ import { SituacionService } from 'src/app/services/tm/situacion.service';
     templateUrl: './create-update-situacion.component.html',
     styleUrls: ['./create-update-situacion.component.scss']
   })
-  export class CreateUpdateSituacionComponent implements OnInit {
+  export class CreateUpdateTipoSituacionComponent implements OnInit {
 
     @HostBinding('class.plex-layout') layout = true;  // Permite el uso de flex-box en el componente
-    @Input() situacion: Situacion;
-    @Output() outputData: EventEmitter<Situacion> = new EventEmitter<Situacion>();
+    @Input() situacion: TipoSituacion;
+    @Output() outputData: EventEmitter<TipoSituacion> = new EventEmitter<TipoSituacion>();
 
     public modelo: any = {};
 
-    constructor(private situacionService: SituacionService) { }
+    constructor(private situacionService: TipoSituacionService) { }
 
     ngOnInit() {
         let id = this.situacion ? this.situacion.id : null;
@@ -33,7 +33,7 @@ import { SituacionService } from 'src/app/services/tm/situacion.service';
 
     onSave(event){
         if (event.formValid) {
-            const obj:Situacion = this.modelo;
+            const obj:TipoSituacion = this.modelo;
             if (obj.id){
                 this.situacionService.put(obj)
                     .subscribe(dato => this.outputData.emit(dato));

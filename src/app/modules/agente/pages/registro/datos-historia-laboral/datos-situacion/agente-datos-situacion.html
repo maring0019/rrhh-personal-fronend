@@ -1,0 +1,62 @@
+<br>
+<form name="datosSituacionForm" [formGroup]="datosSituacionForm">
+    <h5 class="subheader">Situación en Planta</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select 
+                [data]="tiposSituacion"
+                name="tipoSituacion"
+                formControlName="tipoSituacion"
+                label="Situación en Planta"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-6">
+            <plex-text
+                name="situacionLugarPago"
+                formControlName="situacionLugarPago"
+                label="Lugar de Pago"
+                placeholder="Ingrese lugar de pago...">
+            </plex-text>
+        </div>
+        
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <plex-bool
+                type="slide"
+                name="trabajaEnHospital"
+                formControlName="trabajaEnHospital"
+                label="Trabaja en el Hospital">
+            </plex-bool>
+        </div>
+        <div class="col-md-4">
+            <plex-bool
+                type="slide"
+                name="exceptuadoFichado"
+                formControlName="exceptuadoFichado"
+                label="Exceptuado de Fichar">
+            </plex-bool>
+        </div>
+        <div class="col-md-4">
+            <plex-bool
+                type="slide"
+                name="trasladado"
+                formControlName="trasladado"
+                label="Trasladado">
+            </plex-bool>
+        </div>
+    </div>
+    <div class="row" *ngIf="trasladado">
+        <div class="col-md-12">
+            <plex-text
+                name="trasladadoDesde"
+                formControlName="trasladadoDesde"
+                label="Lugar de Traslado"
+                placeholder="Ingrese lugar de traslado...">
+            </plex-text>
+        </div>
+    </div>
+</form>

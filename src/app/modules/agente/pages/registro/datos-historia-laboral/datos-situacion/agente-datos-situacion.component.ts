@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
+import { TipoSituacion } from 'src/app/models/TipoSituacion';
 import { Situacion } from 'src/app/models/Situacion';
-import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
-import { SituacionService } from 'src/app/services/tm/situacion.service';
 
 @Component({
     selector: 'agente-datos-situacion',
@@ -11,15 +11,16 @@ import { SituacionService } from 'src/app/services/tm/situacion.service';
     // styleUrls: ['./agente-datos-situacion.scss']
 })
 export class AgenteDatosSituacionComponent implements OnInit {
-    @Input() situacionLaboral: SituacionLaboral;
-    @Output() outputSituacionLaboral: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
+    @Input() situacion: Situacion;
+    @Output() outputSituacion: EventEmitter<Situacion> = new EventEmitter<Situacion>();
 
     datosSituacionForm: FormGroup;
-    tiposSituacion: Situacion[] = [];
+    tiposSituacion: TipoSituacion[] = [];
+
 
     constructor(
         private formBuilder: FormBuilder,
-        private tipoSituacionService: SituacionService){}
+        private tipoSituacionService: TipoSituacionService){}
     
     ngOnInit() {
         // Init Tipos Situacion
@@ -27,15 +28,18 @@ export class AgenteDatosSituacionComponent implements OnInit {
             .subscribe(data => {
                 this.tiposSituacion = data;
         });
-
         this.datosSituacionForm = this.createDatosSituacionForm();
     }
 
     createDatosSituacionForm()
     {
         return this.formBuilder.group({
-            situacion            : [this.situacionLaboral.situacion],
-            situacionLugarPago   : [this.situacionLaboral.situacionLugarPago]
+            tipoSituacion          : [this.situacion.tipoSituacion],
+            situacionLugarPago     : [this.situacion.situacionLugarPago],
+            exceptuadoFichado      : [this.situacion.exceptuadoFichado],
+            trabajaEnHospital      : [this.situacion.trabajaEnHospital],
+            trasladado             : [this.situacion.trasladoDesde? true : false],
+            trasladoDesde          : [this.situacion.trasladoDesde]
         });
     }
 

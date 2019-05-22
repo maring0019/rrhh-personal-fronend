@@ -1,29 +1,36 @@
+import { TipoNormaLegal } from './TipoNormaLegal';
 import { Situacion } from './Situacion';
-
+import { Cargo } from './Cargo';
 
 export class SituacionLaboral {
-    situacion: Situacion;
-    situacionLugarPago: String;
-    situacionFechaIngresoEstado: Date;
-    situacionFechaIngresoHospital: Date;
+    // Estos datos pertenecian al modelo Situacion. Ahora son 'globales'
+    fechaIngresoEstado: Date;
+    fechaIngresoHospital: Date;
     antiguedadVacaciones: Date;
     antiguedadPago: Date;
-    exceptuadoFichado: Boolean;
-    trabajaEnHospital: Boolean;
-    trasladoDesde: String;
+    // Estos datos pertenecian al modelo Cargo. Ahora son 'globales'
+    tipoNormaLegal: TipoNormaLegal;
+    numeroNormaLegal: String;
+    fechaNormaLegal: Date;
+    situacion: Situacion;
+    cargo: Cargo;
+    // regimen: Regimen;
+    inactivo:Boolean;
 
-    constructor(sl?)
-    {
+    constructor(sl?){
         sl = sl || {};
-        this.situacion = sl.situacion;
-        this.situacionLugarPago= sl.situacionLugarPago || '';
-        this.situacionFechaIngresoEstado = sl.situacionFechaIngresoEstado;
-        this.situacionFechaIngresoHospital = sl.situacionFechaIngresoHospital;
-        this.antiguedadVacaciones = sl.antiguedadVacaciones;
-        this.antiguedadPago = sl.antiguedadPago;
-        this.exceptuadoFichado = sl.exceptuadoFichado || false;
-        this.trabajaEnHospital = sl.trabajaEnHospital || false;
-        this.trasladoDesde = sl.trasladoDesde || '';
+        this.situacion = new Situacion(sl.situacion);
+        // Temporalmente cargamos esta info asi. Debe estar precargada
+        this.fechaIngresoEstado = this.situacion.situacionFechaIngresoEstado;
+        this.fechaIngresoHospital = this.situacion.situacionFechaIngresoHospital;
+        this.antiguedadVacaciones = this.situacion.antiguedadVacaciones;
+        this.antiguedadPago = this.situacion.antiguedadPago;
 
+        this.tipoNormaLegal = new TipoNormaLegal(sl.tipoNormaLegal);
+        this.numeroNormaLegal = sl.numeroNormaLegal;
+        this.fechaNormaLegal = sl.fechaNormaLegal;
+        
+        this.cargo = new Cargo(sl.cargo);
+        this.inactivo = sl.inactivo;
     }
 }

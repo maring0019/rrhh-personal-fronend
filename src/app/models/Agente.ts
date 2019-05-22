@@ -3,7 +3,6 @@ import { Direccion } from './Direccion';
 import { Contacto } from './Contacto';
 import { Educacion } from './Educacion';
 import { IPais } from './IPais';
-import { Cargo } from './Cargo';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
 import { SituacionLaboral } from './SituacionLaboral';
 
@@ -27,9 +26,8 @@ export class Agente {
     contactos: Contacto[];
     educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
-    historiaLaboral: Cargo[];
-    cargoActivo: Cargo; // Para uso interno. Almacena el cargo activo del historial laboral
-    situacionLaboral: SituacionLaboral;
+    historiaLaboral: SituacionLaboral[];
+    situacionLaboralActiva: SituacionLaboral; // Para uso interno. Almacena la situacion activa
     foto: String;
     codigoFichado: String;
     activo: Boolean
@@ -64,28 +62,19 @@ export class Agente {
         this.historiaLaboral = [];
         if (agente.historiaLaboral){
             agente.historiaLaboral.forEach(e => {
-                this.historiaLaboral.push(new Cargo(e))
+                this.historiaLaboral.push(new SituacionLaboral(e))
             });
         }
-        this.cargoActivo = this.getCargoActivo();
-        this.situacionLaboral = new SituacionLaboral(agente.situacionLaboral);
+        this.situacionLaboralActiva = this.getSituacionLaboralActiva();
     }
 
-    // getDireccionActiva(): Direccion
-    // {
-    //     if (this.direccion){
-    //         return this.direccion.filter(x => x.activo)[0];
-    //     }
-    //     return
-    // }
-
-    getCargoActivo(): Cargo
+    getSituacionLaboralActiva(): SituacionLaboral
     {
         if (this.historiaLaboral.length){
             return this.historiaLaboral.filter(x => !(x.inactivo))[0];
         }
         else{
-            return new Cargo();
+            return new SituacionLaboral();
         }
     }
 }

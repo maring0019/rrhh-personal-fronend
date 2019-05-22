@@ -7,13 +7,13 @@ import { DetalleComponent } from './componentes/detalle/detalle.component';
 import { ListadoComponent } from './componentes/listado/listado.component'; 
 
 // Components
-import { ListSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
+import { ListTipoSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { AgenteRegistroComponent } from '../app/modules/agente/pages/registro/agente-registro.component';
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 
 const routes: Routes = [
     // Tablas maestras
-    { path: 'tm/situacion', component: ListSituacionComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'tm/situacion', component: ListTipoSituacionComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },

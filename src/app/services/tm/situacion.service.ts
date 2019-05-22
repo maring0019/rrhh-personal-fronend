@@ -3,22 +3,22 @@ import { Injectable } from '@angular/core';
 
 import { Server } from '@andes/shared';
 
-import { Situacion } from '../../models/Situacion';
+import { TipoSituacion } from '../../models/TipoSituacion';
 
 @Injectable()
-export class SituacionService {
-    private situacionUrl = '/core/tm/situaciones'; // URL to web api
+export class TipoSituacionService {
+    private situacionUrl = '/core/tm/tiposituaciones'; // URL to web api
     constructor(private server: Server) { }
 
-    get(params?: any): Observable<Situacion[]> {
+    get(params?: any): Observable<TipoSituacion[]> {
         return this.server.get(this.situacionUrl, { params: params, showError: true });
     }
 
-    post(situacion: Situacion): Observable<Situacion> {
+    post(situacion: TipoSituacion): Observable<TipoSituacion> {
         return this.server.post(this.situacionUrl, situacion);
     }
 
-    put(situacion: Situacion): Observable<Situacion> {
+    put(situacion: TipoSituacion): Observable<TipoSituacion> {
         return this.server.put(this.situacionUrl + '/' + situacion.id, situacion);
     }
 

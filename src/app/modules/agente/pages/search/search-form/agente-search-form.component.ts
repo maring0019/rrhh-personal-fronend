@@ -2,9 +2,9 @@ import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/cor
 import { Router} from '@angular/router';
 
 import { AgenteService } from 'src/app/services/agente.service';
-import { SituacionService } from 'src/app/services/tm/situacion.service';
-import { Situacion } from 'src/app/models/Situacion';
+import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { Agente } from 'src/app/models/Agente';
+import { TipoSituacion } from 'src/app/models/TipoSituacion';
 
 
 @Component({
@@ -19,8 +19,8 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     public mostrarMasOpciones = false;
 
     // Advanced search form inputs
-    public tiposSituacion: Situacion[];
-    public tipoSituacion: Situacion;
+    public tiposSituacion: TipoSituacion[];
+    public tipoSituacion: TipoSituacion;
     public fechaDesde: Date = new Date()
     public fechaHasta: Date = new Date()
 
@@ -33,7 +33,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private agenteService: AgenteService,
-        private tipoSituacionService: SituacionService) {
+        private tipoSituacionService: TipoSituacionService) {
     }
 
     public ngOnInit() {
