@@ -6,6 +6,7 @@ import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { TipoNormaLegal } from 'src/app/models/TipoNormaLegal';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
+import { Situacion } from 'src/app/models/Situacion';
 
 @Component({
     selector: 'agente-datos-historia-laboral',
@@ -51,5 +52,11 @@ export class AgenteDatosHistoriaLaboralComponent implements OnInit {
             numeroNormaLegal      : [this.situacionLaboral.numeroNormaLegal],
             fechaNormaLegal       : [this.situacionLaboral.fechaNormaLegal],
         });
+    }
+
+    onValueChangeSituacion(obj: Situacion){
+        
+        // console.log('CHANGING SITUACION!!!!')
+        // console.log(obj);
     }
 }

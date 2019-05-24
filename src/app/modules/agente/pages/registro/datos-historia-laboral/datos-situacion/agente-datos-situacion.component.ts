@@ -29,6 +29,9 @@ export class AgenteDatosSituacionComponent implements OnInit {
                 this.tiposSituacion = data;
         });
         this.datosSituacionForm = this.createDatosSituacionForm();
+        this.datosSituacionForm.valueChanges.subscribe(() => {
+            this.outputSituacion.emit(this.datosSituacionForm.value);
+        });
     }
 
     createDatosSituacionForm()

@@ -31,7 +31,7 @@ const routes: Routes = [
     },
     
         // dejar siempre al último porque no encuentra las url después de esta
-    { path: '**', redirectTo: 'inicio' }
+    { path: '**', redirectTo: 'agentes/busqueda' }
 ];
 
 @NgModule({

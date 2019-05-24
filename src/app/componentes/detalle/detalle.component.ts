@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 // Servicios y modelo
 import { AgenteService } from '../../services/agente.service';
-import { Agente } from '../../models/agente';
+import { Agente } from '../../models/Agente';
 
 
 @Component({

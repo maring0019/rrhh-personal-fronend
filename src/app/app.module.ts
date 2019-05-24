@@ -26,6 +26,7 @@ import { AgrupamientoService } from './services/agrupamiento.service';
 import { PuestoService } from './services/puesto.service';
 import { SubPuestoService } from './services/subpuesto.service';
 import { SectorService } from './services/sector.service';
+import { RegimenHorarioService } from './services/regimen-horario.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -42,9 +43,10 @@ import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/dat
 import { AgenteDatosDireccionComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './modules/agente/pages/registro/datos-educacion/agente-datos-educacion.component';
+import { AgenteDatosHistoriaLaboralComponent } from './modules/agente/pages/registro/datos-historia-laboral/agente-datos-historia-laboral.component';
 import { AgenteDatosCargoComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosSituacionComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
-import { AgenteDatosHistoriaLaboralComponent } from './modules/agente/pages/registro/datos-historia-laboral/agente-datos-historia-laboral.component';
+import { AgenteDatosRegimenComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
 
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
@@ -78,14 +80,16 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         HomePage,
         ListTipoSituacionComponent,
         CreateUpdateTipoSituacionComponent,
+
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
         AgenteDatosDireccionComponent,
         AgenteDatosContactoComponent,
         AgenteDatosEducacionComponent,
+        AgenteDatosHistoriaLaboralComponent,
         AgenteDatosCargoComponent,
         AgenteDatosSituacionComponent,
-        AgenteDatosHistoriaLaboralComponent,
+        AgenteDatosRegimenComponent,
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,
@@ -140,7 +144,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AgrupamientoService,
         PuestoService,
         SubPuestoService,
-        SectorService
+        SectorService,
+        RegimenHorarioService
     ],
     bootstrap: [AppComponent]
 })

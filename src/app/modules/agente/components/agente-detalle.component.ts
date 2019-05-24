@@ -27,6 +27,7 @@ export class AgenteDetalleComponent {
 
 
     gotoAgente() {
+        console.log(this.agente);
         if (this.agente.id){
             this.router.navigate(['/agentes/registro' , { id: this.agente.id }]);
         }

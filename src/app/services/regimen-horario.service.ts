@@ -2,22 +2,22 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
 import { Server } from '@andes/shared';
-import { SubPuesto } from '../models/Subpuesto';
+import { RegimenHorario } from '../models/RegimenHorario';
 
 @Injectable()
-export class SubPuestoService {
-    private url = '/core/organigrama/subpuestos'; // URL to web api
+export class RegimenHorarioService {
+    private url = '/core/tm/regimenhorarios'; // URL to web api
     constructor(private server: Server) { }
 
-    get(params?: any): Observable<SubPuesto[]> {
+    get(params?: any): Observable<RegimenHorario[]> {
         return this.server.get(this.url, { params: params, showError: true });
     }
 
-    post(object: SubPuesto): Observable<SubPuesto> {
+    post(object: RegimenHorario): Observable<RegimenHorario> {
         return this.server.post(this.url, object);
     }
 
-    put(object: SubPuesto): Observable<SubPuesto> {
+    put(object: RegimenHorario): Observable<RegimenHorario> {
         return this.server.put(this.url + '/' + object.id, object);
     }
 

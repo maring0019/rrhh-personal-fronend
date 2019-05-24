@@ -21,9 +21,14 @@ export class TitlePipe implements PipeTransform {
 
 
 export function titleCase(str) {
-    return str.toLowerCase().split(' ').map(function (word) {
+    console.log('TITLEANDO');
+    console.log(str)
+    const title =str.toLowerCase().split(' ').map(function (word) {
         return (word.charAt(0).toUpperCase() + word.slice(1));
     }).join(' ');
+    console.log('TITULO');
+    console.log(title);
+    return title;
 }
 function isEmpty(obj){
     return obj === null || undefined

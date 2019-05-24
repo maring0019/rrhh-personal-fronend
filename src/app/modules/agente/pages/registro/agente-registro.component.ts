@@ -58,6 +58,7 @@ export class AgenteRegistroComponent implements OnInit {
                 this.agenteService.getByID(this._agenteID).subscribe((data) => {
                     //TODO Sino se encuentra el agente analizar que hacer
                     this.agente = new Agente(data);
+                    console.log(this.agente)
                     this.initValueForms(this.agente);
                 });
             }
@@ -72,19 +73,18 @@ export class AgenteRegistroComponent implements OnInit {
         this.direccion = agente.direccion;
         this.contactos = agente.contactos;
         this.educacion = agente.educacion;
-        // this.cargo = agente.situacionLaboralActiva;
         this.situacionLaboral = agente.situacionLaboralActiva;
     }
 
     onValueChangeAgente(obj: Agente){
         obj.id = this._agenteID;
+        console.log(obj)
         this.agente = obj;
     }
 
     onValueChangeDireccion(obj: Direccion){
         this.direccion = obj;
         this.direccion.ubicacion = (new Ubicacion(obj));
-
     }
 
     onValueChangeContactos(obj: Contacto[]){
@@ -94,10 +94,6 @@ export class AgenteRegistroComponent implements OnInit {
     onValueChangeEducacion(obj: Educacion[]){
         this.educacion = obj;
     }
-
-    // onValueChangeCargo(obj: Cargo){
-    //     this.cargo = obj;
-    // }
 
     onValueChangeSituacionLaboral(obj: SituacionLaboral){
         this.situacionLaboral = obj;

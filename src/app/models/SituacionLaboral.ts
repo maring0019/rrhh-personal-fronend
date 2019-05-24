@@ -1,6 +1,8 @@
 import { TipoNormaLegal } from './TipoNormaLegal';
 import { Situacion } from './Situacion';
 import { Cargo } from './Cargo';
+import { Regimen } from './Regimen';
+
 
 export class SituacionLaboral {
     // Estos datos pertenecian al modelo Situacion. Ahora son 'globales'
@@ -14,7 +16,7 @@ export class SituacionLaboral {
     fechaNormaLegal: Date;
     situacion: Situacion;
     cargo: Cargo;
-    // regimen: Regimen;
+    regimen: Regimen;
     inactivo:Boolean;
 
     constructor(sl?){
@@ -31,6 +33,7 @@ export class SituacionLaboral {
         this.fechaNormaLegal = sl.fechaNormaLegal;
         
         this.cargo = new Cargo(sl.cargo);
+        this.regimen = new Regimen(sl.regimen);
         this.inactivo = sl.inactivo;
     }
 }

@@ -1,0 +1,64 @@
+<form name="datosRegimenForm" [formGroup]="datosRegimenForm">
+    <div class="row">
+        <div class="col-md-4">
+            <plex-select 
+                [data]="regimenHorarios"
+                name="regimenHorario"
+                formControlName="regimenHorario"
+                label="Régimen Horario"
+                placeholder="Seleccione..."
+                [required]="true">
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-text
+                name="prolongacionJornada"
+                formControlName="prolongacionJornada"
+                label="Prolongación Jornada"
+                placeholder="Ingrese valor...">
+            </plex-text>
+        </div>
+        <div class="col-md-4">
+            <plex-text
+                name="actividadCritica"
+                formControlName="actividadCritica"
+                label="Actividad Crítica"
+                placeholder="Ingrese valor...">
+            </plex-text>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <plex-bool
+                type="slide"
+                name="dedicacionExclusiva"
+                formControlName="dedicacionExclusiva"
+                label="Dedicación Exclusiva">
+            </plex-bool>
+        </div>
+        <div class="col-md-3">
+            <plex-bool
+                type="slide"
+                name="tiempoPleno"
+                formControlName="tiempoPleno"
+                label="Trasladado">
+            </plex-bool>
+        </div>
+        <div class="col-md-3">
+            <plex-bool
+                type="slide"
+                name="guardiasPasivas"
+                formControlName="guardiasPasivas"
+                label="Guardias Pasivas">
+            </plex-bool>
+        </div>
+        <div class="col-md-3">
+            <plex-bool
+                type="slide"
+                name="guardiasActivas"
+                formControlName="guardiasActivas"
+                label="Guardias Activas">
+            </plex-bool>
+        </div>
+    </div>
+</form>

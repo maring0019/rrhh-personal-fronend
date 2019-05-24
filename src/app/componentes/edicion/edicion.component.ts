@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 // Modelo
-import { Agente } from '../../models/agente';
+import { Agente } from '../../models/Agente';
 
 @Component({
   selector: 'app-edicion',

@@ -1,4 +1,3 @@
-<br>
 <form name="datosHistoriaLaboralForm" [formGroup]="datosHistoriaLaboralForm">
     <h5 class="subheader">Datos Generales</h5>
     <div class="row">
@@ -62,9 +61,17 @@
         (outputSituacion)='onValueChangeSituacion($event)'>
     </agente-datos-situacion>
 </div>
-<div *ngIf="situacionLaboral?.cargo">
+<!-- <div *ngIf="situacionLaboral?.cargo">
     <agente-datos-cargo
+        <h5 class="subheader">Cargo</h5>
         [cargo]="situacionLaboral.cargo"
         (outputCargo)='onValueChangeCargo($event)'>
     </agente-datos-cargo>
 </div>
+<div *ngIf="situacionLaboral?.regimen">
+    <h5 class="subheader">Régimen</h5>
+    <agente-datos-regimen
+        [regimen]="situacionLaboral.regimen"
+        (outputCargo)='onValueChangeRegimen($event)'>
+    </agente-datos-regimen>
+</div> -->
