@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
             this.loading = true;
             this.auth.login(this.usuario.toString(), this.password).subscribe(() => {
                 this.plex.updateUserInfo({ usuario: this.auth.usuario });
-                this.router.navigate(['inicio']);
+                this.router.navigate(['agentes/busqueda']);
             }, (err) => {
                 this.plex.info('danger', 'Usuario o contraseña incorrectos');
                 this.loading = false;

@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { RoutingGuard, RoutingNavBar} from './app-guard';
-import { HomePage } from './pages/home/home.page';
-import { DetalleComponent } from './componentes/detalle/detalle.component';
-import { ListadoComponent } from './componentes/listado/listado.component'; 
+// import { HomePage } from './pages/home/home.page';
+// import { DetalleComponent } from './componentes/detalle/detalle.component';
+// import { ListadoComponent } from './componentes/listado/listado.component'; 
 
 // Components
 import { ListTipoSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
@@ -22,13 +22,13 @@ const routes: Routes = [
 
 
     // Ruteos hijos
-    { path: 'inicio', component: HomePage,
-        canActivate: [RoutingNavBar , RoutingGuard],
-        children: [
-            { path: '', component: ListadoComponent },
-            { path: 'detalle/:id', component: DetalleComponent },
-        ] 
-    },
+    // { path: 'inicio', component: HomePage,
+    //     canActivate: [RoutingNavBar , RoutingGuard],
+    //     children: [
+    //         { path: '', component: ListadoComponent },
+    //         { path: 'detalle/:id', component: DetalleComponent },
+    //     ] 
+    // },
     
         // dejar siempre al último porque no encuentra las url después de esta
     { path: '**', redirectTo: 'agentes/busqueda' }
