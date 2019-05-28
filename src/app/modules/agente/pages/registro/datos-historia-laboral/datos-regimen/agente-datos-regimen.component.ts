@@ -32,6 +32,9 @@ export class AgenteDatosRegimenComponent implements OnInit {
         });
 
         this.datosRegimenForm = this.createDatosRegimenForm();
+        this.datosRegimenForm.valueChanges.subscribe(() => {
+            this.outputRegimen.emit(this.datosRegimenForm.value);
+        });
     }
 
     createDatosRegimenForm(){

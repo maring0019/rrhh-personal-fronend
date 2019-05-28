@@ -50,26 +50,26 @@
                 </div>
             </plex-tab>
             <plex-tab label="SITUACIÓN">
-                <div *ngIf="situacionLaboral">
-                    <agente-datos-historia-laboral
-                        [situacionLaboral]="situacionLaboral"
-                        (outputSituacionLaboral)='onValueChangeSituacionLaboral($event)'>
-                    </agente-datos-historia-laboral>
+                <div *ngIf="situacion">
+                    <agente-datos-situacion
+                        [situacion]="situacion"
+                        (outputSituacion)='onValueChangeSituacion($event)'>
+                    </agente-datos-situacion>
                 </div>
             </plex-tab>
             <plex-tab label="CARGO">
-                <div *ngIf="situacionLaboral?.cargo">
+                <div *ngIf="cargo">
                     <agente-datos-cargo
-                        [cargo]="situacionLaboral.cargo"
+                        [cargo]="cargo"
                         (outputCargo)='onValueChangeCargo($event)'>
                     </agente-datos-cargo>
                 </div>
             </plex-tab>
             <plex-tab label="REGÍMENES">
-                <div *ngIf="situacionLaboral?.regimen">
+                <div *ngIf="regimen">
                     <agente-datos-regimen
-                        [regimen]="situacionLaboral.regimen"
-                        (outputCargo)='onValueChangeRegimen($event)'>
+                        [regimen]="regimen"
+                        (outputRegimen)='onValueChangeRegimen($event)'>
                     </agente-datos-regimen>
                 </div>
             </plex-tab>

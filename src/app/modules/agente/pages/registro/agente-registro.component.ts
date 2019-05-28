@@ -10,6 +10,7 @@ import { AgenteDatosContactoComponent } from './datos-contacto/agente-datos-cont
 import { AgenteDatosEducacionComponent } from './datos-educacion/agente-datos-educacion.component';
 import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosSituacionComponent } from './datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
+import { AgenteDatosRegimenComponent } from './datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
 
 import { Contacto } from 'src/app/models/Contacto';
 import { Agente } from 'src/app/models/Agente';
@@ -18,6 +19,8 @@ import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
+import { Situacion } from 'src/app/models/Situacion';
+import { Regimen } from 'src/app/models/Regimen';
 
 
 
@@ -32,15 +35,18 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosDireccionComponent) datosDireccion: AgenteDatosDireccionComponent;
     @ViewChild(AgenteDatosContactoComponent) datosContacto: AgenteDatosContactoComponent;
     @ViewChild(AgenteDatosEducacionComponent) datosEducacion: AgenteDatosEducacionComponent;
-    // @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
+    @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
+    @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
     
     @HostBinding('class.plex-layout') layout = true;
     agente: Agente;
     direccion: Direccion;
     contactos: Contacto[];
     educacion: Educacion[];
-    // cargo: Cargo;
+    situacion: Situacion;
+    cargo: Cargo;
+    regimen: Regimen;
     situacionLaboral: SituacionLaboral;
 
     _agenteID:any; // To keep track of agente on edit
@@ -73,6 +79,9 @@ export class AgenteRegistroComponent implements OnInit {
         this.direccion = agente.direccion;
         this.contactos = agente.contactos;
         this.educacion = agente.educacion;
+        this.situacion = agente.situacionLaboralActiva.situacion;
+        this.cargo = agente.situacionLaboralActiva.cargo;
+        this.regimen = agente.situacionLaboralActiva.regimen;
         this.situacionLaboral = agente.situacionLaboralActiva;
     }
 
@@ -95,8 +104,16 @@ export class AgenteRegistroComponent implements OnInit {
         this.educacion = educacion;
     }
 
-    onValueChangeSituacionLaboral(obj: SituacionLaboral){
-        this.situacionLaboral = obj;
+    onValueChangeSituacion(obj: Situacion){
+        this.situacion = obj;
+    }
+
+    onValueChangeCargo(obj: Cargo){
+        this.cargo = obj;
+    }
+
+    onValueChangeRegimen(obj: Regimen){
+        this.regimen = obj;
     }
 
     /**
@@ -113,7 +130,10 @@ export class AgenteRegistroComponent implements OnInit {
     allFormsValid(){
         const forms:any = [
             this.datosBasicos.datosBasicosForm,
-            this.datosDireccion.direccionForm
+            this.datosDireccion.direccionForm,
+            this.datosSituacion.datosSituacionForm,
+            this.datosCargo.datosCargoForm,
+            this.datosRegimen.datosRegimenForm
             ]
         this.datosContacto.contactoForms.controls.forEach(cf => {
             forms.push(cf)
@@ -121,6 +141,7 @@ export class AgenteRegistroComponent implements OnInit {
         this.datosEducacion.educacionForms.controls.forEach(ef => {
             forms.push(ef)
         })
+        
         let existInvalidForms = false;
         forms.forEach(f => {
             if (f.invalid){
@@ -158,8 +179,15 @@ export class AgenteRegistroComponent implements OnInit {
             });
             agente.educacion = estudios;
 
-            // Situacion Laboral (situacion, cargo, regimenes)
-            const situacionLaboral = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value)
+            // Situacion Laboral (Situacion, Cargo, Regimen)
+            const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
+            const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
+            const situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
+            // const situacionLaboral = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value)
+            const situacionLaboral = new SituacionLaboral();
+            situacionLaboral.cargo = cargo;
+            situacionLaboral.regimen = regimen;
+            situacionLaboral.situacion = situacion;
             agente.historiaLaboral.push(situacionLaboral);
 
             if (this._agenteID){

@@ -76,6 +76,10 @@ export class AgenteDatosCargoComponent implements OnInit {
         });
 
         this.datosCargoForm = this.createDatosCargoForm();
+        this.datosCargoForm.valueChanges.subscribe(() => {
+            this.outputCargo.emit(this.datosCargoForm.value);
+        });
+
     }
 
     createDatosCargoForm()

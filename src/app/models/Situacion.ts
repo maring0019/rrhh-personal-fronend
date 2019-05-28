@@ -15,7 +15,7 @@ export class Situacion {
     constructor(situacion?)
     {
         situacion = situacion || {};
-        this.tipoSituacion = new TipoSituacion(situacion.tipoSituacion);
+        this.tipoSituacion = situacion.tipoSituacion || null;
         this.situacionLugarPago= situacion.situacionLugarPago || '';
         this.situacionFechaIngresoEstado = situacion.situacionFechaIngresoEstado;
         this.situacionFechaIngresoHospital = situacion.situacionFechaIngresoHospital;

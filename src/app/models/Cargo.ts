@@ -25,12 +25,12 @@ export class Cargo {
         this.tipoNormaLegal = cargo.tipoNormaLegal || null;
         this.numeroNormaLegal = cargo.numeroNormaLegal || '';
         this.fechaNormaLegal = cargo.fechaNormaLegal;
-        this.agrupamiento = new Agrupamiento(cargo.agrupamiento);
-        this.puesto = new Puesto(cargo.puesto);
-        this.subpuesto = new SubPuesto(cargo.subpuesto);
-        this.sector = new Sector(cargo.sector);
+        this.agrupamiento = cargo.agrupamiento || null;
+        this.puesto = cargo.puesto || null;
+        this.subpuesto = cargo.subpuesto || null;
+        this.sector = cargo.sector || null;
         this.observaciones = cargo.observaciones || '';
-        this.servicio = new Servicio(cargo.servicio);
+        this.servicio = cargo.servicio || null;
         this.inactivo = cargo.inactivo;
     }
 }

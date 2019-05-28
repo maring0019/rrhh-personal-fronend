@@ -13,7 +13,7 @@ export class Regimen {
     constructor(regimen?)
     {
         regimen = regimen || {};
-        this.regimenHorario = new RegimenHorario(regimen.regimenHorario);
+        this.regimenHorario = regimen.regimenHorario || null;
         this.prolongacionJornada = regimen.prolongacionJornada || '';
         this.actividadCritica = regimen.actividadCritica || '';
         this.tiempoPleno = regimen.tiempoPleno;
