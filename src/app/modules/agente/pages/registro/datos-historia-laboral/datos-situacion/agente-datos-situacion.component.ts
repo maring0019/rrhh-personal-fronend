@@ -8,7 +8,6 @@ import { Situacion } from 'src/app/models/Situacion';
 @Component({
     selector: 'agente-datos-situacion',
     templateUrl: './agente-datos-situacion.html',
-    // styleUrls: ['./agente-datos-situacion.scss']
 })
 export class AgenteDatosSituacionComponent implements OnInit {
     @Input() situacion: Situacion;

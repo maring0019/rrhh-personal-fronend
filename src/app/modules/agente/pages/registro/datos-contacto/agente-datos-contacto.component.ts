@@ -21,7 +21,14 @@ export class AgenteDatosContactoComponent implements OnInit {
     ngOnInit() {
         this.datosContactoForm = this.createDatosContactoForm();
         this.contactoForms.valueChanges.subscribe(() => {
-            this.outputContactos.emit(this.contactoForms.value);
+            let output:Contacto[] = [];
+            const contactoValues = this.contactoForms.value;
+            contactoValues.forEach(element => {
+                if (element.tipo != null && element.valor){
+                    output.push(element)
+                }
+            });
+            this.outputContactos.emit(output);
         });
     }
 

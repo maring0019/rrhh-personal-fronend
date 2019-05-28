@@ -57,7 +57,7 @@
                     </div>
                     <div class="d-inline-block mr-4">
                         <strong>Sexo/género</strong>
-                        <p>{{ agente.sexo }}</p>
+                        <p>{{ agente.sexo | title:'nombre' }}</p>
                     </div>
                     <div class="d-inline-block mr-4">
                         <strong>Fecha de Nacimiento</strong>
@@ -112,7 +112,7 @@
                     <ng-container *ngFor="let contacto of contactos">
                         <article class="d-inline-block mr-4">
                                 <strong>Tipo de Contacto</strong>
-                                <p>{{ contacto.tipo | title }}</p>
+                                <p>{{ contacto.tipo | title: 'nombre'}}</p>
                             </article>
                             <article class="d-inline-block mr-4">
                                 <strong>Contacto</strong>

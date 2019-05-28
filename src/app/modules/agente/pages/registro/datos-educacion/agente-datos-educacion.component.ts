@@ -29,7 +29,6 @@ export class AgenteDatosEducacionComponent implements OnInit {
             let output:Educacion[] = [];
             const educacionValues = this.educacionForms.value;
             educacionValues.forEach(element => {
-                console.log(element)
                 if (element.educacion && element.educacion.tipoEducacion != null){
                     output.push(element.educacion)
                 }

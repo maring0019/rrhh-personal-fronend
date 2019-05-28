@@ -87,18 +87,22 @@ export class AgenteRegistroComponent implements OnInit {
         this.direccion.ubicacion = (new Ubicacion(obj));
     }
 
-    onValueChangeContactos(obj: Contacto[]){
-        this.contactos = obj;
+    onValueChangeContactos(contactos: Contacto[]){
+        this.contactos = contactos;
     }
     
-    onValueChangeEducacion(obj: Educacion[]){
-        this.educacion = obj;
+    onValueChangeEducacion(educacion: Educacion[]){
+        this.educacion = educacion;
     }
 
     onValueChangeSituacionLaboral(obj: SituacionLaboral){
         this.situacionLaboral = obj;
     }
 
+    /**
+     * 
+     * @param form 
+     */
     markFormAsInvalid(form){
         Object.keys(form.controls).forEach(field => {
             const control = form.get(field);
