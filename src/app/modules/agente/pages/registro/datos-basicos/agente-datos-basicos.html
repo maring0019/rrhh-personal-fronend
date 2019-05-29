@@ -22,13 +22,14 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <plex-select 
+            <plex-select
                 [data]="sexos"
                 name="sexo"
                 formControlName="sexo"
                 label="Sexo"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                (change)='updateCUIL($event)'>
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -48,7 +49,8 @@
                 formControlName="documento"
                 label="Documento"
                 placeholder="Ingrese número de Documento..."
-                [required]="true">
+                [required]="true"
+                (focusout)='updateCUIL($event)'>
             </plex-int>
         </div>
         <div class="col-md-4">

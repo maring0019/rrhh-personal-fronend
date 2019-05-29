@@ -23,13 +23,13 @@ export class SituacionLaboral {
         sl = sl || {};
         this.situacion = new Situacion(sl.situacion);
         // Temporalmente cargamos esta info asi. Debe estar precargada
-        this.fechaIngresoEstado = this.situacion.situacionFechaIngresoEstado;
-        this.fechaIngresoHospital = this.situacion.situacionFechaIngresoHospital;
-        this.antiguedadVacaciones = this.situacion.antiguedadVacaciones;
-        this.antiguedadPago = this.situacion.antiguedadPago;
+        this.fechaIngresoEstado = this.situacion? this.situacion.situacionFechaIngresoEstado : null;
+        this.fechaIngresoHospital = this.situacion? this.situacion.situacionFechaIngresoHospital : null;
+        this.antiguedadVacaciones = this.situacion? this.situacion.antiguedadVacaciones : null;
+        this.antiguedadPago = this.situacion? this.situacion.antiguedadPago : null;
 
-        this.tipoNormaLegal = new TipoNormaLegal(sl.tipoNormaLegal);
-        this.numeroNormaLegal = sl.numeroNormaLegal;
+        this.tipoNormaLegal = sl.tipoNormaLegal || null;
+        this.numeroNormaLegal = sl.numeroNormaLegal || '';
         this.fechaNormaLegal = sl.fechaNormaLegal;
         
         this.cargo = new Cargo(sl.cargo);

@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
 
@@ -21,7 +22,6 @@ import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Situacion } from 'src/app/models/Situacion';
 import { Regimen } from 'src/app/models/Regimen';
-
 
 
 @Component({
@@ -55,6 +55,7 @@ export class AgenteRegistroComponent implements OnInit {
         private agenteService:AgenteService,
         private route: ActivatedRoute,
         private router: Router,
+        public plex: Plex
         ){}
 
     ngOnInit() {
@@ -129,18 +130,18 @@ export class AgenteRegistroComponent implements OnInit {
 
     allFormsValid(){
         const forms:any = [
-            this.datosBasicos.datosBasicosForm,
-            this.datosDireccion.direccionForm,
+            // this.datosBasicos.datosBasicosForm,
+            // this.datosDireccion.direccionForm,
             this.datosSituacion.datosSituacionForm,
             this.datosCargo.datosCargoForm,
             this.datosRegimen.datosRegimenForm
             ]
-        this.datosContacto.contactoForms.controls.forEach(cf => {
-            forms.push(cf)
-        })
-        this.datosEducacion.educacionForms.controls.forEach(ef => {
-            forms.push(ef)
-        })
+        // this.datosContacto.contactoForms.controls.forEach(cf => {
+        //     forms.push(cf)
+        // })
+        // this.datosEducacion.educacionForms.controls.forEach(ef => {
+        //     forms.push(ef)
+        // })
         
         let existInvalidForms = false;
         forms.forEach(f => {
@@ -189,21 +190,31 @@ export class AgenteRegistroComponent implements OnInit {
             situacionLaboral.regimen = regimen;
             situacionLaboral.situacion = situacion;
             agente.historiaLaboral.push(situacionLaboral);
+            console.log('HISTORIA LABORAL');
+            console.log(agente.historiaLaboral[0]);
 
             if (this._agenteID){
                 agente.id = this._agenteID;
                 this.agenteService.put(agente)
                     .subscribe(data=> {
-                        this.volverInicio();
+                        this.plex.info('success', 'El agente se modificó correctamente')
+                        .then( e => {
+                            this.volverInicio();
+                    });
                 })
             }
             else{
                 this.agenteService.post(agente)
-                .subscribe(data=> {
-                    this.volverInicio();
+                    .subscribe(data=> {
+                        this.plex.info('success', 'El agente se ingresó correctamente')
+                            .then( e => {
+                                this.volverInicio();
+                        });
                 })
             }
-            
+        }
+        else{
+            this.plex.info('info', 'Debe completar todos los datos obligatorios');
         }
     }
 

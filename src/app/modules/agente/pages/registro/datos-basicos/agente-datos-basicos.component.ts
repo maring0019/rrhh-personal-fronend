@@ -6,6 +6,7 @@ import { PaisService } from 'src/app/services/pais.service';
 import { IPais } from 'src/app/models/IPais';
 import { Agente } from 'src/app/models/Agente';
 import * as enumerados from 'src/app/models/enumerados';
+import { getCuilCuit } from 'src/app/utils/cuilGenerator';
 
 @Component({
     selector: 'agente-datos-basicos',
@@ -54,6 +55,26 @@ export class AgenteDatosBasicosComponent implements OnInit {
             estadoCivil     : [this.agente.estadoCivil],
             nacionalidad    : [this.agente.nacionalidad]
         });
+    }
+
+    /**
+     * Ante un cambio de valor en el sexo o documento del formulario
+     * intentamos actualizar el CUIL del agente
+     */
+    updateCUIL(){
+        let cuil = '';
+        let sexo:any = this.datosBasicosForm.value.sexo;
+        let documento = this.datosBasicosForm.value.documento;
+        if (documento && sexo){
+            if (typeof sexo != 'string'){
+                sexo = sexo.id;
+            }
+            try{
+                cuil = getCuilCuit(''+documento, sexo);
+            }
+            catch{}
+        }
+        this.datosBasicosForm.patchValue({cuil:cuil});
     }
 
 }
