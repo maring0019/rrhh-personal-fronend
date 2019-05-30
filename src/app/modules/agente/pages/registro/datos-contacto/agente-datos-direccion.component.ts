@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Direccion } from 'src/app/models/Direccion';
-import { IProvincia } from 'src/app/models/IProvincia';
-import { ILocalidad } from 'src/app/models/ILocalidad';
-
 import { LocalidadService } from 'src/app/services/localidad.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
-import { Ubicacion } from 'src/app/models/Ubicacion';
+
+import { Direccion } from 'src/app/models/Direccion';
+import { Localidad } from 'src/app/models/Localidad';
+import { Provincia } from 'src/app/models/Provincia';
 
 @Component({
     selector: 'agente-datos-direccion',
@@ -19,8 +18,8 @@ export class AgenteDatosDireccionComponent implements OnInit {
     @Input() direccion: Direccion;
     @Output() outputDireccion: EventEmitter<Direccion> = new EventEmitter<Direccion>();
     direccionForm: FormGroup;
-    provincias: IProvincia[] = [];
-    localidades: ILocalidad[] = [];
+    provincias: Provincia[] = [];
+    localidades: Localidad[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,11 +32,6 @@ export class AgenteDatosDireccionComponent implements OnInit {
             .subscribe(data => {
                 this.provincias = data;
         });
-        // Init localidades
-        this.localidadService.get({})
-            .subscribe(data => {
-                this.localidades = data;
-        });
 
         this.direccionForm = this.createDireccionForm();
         this.direccionForm.valueChanges.subscribe(() => {
@@ -46,16 +40,39 @@ export class AgenteDatosDireccionComponent implements OnInit {
     }
 
     createDireccionForm(){
-
-        const ubicacion = new Ubicacion(this.direccion.ubicacion);
-        
+        const provincia = this.direccion.localidad? this.direccion.localidad.provincia:null;
+        // Init localidades options
+        this.filterLocalidadesOptions(provincia);
         return this.formBuilder.group({
             valor           : [this.direccion.valor],
-            provincia       : [ubicacion.provincia],
-            localidad       : [ubicacion.localidad],
-            barrio          : [ubicacion.barrio],
+            provincia       : [provincia],
+            localidad       : [this.direccion.localidad],
+            barrio          : [this.direccion.barrio],
             codigoPostal    : [this.direccion.codigoPostal],
+            calleIzquierda  : [this.direccion.calleIzquierda],
+            calleDerecha    : [this.direccion.calleDerecha],
+            calleParalela   : [this.direccion.calleParalela],
+            complementarios : [this.direccion.complementarios]
         });
+    }
+
+    onChangeProvincia(event){
+        if (event){
+            this.filterLocalidadesOptions(event.value);
+        }
+        this.direccionForm.patchValue({localidad:null})
+    }
+
+    filterLocalidadesOptions(provincia){
+        if (!provincia){
+            this.localidades = [];
+        }
+        else{
+            this.localidadService.get({provincia:provincia.id})
+                .subscribe(data => {
+                    this.localidades = data;
+            });
+        }
     }
 
 }

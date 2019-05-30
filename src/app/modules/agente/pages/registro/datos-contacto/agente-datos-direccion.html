@@ -19,7 +19,8 @@
                         formControlName="provincia"
                         label="Provincia"
                         placeholder="Seleccione..."
-                        [required]="false">
+                        [required]="false"
+                        (change)='onChangeProvincia($event)'>
                     </plex-select>
                 </div>
                 <div class="col-md-6">

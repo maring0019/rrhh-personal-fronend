@@ -157,10 +157,7 @@ export class AgenteRegistroComponent implements OnInit {
         
         if (this.allFormsValid()){
             const agente = new Agente(this.datosBasicos.datosBasicosForm.value);
-            const ubicacion = new Ubicacion(this.datosDireccion.direccionForm.value);
             const direccion = new Direccion(this.datosDireccion.direccionForm.value);
-            direccion.ubicacion = ubicacion;
-            agente.direccion = direccion;
 
             // Contactos
             const contactos:Contacto[] = []
@@ -168,7 +165,6 @@ export class AgenteRegistroComponent implements OnInit {
                 const contacto = new Contacto(form.value);
                 contactos.push(contacto);
             });
-            agente.contactos = contactos;
 
             // Educacion
             const estudios:Educacion[] = []
@@ -178,8 +174,7 @@ export class AgenteRegistroComponent implements OnInit {
                     estudios.push(educacion);
                 }
             });
-            agente.educacion = estudios;
-
+            
             // Situacion Laboral (Situacion, Cargo, Regimen)
             const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
             const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
@@ -189,6 +184,10 @@ export class AgenteRegistroComponent implements OnInit {
             situacionLaboral.cargo = cargo;
             situacionLaboral.regimen = regimen;
             situacionLaboral.situacion = situacion;
+
+            agente.direccion = direccion;
+            agente.contactos = contactos;
+            agente.educacion = estudios;
             agente.historiaLaboral.push(situacionLaboral);
             console.log('HISTORIA LABORAL');
             console.log(agente.historiaLaboral[0]);

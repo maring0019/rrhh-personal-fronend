@@ -1,15 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 /**
- * Implementa un pipe de fecha u hora utilizando moment.js
+ * Dada una cadena recibida por parametro intenta retornar la misma cadena 
+ * con todas sus letras iniciales en mayusculas.
+ * Si la cadena ingresada es vacia o nula retorna la cadena estatica '---'
+ * Alternativamente a una cadena se puede recibir un objeto mas complejo 
+ * acompañado de un argumento indicando el atributo del objeto que contiene
+ * la cadena a transformar. La funcion en este caso se llama recursivamente
+ * para resolver que valor retornar.
  *
  * @export
- * @class FechaPipe
+ * @class TitlePipe
  * @implements {PipeTransform}
  */
 @Pipe({ name: 'title' })
 export class TitlePipe implements PipeTransform {
-    transform(value: any, arg1: string): any {
+    transform(value: any, arg1?: string): any {
         if(!value){
             return '---';
         }
@@ -19,7 +25,7 @@ export class TitlePipe implements PipeTransform {
             }
             else{
                 if (arg1 && arg1 in value){
-                    return titleCase(value[arg1]);
+                    return this.transform(value[arg1]);
                 }
                 else{
                     return titleCase(''+value);

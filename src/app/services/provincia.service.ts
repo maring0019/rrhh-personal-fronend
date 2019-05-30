@@ -1,4 +1,4 @@
-import { IProvincia } from './../models/IProvincia';
+import { Provincia } from './../models/Provincia';
 import { Injectable } from '@angular/core';
 import { Server } from '@andes/shared';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +10,7 @@ export class ProvinciaService {
 
     constructor(private server: Server) { }
 
-    get(params: any): Observable<IProvincia[]> {
+    get(params: any): Observable<Provincia[]> {
         return this.server.get(this.provinciaUrl, { params: params, showError: true });
     }
 }

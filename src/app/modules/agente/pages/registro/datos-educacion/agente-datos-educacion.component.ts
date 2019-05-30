@@ -26,6 +26,9 @@ export class AgenteDatosEducacionComponent implements OnInit {
     ngOnInit() {
         this.datosEducacionForm = this.createDatosEducacionForm();
         this.educacionForms.valueChanges.subscribe(() => {
+            // Solo emitimos cambios de aquellos formularios que 
+            // tengan todos sus datos. Este comportamiento si es
+            // necesario se puede modificar en el futuro
             let output:Educacion[] = [];
             const educacionValues = this.educacionForms.value;
             educacionValues.forEach(element => {
@@ -55,7 +58,7 @@ export class AgenteDatosEducacionComponent implements OnInit {
 
     changeTitulosOptions(option, index){
         let tipoEducacion = option.value? option.value.id : null;
-        this.resetEducacion(index, tipoEducacion)
+        this.resetEducacion(index, tipoEducacion);
         this.educacionService.get({tipoEducacion:tipoEducacion})
             .subscribe(data => {
                 this.titulos[index]=data;

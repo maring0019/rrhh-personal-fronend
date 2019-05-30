@@ -82,19 +82,19 @@
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Provincia</strong>
-                            <p *ngIf="direccion.ubicacion && direccion.ubicacion.provincia;else no_content">
-                                {{ direccion.ubicacion.provincia.nombre | title}}
+                            <p *ngIf="direccion.localidad;else no_content">
+                                {{ direccion.localidad.provincia| title:'nombre'}}
                             </p>
                             <ng-template #no_content><p>---</p></ng-template>
                             
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Localidad</strong>
-                            <p>{{ direccion.ubicacion? (direccion.ubicacion.localidad | title) : '---' }}</p>
+                            <p>{{ direccion.localidad | title:'nombre' }}</p>
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Barrio</strong>
-                            <p>{{ direccion.ubicacion? (direccion.ubicacion.barrio | title) : '---' }}</p>
+                            <p>{{ direccion.barrio | title }}</p>
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Cod. Postal</strong>
