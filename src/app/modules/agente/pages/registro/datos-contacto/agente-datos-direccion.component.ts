@@ -44,15 +44,16 @@ export class AgenteDatosDireccionComponent implements OnInit {
         // Init localidades options
         this.filterLocalidadesOptions(provincia);
         return this.formBuilder.group({
-            valor           : [this.direccion.valor],
-            provincia       : [provincia],
-            localidad       : [this.direccion.localidad],
-            barrio          : [this.direccion.barrio],
-            codigoPostal    : [this.direccion.codigoPostal],
-            calleIzquierda  : [this.direccion.calleIzquierda],
-            calleDerecha    : [this.direccion.calleDerecha],
-            calleParalela   : [this.direccion.calleParalela],
-            complementarios : [this.direccion.complementarios]
+            valor                : [this.direccion.valor],
+            provincia            : [provincia],
+            localidad            : [this.direccion.localidad],
+            barrio               : [this.direccion.barrio],
+            codigoPostal         : [this.direccion.codigoPostal],
+            datosComplementarios : [false],
+            calleIzquierda       : [this.direccion.calleIzquierda],
+            calleDerecha         : [this.direccion.calleDerecha],
+            calleParalela        : [this.direccion.calleParalela],
+            complementarios      : [this.direccion.complementarios]
         });
     }
 

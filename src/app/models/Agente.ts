@@ -27,7 +27,6 @@ export class Agente {
     educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
     historiaLaboral: SituacionLaboral[];
-    _situacionLaboralActiva: SituacionLaboral; // Para uso interno. Almacena la situacion activa
     foto: String;
     codigoFichado: String;
     activo: Boolean
@@ -65,29 +64,16 @@ export class Agente {
                 this.historiaLaboral.push(new SituacionLaboral(e))
             });
         }
-        // this.situacionLaboralActiva = this.getSituacionLaboralActiva();
     }
 
     get situacionLaboralActiva(): SituacionLaboral {
-        // console.log('GET SITUACION!');
         if (this.historiaLaboral.length){
-            // console.log('HAY HISTORIA!');
             return this.historiaLaboral.filter(x => !(x.inactivo))[0];
         }
         else{
             return new SituacionLaboral();
         }
     }
-
-    // set situacionLaboralActiva(situacion: SituacionLaboral)
-    // {
-    //     if (this.historiaLaboral.length){
-    //         return this.historiaLaboral.filter(x => !(x.inactivo))[0];
-    //     }
-    //     else{
-    //         return new SituacionLaboral();
-    //     }
-    // }
 }
 
 

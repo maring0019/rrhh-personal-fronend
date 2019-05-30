@@ -12,7 +12,7 @@
                         [required]="true">
                     </plex-text>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <plex-select 
                         [data]="provincias"
                         name="provincia"
@@ -23,7 +23,7 @@
                         (change)='onChangeProvincia($event)'>
                     </plex-select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <plex-select 
                         [data]="localidades"
                         name="localidad"
@@ -48,6 +48,52 @@
                         formControlName="codigoPostal" 
                         label="CP"
                         placeholder="Ingrese CP..."
+                        [required]="false">
+                    </plex-text>
+                </div>
+                <div class="col-md-12">
+                    <plex-bool
+                        type="slide"
+                        name="datosComplementarios"
+                        formControlName="datosComplementarios"
+                        label="Ver datos complementarios">
+                    </plex-bool>
+                </div>
+            </div>
+            <div class="row" *ngIf="direccionForm.controls.datosComplementarios.value">
+                <div class="col-md-12">
+                    <plex-text
+                        name="calleIzquierda"
+                        formControlName="calleIzquierda"
+                        label="Calle Izquierda"
+                        placeholder="Ingrese valor..."
+                        [required]="false">
+                    </plex-text>
+                </div>
+                <div class="col-md-12">
+                    <plex-text
+                        name="calleDerecha"
+                        formControlName="calleDerecha"
+                        label="Calle Derecha"
+                        placeholder="Ingrese valor..."
+                        [required]="false">
+                    </plex-text>
+                </div>
+                <div class="col-md-12">
+                    <plex-text
+                        name="calleParalela"
+                        formControlName="calleParalela"
+                        label="Calle Parelela"
+                        placeholder="Ingrese valor..."
+                        [required]="false">
+                    </plex-text>
+                </div>
+                <div class="col-md-12">
+                    <plex-text
+                        name="complementarios"
+                        formControlName="complementarios" 
+                        label="Otros datos"
+                        placeholder="Ingrese valor..."
                         [required]="false">
                     </plex-text>
                 </div>
