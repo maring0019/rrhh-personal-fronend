@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router} from '@angular/router';
+
 import { Agente } from 'src/app/models/Agente';
 
 
@@ -51,20 +53,26 @@ export class AgenteItemListadoComponent {
     @Output() hover: EventEmitter<Agente> = new EventEmitter<Agente>();
 
 
-    constructor() {}
+    constructor(private router: Router) {}
 
     public seleccionarAgente(agente: Agente) {
         if (this.seleccionado !== agente) {
             this.seleccionado = agente;
             this.selected.emit(this.seleccionado);
-        } else {
-            this.seleccionado = null;
-            this.selected.emit(null);
         }
     }
 
     public hoverAgente(agente: Agente) {
         this.hover.emit(agente);
+    }
+
+    gotoAgente(agente) {
+        if (agente.id){
+            this.router.navigate(['/agentes/registro' , { id: agente.id }]);
+        }
+        else{
+            this.router.navigate(['/agentes/registro']);
+        }
     }
 }
 

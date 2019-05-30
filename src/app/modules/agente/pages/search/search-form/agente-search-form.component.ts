@@ -74,7 +74,10 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
                     cadenaInput: textoLibre
                 }).subscribe(
                     resultado => {
-                        this.searchEnd.emit(resultado);
+                        // Parse de cada elemento de la lista en un 
+                        // objeto Agente completo. Deberia hacerse en el servicio?
+                        let agentes = resultado.map(e => e = new Agente(e));
+                        this.searchEnd.emit(agentes);
                     },
                     (err) => {
                         this.searchEnd.emit([])

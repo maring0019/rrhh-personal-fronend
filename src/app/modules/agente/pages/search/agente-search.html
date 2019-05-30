@@ -27,10 +27,12 @@
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
         <app-agente-detalle *ngIf="agenteSeleccionado"
+            [showActions]="true"
             [agente]="agenteSeleccionado"
             [direccion]="agenteSeleccionado?.direccion"
             [contactos]="agenteSeleccionado?.contactos"
-            [educacion]="agenteSeleccionado?.educacion">
+            [educacion]="agenteSeleccionado?.educacion"
+            [situacion]="agenteSeleccionado?.situacionLaboralActiva?.situacion">
         </app-agente-detalle>
         <!-- <app-listado *ngIf="!agenteSeleccionado">
         </app-listado> -->

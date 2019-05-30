@@ -23,7 +23,7 @@ export class AgenteSearchComponent implements OnInit {
     }
 
     seleccionarAgente(obj:any){
-        this.agenteSeleccionado = obj;
+        this.agenteSeleccionado = obj; //new Agente(obj);
     }
 
     showResultados(obj:any){
