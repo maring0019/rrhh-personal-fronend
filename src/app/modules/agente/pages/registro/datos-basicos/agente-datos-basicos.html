@@ -1,86 +1,90 @@
 <br>
 <form name="datosBasicosForm" [formGroup]="datosBasicosForm">
     <div class="row">
-        <div class="col-md-4">
-                <plex-text
-                    name="apellido"
-                    formControlName="apellido" 
-                    label="Apellido/s"
-                    placeholder="Ingrese Apellido..."
-                    [required]="true">
-                </plex-text>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <plex-text
+                        name="apellido"
+                        formControlName="apellido" 
+                        label="Apellido/s"
+                        placeholder="Ingrese Apellido..."
+                        [required]="true">
+                    </plex-text>
+                </div>
+                <div class="col-md-6">
+                    <plex-text
+                        name="nombre"
+                        formControlName="nombre"
+                        label="Nombre/s"
+                        placeholder="Ingrese Nombre..."
+                        [required]="true">
+                    </plex-text>
+                </div>
+                <div class="col-md-6">
+                    <plex-select
+                        [data]="sexos"
+                        name="sexo"
+                        formControlName="sexo"
+                        label="Sexo"
+                        placeholder="Seleccione..."
+                        [required]="true"
+                        (change)='updateCUIL($event)'>
+                    </plex-select>
+                </div>
+                <div class="col-md-6">
+                    <plex-datetime
+                        type="date"
+                        label="Fecha de nacimiento"
+                        name="fechaNacimiento"
+                        formControlName="fechaNacimiento"
+                        [required]="true">
+                    </plex-datetime>
+                </div>
+                <div class="col-md-6">
+                    <plex-int
+                        name="documento"
+                        formControlName="documento"
+                        label="Documento"
+                        placeholder="Ingrese número de Documento..."
+                        [required]="true"
+                        (focusout)='updateCUIL($event)'>
+                    </plex-int>
+                </div>
+                <div class="col-md-6">
+                    <plex-text
+                        name="cuil"
+                        formControlName="cuil"
+                        label="CUIL"
+                        placeholder="Ingrese número de CUIL..."
+                        [required]="true">
+                    </plex-text>
+                </div>
+                <div class="col-md-6">
+                    <plex-select 
+                        [data]="estados"
+                        name="estadoCivil"
+                        formControlName="estadoCivil"
+                        label="Estado Civil"
+                        placeholder="Seleccione...">
+                    </plex-select>
+                </div>
+                <div class="col-md-6">
+                    <plex-select 
+                        [data]="paises"
+                        name="nacionalidad"
+                        formControlName="nacionalidad"
+                        label="Nacionalidad"
+                        placeholder="Seleccione...">
+                    </plex-select>
+                </div>
             </div>
-        <div class="col-md-4">
-            <plex-text
-                name="nombre"
-                formControlName="nombre"
-                label="Nombre/s"
-                placeholder="Ingrese Nombre..."
-                [required]="true">
-            </plex-text>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <plex-select
-                [data]="sexos"
-                name="sexo"
-                formControlName="sexo"
-                label="Sexo"
-                placeholder="Seleccione..."
-                [required]="true"
-                (change)='updateCUIL($event)'>
-            </plex-select>
         </div>
         <div class="col-md-4">
-            <plex-datetime
-                type="date"
-                label="Fecha de nacimiento"
-                name="fechaNacimiento"
-                formControlName="fechaNacimiento"
-                [required]="true">
-            </plex-datetime>
+            <app-agente-foto
+                [agente]="agente"
+                [editable]="true" >
+            </app-agente-foto>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <plex-int
-                name="documento"
-                formControlName="documento"
-                label="Documento"
-                placeholder="Ingrese número de Documento..."
-                [required]="true"
-                (focusout)='updateCUIL($event)'>
-            </plex-int>
-        </div>
-        <div class="col-md-4">
-            <plex-text
-                name="cuil"
-                formControlName="cuil"
-                label="CUIL"
-                placeholder="Ingrese número de CUIL..."
-                [required]="true">
-            </plex-text>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <plex-select 
-                [data]="estados"
-                name="estadoCivil"
-                formControlName="estadoCivil"
-                label="Estado Civil"
-                placeholder="Seleccione...">
-            </plex-select>
-        </div>
-        <div class="col-md-4">
-                <plex-select 
-                    [data]="paises"
-                    name="nacionalidad"
-                    formControlName="nacionalidad"
-                    label="Nacionalidad"
-                    placeholder="Seleccione...">
-                </plex-select>
-            </div>
     </div>
 </form>
