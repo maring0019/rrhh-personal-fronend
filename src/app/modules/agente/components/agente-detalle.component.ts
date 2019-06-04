@@ -18,6 +18,7 @@ import { Regimen } from 'src/app/models/Regimen';
 export class AgenteDetalleComponent{
     @Input() showActions: Boolean;
     @Input() agente: Agente;
+    @Input() foto: any;
     @Input() direccion: Direccion;
     @Input() contactos: Contacto[];
     @Input() educacion: Educacion[];
@@ -25,7 +26,6 @@ export class AgenteDetalleComponent{
     @Input() cargo: Cargo;
     @Input() regimen: Regimen;
 
-    fotoAgente:any;
 
     constructor(private router: Router)
                 { }

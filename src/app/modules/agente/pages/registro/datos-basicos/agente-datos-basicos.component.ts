@@ -11,11 +11,11 @@ import { getCuilCuit } from 'src/app/utils/cuilGenerator';
 @Component({
     selector: 'agente-datos-basicos',
     templateUrl: './agente-datos-basicos.html',
-    // styleUrls: ['./agente-datos-basicos.scss']
 })
 export class AgenteDatosBasicosComponent implements OnInit {
 
     @Input() agente: Agente;
+    // Notifica cualquier cambio en los datos basicos del formulario del agente (incluida la foto)
     @Output() outputAgente: EventEmitter<Agente> = new EventEmitter<Agente>();
 
     datosBasicosForm: FormGroup;
@@ -23,6 +23,8 @@ export class AgenteDatosBasicosComponent implements OnInit {
     sexos = enumerados.getObjSexos();
     estados = enumerados.getObjEstadoCivil();
     paises: IPais[] = [];
+
+    nuevaFotoAgente: any; // Aloja temporalmente la nueva imagen
 
     constructor(
         private formBuilder: FormBuilder,
@@ -45,6 +47,7 @@ export class AgenteDatosBasicosComponent implements OnInit {
     createDatosBasicosForm()
     {
         return this.formBuilder.group({
+            id              : [this.agente.id],
             nombre          : [this.agente.nombre],
             apellido        : [this.agente.apellido],
             documento       : [this.agente.documento],
@@ -53,7 +56,8 @@ export class AgenteDatosBasicosComponent implements OnInit {
             sexo            : [this.agente.sexo],
             genero          : [this.agente.genero],
             estadoCivil     : [this.agente.estadoCivil],
-            nacionalidad    : [this.agente.nacionalidad]
+            nacionalidad    : [this.agente.nacionalidad],
+            foto            : [this.agente.foto]
         });
     }
 
@@ -75,6 +79,11 @@ export class AgenteDatosBasicosComponent implements OnInit {
             catch{}
         }
         this.datosBasicosForm.patchValue({cuil:cuil});
+    }
+
+    onValueNewFoto(newFoto){
+        this.datosBasicosForm.patchValue({foto:newFoto});
+        this.nuevaFotoAgente = newFoto;
     }
 
 }

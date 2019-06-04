@@ -82,8 +82,10 @@
         </div>
         <div class="col-md-4">
             <app-agente-foto
-                [agente]="agente"
-                [editable]="true" >
+                [foto]="agente?.foto"
+                [editable]="true"
+                [size]="'md'"
+                (outputNewFoto)='onValueNewFoto($event)'>
             </app-agente-foto>
         </div>
     </div>

@@ -29,5 +29,6 @@ export class Direccion {
         this.calleIzquierda = direccion.calleIzquierda || '';
         this.calleDerecha = direccion.calleDerecha || '';
         this.calleParalela = direccion.calleParalela || '';
+        this.complementarios = direccion.complementarios || '';
     }
 }

@@ -29,10 +29,11 @@
         <app-agente-detalle *ngIf="agenteSeleccionado"
             [showActions]="true"
             [agente]="agenteSeleccionado"
-            [direccion]="agenteSeleccionado?.direccion"
-            [contactos]="agenteSeleccionado?.contactos"
-            [educacion]="agenteSeleccionado?.educacion"
-            [situacion]="agenteSeleccionado?.situacionLaboralActiva?.situacion">
+            [foto]="agenteSeleccionado.foto"
+            [direccion]="agenteSeleccionado.direccion"
+            [contactos]="agenteSeleccionado.contactos"
+            [educacion]="agenteSeleccionado.educacion"
+            [situacion]="agenteSeleccionado.situacionLaboralActiva?.situacion">
         </app-agente-detalle>
         <!-- <app-listado *ngIf="!agenteSeleccionado">
         </app-listado> -->

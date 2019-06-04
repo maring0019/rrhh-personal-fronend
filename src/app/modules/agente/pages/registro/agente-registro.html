@@ -76,12 +76,13 @@
         </plex-tabs>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
-        <app-agente-detalle
-            [agente]="agente"
-            [direccion]="direccion"
-            [contactos]="contactos"
-            [educacion]="educacion"
-            [situacion]="situacion">
+        <app-agente-detalle *ngIf="agenteDetalle"
+            [agente]="agenteDetalle"
+            [foto]="agenteDetalle.foto"
+            [direccion]="agenteDetalle.direccion"
+            [contactos]="agenteDetalle.contactos"
+            [educacion]="agenteDetalle.educacion"
+            [situacion]="agenteDetalle.situacionLaboralActiva?.situacion">
         </app-agente-detalle>
     </plex-layout-sidebar>
 </plex-layout>

@@ -41,6 +41,8 @@ export class AgenteRegistroComponent implements OnInit {
     
     @HostBinding('class.plex-layout') layout = true;
     agente: Agente;
+    agenteDetalle: Agente;
+    fotoAgente: any;
     direccion: Direccion;
     contactos: Contacto[];
     educacion: Educacion[];
@@ -63,59 +65,66 @@ export class AgenteRegistroComponent implements OnInit {
             this._agenteID = params.get('id');
             if (this._agenteID){
                 this.agenteService.getByID(this._agenteID).subscribe((data) => {
-                    //TODO Sino se encuentra el agente analizar que hacer
-                    this.agente = new Agente(data);
-                    console.log(this.agente)
-                    this.initValueForms(this.agente);
+                    if (data){
+                        this.agente = new Agente(data);
+                        this.agenteDetalle = new Agente(data);
+                        this.initValueForms();
+                    }else{
+                        this.plex.info('info', 'El agente que desea editar no existe!')
+                            .then( e => {
+                                this.volverInicio();
+                        });
+                    }
                 });
             }
             else{
                 this.agente = new Agente();
-                this.initValueForms(this.agente);
+                this.agenteDetalle = new Agente();
+                this.initValueForms();
             }
         });
     }
 
-    initValueForms(agente){
-        this.direccion = agente.direccion;
-        this.contactos = agente.contactos;
-        this.educacion = agente.educacion;
-        this.situacion = agente.situacionLaboralActiva.situacion;
-        this.cargo = agente.situacionLaboralActiva.cargo;
-        this.regimen = agente.situacionLaboralActiva.regimen;
-        this.situacionLaboral = agente.situacionLaboralActiva;
+
+    initValueForms(){
+        this.direccion = this.agente.direccion;
+        this.contactos = this.agente.contactos;
+        this.educacion = this.agente.educacion;
+        this.situacion = this.agente.situacionLaboralActiva.situacion;
+        this.cargo = this.agente.situacionLaboralActiva.cargo;
+        this.regimen = this.agente.situacionLaboralActiva.regimen;
+        this.situacionLaboral = this.agente.situacionLaboralActiva;
     }
 
     onValueChangeAgente(obj: Agente){
-        obj.id = this._agenteID;
-        console.log(obj)
-        this.agente = obj;
+        Object.assign(this.agenteDetalle, obj);
     }
 
     onValueChangeDireccion(obj: Direccion){
-        this.direccion = obj;
-        this.direccion.ubicacion = (new Ubicacion(obj));
+        this.agenteDetalle.direccion = obj;
+        this.agenteDetalle.direccion.ubicacion = (new Ubicacion(obj));
     }
 
     onValueChangeContactos(contactos: Contacto[]){
-        this.contactos = contactos;
+        this.agenteDetalle.contactos = contactos;
     }
     
     onValueChangeEducacion(educacion: Educacion[]){
-        this.educacion = educacion;
+        this.agenteDetalle.educacion = educacion;
     }
 
     onValueChangeSituacion(obj: Situacion){
-        this.situacion = obj;
+        this.agenteDetalle.situacionLaboralActiva.situacion = obj;
     }
 
     onValueChangeCargo(obj: Cargo){
-        this.cargo = obj;
+        this.agenteDetalle.situacionLaboralActiva.cargo = obj;
     }
 
     onValueChangeRegimen(obj: Regimen){
-        this.regimen = obj;
+        this.agenteDetalle.situacionLaboralActiva.regimen = obj;
     }
+
 
     /**
      * 
@@ -130,18 +139,18 @@ export class AgenteRegistroComponent implements OnInit {
 
     allFormsValid(){
         const forms:any = [
-            // this.datosBasicos.datosBasicosForm,
-            // this.datosDireccion.direccionForm,
+            this.datosBasicos.datosBasicosForm,
+            this.datosDireccion.direccionForm,
             this.datosSituacion.datosSituacionForm,
             this.datosCargo.datosCargoForm,
             this.datosRegimen.datosRegimenForm
             ]
-        // this.datosContacto.contactoForms.controls.forEach(cf => {
-        //     forms.push(cf)
-        // })
-        // this.datosEducacion.educacionForms.controls.forEach(ef => {
-        //     forms.push(ef)
-        // })
+        this.datosContacto.contactoForms.controls.forEach(cf => {
+            forms.push(cf)
+        })
+        this.datosEducacion.educacionForms.controls.forEach(ef => {
+            forms.push(ef)
+        })
         
         let existInvalidForms = false;
         forms.forEach(f => {
@@ -154,62 +163,13 @@ export class AgenteRegistroComponent implements OnInit {
     }
 
     saveAgente(){
-        
         if (this.allFormsValid()){
-            const agente = new Agente(this.datosBasicos.datosBasicosForm.value);
-            const direccion = new Direccion(this.datosDireccion.direccionForm.value);
-
-            // Contactos
-            const contactos:Contacto[] = []
-            this.datosContacto.contactoForms.controls.forEach(form => {
-                const contacto = new Contacto(form.value);
-                contactos.push(contacto);
-            });
-
-            // Educacion
-            const estudios:Educacion[] = []
-            this.datosEducacion.educacionForms.controls.forEach(form => {
-                if(form.value.educacion && form.value.educacion.tipoEducacion != null){
-                    const educacion = new Educacion(form.value.educacion);
-                    estudios.push(educacion);
-                }
-            });
-            
-            // Situacion Laboral (Situacion, Cargo, Regimen)
-            const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
-            const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
-            const situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
-            // const situacionLaboral = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value)
-            const situacionLaboral = new SituacionLaboral();
-            situacionLaboral.cargo = cargo;
-            situacionLaboral.regimen = regimen;
-            situacionLaboral.situacion = situacion;
-
-            agente.direccion = direccion;
-            agente.contactos = contactos;
-            agente.educacion = estudios;
-            agente.historiaLaboral.push(situacionLaboral);
-            console.log('HISTORIA LABORAL');
-            console.log(agente.historiaLaboral[0]);
-
+            const agente = this.parseAgente();
             if (this._agenteID){
-                agente.id = this._agenteID;
-                this.agenteService.put(agente)
-                    .subscribe(data=> {
-                        this.plex.info('success', 'El agente se modificó correctamente')
-                        .then( e => {
-                            this.volverInicio();
-                    });
-                })
+                this.updateAgente(agente);
             }
             else{
-                this.agenteService.post(agente)
-                    .subscribe(data=> {
-                        this.plex.info('success', 'El agente se ingresó correctamente')
-                            .then( e => {
-                                this.volverInicio();
-                        });
-                })
+                this.addAgente(agente);
             }
         }
         else{
@@ -217,9 +177,76 @@ export class AgenteRegistroComponent implements OnInit {
         }
     }
 
+    parseAgente():Agente{
+        const agente = new Agente(this.datosBasicos.datosBasicosForm.value);
+        const direccion = new Direccion(this.datosDireccion.direccionForm.value);
+
+        // Contactos
+        const contactos:Contacto[] = []
+        this.datosContacto.contactoForms.controls.forEach(form => {
+            const contacto = new Contacto(form.value);
+            contactos.push(contacto);
+        });
+
+        // Educacion
+        const estudios:Educacion[] = []
+        this.datosEducacion.educacionForms.controls.forEach(form => {
+            if(form.value.educacion && form.value.educacion.tipoEducacion != null){
+                const educacion = new Educacion(form.value.educacion);
+                estudios.push(educacion);
+            }
+        });
+        
+        // Situacion Laboral (Situacion, Cargo, Regimen)
+        const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
+        const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
+        const situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
+        // const situacionLaboral = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value)
+        const situacionLaboral = new SituacionLaboral();
+        situacionLaboral.cargo = cargo;
+        situacionLaboral.regimen = regimen;
+        situacionLaboral.situacion = situacion;
+
+        agente.direccion = direccion;
+        agente.contactos = contactos;
+        agente.educacion = estudios;
+        agente.historiaLaboral.push(situacionLaboral);
+        return agente;
+    }
+
+    addAgente(agente){
+        this.agenteService.post(agente)
+            .subscribe(data=> {
+                this.plex.info('success', 'El agente se ingresó correctamente')
+                    .then( e => {
+                        this.volverInicio();
+                });
+        })
+    }
+
+    updateAgente(agente){
+        this.agenteService.put(agente)
+            .subscribe(agenteData=> {
+                if (this.datosBasicos.nuevaFotoAgente){
+                    this.agenteService.postFoto(this._agenteID, this.datosBasicos.nuevaFotoAgente)
+                        .subscribe(data=> {
+                            this.plex.info('success', 'El agente se modificó correctamente')
+                                .then( e => {
+                                this.volverInicio();
+                            });
+                    })
+                }
+                else{
+                    this.plex.info('success', 'El agente se modificó correctamente')
+                        .then( e => {
+                        this.volverInicio();
+                    });
+                }
+        })
+    }
+
     volverInicio() {
         this.router.navigate(['/agentes/busqueda'])
     }
-
     
 }

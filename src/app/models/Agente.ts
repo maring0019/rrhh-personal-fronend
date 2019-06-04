@@ -44,6 +44,7 @@ export class Agente {
         this.sexo = agente.sexo? ((typeof agente.sexo === 'string') ? agente.sexo : agente.sexo.id) : null;
         this.genero = agente.genero? ((typeof agente.genero === 'string') ? agente.genero : agente.genero.id) : null;
         this.fechaNacimiento = agente.fechaNacimiento;
+        this.foto = agente.foto || null;
         this.nacionalidad = agente.nacionalidad || null;
         this.direccion = new Direccion(agente.direccion);
         this.contactos = [];

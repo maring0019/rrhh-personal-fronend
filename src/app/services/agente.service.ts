@@ -19,6 +19,10 @@ export class AgenteService {
         return this.server.get(this.agenteUrl + '/fotos/' + params);
     }
 
+    postFoto(agenteId, file) {
+        return this.server.post(this.agenteUrl + '/fotos/' + agenteId, { imagen:file});
+    }
+
     // TODO: Revisar el tema de los parametros
     getByID(params?: any): Observable<Agente> {
         return this.server.get(this.agenteUrl + '/' + params);

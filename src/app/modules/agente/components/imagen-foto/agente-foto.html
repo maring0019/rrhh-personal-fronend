@@ -1,8 +1,7 @@
-<span style="color:red;" *ngIf="message">{{message}}</span>
 <input #uploader hidden type="file" accept='image/*' (change)="preview(uploader.files)" />
 <img 
     *ngIf="imagen"
-    class="item-img mr-4"
+    [ngClass]="imagenSizeClass()"
     [src]="imagen"
     [style.cursor]="editable ? 'pointer' : 'auto' "
     (click)="editable && uploader.click()">
