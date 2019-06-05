@@ -29,7 +29,7 @@
                         label="Sexo"
                         placeholder="Seleccione..."
                         [required]="true"
-                        (change)='updateCUIL($event)'>
+                        (change)='updateCUIL()'>
                     </plex-select>
                 </div>
                 <div class="col-md-6">
@@ -48,7 +48,7 @@
                         label="Documento"
                         placeholder="Ingrese número de Documento..."
                         [required]="true"
-                        (focusout)='updateCUIL($event)'>
+                        (focusout)='updateCUIL()'>
                     </plex-int>
                 </div>
                 <div class="col-md-6">
