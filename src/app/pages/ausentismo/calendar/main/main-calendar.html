@@ -1,0 +1,25 @@
+<div class="d-flex flex-row justify-content-between align-items-center">
+    <plex-button 
+        class="cal-arrow mr-4"
+        type="info"
+        icon="chevron-left"
+        (click)="gotoPreviousMonth()">
+    </plex-button>
+    <full-calendar
+        #calendar
+        [defaultView]="dayGridMonth"
+        [plugins]="calendarPlugins"
+        [header]="header"
+        [locale]="'es'"
+        [columnHeaderText]="columnHeaderText"
+        [aspectRatio]="1.8"
+        [events]="ausencias"
+        >
+    </full-calendar>
+    <plex-button 
+        class="cal-arrow ml-4"
+        type="info"
+        icon="chevron-right" 
+        (click)="gotoNextMonth()">
+    </plex-button>
+</div>

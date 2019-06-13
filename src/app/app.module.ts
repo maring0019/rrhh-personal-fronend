@@ -13,6 +13,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 // Servicios
 import { TipoSituacionService } from './services/tm/situacion.service';
 import { AgenteService } from './services/agente.service';
@@ -38,6 +40,7 @@ import { RoutingGuard, RoutingNavBar} from './app-guard';
 import { ListTipoSituacionComponent } from './modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { CreateUpdateTipoSituacionComponent } from './modules/tm/components/situacion/create-update-situacion/create-update-situacion.component';
 
+// ABM Agente
 import { AgenteRegistroComponent } from './modules/agente/pages/registro/agente-registro.component';
 import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/datos-basicos/agente-datos-basicos.component';
 import { AgenteDatosDireccionComponent } from './modules/agente/pages/registro/datos-contacto/agente-datos-direccion.component';
@@ -48,12 +51,23 @@ import { AgenteDatosCargoComponent } from './modules/agente/pages/registro/datos
 import { AgenteDatosSituacionComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
 import { AgenteDatosRegimenComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
 
+// Busqueda Agente
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
 import { SearchLeyendaComponent } from './modules/agente/components/search-leyenda/search-leyenda.component';
 import { AgenteListadoComponent } from './modules/agente/pages/search/agente-listado/agente-listado.component';
 import { AgenteItemListadoComponent } from './modules/agente/pages/search/item-listado/agente-item-listado.component';
+
+// Agente Detalle
 import { AgenteFotoComponent } from './modules/agente/components/imagen-foto/agente-foto.component';
+import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle/agente-detalle.component';
+
+// Ausentismo
+import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
+import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
+import { MainCalendarComponent } from './pages/ausentismo/calendar/main/main-calendar.component';
+import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calendar.component';
+
 
 // Componentes
 import { ListadoComponent } from './componentes/listado/listado.component';
@@ -63,7 +77,7 @@ import { DetalleComponent } from './componentes/detalle/detalle.component';
 import { TabsComponent } from './componentes/tabs/tabs.component';
 import { TabContactoComponent } from './componentes/tabs/tab-contacto/tab-contacto.component';
 import { EdicionComponent } from './componentes/edicion/edicion.component';
-import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle.component';
+
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
 import { TitlePipe } from './pipes/title.pipe';
@@ -100,7 +114,11 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AgenteItemListadoComponent,
         AgenteDetalleComponent,
         
-        AgenteDatosEducacionComponent,
+        AgenteAusentismoComponent,
+        AgenteCalendarComponent,
+        MainCalendarComponent,
+        NavCalendarComponent,
+
         ListadoComponent,
         ItemListadoComponent,
         BuscadorComponent,
@@ -123,7 +141,9 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AppRoutingModule,
 
         PlexModule,
-        AuthModule
+        AuthModule,
+
+        FullCalendarModule
     ],
     providers: [
         Plex,

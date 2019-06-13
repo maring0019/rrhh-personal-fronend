@@ -37,10 +37,16 @@
             (click)="gotoAgente(agente)">Editar
         </plex-button>
         <plex-button 
-            (click)="seleccionarAgente(agente)"
             type="warning"
             type="sm"
-            icon="mdi mdi-eye">Ver
+            icon="mdi mdi-eye"
+            (click)="seleccionarAgente(agente)">Ver
+        </plex-button>
+        <plex-button
+            type="success"
+            type="sm"
+            icon="mdi mdi-pencil"
+            (click)="gotoAusenciasAgente(agente)">Ausencias
         </plex-button>
         <!-- <plex-button type="success" type="sm" icon="mdi mdi-pencil" [routerLink]="['/agentes/registro/']">Editar</plex-button>
         <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente.id]">Ver</plex-button> -->

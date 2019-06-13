@@ -1,0 +1,50 @@
+<section class='cal-nav'>
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <plex-button 
+            class="cal-arrow mr-4"
+            type="info"
+            icon="chevron-left"
+            (click)="gotoPreviousMonth()">
+        </plex-button>
+        <div class="d-flex flex-row justify-content-between align-items-top cal-nav-calendars">
+            <div>
+                <full-calendar
+                    [defaultView]="dayGridMonth"
+                    [plugins]="calendarPlugins"
+                    [header]="header"
+                    [locale]="'es'"
+                    [columnHeaderText]="columnHeaderText"
+                    [defaultDate]="prevMonth"
+                    [height]="'parent'">
+                </full-calendar>
+            </div>
+            <div class="cal-nav-selected">
+            <full-calendar 
+                [defaultView]="dayGridMonth"
+                [plugins]="calendarPlugins"
+                [header]="header"
+                [locale]="'es'"
+                [columnHeaderText]="columnHeaderText"
+                [height]="'parent'">
+            </full-calendar>
+            </div>
+            <div>
+            <full-calendar 
+                [defaultView]="dayGridMonth"
+                [plugins]="calendarPlugins"
+                [header]="header"
+                [locale]="'es'"
+                [columnHeaderText]="columnHeaderText"
+                [defaultDate]="nextMonth"
+                [height]="'parent'">
+            </full-calendar>
+            </div>
+        </div>
+        <plex-button 
+            class="cal-arrow ml-4"
+            type="info"
+            icon="chevron-right" 
+            (click)="gotoNextMonth()">
+        </plex-button>
+    </div>
+</section>

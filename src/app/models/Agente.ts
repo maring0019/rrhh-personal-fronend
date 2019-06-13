@@ -6,8 +6,6 @@ import { IPais } from './IPais';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
 import { SituacionLaboral } from './SituacionLaboral';
 
-// import { EstadoCivil } from './../utils/enumerados';
-
 export class Agente {
 
     id: String;

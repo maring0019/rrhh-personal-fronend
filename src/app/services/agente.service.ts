@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
+import { Ausencia } from '../models/Ausencia';
 
 @Injectable()
 export class AgenteService {
@@ -14,30 +15,40 @@ export class AgenteService {
         return this.server.get(this.agenteUrl, { params: params, showError: true });
     }
 
-    // TODO: Revisar el tema de los parametros
-    getFoto(params: any): Observable<any> {
-        return this.server.get(this.agenteUrl + '/fotos/' + params);
-    }
-
-    postFoto(agenteId, file) {
-        return this.server.post(this.agenteUrl + '/fotos/' + agenteId, { imagen:file});
-    }
-
-    // TODO: Revisar el tema de los parametros
-    getByID(params?: any): Observable<Agente> {
-        return this.server.get(this.agenteUrl + '/' + params);
-    }
-
-    post(agente: Agente): Observable<Agente> {
-        return this.server.post(this.agenteUrl, agente);
+    getByID(agenteId?: any): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agenteId}`;
+        return this.server.get(url);
     }
 
     search(params?: any): Observable<Agente[]> {
-        return this.server.get(this.agenteUrl + '/search', { params: params, showError: true });
+        const url = `${this.agenteUrl}/search`;
+        return this.server.get(url, { params: params, showError: true });
     }
 
+    post(agente: Agente): Observable<Agente> {
+        const url = `${this.agenteUrl}`;
+        return this.server.post(url, agente);
+    }
+
+
     put(agente: Agente): Observable<Agente> {
-        return this.server.put(this.agenteUrl + '/' + agente.id, agente);
+        const url = `${this.agenteUrl}/${agente.id}`;
+        return this.server.put(url, agente);
+    }
+
+    getFoto(agenteId: any): Observable<any> {
+        const url = `${this.agenteUrl}/${agenteId}/fotos`;
+        return this.server.get(url);
+    }
+
+    postFoto(agenteId, file) {
+        const url = `${this.agenteUrl}/${agenteId}/fotos`;
+        return this.server.post(url, { imagen:file});
+    }
+
+    getAusencias(agenteId):Observable<Ausencia[]> {
+        const url = `${this.agenteUrl}/${agenteId}/ausencias`;
+        return this.server.get(url);
     }
 
 }

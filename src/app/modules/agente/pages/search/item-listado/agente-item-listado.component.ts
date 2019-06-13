@@ -74,5 +74,11 @@ export class AgenteItemListadoComponent {
             this.router.navigate(['/agentes/registro']);
         }
     }
+
+    gotoAusenciasAgente(agente){
+        if (agente.id){
+            this.router.navigate(['/agentes/ausencias' , { id: agente.id }]);
+        }
+    }
 }
 

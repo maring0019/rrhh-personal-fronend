@@ -1,0 +1,15 @@
+<plex-layout main="8">
+    <plex-layout-main>
+        <app-main-calendar
+            *ngIf="ausencias"
+            [ausencias]="ausencias">
+        </app-main-calendar>
+        <app-nav-calendar></app-nav-calendar>
+    </plex-layout-main>
+    <plex-layout-sidebar type="invert">
+        <h1>Hola Ausentismo Sidebar</h1>
+    </plex-layout-sidebar>
+</plex-layout>
+
+
+

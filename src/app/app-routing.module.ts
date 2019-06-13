@@ -10,13 +10,16 @@ import { RoutingGuard, RoutingNavBar} from './app-guard';
 import { ListTipoSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { AgenteRegistroComponent } from '../app/modules/agente/pages/registro/agente-registro.component';
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
+import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
 
 const routes: Routes = [
     // Tablas maestras
     { path: 'tm/situacion', component: ListTipoSituacionComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'agentes/ausencias', component: AgenteAusentismoComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
 
