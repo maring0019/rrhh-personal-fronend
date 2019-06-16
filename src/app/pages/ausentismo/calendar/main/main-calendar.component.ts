@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -11,11 +11,12 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 export class MainCalendarComponent implements OnInit, AfterViewInit {
     @Input() ausencias;
     @Input() mesSeleccionado:Date;
-    // @Output() 
+    @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
+   
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
     
     calendarApi:any;
-    mesVisualizado:Date = new Date();
+    mesVisualizado:Date = new Date(2013, 1, 1);
     
     calendarPlugins = [dayGridPlugin];
 
@@ -31,6 +32,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit {
     }
     
     public ngOnInit() {
+
     }
 
     ngAfterViewInit(){
@@ -40,16 +42,22 @@ export class MainCalendarComponent implements OnInit, AfterViewInit {
     ngOnChanges(){
         if (this.mesSeleccionado != this.mesVisualizado){
             this.mesVisualizado = this.mesSeleccionado;
+            if (this.calendarApi){
+                this.calendarApi.gotoDate(this.mesVisualizado);
+            }
+            
         }
     }
 
     gotoNextMonth(){
         this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()+1);
         this.calendarApi.gotoDate(this.mesVisualizado);
+        this.changedDate.emit(this.mesVisualizado);
     }
 
     gotoPreviousMonth(){
         this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()-1);
         this.calendarApi.gotoDate(this.mesVisualizado);
+        this.changedDate.emit(this.mesVisualizado);
     }
 }

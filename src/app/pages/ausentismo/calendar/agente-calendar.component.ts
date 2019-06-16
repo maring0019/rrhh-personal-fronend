@@ -12,9 +12,9 @@ import { AgenteService } from 'src/app/services/agente.service';
 
 export class AgenteCalendarComponent implements OnInit {
     @Input() agente: Agente;
-    ausencias: any[] = [
-        { title: 'Art. 80', start: new Date(), allDay: true }
-      ];
+    ausencias: any[];
+    mesMainDefault:Date = new Date(2013, 1, 1);
+    mesNavDefault:Date = new Date(2013, 1, 1);
 
     constructor(
         private agenteService:AgenteService,
@@ -22,8 +22,16 @@ export class AgenteCalendarComponent implements OnInit {
     
     public ngOnInit() {
         this.agenteService.getAusencias(this.agente.id).subscribe((data) => {
-            // this.ausencias = data;
-            console.log(this.ausencias);
+            this.ausencias = data;
+            // console.log(this.ausencias);
         });
+    }
+
+    onChangeNavDate(date){
+        this.mesMainDefault = new Date(date);
+    }
+
+    onChangeMainDate(date){
+        this.mesNavDefault = new Date(date);
     }
 }

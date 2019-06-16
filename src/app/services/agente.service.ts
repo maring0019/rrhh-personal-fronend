@@ -1,10 +1,13 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+
 import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
 import { Ausencia } from '../models/Ausencia';
+import { IAusenciaEvento } from '../models/IAusenciaEvento';
 
 @Injectable()
 export class AgenteService {
@@ -46,9 +49,17 @@ export class AgenteService {
         return this.server.post(url, { imagen:file});
     }
 
-    getAusencias(agenteId):Observable<Ausencia[]> {
+    getAusencias(agenteId):Observable<IAusenciaEvento[]> {
         const url = `${this.agenteUrl}/${agenteId}/ausencias`;
-        return this.server.get(url);
+        return this.server.get(url).pipe(
+            map(data =>
+                data.map(e=> e = {
+                    'title': e.articulo.codigo,
+                    'start': e.fecha,
+                    'allDay': true
+                  })
+            )
+        );;
     }
 
 }

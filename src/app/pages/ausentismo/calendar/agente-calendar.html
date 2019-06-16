@@ -2,9 +2,16 @@
     <plex-layout-main>
         <app-main-calendar
             *ngIf="ausencias"
-            [ausencias]="ausencias">
+            [ausencias]="ausencias"
+            [mesSeleccionado]="mesMainDefault"
+            (changedDate)="onChangeMainDate($event)">
         </app-main-calendar>
-        <app-nav-calendar></app-nav-calendar>
+        <app-nav-calendar
+            *ngIf="ausencias"
+            [ausencias]="ausencias"
+            [mesSeleccionado]="mesNavDefault"
+            (changedDate)="onChangeNavDate($event)">
+        </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
         <h1>Hola Ausentismo Sidebar</h1>
