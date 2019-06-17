@@ -10,7 +10,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 export class MainCalendarComponent implements OnInit, AfterViewInit {
     @Input() ausencias;
+    @Input() options;
     @Input() mesSeleccionado:Date;
+    @Input() weekends:Boolean;
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
    
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template

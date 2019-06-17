@@ -1,0 +1,36 @@
+<form #formulario="ngForm">
+    <div class="row">
+        <div class="col-3">
+            <plex-datetime
+                type="date"
+                label="Fecha"
+                name="fechaNacimiento"
+                [(ngModel)]="fechaSeleccion"
+                (change)="onChangedDate($event)">
+            </plex-datetime>
+        </div>
+        <div class="col-2">
+            <plex-bool
+                type="slide"
+                name="verSabadosDomingos"
+                label="Ver Sab/Dom"
+                [(ngModel)]="showWeekends"
+                (change)="onChangedShowWeekends($event)">
+            </plex-bool>
+        </div>
+        <div class="col-2">
+            <plex-bool
+                type="slide"
+                name="verFeriados"
+                label="Ver Feriados">
+            </plex-bool>
+        </div>
+        <div class="col-2">
+            <plex-bool
+                type="slide"
+                name="saltearFrancos"
+                label="Saltear Francos">
+            </plex-bool>
+        </div>
+    </div>
+</form>

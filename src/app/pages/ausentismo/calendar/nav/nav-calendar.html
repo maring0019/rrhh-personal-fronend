@@ -8,7 +8,7 @@
         </plex-button>
         <div class="d-flex flex-row justify-content-between align-items-top cal-nav-calendars">
             <div 
-                [className]="mesesRangeSelection[0]? 'cal-nav-selected' : ''"
+                [ngClass]="{'cal-nav-selected' : mesesRangeSelection[0]}"
                 (click)="seleccionarMes('0')">
                 <full-calendar
                     #calendarprev
@@ -22,7 +22,7 @@
                 </full-calendar>
             </div>
             <div 
-            [className]="mesesRangeSelection[1]? 'cal-nav-selected' : ''"
+                [ngClass]="{'cal-nav-selected' : mesesRangeSelection[1]}"
                 (click)="seleccionarMes('1')">
                 <full-calendar
                     #calendarcenter
@@ -36,7 +36,6 @@
                 </full-calendar>
             </div>
             <div
-                [className]="mesesRangeSelection[2]? 'cal-nav-selected' : ''"
                 (click)="seleccionarMes('2')">
                 <full-calendar
                     #calendarnext

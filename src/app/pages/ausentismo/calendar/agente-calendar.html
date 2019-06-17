@@ -1,8 +1,13 @@
 <plex-layout main="8">
     <plex-layout-main>
+        <app-header-calendar
+            (changedDate)="onChangeHeaderDate($event)"
+            (changedWeekends)="onChangeHeaderWeekends($event)">
+        </app-header-calendar>
         <app-main-calendar
             *ngIf="ausencias"
             [ausencias]="ausencias"
+            [weekends]="weekends"
             [mesSeleccionado]="mesMainDefault"
             (changedDate)="onChangeMainDate($event)">
         </app-main-calendar>

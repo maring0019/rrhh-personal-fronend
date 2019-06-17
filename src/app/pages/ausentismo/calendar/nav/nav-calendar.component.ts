@@ -16,7 +16,7 @@ export class NavCalendarComponent implements OnInit, AfterViewInit, OnChanges {
     @ViewChild('calendarcenter') calendarCenter: FullCalendarComponent;
     @ViewChild('calendarnext') calendarNext: FullCalendarComponent;
     
-    mesesRange:Date[] = [];
+    mesesRange:Date[] = [new Date(), new Date(), new Date()];
     mesesRangeSelection:Boolean[] = [false,false,false]
     
     calendarPlugins = [dayGridPlugin];

@@ -67,6 +67,7 @@ import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.
 import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
 import { MainCalendarComponent } from './pages/ausentismo/calendar/main/main-calendar.component';
 import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calendar.component';
+import { HeadCalendarComponent } from './pages/ausentismo/calendar/header/header-calendar.component';
 
 
 // Componentes
@@ -118,6 +119,7 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AgenteCalendarComponent,
         MainCalendarComponent,
         NavCalendarComponent,
+        HeadCalendarComponent,
 
         ListadoComponent,
         ItemListadoComponent,
