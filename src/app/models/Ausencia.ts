@@ -1,4 +1,5 @@
 export class Ausencia {
+    id: String;
     agente: {
         id: String;
     };

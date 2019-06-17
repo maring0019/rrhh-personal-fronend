@@ -36,6 +36,7 @@
                 </full-calendar>
             </div>
             <div
+            [ngClass]="{'cal-nav-selected' : mesesRangeSelection[2]}"
                 (click)="seleccionarMes('2')">
                 <full-calendar
                     #calendarnext

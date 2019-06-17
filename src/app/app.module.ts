@@ -29,6 +29,8 @@ import { PuestoService } from './services/puesto.service';
 import { SubPuestoService } from './services/subpuesto.service';
 import { SectorService } from './services/sector.service';
 import { RegimenHorarioService } from './services/regimen-horario.service';
+import { ArticuloService } from './services/articulo.service';
+import { AusentismoService } from './services/ausentismo.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -68,6 +70,8 @@ import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-cale
 import { MainCalendarComponent } from './pages/ausentismo/calendar/main/main-calendar.component';
 import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calendar.component';
 import { HeadCalendarComponent } from './pages/ausentismo/calendar/header/header-calendar.component';
+import { SidebarCalendarComponent } from './pages/ausentismo/calendar/sidebar/sidebar-calendar.component';
+import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
 
 
 // Componentes
@@ -120,6 +124,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         MainCalendarComponent,
         NavCalendarComponent,
         HeadCalendarComponent,
+        SidebarCalendarComponent,
+        AusentismoCargaComponent,
 
         ListadoComponent,
         ItemListadoComponent,
@@ -167,7 +173,9 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         PuestoService,
         SubPuestoService,
         SectorService,
-        RegimenHorarioService
+        RegimenHorarioService,
+        ArticuloService,
+        AusentismoService
     ],
     bootstrap: [AppComponent]
 })

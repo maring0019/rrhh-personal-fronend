@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Agente } from 'src/app/models/Agente';
-import { Ausencia } from 'src/app/models/Ausencia';
 import { AgenteService } from 'src/app/services/agente.service';
+import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 
 
 @Component({
@@ -12,15 +12,15 @@ import { AgenteService } from 'src/app/services/agente.service';
 
 export class AgenteCalendarComponent implements OnInit {
     @Input() agente: Agente;
-    ausencias: any[];
+    ausencias: IAusenciaEvento[];
     weekends: Boolean = true;
-    mesMainDefault:Date = new Date(2013, 1, 1);
-    mesNavDefault:Date = new Date(2013, 1, 1);
+    mesMainDefault:Date = new Date();
+    mesNavDefault:Date = new Date();
     
     // TODO: Analizar de enviar todas las opciones del calendario por esta variable
     options:any = {
         weekends: true,
-        defaultDate: new Date(2013, 1, 1)
+        defaultDate: new Date()
     }
 
     constructor(
@@ -49,5 +49,11 @@ export class AgenteCalendarComponent implements OnInit {
 
     onChangeHeaderWeekends(value){
         this.weekends = value;
+    }
+
+    onNuevasAusencias(ausencias){
+        if (ausencias && ausencias.length){
+            this.ausencias = this.ausencias.concat(ausencias); // Creates a new array!
+        }
     }
 }

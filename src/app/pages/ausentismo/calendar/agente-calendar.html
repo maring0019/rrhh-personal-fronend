@@ -19,7 +19,10 @@
         </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
-        <h1>Hola Ausentismo Sidebar</h1>
+        <app-sidebar-calendar
+            [agente]="agente"
+            (outputAusencias)="onNuevasAusencias($event)">
+    </app-sidebar-calendar>
     </plex-layout-sidebar>
 </plex-layout>
 

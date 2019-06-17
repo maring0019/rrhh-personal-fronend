@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
-import { Ausencia } from '../models/Ausencia';
 import { IAusenciaEvento } from '../models/IAusenciaEvento';
 
 @Injectable()
@@ -59,7 +58,7 @@ export class AgenteService {
                     'allDay': true
                   })
             )
-        );;
+        );
     }
 
 }
