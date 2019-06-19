@@ -1,9 +1,17 @@
 <br>
 <form name="datosBasicosForm" [formGroup]="datosBasicosForm">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-3 col-xs-12 d-flex justify-content-center">
+            <app-agente-foto
+                [foto]="agente?.foto"
+                [editable]="true"
+                [size]="'md'"
+                (outputNewFoto)='onValueNewFoto($event)'>
+            </app-agente-foto>
+        </div>
+        <div class="col-md-9 col-xs-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4 col-xs-12">
                     <plex-text
                         name="apellido"
                         formControlName="apellido" 
@@ -11,37 +19,6 @@
                         placeholder="Ingrese Apellido..."
                         [required]="true">
                     </plex-text>
-                </div>
-                <div class="col-md-6">
-                    <plex-text
-                        name="nombre"
-                        formControlName="nombre"
-                        label="Nombre/s"
-                        placeholder="Ingrese Nombre..."
-                        [required]="true">
-                    </plex-text>
-                </div>
-                <div class="col-md-6">
-                    <plex-select
-                        [data]="sexos"
-                        name="sexo"
-                        formControlName="sexo"
-                        label="Sexo"
-                        placeholder="Seleccione..."
-                        [required]="true"
-                        (change)='updateCUIL()'>
-                    </plex-select>
-                </div>
-                <div class="col-md-6">
-                    <plex-datetime
-                        type="date"
-                        label="Fecha de nacimiento"
-                        name="fechaNacimiento"
-                        formControlName="fechaNacimiento"
-                        [required]="true">
-                    </plex-datetime>
-                </div>
-                <div class="col-md-6">
                     <plex-int
                         name="documento"
                         formControlName="documento"
@@ -51,16 +28,23 @@
                         (focusout)='updateCUIL()'>
                     </plex-int>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 col-xs-12">
                     <plex-text
-                        name="cuil"
-                        formControlName="cuil"
-                        label="CUIL"
-                        placeholder="Ingrese número de CUIL..."
+                        name="nombre"
+                        formControlName="nombre"
+                        label="Nombre/s"
+                        placeholder="Ingrese Nombre..."
                         [required]="true">
                     </plex-text>
-                </div>
-                <div class="col-md-6">
+                    <plex-select
+                        [data]="sexos"
+                        name="sexo"
+                        formControlName="sexo"
+                        label="Sexo"
+                        placeholder="Seleccione..."
+                        [required]="true"
+                        (change)='updateCUIL()'>
+                    </plex-select>
                     <plex-select 
                         [data]="estados"
                         name="estadoCivil"
@@ -69,7 +53,23 @@
                         placeholder="Seleccione...">
                     </plex-select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 col-xs-12">
+                    <plex-datetime
+                        type="date"
+                        label="Fecha de nacimiento"
+                        name="fechaNacimiento"
+                        formControlName="fechaNacimiento"
+                        [required]="true"
+                        class="input-sm"
+                        >
+                    </plex-datetime>
+                    <plex-text
+                        name="cuil"
+                        formControlName="cuil"
+                        label="CUIL"
+                        placeholder="Ingrese número de CUIL..."
+                        [required]="true">
+                    </plex-text>
                     <plex-select 
                         [data]="paises"
                         name="nacionalidad"
@@ -79,14 +79,6 @@
                     </plex-select>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <app-agente-foto
-                [foto]="agente?.foto"
-                [editable]="true"
-                [size]="'md'"
-                (outputNewFoto)='onValueNewFoto($event)'>
-            </app-agente-foto>
         </div>
     </div>
 </form>
