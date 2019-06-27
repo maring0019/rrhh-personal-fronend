@@ -10,7 +10,7 @@ export class AusenciaPeriodo {
     fechaHasta:Date;
     cantidadDias: Number;
     observacion: String;
-    // adjuntos: Array,
+    adjuntos: Array<any>;
     // certificado: CertificadoSchema
 
     constructor(periodo?)
@@ -23,6 +23,7 @@ export class AusenciaPeriodo {
         this.fechaHasta = periodo.fechaHasta;
         this.cantidadDias = periodo.cantidadDias;
         this.observacion = periodo.observacion || '';
+        this.adjuntos = periodo.adjuntos;
     }
 }
 

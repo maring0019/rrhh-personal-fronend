@@ -31,6 +31,7 @@ import { SectorService } from './services/sector.service';
 import { RegimenHorarioService } from './services/regimen-horario.service';
 import { ArticuloService } from './services/articulo.service';
 import { AusentismoService } from './services/ausentismo.service';
+import { UploadService } from './services/upload.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -72,7 +73,8 @@ import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calend
 import { HeadCalendarComponent } from './pages/ausentismo/calendar/header/header-calendar.component';
 import { SidebarCalendarComponent } from './pages/ausentismo/calendar/sidebar/sidebar-calendar.component';
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
-
+import { UploaderStatusComponent } from './pages/ausentismo/calendar/sidebar/carga/uploader.status.component';
+import { FileManagerComponent } from './pages/ausentismo/calendar/sidebar/carga/file.manager.component';
 
 // Componentes
 import { ListadoComponent } from './componentes/listado/listado.component';
@@ -134,6 +136,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         TabsComponent,
         TabContactoComponent,
         EdicionComponent,
+        FileManagerComponent,
+        UploaderStatusComponent,
 
         // Pipes
         FechaPipe,
@@ -175,8 +179,10 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         SectorService,
         RegimenHorarioService,
         ArticuloService,
-        AusentismoService
+        AusentismoService,
+        UploadService
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [UploaderStatusComponent]
 })
 export class AppModule { }

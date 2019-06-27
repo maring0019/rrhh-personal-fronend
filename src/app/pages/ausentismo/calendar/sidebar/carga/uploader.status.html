@@ -1,0 +1,26 @@
+<br>
+<br>
+<div *ngIf="fileUploadingInfo"
+    class="d-flex flex-row justify-content-between">
+    <p>{{ fileUploadingInfo.filename }}</p>
+    <div class="d-flex flex-row justify-content-end">
+            <div *ngIf="fileUploadingInfo.error">
+                <p>Error!!!</p>
+            </div>
+            <div *ngIf="!fileUploadingInfo.error && fileUploadingInfo.status === 'progress'">
+                <div><p>{{fileUploadingInfo.progress}} %</p></div>
+            </div>
+            <div class="d-flex flex-row justify-content-end"
+                *ngIf="fileUploadingInfo.status === 'uploaded'">
+                <div><p>Archivo Uploaded</p></div>
+                <plex-button type="danger" icon="mdi mdi-pencil" size="sm">Ok</plex-button>
+            </div>
+            <!-- <plex-button
+                *ngIf="!fileUploadingInfo.error || (fileUploadingInfo.status != 'uploaded')"
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="onCancelUpload()">Cancel
+            </plex-button> -->
+    </div>
+</div>

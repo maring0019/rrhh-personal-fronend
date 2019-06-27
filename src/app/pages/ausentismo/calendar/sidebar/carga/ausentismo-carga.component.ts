@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Plex } from '@andes/plex';
 
 import { ArticuloService } from 'src/app/services/articulo.service';
+import { AusentismoService } from 'src/app/services/ausentismo.service';
+
 import { Articulo } from 'src/app/models/Articulo';
 import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
-import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 
 @Component({
@@ -16,7 +17,7 @@ import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 export class AusentismoCargaComponent implements OnInit {
     @Input() periodo: AusenciaPeriodo;
     @Output() outputAusencias: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
-    
+
     ausencia:any;
     articulos: Articulo[] = [];
 
@@ -36,8 +37,7 @@ export class AusentismoCargaComponent implements OnInit {
         this.ausenciaForm = this.createAusenciaForm();
     }
 
-    createAusenciaForm()
-    {
+    createAusenciaForm(){
         return this.formBuilder.group({
             agente            : [this.periodo.agente],
             articulo          : [this.periodo.articulo],
@@ -45,7 +45,13 @@ export class AusentismoCargaComponent implements OnInit {
             fechaHasta        : [this.periodo.fechaHasta],
             cantidadDias      : [this.periodo.cantidadDias],
             observacion       : [this.periodo.observacion],
+            adjuntos          : [[]]
         });
+    }
+
+    resetAusenciaForm(){
+        this.periodo = new AusenciaPeriodo();
+        this.ausenciaForm = this.createAusenciaForm();
     }
 
     markFormAsInvalid(form){
@@ -55,22 +61,13 @@ export class AusentismoCargaComponent implements OnInit {
             });
     }
 
-    resetForm(){
-        this.periodo = new AusenciaPeriodo();
-        this.ausenciaForm = this.createAusenciaForm();
-    }
-
-    onClose(){
-
-    }
-
-    onSave(){
+    public onSave(){
         if (this.ausenciaForm.valid){
             const ausenciaPeriodo = new AusenciaPeriodo(this.ausenciaForm.value);
             this.ausentismoService.postAusenciasPeriodo(ausenciaPeriodo)
                 .subscribe(data => {
                     this.outputAusencias.emit(data);
-                    this.resetForm();
+                    this.resetAusenciaForm();
                     this.plex.info('success', 'Se ingresaron correctamente las ausencias');
                 });
         }
@@ -80,4 +77,12 @@ export class AusentismoCargaComponent implements OnInit {
         }
     }
 
+    onFilesUploadedChanged(files){
+        let fileIds = files.map( adj => adj = adj.real_id);
+        this.ausenciaForm.get('adjuntos').setValue(fileIds);
+    }
+
+    public onClose(){
+        
+    }
 }

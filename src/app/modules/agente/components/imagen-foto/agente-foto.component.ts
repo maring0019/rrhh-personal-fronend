@@ -108,7 +108,7 @@ export class AgenteFotoComponent implements OnChanges{
     }
 
     /**
-     * No se utiliza en este componente. Se deja temporalmente 
+     * No se utiliza en esta funcion. Se deja temporalmente 
      * para futuros requerimientos.
      */
     dataURItoBlob(dataURI) {
