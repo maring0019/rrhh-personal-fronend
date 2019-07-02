@@ -9,8 +9,8 @@ export class Ausencia {
         codigo: String
     };
     observacion: String;
-    adicional: String;
-    extra: String;
+    // adicional: String;
+    // extra: String;
     // adjuntos: Array,
     // certificado: CertificadoSchema
 }

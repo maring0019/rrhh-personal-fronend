@@ -28,13 +28,18 @@ export class AusentismoService {
         const url = `${this.url}/periodo`;
         return this.server.post(url, object).pipe(
             map(data =>
-                data.map(e=> e = {
+                data.ausencias.map(e=> e = {
                     'title': e.articulo.codigo,
                     'start': e.fecha,
                     'allDay': true
                   })
             )
         );;
+    }
+
+    searchAusenciasPeriodo(params?: any): Observable<AusenciaPeriodo[]> {
+        const url = `${this.url}/periodo`;
+        return this.server.get(url, { params: params, showError: true });
     }
 
 

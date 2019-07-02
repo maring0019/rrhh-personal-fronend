@@ -65,7 +65,7 @@ export class AgenteDatosBasicosComponent implements OnInit {
      * Ante un cambio de valor en el sexo o documento del formulario
      * intentamos actualizar el CUIL del agente
      */
-    updateCUIL(){
+    public updateCUIL(){
         let cuil = '';
         let sexo:any = this.datosBasicosForm.value.sexo;
         let documento = this.datosBasicosForm.value.documento;
@@ -81,7 +81,7 @@ export class AgenteDatosBasicosComponent implements OnInit {
         this.datosBasicosForm.patchValue({cuil:cuil});
     }
 
-    onValueNewFoto(newFoto){
+    public onValueNewFoto(newFoto){
         this.datosBasicosForm.patchValue({foto:newFoto});
         this.nuevaFotoAgente = newFoto;
     }

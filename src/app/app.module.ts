@@ -72,9 +72,13 @@ import { MainCalendarComponent } from './pages/ausentismo/calendar/main/main-cal
 import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calendar.component';
 import { HeadCalendarComponent } from './pages/ausentismo/calendar/header/header-calendar.component';
 import { SidebarCalendarComponent } from './pages/ausentismo/calendar/sidebar/sidebar-calendar.component';
-import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
 import { UploaderStatusComponent } from './pages/ausentismo/calendar/sidebar/carga/uploader.status.component';
 import { FileManagerComponent } from './pages/ausentismo/calendar/sidebar/carga/file.manager.component';
+
+import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
+import { AusenciasListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausencias-listado.component';
+import { AusenciasSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausencias-search-form.component';
+import { AusenciasSearchComponent } from './pages/ausentismo/ausencias/ausencias-search.component';
 
 // Componentes
 import { ListadoComponent } from './componentes/listado/listado.component';
@@ -128,6 +132,9 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         HeadCalendarComponent,
         SidebarCalendarComponent,
         AusentismoCargaComponent,
+        AusenciasListadoComponent,
+        AusenciasSearchFormComponent,
+        AusenciasSearchComponent,
 
         ListadoComponent,
         ItemListadoComponent,

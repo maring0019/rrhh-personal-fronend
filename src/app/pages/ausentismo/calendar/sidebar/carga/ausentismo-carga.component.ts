@@ -66,7 +66,7 @@ export class AusentismoCargaComponent implements OnInit {
             const ausenciaPeriodo = new AusenciaPeriodo(this.ausenciaForm.value);
             this.ausentismoService.postAusenciasPeriodo(ausenciaPeriodo)
                 .subscribe(data => {
-                    this.outputAusencias.emit(data);
+                    this.outputAusencias.emit(data.ausencias);
                     this.resetAusenciaForm();
                     this.plex.info('success', 'Se ingresaron correctamente las ausencias');
                 });

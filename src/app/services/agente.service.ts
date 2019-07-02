@@ -53,8 +53,8 @@ export class AgenteService {
         return this.server.get(url).pipe(
             map(data =>
                 data.map(e=> e = {
-                    'title': e.articulo.codigo,
-                    'start': e.fecha,
+                    'title': e.ausencias.articulo.codigo,
+                    'start': e.ausencias.fecha,
                     'allDay': true
                   })
             )
