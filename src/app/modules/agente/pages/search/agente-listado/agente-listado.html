@@ -1,5 +1,18 @@
+
+
 <!-- type = default -->
-<table *ngIf="type == 'default' && listado && listado.length" class="table table-striped table-hover">
+<table>
+
+        <plex-list *ngIf="type == 'default' && listado && listado.length" class="table table-striped table-hover">
+                <plex-heading>
+                    <b label>Primer label</b>
+                    <b badge>Badges</b>
+                </plex-heading>
+                <plex-item>
+                    <plex-label></plex-label>
+                    <plex-button></plex-button>
+                </plex-item>
+             </plex-list>
     <thead>
         <tr>
             <th></th>

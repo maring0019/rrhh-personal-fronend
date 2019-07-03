@@ -66,32 +66,46 @@ plex-layout .row .col-4 {
 }
 
 
+div.item-list {
+	height: 120px!important;
+	justify-content: space-between!important;
+
+	P {
+		text-transform: capitalize;
+		font-size: 1rem;
+		font-weight: bolder;
+		margin-top: 0px;
+		text-align: left;
+	}
+}
+
+
 // Badges
-%badge {
-    background: transparent;
-    border: 1.5px solid;
-    font-size: 0.75em;
-    font-weight: normal;
-    padding: 5px;
-	text-transform: uppercase;
+// // %badge {
+// //     background: transparent;
+// //     border: 1.5px solid;
+// //     font-size: 0.75em;
+// //     font-weight: normal;
+// //     padding: 5px;
+// // 	text-transform: uppercase;
 
 
-}
+// // }
 
-.badge:first-child {
-	margin-right: 5px;
-}
+// // .badge:first-child {
+// // 	margin-right: 5px;
+// // }
 
-[class^="badge"] {
-	@extend %badge;
+// // [class^="badge"] {
+// // 	@extend %badge;
 
-	&.badge-baja {
-		border-color: $red;
-		color: $red;
-	}
+// // 	&.badge-baja {
+// // 		border-color: $red;
+// // 		color: $red;
+// // 	}
 	
-	&.badge-alta {
-		border-color: $green;
-		color: $green;
-	}
-}
+// // 	&.badge-alta {
+// // 		border-color: $green;
+// // 		color: $green;
+// // 	}
+// }

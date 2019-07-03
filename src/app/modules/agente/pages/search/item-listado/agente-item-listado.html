@@ -2,7 +2,47 @@
     *ngIf="!listado.length"
     [header]="'No se encontraron resultados!'">
 </app-search-leyenda>
-<li class="d-flex flex-row justify-content-between align-items-center py-2"
+
+<plex-list>
+    <plex-item *ngFor="let agente of listado" (click)="seleccionarAgente(agente)">
+        <app-agente-foto
+            [agente]="agente">
+        </app-agente-foto>
+        <p>{{ agente.nombre }} {{ agente.apellido }}</p>
+        <plex-badge type="info">
+            {{ agente.situacionLaboralActiva? (agente.situacionLaboralActiva.situacion.tipoSituacion | title:'nombre') : 'Sin Situacion'}}
+        </plex-badge>
+        <plex-badge [type]="agente.estado? agente.estado: ''">
+            {{ agente.estado? agente.estado : 'Sin estado' }}
+        </plex-badge>
+        <plex-button 
+            *ngIf="agente.estado == 'baja'"
+            type="success"
+            size="sm"
+            icon="mdi icon-mas">Alta
+        </plex-button>
+        <plex-button
+            type="warning"
+            size="sm"
+            icon="mdi icon-lapiz"
+            (click)="gotoAgente(agente)">Editar
+        </plex-button>
+        <plex-button
+            type="danger"
+            size="sm"
+            icon="mdi icon-flecha-derecha"
+            (click)="gotoAusenciasAgente(agente)">Ausencias
+        </plex-button>
+        <plex-button 
+            type="primary"
+            size="sm"
+            icon="mdi icon-pastillas"
+            (click)="seleccionarAgente(agente)">Ver
+        </plex-button>
+    </plex-item>
+</plex-list>
+
+<!-- <li class="d-flex flex-row justify-content-between align-items-center py-2"
     *ngFor="let agente of listado">
     <div class="d-flex flex-row list-content" (click)="seleccionarAgente(agente)">
         <app-agente-foto
@@ -22,7 +62,7 @@
             </h6>
         </article>
     </div>
-    <!-- Botonera -->
+    Botonera
     <div class="d-flex flex-row list-actions">
         <plex-button 
             *ngIf="agente.estado == 'baja'"
@@ -48,7 +88,7 @@
             icon="mdi mdi-pencil"
             (click)="gotoAusenciasAgente(agente)">Ausencias
         </plex-button>
-        <!-- <plex-button type="success" type="sm" icon="mdi mdi-pencil" [routerLink]="['/agentes/registro/']">Editar</plex-button>
-        <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente.id]">Ver</plex-button> -->
+        <plex-button type="success" type="sm" icon="mdi mdi-pencil" [routerLink]="['/agentes/registro/']">Editar</plex-button>
+        <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente.id]">Ver</plex-button>
     </div>
-</li>
+</li> -->
