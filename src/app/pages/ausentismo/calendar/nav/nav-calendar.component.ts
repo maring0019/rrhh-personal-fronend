@@ -9,7 +9,10 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 
 export class NavCalendarComponent implements OnInit, AfterViewInit, OnChanges {
     @Input() ausencias;
-    @Input() mesSeleccionado:Date;
+    @Input() mesSeleccionado:Date;  // Identifica visualmente el mes seleccioando
+    @Input() rangeDesde:Date;       // 
+    @Input() rangeHasta:Date;
+
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
     
     @ViewChild('calendarprev') calendarPrev: FullCalendarComponent;

@@ -25,6 +25,7 @@ export class AusenciasListadoComponent {
     }
 
     set items(value: AusenciaPeriodo[]) {
+        console.log(value);
         this._items = value;
         if (value && value.length) {
             this.listado = value;

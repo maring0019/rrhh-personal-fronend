@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
+import { Agente } from 'src/app/models/Agente';
 
 
 @Component({
@@ -9,7 +10,9 @@ import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
 })
 
 export class AusenciasSearchComponent implements OnInit {
-
+    @Input() agente: Agente;
+    
+    
     ausencias:AusenciaPeriodo[];
     ausenciasSeleccionado: AusenciaPeriodo;
     searching = false;
@@ -39,6 +42,7 @@ export class AusenciasSearchComponent implements OnInit {
     }
 
     waitingResultados(event:any){
+        console.log('Evento comienzo busqueda!!');
         this.searching = true;
         this.resetAusenciasSeleccionado();
     }

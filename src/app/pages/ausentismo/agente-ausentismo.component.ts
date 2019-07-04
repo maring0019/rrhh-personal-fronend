@@ -8,7 +8,8 @@ import { Agente } from 'src/app/models/Agente';
 
 @Component({
     selector: 'app-agente-ausentismo',
-    templateUrl: 'agente-ausentismo.html'
+    templateUrl: 'agente-ausentismo.html',
+    styleUrls: ['./agente-ausentismo.scss']
 })
 
 export class AgenteAusentismoComponent implements OnInit {

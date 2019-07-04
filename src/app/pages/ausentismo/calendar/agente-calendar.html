@@ -1,14 +1,9 @@
 <plex-layout main="8">
     <plex-layout-main>
-        <!-- <app-ausencias-search></app-ausencias-search> -->
-        <app-main-calendar
-            *ngIf="ausencias"
-            [ausencias]="ausencias"
-            [weekends]="weekends"
-            [mesSeleccionado]="mesMainDefault"
-            (changedDate)="onChangeMainDate($event)">
-        </app-main-calendar>
-        <!-- <app-header-calendar
+        <!-- <app-ausencias-search
+            [agente]="agente">
+        </app-ausencias-search> -->
+        <app-header-calendar
             (changedDate)="onChangeHeaderDate($event)"
             (changedWeekends)="onChangeHeaderWeekends($event)">
         </app-header-calendar>
@@ -24,7 +19,7 @@
             [ausencias]="ausencias"
             [mesSeleccionado]="mesNavDefault"
             (changedDate)="onChangeNavDate($event)">
-        </app-nav-calendar> -->
+        </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
         <app-sidebar-calendar
