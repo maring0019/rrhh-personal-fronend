@@ -1,9 +1,9 @@
-<app-ausencias-search-form
+<app-ausentismo-search-form
     [agente]="agente"
     (searchStart)="waitingResultados($event)"
     (searchEnd)="showResultados($event)"
     (searchClear)="clearResultados($event)">
-</app-ausencias-search-form>
+</app-ausentismo-search-form>
 
 <ng-container *ngIf="searching; then mostrarSearchingActivity; else mostrarResultados"></ng-container>
 <ng-template #mostrarSearchingActivity>
@@ -13,13 +13,13 @@
     </plex-loader>
 </ng-template>
 <ng-template #mostrarResultados>
-    <app-ausencias-listado
-        *ngIf="ausencias?.length"
-        [items]="ausencias"
-        (selected)="seleccionarAusencia($event)">
-    </app-ausencias-listado>
+    <app-ausentismo-listado
+        *ngIf="ausentismos?.length"
+        [items]="ausentismos"
+        (selected)="seleccionarAusentismo($event)">
+    </app-ausentismo-listado>
     <app-search-leyenda
-        *ngIf="!ausencias?.length"
+        *ngIf="!ausentismos?.length"
         [header]="'No se encontraron resultados!'"
         [subHeader]="'Podes refinar tu búsqueda modificando los filtros'">
     </app-search-leyenda>

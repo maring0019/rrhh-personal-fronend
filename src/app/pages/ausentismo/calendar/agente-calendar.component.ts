@@ -2,7 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Agente } from 'src/app/models/Agente';
 import { AgenteService } from 'src/app/services/agente.service';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+import { Ausentismo } from 'src/app/models/Ausentismo';
 
+export interface DateRangeSelection {
+    fechaDesde: Date,
+    fechaHasta: Date
+}
 
 @Component({
     selector: 'app-agente-calendar',
@@ -16,6 +21,8 @@ export class AgenteCalendarComponent implements OnInit {
     weekends: Boolean = true;
     mesMainDefault:Date = new Date();
     mesNavDefault:Date = new Date();
+    dateRangeSelection: DateRangeSelection;
+    ausentismoSeleccionado: Ausentismo;
     
     // TODO: Analizar de enviar todas las opciones del calendario por esta variable
     options:any = {
@@ -54,6 +61,19 @@ export class AgenteCalendarComponent implements OnInit {
     onNuevasAusencias(ausencias){
         if (ausencias && ausencias.length){
             this.ausencias = this.ausencias.concat(ausencias); // Creates a new array!
+        }
+    }
+
+    onAusentismoSelected(ausentismo){
+        this.ausentismoSeleccionado = ausentismo;
+        if (ausentismo){
+            this.dateRangeSelection = {
+                fechaDesde: ausentismo.fechaDesde,
+                fechaHasta: ausentismo.fechaHasta
+            }
+        }
+        else {
+            this.dateRangeSelection = null;
         }
     }
 }

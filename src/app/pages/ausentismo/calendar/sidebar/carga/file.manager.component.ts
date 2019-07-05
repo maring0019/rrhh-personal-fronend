@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild,
     ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
 
-// import { saveAs } from 'file-saver';
-
 import { Plex } from '@andes/plex';
 
 import { UploadService } from 'src/app/services/upload.service';

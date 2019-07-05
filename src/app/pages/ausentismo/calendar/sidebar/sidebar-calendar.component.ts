@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Agente } from 'src/app/hardcodeo/agente';
-import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
+import { Ausentismo } from 'src/app/models/Ausentismo';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 
 @Component({
@@ -12,10 +12,10 @@ export class SidebarCalendarComponent implements OnInit {
     @Input() fechaDesde: Date;
     @Output() outputAusencias: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
     
-    periodoCarga: AusenciaPeriodo;
+    periodoCarga: Ausentismo;
 
     public ngOnInit() {
-        this.periodoCarga = new AusenciaPeriodo({
+        this.periodoCarga = new Ausentismo({
             agente : this.agente,
             fechaDesde: this.fechaDesde? this.fechaDesde : new Date()
         })

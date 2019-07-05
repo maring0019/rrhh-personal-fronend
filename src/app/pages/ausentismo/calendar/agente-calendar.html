@@ -12,6 +12,7 @@
             [ausencias]="ausencias"
             [weekends]="weekends"
             [mesSeleccionado]="mesMainDefault"
+            [periodoSeleccionado]="dateRangeSelection"
             (changedDate)="onChangeMainDate($event)">
         </app-main-calendar>
         <app-nav-calendar
@@ -22,10 +23,34 @@
         </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
-        <app-sidebar-calendar
+        <!-- <app-sidebar-calendar
             [agente]="agente"
-            (outputAusencias)="onNuevasAusencias($event)">
-    </app-sidebar-calendar>
+            (outputAusencias)="onNuevasAusencias($event)"
+            (changed)
+            >
+        </app-sidebar-calendar> -->
+        <plex-tabs>
+            <plex-tab label="DETALLE">
+                <app-ausentismo-search
+                    [agente]="agente"
+                    (ausentismoSelected)="onAusentismoSelected($event)">
+                </app-ausentismo-search>
+            </plex-tab>
+            <plex-tab label="CARGA">
+                <app-ausentismo-carga
+                    [agente]="agente"
+                    (outputAusencias)="onNuevasAusencias($event)">
+                </app-ausentismo-carga>
+            </plex-tab>
+            <plex-tab label="EDICION">
+                <app-ausentismo-carga
+                    *ngIf="ausentismoSeleccionado"
+                    [ausentismo]="ausentismoSeleccionado"
+                    [agente]="agente"
+                    (outputAusencias)="onNuevasAusencias($event)">
+                </app-ausentismo-carga>
+            </plex-tab>
+        </plex-tabs>
     </plex-layout-sidebar>
 </plex-layout>
 

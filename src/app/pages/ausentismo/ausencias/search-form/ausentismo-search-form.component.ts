@@ -1,9 +1,8 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router} from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Articulo } from 'src/app/models/Articulo';
-import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
+import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 
 import { ArticuloService } from 'src/app/services/articulo.service';
@@ -12,10 +11,10 @@ import { AusentismoService } from 'src/app/services/ausentismo.service';
 
 
 @Component({
-    selector: 'app-ausencias-search-form',
-    templateUrl: 'ausencias-search-form.html'
+    selector: 'app-ausentismo-search-form',
+    templateUrl: 'ausentismo-search-form.html'
 })
-export class AusenciasSearchFormComponent implements OnInit, OnDestroy {
+export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
     @Input() agente: Agente;
     
     private timeoutHandle: number;
@@ -24,16 +23,15 @@ export class AusenciasSearchFormComponent implements OnInit, OnDestroy {
     
     public articulos: Articulo[] = [];
 
-    // Eventos
+    // Eventos de salida
     @Output() searchStart: EventEmitter<any> = new EventEmitter<any>();
-    @Output() searchEnd: EventEmitter<AusenciaPeriodo[]> = new EventEmitter<AusenciaPeriodo[]>();
+    @Output() searchEnd: EventEmitter<Ausentismo[]> = new EventEmitter<Ausentismo[]>();
     @Output() searchClear: EventEmitter<any> = new EventEmitter<any>();
 
 
     constructor(
-        private router: Router,
         private formBuilder: FormBuilder,
-        private ausentismoService: AusentismoService,
+        private searchService: AusentismoService,
         private articuloService: ArticuloService) {
     }
 
@@ -74,7 +72,7 @@ export class AusenciasSearchFormComponent implements OnInit, OnDestroy {
 
 
     /**
-     * Busca ausencias cada vez que algun input del formulario de busqueda
+     * Busca ausentismos cada vez que algun input del formulario de busqueda
      * cambia de valor.
      */
     public buscar() {
@@ -87,7 +85,7 @@ export class AusenciasSearchFormComponent implements OnInit, OnDestroy {
         this.searchStart.emit();
         this.timeoutHandle = window.setTimeout(() => {
             this.timeoutHandle = null;
-            this.ausentismoService.searchAusenciasPeriodo(searchValues)
+            this.searchService.searchAusentismo(searchValues)
                 .subscribe(resultado => {
                     this.searchEnd.emit(resultado);
                 },
@@ -105,9 +103,5 @@ export class AusenciasSearchFormComponent implements OnInit, OnDestroy {
         if (searchValues.fechaDesde) _sv = {..._sv, fechaDesde: searchValues.fechaDesde}
         if (searchValues.fechaHasta) _sv = {..._sv, fechaHasta: searchValues.fechaHasta}
         return _sv;
-    }
-
-    public altaAusencias(){
-        // this.router.navigate(['/ausencias/registro']);
     }
 }

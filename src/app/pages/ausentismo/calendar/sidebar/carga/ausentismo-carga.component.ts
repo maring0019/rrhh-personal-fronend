@@ -7,15 +7,18 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
 
 import { Articulo } from 'src/app/models/Articulo';
-import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
+import { Ausentismo } from 'src/app/models/Ausentismo';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+import { Agente } from 'src/app/models/Agente';
+
 
 @Component({
     selector: 'app-ausentismo-carga',
     templateUrl: 'ausentismo-carga.html'
 })
 export class AusentismoCargaComponent implements OnInit {
-    @Input() periodo: AusenciaPeriodo;
+    @Input() ausentismo: Ausentismo;
+    @Input() agente: Agente;
     @Output() outputAusencias: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
 
     ausencia:any;
@@ -30,6 +33,7 @@ export class AusentismoCargaComponent implements OnInit {
         public plex: Plex){}
 
     public ngOnInit() {
+        if (!this.ausentismo) this.ausentismo = new Ausentismo();
         this.articuloService.get({}) // Init Articulos (select)
             .subscribe(data => {
                 this.articulos = data;
@@ -39,18 +43,18 @@ export class AusentismoCargaComponent implements OnInit {
 
     createAusenciaForm(){
         return this.formBuilder.group({
-            agente            : [this.periodo.agente],
-            articulo          : [this.periodo.articulo],
-            fechaDesde        : [this.periodo.fechaDesde],
-            fechaHasta        : [this.periodo.fechaHasta],
-            cantidadDias      : [this.periodo.cantidadDias],
-            observacion       : [this.periodo.observacion],
+            agente            : [this.agente],
+            articulo          : [this.ausentismo.articulo],
+            fechaDesde        : [this.ausentismo.fechaDesde],
+            fechaHasta        : [this.ausentismo.fechaHasta],
+            cantidadDias      : [this.ausentismo.cantidadDias],
+            observacion       : [this.ausentismo.observacion],
             adjuntos          : [[]]
         });
     }
 
     resetAusenciaForm(){
-        this.periodo = new AusenciaPeriodo();
+        this.ausentismo = new Ausentismo();
         this.ausenciaForm = this.createAusenciaForm();
     }
 
@@ -63,8 +67,8 @@ export class AusentismoCargaComponent implements OnInit {
 
     public onSave(){
         if (this.ausenciaForm.valid){
-            const ausenciaPeriodo = new AusenciaPeriodo(this.ausenciaForm.value);
-            this.ausentismoService.postAusenciasPeriodo(ausenciaPeriodo)
+            const ausenciaPeriodo = new Ausentismo(this.ausenciaForm.value);
+            this.ausentismoService.postAusentismo(ausenciaPeriodo)
                 .subscribe(data => {
                     this.outputAusencias.emit(data.ausencias);
                     this.resetAusenciaForm();
