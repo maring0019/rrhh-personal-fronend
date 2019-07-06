@@ -76,6 +76,8 @@ import { UploaderStatusComponent } from './pages/ausentismo/calendar/sidebar/car
 import { FileManagerComponent } from './pages/ausentismo/calendar/sidebar/carga/file.manager.component';
 
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
+import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-add.component';
+import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-update.component';
 import { AusentismoListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausentismo-listado.component';
 import { AusentismoSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausentismo-search-form.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
@@ -132,6 +134,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         HeadCalendarComponent,
         SidebarCalendarComponent,
         AusentismoCargaComponent,
+        AusentismoCargaAddComponent,
+        AusentismoCargaUpdateComponent,
         AusentismoListadoComponent,
         AusentismoSearchFormComponent,
         AusentismoSearchComponent,

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Plex } from '@andes/plex';
+import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
@@ -11,82 +12,103 @@ import { Ausentismo } from 'src/app/models/Ausentismo';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 import { Agente } from 'src/app/models/Agente';
 
+import { DateRangeSelection } from '../../agente-calendar.component';
+
+
 
 @Component({
     selector: 'app-ausentismo-carga',
     templateUrl: 'ausentismo-carga.html'
 })
 export class AusentismoCargaComponent implements OnInit {
-    @Input() ausentismo: Ausentismo;
     @Input() agente: Agente;
+    @Input() ausentismo: Ausentismo = new Ausentismo();
     @Output() outputAusencias: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
+    @Output() changedDateRange: EventEmitter<DateRangeSelection> = new EventEmitter<DateRangeSelection>();
+    @Output() canceled:EventEmitter<any> = new EventEmitter<any>();
 
-    ausencia:any;
-    articulos: Articulo[] = [];
 
-    ausenciaForm: FormGroup;
+    public articulos: Articulo[] = [];
+    public ausentismoForm: FormGroup;
+    public formTitle:String = '';
 
     constructor(
-        private formBuilder: FormBuilder,
-        private articuloService: ArticuloService,
-        private ausentismoService: AusentismoService,
-        public plex: Plex){}
+        protected formBuilder: FormBuilder,
+        protected articuloService: ArticuloService,
+        protected ausentismoService: AusentismoService,
+        protected plex: Plex){}
 
     public ngOnInit() {
-        if (!this.ausentismo) this.ausentismo = new Ausentismo();
-        this.articuloService.get({}) // Init Articulos (select)
-            .subscribe(data => {
-                this.articulos = data;
-        });
-        this.ausenciaForm = this.createAusenciaForm();
+        this.initFormSelectOptions();
+        this.initAusentismoForm(this.ausentismo);
     }
 
-    createAusenciaForm(){
-        return this.formBuilder.group({
+    initFormSelectOptions(){
+        this.articuloService.get({})
+            .subscribe(data => {
+            this.articulos = data;
+        });
+    }
+
+    initAusentismoForm(ausentismo){
+        this.ausentismoForm = this.formBuilder.group({
             agente            : [this.agente],
-            articulo          : [this.ausentismo.articulo],
-            fechaDesde        : [this.ausentismo.fechaDesde],
-            fechaHasta        : [this.ausentismo.fechaHasta],
-            cantidadDias      : [this.ausentismo.cantidadDias],
-            observacion       : [this.ausentismo.observacion],
+            id                : [ausentismo.id],
+            articulo          : [ausentismo.articulo],
+            fechaDesde        : [ausentismo.fechaDesde],
+            fechaHasta        : [ausentismo.fechaHasta],
+            cantidadDias      : [ausentismo.cantidadDias],
+            observacion       : [ausentismo.observacion],
             adjuntos          : [[]]
         });
     }
 
-    resetAusenciaForm(){
-        this.ausentismo = new Ausentismo();
-        this.ausenciaForm = this.createAusenciaForm();
-    }
-
-    markFormAsInvalid(form){
-        Object.keys(form.controls).forEach(field => {
-            const control = form.get(field);
-            control.markAsTouched({ onlySelf: true });
-            });
+    public onFilesUploadedChanged(files){
+        let fileIds = files.map( adj => adj = adj.real_id);
+        this.ausentismoForm.get('adjuntos').setValue(fileIds);
     }
 
     public onSave(){
-        if (this.ausenciaForm.valid){
-            const ausenciaPeriodo = new Ausentismo(this.ausenciaForm.value);
-            this.ausentismoService.postAusentismo(ausenciaPeriodo)
-                .subscribe(data => {
-                    this.outputAusencias.emit(data.ausencias);
-                    this.resetAusenciaForm();
-                    this.plex.info('success', 'Se ingresaron correctamente las ausencias');
-                });
+        if (this.ausentismoForm.valid){
+            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
         }
         else{
-            this.markFormAsInvalid(this.ausenciaForm);
+            formUtils.markFormAsInvalid(this.ausentismoForm);
             this.plex.info('info', 'Debe completar todos los datos obligatorios');
         }
     }
 
-    onFilesUploadedChanged(files){
-        let fileIds = files.map( adj => adj = adj.real_id);
-        this.ausenciaForm.get('adjuntos').setValue(fileIds);
-    }
+    protected saveAusentismo(ausentismo){}
 
     public onClose(){
-        
+        this.canceled.emit();
+    }
+
+    public onChangedDate(value){
+        let fd:Date = this.ausentismoForm.value.fechaDesde;
+        let fh:Date = this.ausentismoForm.value.fechaHasta;
+        if ((fd && fh) && (fd>fh)) return; // Form validation
+        if (!fd && !fh){
+            this.changedDateRange.emit();
+            return;
+        }
+        if (fd && fh) {
+            this.changedDateRange.emit({fechaDesde:fd, fechaHasta:this.getTomorrow(fh)});
+            return;
+        }
+        if (fd && !fh) {
+            this.changedDateRange.emit({fechaDesde:fd, fechaHasta:this.getTomorrow(fd)});
+            return;
+        }
+        if (!fd && fh) {
+            this.changedDateRange.emit({fechaDesde:fh, fechaHasta:this.getTomorrow(fh)});
+            return;
+        }
+    }
+
+    public getTomorrow(date){
+        let tomorrow = new Date(date);
+        tomorrow.setDate(date.getDate() + 1);
+        return tomorrow;
     }
 }

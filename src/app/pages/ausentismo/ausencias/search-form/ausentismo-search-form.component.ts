@@ -36,7 +36,7 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.initSelectOptions();
+        this.initFormSelectOptions();
         this.searchForm = this.createSearchForm();
         this.searchForm.valueChanges.subscribe(() => {
             this.buscar();
@@ -53,7 +53,7 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
      * Inicializa las opciones de los diferentes elementos
      * select disponible en el componente
      */
-    initSelectOptions(){
+    initFormSelectOptions(){
         this.articuloService.get({})
             .subscribe(data => {
                 this.articulos = data;

@@ -1,8 +1,5 @@
 <plex-layout main="8">
     <plex-layout-main>
-        <!-- <app-ausencias-search
-            [agente]="agente">
-        </app-ausencias-search> -->
         <app-header-calendar
             (changedDate)="onChangeHeaderDate($event)"
             (changedWeekends)="onChangeHeaderWeekends($event)">
@@ -23,12 +20,6 @@
         </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
-        <!-- <app-sidebar-calendar
-            [agente]="agente"
-            (outputAusencias)="onNuevasAusencias($event)"
-            (changed)
-            >
-        </app-sidebar-calendar> -->
         <plex-tabs>
             <plex-tab label="DETALLE">
                 <app-ausentismo-search
@@ -37,18 +28,22 @@
                 </app-ausentismo-search>
             </plex-tab>
             <plex-tab label="CARGA">
-                <app-ausentismo-carga
+                <app-ausentismo-carga-add
                     [agente]="agente"
-                    (outputAusencias)="onNuevasAusencias($event)">
-                </app-ausentismo-carga>
+                    (outputAusencias)="onNuevasAusencias($event)"
+                    (changedDateRange)="onChangedDateRange($event)"
+                    (canceled)="onCancelCarga($event)">
+                </app-ausentismo-carga-add>
             </plex-tab>
             <plex-tab label="EDICION">
-                <app-ausentismo-carga
+                <app-ausentismo-carga-update
                     *ngIf="ausentismoSeleccionado"
                     [ausentismo]="ausentismoSeleccionado"
                     [agente]="agente"
-                    (outputAusencias)="onNuevasAusencias($event)">
-                </app-ausentismo-carga>
+                    (outputAusencias)="onNuevasAusencias($event)"
+                    (changedDateRange)="onChangedDateRange($event)"
+                    (canceled)="onCancelCarga($event)">
+                </app-ausentismo-carga-update>
             </plex-tab>
         </plex-tabs>
     </plex-layout-sidebar>

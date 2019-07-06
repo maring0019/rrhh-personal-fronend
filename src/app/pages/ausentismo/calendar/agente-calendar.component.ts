@@ -22,7 +22,7 @@ export class AgenteCalendarComponent implements OnInit {
     mesMainDefault:Date = new Date();
     mesNavDefault:Date = new Date();
     dateRangeSelection: DateRangeSelection;
-    ausentismoSeleccionado: Ausentismo;
+    ausentismoSeleccionado: Ausentismo = null;
     
     // TODO: Analizar de enviar todas las opciones del calendario por esta variable
     options:any = {
@@ -73,7 +73,19 @@ export class AgenteCalendarComponent implements OnInit {
             }
         }
         else {
-            this.dateRangeSelection = null;
+            this.resetDateRange();
         }
+    }
+
+    onCancelCarga(){
+        this.resetDateRange();
+    }
+
+    onChangedDateRange(newRange:DateRangeSelection){
+        this.dateRangeSelection = newRange;
+    }
+
+    resetDateRange(){
+        this.dateRangeSelection = null;
     }
 }

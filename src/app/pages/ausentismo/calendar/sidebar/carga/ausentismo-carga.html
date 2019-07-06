@@ -1,13 +1,13 @@
 
 <header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5><strong>AUSENTISMO |</strong> Carga</h5>
+        <h5><strong>AUSENTISMO |</strong> {{ formTitle }}</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
     </div>
 </header>
-<form name="ausenciaForm" [formGroup]="ausenciaForm">
+<form name="ausentismoForm" [formGroup]="ausentismoForm">
     <div class="row">
         <div class="col-md-12">
             <plex-select 
@@ -27,7 +27,8 @@
                 label="Desde"
                 name="fechaDesde"
                 formControlName="fechaDesde"
-                [required]="true">
+                [required]="true"
+                (change)="onChangedDate($event)">
             </plex-datetime>
         </div>
         <div class="col-md-5">
@@ -36,7 +37,8 @@
                 label="Hasta"
                 name="fechaHasta"
                 formControlName="fechaHasta"
-                [required]="true">
+                [required]="true"
+                (change)="onChangedDate($event)">
             </plex-datetime>
         </div>
         <div class="col-md-2">
