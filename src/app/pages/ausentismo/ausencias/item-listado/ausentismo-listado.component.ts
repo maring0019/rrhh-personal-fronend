@@ -43,6 +43,7 @@ export class AusentismoListadoComponent {
      * @type {EventEmitter<Item>}
      */
     @Output() selected: EventEmitter<Item> = new EventEmitter<Item>();
+    @Output() edit: EventEmitter<Item> = new EventEmitter<Item>();
     
     /**
      * Evento que se emite cuando el mouse está sobre un item
@@ -60,6 +61,10 @@ export class AusentismoListadoComponent {
 
     public hoverItem(item: Item) {
         this.hover.emit(item);
+    }
+
+    public editItem(item: Item){
+        this.edit.emit(item);
     }
 
 }

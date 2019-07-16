@@ -9,14 +9,15 @@ import { IUploadResponse } from '../models/IUploadResponse';
 import { environment } from 'src/environments/environment';
  
 @Injectable()
-export class UploadService {
-    private baseURL = environment.API;
-    private url = `${this.baseURL}/core/files`;
+export class FilesService {
+    
+    private serverUrl= environment.API;
+    private baseUrl = '/core/files';
     
     constructor(private server: Server, private httpClient: HttpClient) { }
 
     public upload(data):Observable<IUploadResponse> {
-        let uploadURL = `${this.url}/upload`;
+        let uploadURL = `${this.serverUrl}${this.baseUrl}/upload`;
     
         return this.httpClient.post<any>(uploadURL, data, {
             reportProgress: true,
@@ -40,17 +41,32 @@ export class UploadService {
     }
 
     private getDownloadURL(fileId){
-        return  `${this.url}/${fileId}/download`;
+        return  `${this.serverUrl}${this.baseUrl}/${fileId}/download`;
     }
 
     download(fileId: any): Observable<any> {
-        const url = `${this.url}/${fileId}/download`;
+        const url = `${this.baseUrl}/${fileId}/download`;
         return this.server.get(url);
     }
 
     delete(fileId: any): Observable<any> {
-        const url = `${this.url}/${fileId}/delete`;
+        const url = `${this.baseUrl}/${fileId}/delete`;
         return this.server.delete(url);
+    }
+
+    getObjectFiles(objectId: any): Observable<any[]> {
+        const url = `${this.baseUrl}/objects/${objectId}/files`;
+        return this.server.get(url);
+    }
+
+    attachFiles(objectId: any, files?:any): Observable<any[]> {
+        const url = `${this.baseUrl}/objects/${objectId}/attach`;
+        return this.server.post(url, { filesToAttach: files});
+    }
+
+    dettachFiles(objectId: any, files:any): Observable<any> {
+        const url = `${this.baseUrl}/objects/${objectId}/dettach`;
+        return this.server.post(url, { filesToDettach: files});
     }
 
 

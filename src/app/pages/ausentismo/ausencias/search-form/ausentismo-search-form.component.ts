@@ -9,7 +9,6 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
 
 
-
 @Component({
     selector: 'app-ausentismo-search-form',
     templateUrl: 'ausentismo-search-form.html'
@@ -41,7 +40,6 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
         this.searchForm.valueChanges.subscribe(() => {
             this.buscar();
         });
-        // Al ingresar por primera vez realizamos una busqueda
         this.buscar();
     }
 
@@ -76,7 +74,7 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
      * cambia de valor.
      */
     public buscar() {
-        if (!this.searchForm.valid) return;
+        if (!this.searchForm || !this.searchForm.valid) return;
         // Cancela la búsqueda anterior
         if (this.timeoutHandle) {
             window.clearTimeout(this.timeoutHandle);
@@ -87,6 +85,8 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
             this.timeoutHandle = null;
             this.searchService.searchAusentismo(searchValues)
                 .subscribe(resultado => {
+                    console.log('Resultados');
+                    console.log(resultado);
                     this.searchEnd.emit(resultado);
                 },
                 (err) => {

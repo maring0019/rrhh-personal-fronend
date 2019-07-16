@@ -1,11 +1,14 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Plex } from '@andes/plex';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
+import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
+import { FilesService } from 'src/app/services/files.service';
 
 import { Articulo } from 'src/app/models/Articulo';
 import { Ausentismo } from 'src/app/models/Ausentismo';
@@ -15,32 +18,88 @@ import { Agente } from 'src/app/models/Agente';
 import { DateRangeSelection } from '../../agente-calendar.component';
 
 
-
 @Component({
     selector: 'app-ausentismo-carga',
     templateUrl: 'ausentismo-carga.html'
 })
 export class AusentismoCargaComponent implements OnInit {
-    @Input() agente: Agente;
-    @Input() ausentismo: Ausentismo = new Ausentismo();
-    @Output() outputAusencias: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
+    @Output() changedData: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
     @Output() changedDateRange: EventEmitter<DateRangeSelection> = new EventEmitter<DateRangeSelection>();
-    @Output() canceled:EventEmitter<any> = new EventEmitter<any>();
+    // @Output() canceled:EventEmitter<any> = new EventEmitter<any>();
 
-
+    public agente: Agente;
+    public ausentismo: Ausentismo;
+    public ausentismoID: String;
+    public agenteID: String;
     public articulos: Articulo[] = [];
+    public ausentismoFiles: any = [];
     public ausentismoForm: FormGroup;
     public formTitle:String = '';
 
     constructor(
+        protected router:Router,
+        protected route: ActivatedRoute,
         protected formBuilder: FormBuilder,
+        protected agenteService:AgenteService,
         protected articuloService: ArticuloService,
         protected ausentismoService: AusentismoService,
-        protected plex: Plex){}
+        protected filesService: FilesService,
+        protected plex: Plex){ }
 
     public ngOnInit() {
+        this.initAgente();
+        this.initAusentismoAndFiles();
         this.initFormSelectOptions();
-        this.initAusentismoForm(this.ausentismo);
+    }
+
+    initAgente(){
+        this.route.parent.params.subscribe(
+            params =>{
+                const agenteID = params['agenteId'];
+                if (agenteID){
+                    this.agenteService.getByID(agenteID).subscribe((data) => {
+                        if (data){
+                            this.agente = new Agente(data);
+                            // this.ausentismoForm.get('agente').setValue(this.agente);
+                        }
+                    });
+                }
+            }
+        );
+    }
+
+    /**
+     * Recupera el id del ausentismo si se encuentra presente en la URL.
+     * Si esta presente este valor, entonces luego recupera el objeto 
+     * correspondiente a traves de la API, y sus archivos adjuntos
+     * Obs: El id del ausentismo solo estara disponible en la edicion
+     */
+    initAusentismoAndFiles(){
+        this.route.params.subscribe(
+            params =>{
+                this.ausentismoID = params['ausentismoId'];
+                if (this.ausentismoID){
+                    this.initAusentismo();
+                    this.initAusentismoFiles();
+                }
+            }
+        );
+    }
+
+    initAusentismo(){
+        this.ausentismoService.getByID(this.ausentismoID).subscribe((data) => {
+            if (data){
+                this.ausentismo = data;
+            }
+        });
+    }
+
+    initAusentismoFiles(){
+        this.filesService.getObjectFiles(this.ausentismoID)
+            .subscribe(data => {
+                this.ausentismoFiles = data;
+        });
+
     }
 
     initFormSelectOptions(){
@@ -50,38 +109,19 @@ export class AusentismoCargaComponent implements OnInit {
         });
     }
 
-    initAusentismoForm(ausentismo){
-        this.ausentismoForm = this.formBuilder.group({
-            agente            : [this.agente],
-            id                : [ausentismo.id],
-            articulo          : [ausentismo.articulo],
-            fechaDesde        : [ausentismo.fechaDesde],
-            fechaHasta        : [ausentismo.fechaHasta],
-            cantidadDias      : [ausentismo.cantidadDias],
-            observacion       : [ausentismo.observacion],
-            adjuntos          : [[]]
+    public onSuccess(data){
+        this.plex.info('info', 'Ausentismo ingresado correctamente')
+            .then( e => {
+                this.onClose();
         });
     }
 
-    public onFilesUploadedChanged(files){
-        let fileIds = files.map( adj => adj = adj.real_id);
-        this.ausentismoForm.get('adjuntos').setValue(fileIds);
+    public onError(error){
+        this.plex.info('info', 'Debe completar todos los datos obligatorios');
     }
-
-    public onSave(){
-        if (this.ausentismoForm.valid){
-            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
-        }
-        else{
-            formUtils.markFormAsInvalid(this.ausentismoForm);
-            this.plex.info('info', 'Debe completar todos los datos obligatorios');
-        }
-    }
-
-    protected saveAusentismo(ausentismo){}
 
     public onClose(){
-        this.canceled.emit();
+        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/listado`);
     }
 
     public onChangedDate(value){
@@ -111,4 +151,6 @@ export class AusentismoCargaComponent implements OnInit {
         tomorrow.setDate(date.getDate() + 1);
         return tomorrow;
     }
+
+    protected saveAusentismo(ausentismo){}
 }

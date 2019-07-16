@@ -31,7 +31,7 @@ import { SectorService } from './services/sector.service';
 import { RegimenHorarioService } from './services/regimen-horario.service';
 import { ArticuloService } from './services/articulo.service';
 import { AusentismoService } from './services/ausentismo.service';
-import { UploadService } from './services/upload.service';
+import { FilesService } from './services/files.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -191,7 +191,7 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         RegimenHorarioService,
         ArticuloService,
         AusentismoService,
-        UploadService
+        FilesService
     ],
     bootstrap: [AppComponent],
     entryComponents: [UploaderStatusComponent]

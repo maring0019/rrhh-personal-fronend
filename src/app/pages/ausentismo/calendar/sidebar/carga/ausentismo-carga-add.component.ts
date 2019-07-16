@@ -1,37 +1,86 @@
-import { Component, OnInit } from '@angular/core';
-import { AusentismoCargaComponent } from './ausentismo-carga.component';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { FormBuilder } from '@angular/forms';
+import  *  as formUtils from 'src/app/utils/formUtils';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Plex } from '@andes/plex';
 
+import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
+import { FilesService } from 'src/app/services/files.service';
+
 import { Ausentismo } from 'src/app/models/Ausentismo';
+import { Agente } from 'src/app/models/Agente';
+import { Articulo } from 'src/app/models/Articulo';
 
 @Component({
     selector: 'app-ausentismo-carga-add',
-    templateUrl: 'ausentismo-carga.html'
+    templateUrl: 'ausentismo-carga-add.html'
 })
-export class AusentismoCargaAddComponent extends AusentismoCargaComponent implements OnInit {
+export class AusentismoCargaAddComponent implements OnInit {
+    @Input() agente: Agente;
+    
+    @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
+    @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+    
+    public ausentismoFiles: any = [];
+    public ausentismoForm: FormGroup;
+    public articulos: Articulo[] = [];
+    
     public formTitle:String = 'Carga';
 
-    constructor(formBuilder: FormBuilder, articuloService: ArticuloService,
-            ausentismoService: AusentismoService, plex: Plex)
-        {
-            super(formBuilder, articuloService, ausentismoService, plex);
-        }
+    constructor(
+        private formBuilder: FormBuilder,
+        private articuloService: ArticuloService,
+        private ausentismoService: AusentismoService){}
 
     public ngOnInit() {
-        super.ngOnInit();
+        this.initFormSelectOptions();
+        this.initAusentismoForm();
     }
 
-    protected saveAusentismo(ausentismo){
+    initFormSelectOptions(){
+        this.articuloService.get({})
+            .subscribe(data => {
+            this.articulos = data;
+        });
+    }
+
+    initAusentismoForm(){
+        const ausentismo = new Ausentismo();
+        this.ausentismoForm = this.formBuilder.group({
+            agente            : [this.agente],
+            id                : [ausentismo.id],
+            articulo          : [ausentismo.articulo],
+            fechaDesde        : [ausentismo.fechaDesde],
+            fechaHasta        : [ausentismo.fechaHasta],
+            cantidadDias      : [ausentismo.cantidadDias],
+            observacion       : [ausentismo.observacion],
+        });
+    }
+
+    public onSave(){
+        if (this.ausentismoForm.valid){
+            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
+        }
+        else{
+            formUtils.markFormAsInvalid(this.ausentismoForm);
+            this.onError.emit();
+        }
+    }
+
+    private saveAusentismo(ausentismo){
         this.ausentismoService.postAusentismo(ausentismo)
             .subscribe(data => {
-                this.outputAusencias.emit(data.ausencias);
-                this.initAusentismoForm(new Ausentismo());
-                this.plex.info('success', 'Se ingresaron correctamente las ausencias');
-            });
+                this.saveFiles(data);
+                this.onSuccess.emit(data);
+            },
+            error=> this.onError.emit(error));
+    }
+
+    private saveFiles(ausentismo){
+        console.log('Corresponde guardar los archivos tambien');
+        console.log(this.ausentismoFiles);
     }
 }

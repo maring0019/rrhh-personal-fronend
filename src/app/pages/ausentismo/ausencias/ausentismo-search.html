@@ -5,6 +5,7 @@
 </header>
 
 <app-ausentismo-search-form
+    *ngIf="agente"
     [agente]="agente"
     (searchStart)="waitingResultados($event)"
     (searchEnd)="showResultados($event)"
@@ -22,7 +23,8 @@
     <app-ausentismo-listado
         *ngIf="ausentismos?.length"
         [items]="ausentismos"
-        (selected)="seleccionarAusentismo($event)">
+        (selected)="seleccionarAusentismo($event)"
+        (edit)="editarAusentismo($event)">
     </app-ausentismo-listado>
     <app-search-leyenda
         *ngIf="!ausentismos?.length"

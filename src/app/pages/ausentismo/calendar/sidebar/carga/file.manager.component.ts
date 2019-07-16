@@ -3,7 +3,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild,
 
 import { Plex } from '@andes/plex';
 
-import { UploadService } from 'src/app/services/upload.service';
+import { FilesService } from 'src/app/services/files.service';
 import { UploaderStatusComponent } from './uploader.status.component';
 
 @Component({
@@ -11,9 +11,9 @@ import { UploaderStatusComponent } from './uploader.status.component';
     templateUrl: 'file.manager.html'
 })
 export class FileManagerComponent implements OnInit {
-    @Input() owner:any; // Objeto propietario de los archivos.
+    @Input() filesOwner:any;          // Objeto propietario de los archivos.
     @Input() autosave:Boolean = true; // Flag para indicar si los cambios impactan directamente sobre el obj propietario
-    @Input() filesUploaded = []; // Almacena unicamente info sobre los archivos uploaded
+    @Input() filesUploaded = [];      // Almacena unicamente info sobre los archivos uploaded
     @Input() maxFiles;
     @Input() title = 'Archivos adjuntos';
 
@@ -23,7 +23,7 @@ export class FileManagerComponent implements OnInit {
     componentRef:any;
 
     constructor(
-        private uploadService: UploadService,
+        private filesService: FilesService,
         public plex: Plex,
         private resolver: ComponentFactoryResolver){}
 
@@ -52,11 +52,13 @@ export class FileManagerComponent implements OnInit {
         let componentRef = this.viewContainerRef.createComponent(factory);
         // Pass to child Input() parameters value
         componentRef.instance.fileToUpload = file;
+        componentRef.instance.attachFile = this.autosave;
+        componentRef.instance.objectRef = this.filesOwner;
         // Subscribe to child Output() events
         componentRef.instance.fileUploaded
             .subscribe(fileInfo => {
-                componentRef.destroy();
-                this.addFile(fileInfo);
+                    this.addFile(fileInfo);
+                    componentRef.destroy();
             });
         componentRef.instance.cancelUpload
             .subscribe(e => {
@@ -64,11 +66,11 @@ export class FileManagerComponent implements OnInit {
             });
     }
 
-    addFile(fileAdded){
-        if (fileAdded){
-            this.filesUploaded.push(fileAdded);
-            this.filesChanged.emit(this.filesUploaded);
-        }
+    addFile(newFiles){
+        newFiles.forEach(file => {
+            this.filesUploaded.push(file);
+        });
+        this.filesChanged.emit(this.filesUploaded);
     }
 
     public removeFile(index){
@@ -83,11 +85,13 @@ export class FileManagerComponent implements OnInit {
 
     deleteFile(index){
         const fileInfo = this.filesUploaded[index];
-        if (fileInfo.metadata && fileInfo.metadata.objectId){
+        if (fileInfo.metadata && fileInfo.metadata.objID){
             // TODO: Eliminar archivo de la db
+            console.log('Corresponde eliminar');
+            this.filesService.dettachFiles(fileInfo.metadata.objID, [fileInfo.id]).subscribe();
         }
         else{
-            this.uploadService.delete(fileInfo.id).subscribe();
+            this.filesService.delete(fileInfo.id).subscribe();
         }
         this.filesUploaded.splice(index, 1);
         this.filesChanged.emit(this.filesUploaded);

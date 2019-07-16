@@ -10,7 +10,14 @@ import { RoutingGuard, RoutingNavBar} from './app-guard';
 import { ListTipoSituacionComponent } from '../app/modules/tm/components/situacion/list-situacion/list-situacion.component';
 import { AgenteRegistroComponent } from '../app/modules/agente/pages/registro/agente-registro.component';
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
-import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
+
+import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
+import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
+import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-add.component';
+import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-update.component';
+import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
+
+
 
 const routes: Routes = [
     // Tablas maestras
@@ -19,7 +26,39 @@ const routes: Routes = [
     
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'agentes/ausencias', component: AgenteAusentismoComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { 
+        path: 'agentes/:agenteId/ausencias',
+        component: AgenteCalendarComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'listado',
+                pathMatch: 'full'
+            },
+            {
+                path: 'listado',
+                component: AusentismoSearchComponent,
+                canActivate: [RoutingNavBar , RoutingGuard],
+            },
+            {
+                path: 'agregar',
+                component: AusentismoCargaComponent,
+                canActivate: [RoutingNavBar , RoutingGuard],
+            },
+            {
+
+                path: ':ausentismoId/editar',
+                component: AusentismoCargaComponent,
+                canActivate: [RoutingNavBar , RoutingGuard],
+            },
+
+
+        ]
+        // http://localhost:4200/agentes/5cfea77d02890c22fcae4c9e/ausencias
+        // component: AgenteAusentismoComponent,
+        // canActivate: [RoutingNavBar , RoutingGuard],
+        // runGuardsAndResolvers: 'always' 
+    },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
 
@@ -39,7 +78,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-      RouterModule.forRoot(routes)
+      RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})
     ],
     exports: [RouterModule]
 })

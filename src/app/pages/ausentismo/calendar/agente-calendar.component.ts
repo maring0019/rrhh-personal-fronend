@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Agente } from 'src/app/models/Agente';
+import { ActivatedRoute } from '@angular/router';
+
 import { AgenteService } from 'src/app/services/agente.service';
-import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+
+import { Agente } from 'src/app/models/Agente';
 import { Ausentismo } from 'src/app/models/Ausentismo';
+import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+
 
 export interface DateRangeSelection {
     fechaDesde: Date,
@@ -16,7 +20,7 @@ export interface DateRangeSelection {
 })
 
 export class AgenteCalendarComponent implements OnInit {
-    @Input() agente: Agente;
+    // @Input() agente: Agente;
     ausencias: IAusenciaEvento[];
     weekends: Boolean = true;
     mesMainDefault:Date = new Date();
@@ -30,14 +34,24 @@ export class AgenteCalendarComponent implements OnInit {
         defaultDate: new Date()
     }
 
-    constructor(
-        private agenteService:AgenteService,
-        ){}
+    constructor(private route: ActivatedRoute, private agenteService:AgenteService){}
     
     public ngOnInit() {
-        this.agenteService.getAusencias(this.agente.id).subscribe((data) => {
-            this.ausencias = data;
-        });
+        console.log('Estamos en el init de AgenteCalendarComponent')
+        this.route.params.subscribe(
+            params =>{
+                const agenteID = params['agenteId'];
+                if (agenteID){
+                    this.agenteService.getAusencias(agenteID).subscribe((data) => {
+                            // this.ausencias = data;
+                        });
+                }
+                else{
+                    console.log('No agenteID de los parametros')
+                    // this.volverInicio();
+                }
+            }
+        );
     }
 
 
@@ -58,10 +72,11 @@ export class AgenteCalendarComponent implements OnInit {
         this.weekends = value;
     }
 
-    onNuevasAusencias(ausencias){
-        if (ausencias && ausencias.length){
-            this.ausencias = this.ausencias.concat(ausencias); // Creates a new array!
-        }
+    onChangedAusentismo(value){
+        // this.agente = new Agente(this.agente);
+        // if (ausencias && ausencias.length){
+        //     this.ausencias = this.ausencias.concat(ausencias); // Creates a new array!
+        // }
     }
 
     onAusentismoSelected(ausentismo){
@@ -87,5 +102,14 @@ export class AgenteCalendarComponent implements OnInit {
 
     resetDateRange(){
         this.dateRangeSelection = null;
+    }
+
+    onActivate(componentRef){
+        // componentRef.ausentismoSelected.subscribe((value) => {
+        //     // Will receive the data from child here 
+        //     this.onAusentismoSelected(value);
+        // })
+        console.log('Se activo el componente interno');
+        console.log(componentRef);
     }
 }

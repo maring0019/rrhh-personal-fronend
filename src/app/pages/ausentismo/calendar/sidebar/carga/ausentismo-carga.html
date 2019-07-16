@@ -7,73 +7,16 @@
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
     </div>
 </header>
-<form name="ausentismoForm" [formGroup]="ausentismoForm">
-    <div class="row">
-        <div class="col-md-12">
-            <plex-select 
-                [data]="articulos"
-                name="articulo"
-                formControlName="articulo"
-                label="Selección de Artículo"
-                placeholder="Seleccione..."
-                [required]="true">
-            </plex-select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-5">
-            <plex-datetime
-                type="date"
-                label="Desde"
-                name="fechaDesde"
-                formControlName="fechaDesde"
-                [required]="true"
-                (change)="onChangedDate($event)">
-            </plex-datetime>
-        </div>
-        <div class="col-md-5">
-            <plex-datetime
-                type="date"
-                label="Hasta"
-                name="fechaHasta"
-                formControlName="fechaHasta"
-                [required]="true"
-                (change)="onChangedDate($event)">
-            </plex-datetime>
-        </div>
-        <div class="col-md-2">
-            <plex-float
-                name="cantidadDias"
-                formControlName="cantidadDias"
-                label="Días"
-                min="1"
-                [required]="true">
-            </plex-float>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <plex-text
-                name="observacion"
-                formControlName="observacion"
-                label="Observaciones"
-                multiline="true">
-            </plex-text>
-        </div>
-    </div>
-
-<app-file-manager
-    (filesChanged)="onFilesUploadedChanged($event)">
-</app-file-manager>
-
-<div class="row">
-    <div class="col-md-12 mt-4">
-        <plex-button 
-            type="success"
-            label="Guardar"
-            size="block"
-            (click)="onSave()">
-        </plex-button>
-    </div>
-</div>
-</form>
+<app-ausentismo-carga-add
+    *ngIf="!ausentismo && agente"
+    [agente]="agente"
+    (onSuccess)="onSuccess($event)"
+    (onError)="onError($event)">
+</app-ausentismo-carga-add>
+<app-ausentismo-carga-update
+    *ngIf="ausentismo"
+    [ausentismo]="ausentismo"
+    [ausentismoFiles]="ausentismoFiles"
+    (onSuccess)="onSuccess($event)"
+    (onError)="onError($event)">
+</app-ausentismo-carga-update>

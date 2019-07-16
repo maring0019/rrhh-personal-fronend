@@ -4,6 +4,7 @@
             (changedDate)="onChangeHeaderDate($event)"
             (changedWeekends)="onChangeHeaderWeekends($event)">
         </app-header-calendar>
+
         <app-main-calendar
             *ngIf="ausencias"
             [ausencias]="ausencias"
@@ -12,6 +13,7 @@
             [periodoSeleccionado]="dateRangeSelection"
             (changedDate)="onChangeMainDate($event)">
         </app-main-calendar>
+
         <app-nav-calendar
             *ngIf="ausencias"
             [ausencias]="ausencias"
@@ -20,32 +22,36 @@
         </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
-        <plex-tabs>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        <!-- <plex-tabs>
+
             <plex-tab label="DETALLE">
                 <app-ausentismo-search
                     [agente]="agente"
                     (ausentismoSelected)="onAusentismoSelected($event)">
                 </app-ausentismo-search>
             </plex-tab>
+
             <plex-tab label="CARGA">
                 <app-ausentismo-carga-add
                     [agente]="agente"
-                    (outputAusencias)="onNuevasAusencias($event)"
+                    (changedAusentismo)="onChangedAusentismo($event)"
                     (changedDateRange)="onChangedDateRange($event)"
                     (canceled)="onCancelCarga($event)">
                 </app-ausentismo-carga-add>
             </plex-tab>
+
             <plex-tab label="EDICION">
                 <app-ausentismo-carga-update
                     *ngIf="ausentismoSeleccionado"
                     [ausentismo]="ausentismoSeleccionado"
                     [agente]="agente"
-                    (outputAusencias)="onNuevasAusencias($event)"
+                    (changedAusentismo)="onChangedAusentismo($event)"
                     (changedDateRange)="onChangedDateRange($event)"
                     (canceled)="onCancelCarga($event)">
                 </app-ausentismo-carga-update>
             </plex-tab>
-        </plex-tabs>
+        </plex-tabs> -->
     </plex-layout-sidebar>
 </plex-layout>
 
