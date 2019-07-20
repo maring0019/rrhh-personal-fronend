@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import  *  as formUtils from 'src/app/utils/formUtils';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -13,6 +13,7 @@ import { FilesService } from 'src/app/services/files.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 import { Articulo } from 'src/app/models/Articulo';
+import { FileManagerComponent } from 'src/app/pages/ausentismo/calendar/sidebar/carga/file.manager.component';
 
 @Component({
     selector: 'app-ausentismo-carga-add',
@@ -23,6 +24,8 @@ export class AusentismoCargaAddComponent implements OnInit {
     
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
     @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
+    @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
     
     public ausentismoFiles: any = [];
     public ausentismoForm: FormGroup;
@@ -80,7 +83,11 @@ export class AusentismoCargaAddComponent implements OnInit {
     }
 
     private saveFiles(ausentismo){
-        console.log('Corresponde guardar los archivos tambien');
-        console.log(this.ausentismoFiles);
+        console.log('Corresponde attachar los archivos tambien');
+        this.fileManager.attachFilesToObj(this.ausentismoFiles.map(f=>{f.id}))
+        .subscribe(files=>{
+            console.log('Archivos attachados');
+            console.log(files);
+        })
     }
 }

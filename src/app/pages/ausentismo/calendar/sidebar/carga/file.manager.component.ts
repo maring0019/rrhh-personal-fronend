@@ -12,7 +12,7 @@ import { UploaderStatusComponent } from './uploader.status.component';
 })
 export class FileManagerComponent implements OnInit {
     @Input() filesOwner:any;          // Objeto propietario de los archivos.
-    @Input() autosave:Boolean = true; // Flag para indicar si los cambios impactan directamente sobre el obj propietario
+    @Input() attachFile:Boolean = true; // Flag para indicar si los cambios impactan directamente sobre el obj propietario
     @Input() filesUploaded = [];      // Almacena unicamente info sobre los archivos uploaded
     @Input() maxFiles;
     @Input() title = 'Archivos adjuntos';
@@ -52,13 +52,24 @@ export class FileManagerComponent implements OnInit {
         let componentRef = this.viewContainerRef.createComponent(factory);
         // Pass to child Input() parameters value
         componentRef.instance.fileToUpload = file;
-        componentRef.instance.attachFile = this.autosave;
+        componentRef.instance.attachFile = this.attachFile;
         componentRef.instance.objectRef = this.filesOwner;
         // Subscribe to child Output() events
         componentRef.instance.fileUploaded
-            .subscribe(fileInfo => {
-                    this.addFile(fileInfo);
-                    componentRef.destroy();
+            .subscribe(fileUploaded => {
+                if (this.attachFile && this.filesOwner){
+                        this.attachFilesToObj([fileUploaded.id])
+                        .subscribe(files => {
+                            this.addFile(files);
+                        },
+                        (err) => {
+                           console.log('We have a problem Houston!!!');
+                        });
+                    }
+                else{
+                    this.addFile([fileUploaded]);
+                }
+                componentRef.destroy();
             });
         componentRef.instance.cancelUpload
             .subscribe(e => {
@@ -67,10 +78,12 @@ export class FileManagerComponent implements OnInit {
     }
 
     addFile(newFiles){
-        newFiles.forEach(file => {
-            this.filesUploaded.push(file);
-        });
-        this.filesChanged.emit(this.filesUploaded);
+        if (newFiles && newFiles.length){
+            newFiles.forEach(file => {
+                this.filesUploaded.push(file);
+            });
+            this.filesChanged.emit(this.filesUploaded);
+        }        
     }
 
     public removeFile(index){
@@ -99,6 +112,19 @@ export class FileManagerComponent implements OnInit {
 
     public viewFile(index){
         document.getElementById(`downloader-${index}`).click();
+    }
+
+   
+    public attachFilesToObj(filesToAttach:String[]){
+        return this.filesService.attachFiles(this.filesOwner.id, filesToAttach);
+        // .subscribe( files => {
+
+        //     // this.notifySuccces(files);
+        // },
+        // (err) => {
+        //     // this.notifyError();
+        // }
+        // );
     }
 
 }

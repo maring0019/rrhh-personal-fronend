@@ -35,12 +35,13 @@ export class UploaderStatusComponent implements OnInit {
                     this.fileUploadingInfo.status = res.status;
                     this.fileUploadingInfo.progress = res.progress;
                     if (res.status === 'uploaded'){
-                        if (this.attachFile && this.objectRef){
-                            this.attachFileToObj(res);
-                        }
-                        else{
-                            this.notifySuccces([res]);
-                        }
+                        this.notifySuccess(res);
+                        // if (this.attachFile && this.objectRef){
+                        //     this.attachFileToObj(res);
+                        // }
+                        // else{
+                        //     this.notifySuccces([res]);
+                        // }
                     }
                 }
             },
@@ -54,10 +55,11 @@ export class UploaderStatusComponent implements OnInit {
         this.cancelUpload.emit();
     }
 
+
     attachFileToObj(fileToAttach){
         this.filesService.attachFiles(this.objectRef.id, [fileToAttach.id])
         .subscribe( files => {
-            this.notifySuccces(files);
+            this.notifySuccess(files);
         },
         (err) => {
             this.notifyError();
@@ -70,7 +72,7 @@ export class UploaderStatusComponent implements OnInit {
         setTimeout(()=> this.fileUploaded.emit(), 2500); // Notify after 2.5 seg
     }
 
-    notifySuccces(res){
+    notifySuccess(res){
         setTimeout(()=> this.fileUploaded.emit(res), 1000); // Notify after 1 seg
     }
 }
