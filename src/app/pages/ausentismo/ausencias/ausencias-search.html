@@ -1,9 +1,0 @@
-<app-ausencias-search-form
-    (searchStart)="waitingResultados($event)"
-    (searchEnd)="showResultados($event)"
-    (searchClear)="clearResultados($event)">
-</app-ausencias-search-form>
-<app-ausencias-listado
-    *ngIf="ausencias"
-    [items]="ausencias">
-</app-ausencias-listado>

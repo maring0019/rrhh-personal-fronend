@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Server } from '@andes/shared';
 import { Ausencia } from '../models/Ausencia';
-import { AusenciaPeriodo } from '../models/AusenciaPeriodo';
+import { Ausentismo } from '../models/Ausentismo';
 
 @Injectable()
 export class AusentismoService {
@@ -16,6 +16,11 @@ export class AusentismoService {
         return this.server.get(this.url, { params: params, showError: true });
     }
 
+    getByID(ausentismoId: any): Observable<Ausentismo> {
+        const url = `${this.url}/periodo/${ausentismoId}`;
+        return this.server.get(url);
+    }
+
     post(object: Ausencia): Observable<Ausencia> {
         return this.server.post(this.url, object);
     }
@@ -24,7 +29,7 @@ export class AusentismoService {
         return this.server.put(this.url + '/' + object.id, object);
     }
 
-    postAusenciasPeriodo(object: AusenciaPeriodo): Observable<any> {
+    postAusentismo(object: Ausentismo): Observable<any> {
         const url = `${this.url}/periodo`;
         return this.server.post(url, object).pipe(
             map(data =>
@@ -37,7 +42,20 @@ export class AusentismoService {
         );;
     }
 
-    searchAusenciasPeriodo(params?: any): Observable<AusenciaPeriodo[]> {
+    putAusentismo(object: Ausentismo): Observable<any> {
+        const url = `${this.url}/periodo/${object.id}`;
+        return this.server.put(url, object).pipe(
+            map(data =>
+                data.ausencias.map(e=> e = {
+                    'title': e.articulo.codigo,
+                    'start': e.fecha,
+                    'allDay': true
+                  })
+            )
+        );
+    }
+
+    searchAusentismo(params?: any): Observable<Ausentismo[]> {
         const url = `${this.url}/periodo`;
         return this.server.get(url, { params: params, showError: true });
     }

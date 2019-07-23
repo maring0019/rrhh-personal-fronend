@@ -1,88 +1,156 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Plex } from '@andes/plex';
+import  *  as formUtils from 'src/app/utils/formUtils';
 
+import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
+import { FilesService } from 'src/app/services/files.service';
 
 import { Articulo } from 'src/app/models/Articulo';
-import { AusenciaPeriodo } from 'src/app/models/AusenciaPeriodo';
+import { Ausentismo } from 'src/app/models/Ausentismo';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+import { Agente } from 'src/app/models/Agente';
+
+import { DateRangeSelection } from '../../agente-calendar.component';
+
 
 @Component({
     selector: 'app-ausentismo-carga',
     templateUrl: 'ausentismo-carga.html'
 })
 export class AusentismoCargaComponent implements OnInit {
-    @Input() periodo: AusenciaPeriodo;
-    @Output() outputAusencias: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
+    @Output() changedData: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
+    @Output() changedDateRange: EventEmitter<DateRangeSelection> = new EventEmitter<DateRangeSelection>();
+    // @Output() canceled:EventEmitter<any> = new EventEmitter<any>();
 
-    ausencia:any;
-    articulos: Articulo[] = [];
-
-    ausenciaForm: FormGroup;
+    public agente: Agente;
+    public ausentismo: Ausentismo;
+    public ausentismoID: String;
+    public agenteID: String;
+    public articulos: Articulo[] = [];
+    public ausentismoFiles: any = [];
+    public ausentismoForm: FormGroup;
+    public formTitle:String = '';
 
     constructor(
-        private formBuilder: FormBuilder,
-        private articuloService: ArticuloService,
-        private ausentismoService: AusentismoService,
-        public plex: Plex){}
+        protected router:Router,
+        protected route: ActivatedRoute,
+        protected formBuilder: FormBuilder,
+        protected agenteService:AgenteService,
+        protected articuloService: ArticuloService,
+        protected ausentismoService: AusentismoService,
+        protected filesService: FilesService,
+        protected plex: Plex){ }
 
     public ngOnInit() {
-        this.articuloService.get({}) // Init Articulos (select)
+        this.initAgente();
+        this.initAusentismoAndFiles();
+        this.initFormSelectOptions();
+    }
+
+    initAgente(){
+        this.route.parent.params.subscribe(
+            params =>{
+                const agenteID = params['agenteId'];
+                if (agenteID){
+                    this.agenteService.getByID(agenteID).subscribe((data) => {
+                        if (data){
+                            this.agente = new Agente(data);
+                            // this.ausentismoForm.get('agente').setValue(this.agente);
+                        }
+                    });
+                }
+            }
+        );
+    }
+
+    /**
+     * Recupera el id del ausentismo si se encuentra presente en la URL.
+     * Si esta presente este valor, entonces luego recupera el objeto 
+     * correspondiente a traves de la API, y sus archivos adjuntos
+     * Obs: El id del ausentismo solo estara disponible en la edicion
+     */
+    initAusentismoAndFiles(){
+        this.route.params.subscribe(
+            params =>{
+                this.ausentismoID = params['ausentismoId'];
+                if (this.ausentismoID){
+                    this.initAusentismo();
+                    this.initAusentismoFiles();
+                }
+            }
+        );
+    }
+
+    initAusentismo(){
+        this.ausentismoService.getByID(this.ausentismoID).subscribe((data) => {
+            if (data){
+                this.ausentismo = data;
+            }
+        });
+    }
+
+    initAusentismoFiles(){
+        this.filesService.getObjectFiles(this.ausentismoID)
             .subscribe(data => {
-                this.articulos = data;
+                this.ausentismoFiles = data;
         });
-        this.ausenciaForm = this.createAusenciaForm();
+
     }
 
-    createAusenciaForm(){
-        return this.formBuilder.group({
-            agente            : [this.periodo.agente],
-            articulo          : [this.periodo.articulo],
-            fechaDesde        : [this.periodo.fechaDesde],
-            fechaHasta        : [this.periodo.fechaHasta],
-            cantidadDias      : [this.periodo.cantidadDias],
-            observacion       : [this.periodo.observacion],
-            adjuntos          : [[]]
+    initFormSelectOptions(){
+        this.articuloService.get({})
+            .subscribe(data => {
+            this.articulos = data;
         });
     }
 
-    resetAusenciaForm(){
-        this.periodo = new AusenciaPeriodo();
-        this.ausenciaForm = this.createAusenciaForm();
+    public onSuccess(data){
+        this.plex.info('info', 'Ausentismo ingresado correctamente')
+            .then( e => {
+                this.onClose();
+        });
     }
 
-    markFormAsInvalid(form){
-        Object.keys(form.controls).forEach(field => {
-            const control = form.get(field);
-            control.markAsTouched({ onlySelf: true });
-            });
-    }
-
-    public onSave(){
-        if (this.ausenciaForm.valid){
-            const ausenciaPeriodo = new AusenciaPeriodo(this.ausenciaForm.value);
-            this.ausentismoService.postAusenciasPeriodo(ausenciaPeriodo)
-                .subscribe(data => {
-                    this.outputAusencias.emit(data.ausencias);
-                    this.resetAusenciaForm();
-                    this.plex.info('success', 'Se ingresaron correctamente las ausencias');
-                });
-        }
-        else{
-            this.markFormAsInvalid(this.ausenciaForm);
-            this.plex.info('info', 'Debe completar todos los datos obligatorios');
-        }
-    }
-
-    onFilesUploadedChanged(files){
-        let fileIds = files.map( adj => adj = adj.real_id);
-        this.ausenciaForm.get('adjuntos').setValue(fileIds);
+    public onError(error){
+        this.plex.info('info', 'Debe completar todos los datos obligatorios');
     }
 
     public onClose(){
-        
+        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/listado`);
     }
+
+    public onChangedDate(value){
+        let fd:Date = this.ausentismoForm.value.fechaDesde;
+        let fh:Date = this.ausentismoForm.value.fechaHasta;
+        if ((fd && fh) && (fd>fh)) return; // Form validation
+        if (!fd && !fh){
+            this.changedDateRange.emit();
+            return;
+        }
+        if (fd && fh) {
+            this.changedDateRange.emit({fechaDesde:fd, fechaHasta:this.getTomorrow(fh)});
+            return;
+        }
+        if (fd && !fh) {
+            this.changedDateRange.emit({fechaDesde:fd, fechaHasta:this.getTomorrow(fd)});
+            return;
+        }
+        if (!fd && fh) {
+            this.changedDateRange.emit({fechaDesde:fh, fechaHasta:this.getTomorrow(fh)});
+            return;
+        }
+    }
+
+    public getTomorrow(date){
+        let tomorrow = new Date(date);
+        tomorrow.setDate(date.getDate() + 1);
+        return tomorrow;
+    }
+
+    protected saveAusentismo(ausentismo){}
 }

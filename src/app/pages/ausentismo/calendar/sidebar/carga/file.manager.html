@@ -13,9 +13,19 @@
     <div class="d-flex flex-row justify-content-end">
         <div class="d-flex flex-row justify-content-end">
             <a id="downloader-{{ idx }}" href="{{ file.downloadURL }}" download="{{ file.filename }}">
-                <plex-button type="danger" icon="mdi mdi-pencil" size="sm" (click)="viewFile(idx)">Ver archivo</plex-button>
+                <plex-button
+                    size="sm"
+                    type="primary"
+                    icon="mdi mdi-eye"
+                    (click)="viewFile(idx)">Ver Archivo
+                </plex-button>
             </a>
-            <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="removeFile(idx)">Quitar archivo</plex-button>
+            <plex-button
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="removeFile(idx)">Quitar archivo
+            </plex-button>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, AfterViewInit, EventEmitte
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { DateRangeSelection } from '../agente-calendar.component';
 
 @Component({
     selector: 'app-main-calendar',
@@ -13,9 +14,16 @@ export class MainCalendarComponent implements OnInit, AfterViewInit {
     @Input() options;
     @Input() mesSeleccionado:Date;
     @Input() weekends:Boolean;
+
+    @Input() set periodoSeleccionado(periodo: DateRangeSelection) {
+        this.seleccionarPeriodo(periodo);
+    }
+
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
    
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
+
+
     
     calendarApi:any;
     mesVisualizado:Date = new Date(2013, 1, 1);
@@ -47,19 +55,29 @@ export class MainCalendarComponent implements OnInit, AfterViewInit {
             if (this.calendarApi){
                 this.calendarApi.gotoDate(this.mesVisualizado);
             }
-            
         }
     }
 
-    gotoNextMonth(){
+    public gotoNextMonth(){
         this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()+1);
         this.calendarApi.gotoDate(this.mesVisualizado);
         this.changedDate.emit(this.mesVisualizado);
     }
 
-    gotoPreviousMonth(){
+    public gotoPreviousMonth(){
         this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()-1);
         this.calendarApi.gotoDate(this.mesVisualizado);
         this.changedDate.emit(this.mesVisualizado);
+    }
+
+    seleccionarPeriodo(periodo:DateRangeSelection){
+        if (periodo){
+            this.calendarApi.select(periodo.fechaDesde, periodo.fechaHasta );
+        }
+        else{
+            if (this.calendarApi){
+                this.calendarApi.unselect();
+            }
+        }
     }
 }

@@ -1,36 +1,57 @@
 <plex-layout main="8">
     <plex-layout-main>
-        <!-- <app-ausencias-search></app-ausencias-search> -->
-        <app-main-calendar
-            *ngIf="ausencias"
-            [ausencias]="ausencias"
-            [weekends]="weekends"
-            [mesSeleccionado]="mesMainDefault"
-            (changedDate)="onChangeMainDate($event)">
-        </app-main-calendar>
-        <!-- <app-header-calendar
+        <app-header-calendar
             (changedDate)="onChangeHeaderDate($event)"
             (changedWeekends)="onChangeHeaderWeekends($event)">
         </app-header-calendar>
+
         <app-main-calendar
             *ngIf="ausencias"
             [ausencias]="ausencias"
             [weekends]="weekends"
             [mesSeleccionado]="mesMainDefault"
+            [periodoSeleccionado]="dateRangeSelection"
             (changedDate)="onChangeMainDate($event)">
         </app-main-calendar>
+
         <app-nav-calendar
             *ngIf="ausencias"
             [ausencias]="ausencias"
             [mesSeleccionado]="mesNavDefault"
             (changedDate)="onChangeNavDate($event)">
-        </app-nav-calendar> -->
+        </app-nav-calendar>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
-        <app-sidebar-calendar
-            [agente]="agente"
-            (outputAusencias)="onNuevasAusencias($event)">
-    </app-sidebar-calendar>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        <!-- <plex-tabs>
+
+            <plex-tab label="DETALLE">
+                <app-ausentismo-search
+                    [agente]="agente"
+                    (ausentismoSelected)="onAusentismoSelected($event)">
+                </app-ausentismo-search>
+            </plex-tab>
+
+            <plex-tab label="CARGA">
+                <app-ausentismo-carga-add
+                    [agente]="agente"
+                    (changedAusentismo)="onChangedAusentismo($event)"
+                    (changedDateRange)="onChangedDateRange($event)"
+                    (canceled)="onCancelCarga($event)">
+                </app-ausentismo-carga-add>
+            </plex-tab>
+
+            <plex-tab label="EDICION">
+                <app-ausentismo-carga-update
+                    *ngIf="ausentismoSeleccionado"
+                    [ausentismo]="ausentismoSeleccionado"
+                    [agente]="agente"
+                    (changedAusentismo)="onChangedAusentismo($event)"
+                    (changedDateRange)="onChangedDateRange($event)"
+                    (canceled)="onCancelCarga($event)">
+                </app-ausentismo-carga-update>
+            </plex-tab>
+        </plex-tabs> -->
     </plex-layout-sidebar>
 </plex-layout>
 

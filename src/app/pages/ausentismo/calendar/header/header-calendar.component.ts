@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-header-calendar',
@@ -11,8 +11,18 @@ export class HeadCalendarComponent implements OnInit {
     
     fechaSeleccion:Date;
     showWeekends:Boolean = true;
+    agenteID:String;
+
+    constructor(
+        private route: ActivatedRoute,
+        private router:Router){}
 
     public ngOnInit() {
+        this.route.params.subscribe(
+            params =>{
+                this.agenteID = params['agenteId'];
+            }
+        );
     }
 
     onChangedDate(evento){
@@ -25,5 +35,9 @@ export class HeadCalendarComponent implements OnInit {
         if (evento){
             this.changedWeekends.emit(evento.value);
         }
+    }
+
+    onCargarAusentismo(){
+        this.router.navigateByUrl(`/agentes/${this.agenteID}/ausencias/agregar`);
     }
 }

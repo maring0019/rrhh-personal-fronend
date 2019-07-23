@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
+import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basicos.component';
 import { AgenteDatosDireccionComponent } from './datos-contacto/agente-datos-direccion.component';
@@ -125,18 +126,6 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteDetalle.situacionLaboralActiva.regimen = obj;
     }
 
-
-    /**
-     * 
-     * @param form 
-     */
-    markFormAsInvalid(form){
-        Object.keys(form.controls).forEach(field => {
-            const control = form.get(field);
-            control.markAsTouched({ onlySelf: true });
-            });
-    }
-
     allFormsValid(){
         const forms:any = [
             this.datosBasicos.datosBasicosForm,
@@ -156,7 +145,7 @@ export class AgenteRegistroComponent implements OnInit {
         forms.forEach(f => {
             if (f.invalid){
                 existInvalidForms = true;
-                this.markFormAsInvalid(f);
+                formUtils.markFormAsInvalid(f);
             }
         });
         return !existInvalidForms;

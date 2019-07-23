@@ -22,7 +22,7 @@ export class AgenteSearchComponent implements OnInit {
         console.log(obj);
     }
 
-    seleccionarAgente(obj:any){
+    public seleccionarAgente(obj:any){
         this.agenteSeleccionado = obj; //new Agente(obj);
     }
 
