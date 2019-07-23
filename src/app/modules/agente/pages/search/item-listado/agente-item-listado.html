@@ -4,18 +4,15 @@
 </app-search-leyenda>
 
 <plex-list [fullWidth]="true" [striped]="true">
-    <plex-heading>
-        <b label></b>
-        <b label></b>
-        <b badge>Situación/Estado</b>
-    </plex-heading>
     <plex-item *ngFor="let agente of listado" (click)="seleccionarAgente(agente)">
         <app-agente-foto
             [agente]="agente">
         </app-agente-foto>
-        <p>{{ agente.nombre }} {{ agente.apellido }}</p>
+        <plex-label>
+            <p>{{ agente.nombre }} {{ agente.apellido }}</p>
+        </plex-label>
         <plex-badge type="info">
-            {{ agente.situacionLaboralActiva? (agente.situacionLaboralActiva.situacion.tipoSituacion | title:'nombre') : 'Sin Situacion'}}
+            {{ agente.situacionLaboralActiva? (agente.situacionLaboralActiva.situacion.tipoSituacion | title:'nombre') : ''}}
         </plex-badge>
         <plex-badge [type]="agente.estado? agente.estado: 'warning'">
             {{ agente.estado? agente.estado : 'Sin estado' }}

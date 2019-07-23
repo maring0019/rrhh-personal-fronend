@@ -65,19 +65,34 @@ plex-layout .row .col-4 {
 	height: 100% !important;
 }
 
+plex-item {
 
-// div.item-list {
-// 	height: 120px!important;
-// 	justify-content: space-between!important;
+	div.item-list.completo {
+		height: 120px!important;
+		display: flex!important;
+		justify-content: space-between!important;
+		justify-self: flex-start!important;
+		padding: 0 .5rem;		
+		}
 
-// 	P {
-// 		text-transform: capitalize;
-// 		font-size: 1rem;
-// 		font-weight: bolder;
-// 		margin-top: 0px;
-// 		text-align: left;
-// 	}
-// }
+		plex-label {
+			width: 100%;
+			
+			P {
+				display: flex;
+				justify-self: flex-start;
+				text-transform: capitalize;
+				font-size: 1rem;
+				font-weight: bolder;
+				margin: 0rem;
+				text-align: left;
+			}
+
+		div.botonera {
+			justify-self: flex-end!important;
+		}
+	}
+}
 
 
 // Badges
