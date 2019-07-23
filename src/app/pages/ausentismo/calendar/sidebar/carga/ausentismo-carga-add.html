@@ -1,14 +1,17 @@
 <form name="ausentismoForm" [formGroup]="ausentismoForm">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row d-flex align-items-end no-gutters">
+        <div class="col-md-9">
             <plex-select 
                 [data]="articulos"
                 name="articulo"
                 formControlName="articulo"
                 label="Selección de Artículo"
-                placeholder="Seleccione..."
+                placeholder="Seleccione artículo"
                 [required]="true">
             </plex-select>
+        </div>
+        <div class="col-md-3 mb-1">
+            <plex-button type="primary">Frecuentes</plex-button>
         </div>
     </div>
     <div class="row">
@@ -48,7 +51,8 @@
                 name="observacion"
                 formControlName="observacion"
                 label="Observaciones"
-                multiline="true">
+                multiline="true"
+                height="500">
             </plex-text>
         </div>
     </div>

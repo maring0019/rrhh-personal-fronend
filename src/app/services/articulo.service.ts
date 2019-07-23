@@ -6,7 +6,7 @@ import { Articulo } from '../models/Articulo';
 
 @Injectable()
 export class ArticuloService {
-    private url = '/modules/ausentismo/articulos'; // URL to web api
+    private url = 'http://mongolito.hospitalneuquen.org.ar:3004/api/modules/ausentismo/articulos'; // URL to web api
     
     constructor(private server: Server) { }
 

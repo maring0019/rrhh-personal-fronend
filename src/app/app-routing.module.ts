@@ -62,16 +62,6 @@ const routes: Routes = [
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },
 
-
-    // Ruteos hijos
-    // { path: 'inicio', component: HomePage,
-    //     canActivate: [RoutingNavBar , RoutingGuard],
-    //     children: [
-    //         { path: '', component: ListadoComponent },
-    //         { path: 'detalle/:id', component: DetalleComponent },
-    //     ] 
-    // },
-    
         // dejar siempre al último porque no encuentra las url después de esta
     { path: '**', redirectTo: 'agentes/busqueda' }
 ];

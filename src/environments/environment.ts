@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    API: '//localhost:3004/api'
+    API: 'http://mongolito.hospitalneuquen.org.ar:3004/api'
 };
 
 /*
