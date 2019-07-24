@@ -3,7 +3,7 @@
         <h5>{{title }}</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <plex-button icon="mdi mdi-file" size="sm" (click)="uploader.click()"></plex-button>
+        <plex-button type="primary" icon="mdi mdi-file" size="sm" (click)="uploader.click()"></plex-button>
     </div>
     <input #uploader hidden type="file" (change)="onClickToUpload(uploader.files)" />
 </header>

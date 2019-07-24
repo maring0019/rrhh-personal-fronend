@@ -65,6 +65,13 @@ plex-layout .row .col-4 {
 	height: 100% !important;
 }
 
+
+textarea.form-control {
+	overflow: scroll!important;
+	height: 120px!important;
+	max-height: 200px!important;
+}
+
 plex-item {
 
 	div.item-list.completo {
