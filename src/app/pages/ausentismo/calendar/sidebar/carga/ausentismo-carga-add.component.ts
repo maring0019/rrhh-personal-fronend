@@ -23,7 +23,8 @@ export class AusentismoCargaAddComponent implements OnInit {
     @Input() agente: Agente;
     
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
-    @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onErrors: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onWarnings: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
     
@@ -69,20 +70,25 @@ export class AusentismoCargaAddComponent implements OnInit {
         }
         else{
             formUtils.markFormAsInvalid(this.ausentismoForm);
-            this.onError.emit();
+            this.onErrors.emit();
         }
     }
 
     private saveAusentismo(ausentismo){
         this.ausentismoService.postAusentismo(ausentismo)
             .subscribe(data => {
-                console.log('Volviendo de calcular los dias de ausencia');
+                console.log('Volviendo de crear las ausencias');
                 console.log(data);
-
-                // this.saveFiles(data);
-                // this.onSuccess.emit(data);
+                if (data.warnings){
+                    this.onWarnings.emit(data.warnings);            
+                }
+                else{
+                    // this.saveFiles(data);
+                    this.onSuccess.emit(data);
+                }
+                
             },
-            error=> this.onError.emit(error));
+            error=> this.onErrors.emit(error));
     }
 
     private saveFiles(ausentismo){
@@ -122,10 +128,11 @@ export class AusentismoCargaAddComponent implements OnInit {
         if ( form.articulo && form.fechaDesde){
             this.ausentismoService.postCalcularAusentismo(ausentismo)
             .subscribe(data => {
+                console.log(data);
                 this.ausentismoForm.patchValue({cantidadDias:data.dias});
                 this.ausentismoForm.patchValue({fechaHasta:data.hasta})
             },
-            error=> this.onError.emit(error));            
+            error=> this.onErrors.emit(error));            
         }
     }
 
@@ -135,10 +142,15 @@ export class AusentismoCargaAddComponent implements OnInit {
         if ( form.articulo && form.fechaDesde){
             this.ausentismoService.postSugerirAusentismo(ausentismo)
             .subscribe(data => {
+                console.log(data);
                 this.ausentismoForm.patchValue({cantidadDias:data.dias});
                 this.ausentismoForm.patchValue({fechaHasta:data.hasta})
+                if (data.warnings){
+                    this.onWarnings.emit(data.warnings);            
+                }
+                
             },
-            error=> this.onError.emit(error));            
+            error=> this.onErrors.emit(error));            
         }
         
     }

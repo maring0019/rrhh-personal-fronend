@@ -3,6 +3,7 @@
         <div class="col-md-12">
             <plex-select 
                 [data]="articulos"
+                [labelField]="'codigo + descripcion'"
                 name="articulo"
                 formControlName="articulo"
                 label="Selección de Artículo"

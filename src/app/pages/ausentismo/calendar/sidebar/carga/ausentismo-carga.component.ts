@@ -16,6 +16,7 @@ import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 import { Agente } from 'src/app/models/Agente';
 
 import { DateRangeSelection } from '../../agente-calendar.component';
+import { EILSEQ } from 'constants';
 
 
 @Component({
@@ -116,8 +117,41 @@ export class AusentismoCargaComponent implements OnInit {
         });
     }
 
-    public onError(error){
-        this.plex.info('info', 'Debe completar todos los datos obligatorios');
+    public onErrors(error){
+        if(error){
+            this.plex.info('info', error);
+        }
+        else{
+            this.plex.info('info', 'Debe completar todos los datos obligatorios');
+        }
+        
+    }
+
+    public onWarnings(warnings){
+        console.log('Hay Warnings');
+        console.log(warnings);
+        const articulo = warnings[0].articulo.nombre;
+        let textWarning = ``;
+        for (const indicador of warnings){
+            textWarning= this.getTextPeriodos(indicador, textWarning);
+        }
+        this.plex.info('info', `<p>El agente <b>${this.agente.nombre}</b> no
+                                dispone de dias para el <b>Articulo ${articulo}</b>
+                                en los periodos:${textWarning} </p>`) ;
+    }
+
+    getTextPeriodos(indicador, textWarning){
+        if (indicador.periodo){
+            for (const intervalo of indicador.intervalos){
+                const desde = moment(intervalo.desde).format('DD/MM/YYYY');
+                const hasta = moment(intervalo.hasta).format('DD/MM/YYYY');
+                textWarning = `<p>${textWarning} ${indicador.periodo}: ${desde} - ${hasta} </p>`;
+            }
+        }
+        else{
+            textWarning = `<p>${textWarning} Periodo Total</p>`;
+        }
+        return textWarning;
     }
 
     public onClose(){

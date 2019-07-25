@@ -11,12 +11,13 @@
     *ngIf="!ausentismo && agente"
     [agente]="agente"
     (onSuccess)="onSuccess($event)"
-    (onError)="onError($event)">
+    (onErrors)="onErrors($event)"
+    (onWarnings)="onWarnings($event)">
 </app-ausentismo-carga-add>
 <app-ausentismo-carga-update
     *ngIf="ausentismo"
     [ausentismo]="ausentismo"
     [ausentismoFiles]="ausentismoFiles"
     (onSuccess)="onSuccess($event)"
-    (onError)="onError($event)">
+    (onErrors)="onError($event)">
 </app-ausentismo-carga-update>

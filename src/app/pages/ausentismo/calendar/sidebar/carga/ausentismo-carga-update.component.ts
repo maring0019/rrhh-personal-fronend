@@ -18,7 +18,7 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     @Input() ausentismoFiles: any;
 
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
-    @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onErrors: EventEmitter<any> = new EventEmitter<any>();
 
     public ausentismoForm: FormGroup;
     public articulos: Articulo[] = [];
@@ -60,7 +60,7 @@ export class AusentismoCargaUpdateComponent implements OnInit {
         }
         else{
             formUtils.markFormAsInvalid(this.ausentismoForm);
-            this.onError.emit();
+            this.onErrors.emit();
         }
     }
 
@@ -69,6 +69,6 @@ export class AusentismoCargaUpdateComponent implements OnInit {
             .subscribe(data => {
                 this.onSuccess.emit(data);
             },
-            error => this.onError.emit(error));
+            error => this.onErrors.emit(error));
     }
 }
