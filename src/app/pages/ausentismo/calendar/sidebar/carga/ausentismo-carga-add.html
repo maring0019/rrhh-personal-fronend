@@ -7,6 +7,7 @@
                 formControlName="articulo"
                 label="Selección de Artículo"
                 placeholder="Seleccione..."
+                (change)="onChangedArticulo($event)"
                 [required]="true">
             </plex-select>
         </div>
@@ -19,17 +20,7 @@
                 name="fechaDesde"
                 formControlName="fechaDesde"
                 [required]="true"
-                (change)="onChangedDate($event)">
-            </plex-datetime>
-        </div>
-        <div class="col-md-5">
-            <plex-datetime
-                type="date"
-                label="Hasta"
-                name="fechaHasta"
-                formControlName="fechaHasta"
-                [required]="true"
-                (change)="onChangedDate($event)">
+                (change)="onChangedFechaDesde($event)">
             </plex-datetime>
         </div>
         <div class="col-md-2">
@@ -38,8 +29,19 @@
                 formControlName="cantidadDias"
                 label="Días"
                 min="1"
-                [required]="true">
+                [required]="false"
+                (change)="onChangedCantidadDias($event)">
             </plex-float>
+        </div>
+        <div class="col-md-5">
+            <plex-datetime
+                type="date"
+                label="Hasta"
+                name="fechaHasta"
+                formControlName="fechaHasta"
+                [required]="false"
+                (change)="onChangedFechaHasta($event)">
+            </plex-datetime>
         </div>
     </div>
     <div class="row">

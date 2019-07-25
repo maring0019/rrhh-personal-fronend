@@ -76,8 +76,11 @@ export class AusentismoCargaAddComponent implements OnInit {
     private saveAusentismo(ausentismo){
         this.ausentismoService.postAusentismo(ausentismo)
             .subscribe(data => {
-                this.saveFiles(data);
-                this.onSuccess.emit(data);
+                console.log('Volviendo de calcular los dias de ausencia');
+                console.log(data);
+
+                // this.saveFiles(data);
+                // this.onSuccess.emit(data);
             },
             error=> this.onError.emit(error));
     }
@@ -89,5 +92,54 @@ export class AusentismoCargaAddComponent implements OnInit {
             console.log('Archivos attachados');
             console.log(files);
         })
+    }
+
+    public onChangedArticulo(articulo){
+        if (articulo) this.sugerirDatosAusentismo();
+    }
+
+    public onChangedFechaDesde(value){
+        if (value) this.sugerirDatosAusentismo();
+    }
+
+    public onChangedCantidadDias(dias){
+        if (dias){
+            this.ausentismoForm.patchValue({fechaHasta:null});
+            this.calcularDatosAusentismo();
+        } 
+    }
+
+    public onChangedFechaHasta(value){
+        if (value){
+            this.ausentismoForm.patchValue({cantidadDias:null});
+            this.calcularDatosAusentismo();
+        } 
+    }
+
+    calcularDatosAusentismo(){
+        let ausentismo = new Ausentismo(this.ausentismoForm.value)
+        let form:any = this.ausentismoForm.value;
+        if ( form.articulo && form.fechaDesde){
+            this.ausentismoService.postCalcularAusentismo(ausentismo)
+            .subscribe(data => {
+                this.ausentismoForm.patchValue({cantidadDias:data.dias});
+                this.ausentismoForm.patchValue({fechaHasta:data.hasta})
+            },
+            error=> this.onError.emit(error));            
+        }
+    }
+
+    sugerirDatosAusentismo(){
+        let ausentismo = new Ausentismo(this.ausentismoForm.value)
+        let form:any = this.ausentismoForm.value;
+        if ( form.articulo && form.fechaDesde){
+            this.ausentismoService.postSugerirAusentismo(ausentismo)
+            .subscribe(data => {
+                this.ausentismoForm.patchValue({cantidadDias:data.dias});
+                this.ausentismoForm.patchValue({fechaHasta:data.hasta})
+            },
+            error=> this.onError.emit(error));            
+        }
+        
     }
 }
