@@ -1,9 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Plex } from '@andes/plex';
-import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
@@ -15,19 +14,11 @@ import { Ausentismo } from 'src/app/models/Ausentismo';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 import { Agente } from 'src/app/models/Agente';
 
-import { DateRangeSelection } from '../../agente-calendar.component';
-import { EILSEQ } from 'constants';
-
-
 @Component({
     selector: 'app-ausentismo-carga',
     templateUrl: 'ausentismo-carga.html'
 })
 export class AusentismoCargaComponent implements OnInit {
-    @Output() changedData: EventEmitter<IAusenciaEvento[]> = new EventEmitter<IAusenciaEvento[]>();
-    @Output() changedDateRange: EventEmitter<DateRangeSelection> = new EventEmitter<DateRangeSelection>();
-    // @Output() canceled:EventEmitter<any> = new EventEmitter<any>();
-
     public agente: Agente;
     public ausentismo: Ausentismo;
     public ausentismoID: String;
@@ -50,7 +41,6 @@ export class AusentismoCargaComponent implements OnInit {
     public ngOnInit() {
         this.initAgente();
         this.initAusentismoAndFiles();
-        this.initFormSelectOptions();
     }
 
     initAgente(){
@@ -61,7 +51,6 @@ export class AusentismoCargaComponent implements OnInit {
                     this.agenteService.getByID(agenteID).subscribe((data) => {
                         if (data){
                             this.agente = new Agente(data);
-                            // this.ausentismoForm.get('agente').setValue(this.agente);
                         }
                     });
                 }
@@ -79,40 +68,47 @@ export class AusentismoCargaComponent implements OnInit {
         this.route.params.subscribe(
             params =>{
                 this.ausentismoID = params['ausentismoId'];
-                if (this.ausentismoID){
-                    this.initAusentismo();
-                    this.initAusentismoFiles();
-                }
+                this.initFormTitle();
+                this.initAusentismo();
+                this.initAusentismoFiles();
             }
         );
     }
 
     initAusentismo(){
-        this.ausentismoService.getByID(this.ausentismoID).subscribe((data) => {
-            if (data){
-                this.ausentismo = data;
-            }
-        });
+        if (this.ausentismoID){
+            this.ausentismoService.getByID(this.ausentismoID).subscribe((data) => {
+                if (data){
+                    this.ausentismo = data;
+                }
+            });
+        }
     }
 
     initAusentismoFiles(){
-        this.filesService.getObjectFiles(this.ausentismoID)
-            .subscribe(data => {
-                this.ausentismoFiles = data;
-        });
-
+        if (this.ausentismoID){
+            this.filesService.getObjectFiles(this.ausentismoID)
+                .subscribe(data => {
+                    this.ausentismoFiles = data;
+            });
+        }
     }
 
-    initFormSelectOptions(){
-        this.articuloService.get({})
-            .subscribe(data => {
-            this.articulos = data;
-        });
+    initFormTitle(){    
+        if (this.ausentismoID){
+            this.formTitle = 'Edicion';
+        }
+        else{
+            this.formTitle = 'Carga';
+        }
     }
 
     public onSuccess(data){
+        console.log('Ausencias cargadas');
+        console.log(data);
         this.plex.info('info', 'Ausentismo ingresado correctamente')
             .then( e => {
+                
                 this.onClose();
         });
     }
@@ -157,34 +153,4 @@ export class AusentismoCargaComponent implements OnInit {
     public onClose(){
         this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/listado`);
     }
-
-    public onChangedDate(value){
-        let fd:Date = this.ausentismoForm.value.fechaDesde;
-        let fh:Date = this.ausentismoForm.value.fechaHasta;
-        if ((fd && fh) && (fd>fh)) return; // Form validation
-        if (!fd && !fh){
-            this.changedDateRange.emit();
-            return;
-        }
-        if (fd && fh) {
-            this.changedDateRange.emit({fechaDesde:fd, fechaHasta:this.getTomorrow(fh)});
-            return;
-        }
-        if (fd && !fh) {
-            this.changedDateRange.emit({fechaDesde:fd, fechaHasta:this.getTomorrow(fd)});
-            return;
-        }
-        if (!fd && fh) {
-            this.changedDateRange.emit({fechaDesde:fh, fechaHasta:this.getTomorrow(fh)});
-            return;
-        }
-    }
-
-    public getTomorrow(date){
-        let tomorrow = new Date(date);
-        tomorrow.setDate(date.getDate() + 1);
-        return tomorrow;
-    }
-
-    protected saveAusentismo(ausentismo){}
 }

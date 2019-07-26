@@ -1,15 +1,18 @@
-import { Component, OnInit, ViewChild, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, AfterViewInit, EventEmitter, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { DateRangeSelection } from '../agente-calendar.component';
+
+import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
 
 @Component({
     selector: 'app-main-calendar',
     templateUrl: 'main-calendar.html'
 })
 
-export class MainCalendarComponent implements OnInit, AfterViewInit {
+export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() ausencias;
     @Input() options;
     @Input() mesSeleccionado:Date;
@@ -23,6 +26,15 @@ export class MainCalendarComponent implements OnInit, AfterViewInit {
    
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
 
+    subscription: Subscription;
+    
+    constructor(
+        private rangeSelectorService: CalendarRangeSelectorService){
+            this.subscription = this.rangeSelectorService.getState().subscribe(
+                rangeSelection => {
+                    this.seleccionarPeriodo(rangeSelection);
+            });
+        }
 
     
     calendarApi:any;
@@ -57,6 +69,10 @@ export class MainCalendarComponent implements OnInit, AfterViewInit {
             }
         }
     }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+      }
 
     public gotoNextMonth(){
         this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()+1);

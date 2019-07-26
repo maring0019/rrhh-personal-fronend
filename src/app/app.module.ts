@@ -32,6 +32,7 @@ import { RegimenHorarioService } from './services/regimen-horario.service';
 import { ArticuloService } from './services/articulo.service';
 import { AusentismoService } from './services/ausentismo.service';
 import { FilesService } from './services/files.service';
+import { CalendarRangeSelectorService } from './services/calendar-range-selector.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -78,6 +79,7 @@ import { FileManagerComponent } from './pages/ausentismo/calendar/sidebar/carga/
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
 import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-add.component';
 import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-update.component';
+import { AusentismoCargaFormComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-form.component';
 import { AusentismoListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausentismo-listado.component';
 import { AusentismoSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausentismo-search-form.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
@@ -98,7 +100,6 @@ import { EdadPipe } from './pipes/edad.pipe';
 
 
 import { AgenteMockService } from './hardcodeo/agente.service';
-
 
 @NgModule({
     declarations: [
@@ -136,6 +137,7 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         AusentismoCargaComponent,
         AusentismoCargaAddComponent,
         AusentismoCargaUpdateComponent,
+        AusentismoCargaFormComponent,
         AusentismoListadoComponent,
         AusentismoSearchFormComponent,
         AusentismoSearchComponent,
@@ -191,7 +193,9 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         RegimenHorarioService,
         ArticuloService,
         AusentismoService,
-        FilesService
+        FilesService,
+        CalendarRangeSelectorService
+
     ],
     bootstrap: [AppComponent],
     entryComponents: [UploaderStatusComponent]

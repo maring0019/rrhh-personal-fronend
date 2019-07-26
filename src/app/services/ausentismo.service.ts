@@ -31,16 +31,16 @@ export class AusentismoService {
 
     postAusentismo(object: Ausentismo): Observable<any> {
         const url = `${this.url}/periodo`;
-        return this.server.post(url, object);
-        // .pipe(
-        //     map(data =>
-        //         data.ausencias.map(e=> e = {
-        //             'title': e.articulo.codigo,
-        //             'start': e.fecha,
-        //             'allDay': true
-        //           })
-        //     )
-        // );
+        return this.server.post(url, object)
+            .pipe(
+                map(data =>
+                    data.ausencias.map(e=> e = {
+                        'title': e.articulo.codigo,
+                        'start': e.fecha,
+                        'allDay': true
+                    })
+                )
+            );
     }
 
     postSugerirAusentismo(object: Ausentismo): Observable<any> {

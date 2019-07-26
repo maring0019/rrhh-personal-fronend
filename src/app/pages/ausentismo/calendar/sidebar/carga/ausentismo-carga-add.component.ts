@@ -27,6 +27,8 @@ export class AusentismoCargaAddComponent implements OnInit {
     @Output() onWarnings: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
+    // @ViewChild(AusentismoCargaFormComponent) fileManager: FileManagerComponent;
+
     
     public ausentismoFiles: any = [];
     public ausentismoForm: FormGroup;
@@ -100,58 +102,66 @@ export class AusentismoCargaAddComponent implements OnInit {
         })
     }
 
-    public onChangedArticulo(articulo){
-        if (articulo) this.sugerirDatosAusentismo();
+    public onFormWarnings(warnings){
+        this.onWarnings.emit(warnings);
     }
 
-    public onChangedFechaDesde(value){
-        if (value) this.sugerirDatosAusentismo();
+    public onFormErrors(errors){
+        this.onErrors.emit(errors);
     }
 
-    public onChangedCantidadDias(dias){
-        if (dias){
-            this.ausentismoForm.patchValue({fechaHasta:null});
-            this.calcularDatosAusentismo();
-        } 
-    }
+    
+    // public onChangedArticulo(articulo){
+    //     if (articulo) this.sugerirDatosAusentismo();
+    // }
 
-    public onChangedFechaHasta(value){
-        if (value){
-            this.ausentismoForm.patchValue({cantidadDias:null});
-            this.calcularDatosAusentismo();
-        } 
-    }
+    // public onChangedFechaDesde(value){
+    //     if (value) this.sugerirDatosAusentismo();
+    // }
 
-    calcularDatosAusentismo(){
-        let ausentismo = new Ausentismo(this.ausentismoForm.value)
-        let form:any = this.ausentismoForm.value;
-        if ( form.articulo && form.fechaDesde){
-            this.ausentismoService.postCalcularAusentismo(ausentismo)
-            .subscribe(data => {
-                console.log(data);
-                this.ausentismoForm.patchValue({cantidadDias:data.dias});
-                this.ausentismoForm.patchValue({fechaHasta:data.hasta})
-            },
-            error=> this.onErrors.emit(error));            
-        }
-    }
+    // public onChangedCantidadDias(dias){
+    //     if (dias){
+    //         this.ausentismoForm.patchValue({fechaHasta:null});
+    //         this.calcularDatosAusentismo();
+    //     } 
+    // }
 
-    sugerirDatosAusentismo(){
-        let ausentismo = new Ausentismo(this.ausentismoForm.value)
-        let form:any = this.ausentismoForm.value;
-        if ( form.articulo && form.fechaDesde){
-            this.ausentismoService.postSugerirAusentismo(ausentismo)
-            .subscribe(data => {
-                console.log(data);
-                this.ausentismoForm.patchValue({cantidadDias:data.dias});
-                this.ausentismoForm.patchValue({fechaHasta:data.hasta})
-                if (data.warnings){
-                    this.onWarnings.emit(data.warnings);            
-                }
+    // public onChangedFechaHasta(value){
+    //     if (value){
+    //         this.ausentismoForm.patchValue({cantidadDias:null});
+    //         this.calcularDatosAusentismo();
+    //     } 
+    // }
+
+    // calcularDatosAusentismo(){
+    //     let ausentismo = new Ausentismo(this.ausentismoForm.value)
+    //     let form:any = this.ausentismoForm.value;
+    //     if ( form.articulo && form.fechaDesde){
+    //         this.ausentismoService.postCalcularAusentismo(ausentismo)
+    //         .subscribe(data => {
+    //             console.log(data);
+    //             this.ausentismoForm.patchValue({cantidadDias:data.dias});
+    //             this.ausentismoForm.patchValue({fechaHasta:data.hasta})
+    //         },
+    //         error=> this.onErrors.emit(error));            
+    //     }
+    // }
+
+    // sugerirDatosAusentismo(){
+    //     let ausentismo = new Ausentismo(this.ausentismoForm.value)
+    //     let form:any = this.ausentismoForm.value;
+    //     if ( form.articulo && form.fechaDesde){
+    //         this.ausentismoService.postSugerirAusentismo(ausentismo)
+    //         .subscribe(data => {
+    //             console.log(data);
+    //             this.ausentismoForm.patchValue({cantidadDias:data.dias});
+    //             this.ausentismoForm.patchValue({fechaHasta:data.hasta})
+    //             if (data.warnings){
+    //                 this.onWarnings.emit(data.warnings);            
+    //             }
                 
-            },
-            error=> this.onErrors.emit(error));            
-        }
-        
-    }
+    //         },
+    //         error=> this.onErrors.emit(error));            
+    //     }
+    // }
 }

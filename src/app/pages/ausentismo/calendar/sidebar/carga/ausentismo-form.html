@@ -1,0 +1,58 @@
+<form name="form" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-12">
+            <plex-select 
+                [data]="articulos"
+                [labelField]="'codigo + descripcion'"
+                name="articulo"
+                formControlName="articulo"
+                label="Selección de Artículo"
+                placeholder="Seleccione..."
+                (change)="onChangedArticulo($event)"
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <plex-datetime
+                type="date"
+                label="Desde"
+                name="fechaDesde"
+                formControlName="fechaDesde"
+                [required]="true"
+                (change)="onChangedFechaDesde($event)">
+            </plex-datetime>
+        </div>
+        <div class="col-md-2">
+            <plex-float
+                name="cantidadDias"
+                formControlName="cantidadDias"
+                label="Días"
+                min="1"
+                [required]="false"
+                (change)="onChangedCantidadDias($event)">
+            </plex-float>
+        </div>
+        <div class="col-md-5">
+            <plex-datetime
+                type="date"
+                label="Hasta"
+                name="fechaHasta"
+                formControlName="fechaHasta"
+                [required]="false"
+                (change)="onChangedFechaHasta($event)">
+            </plex-datetime>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <plex-text
+                name="observacion"
+                formControlName="observacion"
+                label="Observaciones"
+                multiline="true">
+            </plex-text>
+        </div>
+    </div>
+</form>

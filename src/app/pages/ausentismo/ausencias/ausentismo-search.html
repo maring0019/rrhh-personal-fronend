@@ -13,12 +13,14 @@
 </app-ausentismo-search-form>
 
 <ng-container *ngIf="searching; then mostrarSearchingActivity; else mostrarResultados"></ng-container>
+
 <ng-template #mostrarSearchingActivity>
     <plex-loader 
         class="d-flex flex-column align-items-center justify-content-center h-75"
         type="ball-beat">
     </plex-loader>
 </ng-template>
+
 <ng-template #mostrarResultados>
     <app-ausentismo-listado
         *ngIf="ausentismos?.length"

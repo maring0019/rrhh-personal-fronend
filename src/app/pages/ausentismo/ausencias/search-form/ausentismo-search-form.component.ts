@@ -85,8 +85,6 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
             this.timeoutHandle = null;
             this.searchService.searchAusentismo(searchValues)
                 .subscribe(resultado => {
-                    console.log('Resultados');
-                    console.log(resultado);
                     this.searchEnd.emit(resultado);
                 },
                 (err) => {

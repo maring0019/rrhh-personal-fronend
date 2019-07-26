@@ -6,7 +6,6 @@
         </app-header-calendar>
 
         <app-main-calendar
-            *ngIf="ausencias"
             [ausencias]="ausencias"
             [weekends]="weekends"
             [mesSeleccionado]="mesMainDefault"
@@ -20,9 +19,11 @@
             [mesSeleccionado]="mesNavDefault"
             (changedDate)="onChangeNavDate($event)">
         </app-nav-calendar>
+    
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
         <router-outlet (activate)="onActivate($event)"></router-outlet>
+
         <!-- <plex-tabs>
 
             <plex-tab label="DETALLE">

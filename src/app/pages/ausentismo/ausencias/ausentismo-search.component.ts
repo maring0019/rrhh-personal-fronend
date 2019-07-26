@@ -6,6 +6,9 @@ import { AgenteService } from 'src/app/services/agente.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+import { DateRangeSelection } from 'src/app/pages/ausentismo/calendar/agente-calendar.component';
+import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
+
 
 
 @Component({
@@ -19,11 +22,13 @@ export class AusentismoSearchComponent implements OnInit {
 
     agente:Agente;
     ausentismoSeleccionado: Ausentismo;
+    dateRangeSelection: DateRangeSelection;
     ausentismos:Ausentismo[];
     searching = true;
 
     constructor(
         private agenteService:AgenteService,
+        private rangeSelectorService: CalendarRangeSelectorService,
         private router:Router,
         private route: ActivatedRoute){}
     
@@ -50,13 +55,24 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public seleccionarAusentismo(obj?:any){
-        if (this.ausentismoSeleccionado == obj){
-            this.ausentismoSeleccionado = null;
+        if (obj){
+            if (this.ausentismoSeleccionado == obj){
+                this.ausentismoSeleccionado = null;
+                this.dateRangeSelection = null;
+            }
+            else{
+                this.ausentismoSeleccionado = obj;
+                this.dateRangeSelection = {
+                    fechaDesde: this.ausentismoSeleccionado.fechaDesde,
+                    fechaHasta: this.ausentismoSeleccionado.fechaHasta
+                }
+            }
         }
         else{
-            this.ausentismoSeleccionado = obj;
-        }
-        this.ausentismoSelected.emit(this.ausentismoSeleccionado);
+            this.dateRangeSelection = null;
+        }        
+        // this.ausentismoSelected.emit(this.ausentismoSeleccionado);
+        this.rangeSelectorService.setState(this.dateRangeSelection);
     }
 
     public editarAusentismo(ausentismo){

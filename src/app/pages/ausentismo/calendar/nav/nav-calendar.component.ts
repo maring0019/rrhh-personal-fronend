@@ -20,7 +20,7 @@ export class NavCalendarComponent implements OnInit, AfterViewInit, OnChanges {
     @ViewChild('calendarnext') calendarNext: FullCalendarComponent;
     
     mesesRange:Date[] = [new Date(), new Date(), new Date()];
-    mesesRangeSelection:Boolean[] = [false,false,false]
+    mesesRangeSelection:Boolean[] = [false,true,false]
     
     calendarPlugins = [dayGridPlugin];
     calendarApiIsReady:Boolean = false;
