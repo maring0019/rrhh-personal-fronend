@@ -3,12 +3,9 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import  *  as formUtils from 'src/app/utils/formUtils';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Plex } from '@andes/plex';
 
-import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
-import { FilesService } from 'src/app/services/files.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
@@ -27,7 +24,6 @@ export class AusentismoCargaAddComponent implements OnInit {
     @Output() onWarnings: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
-    // @ViewChild(AusentismoCargaFormComponent) fileManager: FileManagerComponent;
 
     
     public ausentismoFiles: any = [];
@@ -79,27 +75,20 @@ export class AusentismoCargaAddComponent implements OnInit {
     private saveAusentismo(ausentismo){
         this.ausentismoService.postAusentismo(ausentismo)
             .subscribe(data => {
-                console.log('Volviendo de crear las ausencias');
-                console.log(data);
                 if (data.warnings){
                     this.onWarnings.emit(data.warnings);            
                 }
                 else{
-                    // this.saveFiles(data);
+                    // Guardamos los archivos adjuntos
+                    this.saveFiles(data);
                     this.onSuccess.emit(data);
                 }
-                
             },
             error=> this.onErrors.emit(error));
     }
 
     private saveFiles(ausentismo){
-        console.log('Corresponde attachar los archivos tambien');
-        this.fileManager.attachFilesToObj(this.ausentismoFiles.map(f=>{f.id}))
-        .subscribe(files=>{
-            console.log('Archivos attachados');
-            console.log(files);
-        })
+        this.fileManager.saveFileChanges(ausentismo);
     }
 
     public onFormWarnings(warnings){

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import  *  as formUtils from 'src/app/utils/formUtils';
@@ -7,6 +7,8 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
+
+import { FileManagerComponent } from 'src/app/pages/ausentismo/calendar/sidebar/carga/file.manager.component';
 
 
 @Component({
@@ -19,6 +21,9 @@ export class AusentismoCargaUpdateComponent implements OnInit {
 
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
     @Output() onErrors: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onWarnings: EventEmitter<any> = new EventEmitter<any>();
+
+    @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
 
     public ausentismoForm: FormGroup;
     public articulos: Articulo[] = [];
@@ -65,10 +70,24 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     }
 
     saveAusentismo(ausentismo:Ausentismo){
-        this.ausentismoService.putAusentismo(ausentismo)
-            .subscribe(data => {
-                this.onSuccess.emit(data);
-            },
-            error => this.onErrors.emit(error));
+        console.log('Solo vamos a guardar los archivos');
+        this.saveFiles(ausentismo)
+        // this.ausentismoService.putAusentismo(ausentismo)
+        //     .subscribe(data => {
+        //         this.onSuccess.emit(data);
+        //     },
+        //     error => this.onErrors.emit(error));
+    }
+
+    private saveFiles(ausentismo){
+        this.fileManager.saveFileChanges(ausentismo);
+    }
+
+    public onFormWarnings(warnings){
+        this.onWarnings.emit(warnings);
+    }
+
+    public onFormErrors(errors){
+        this.onErrors.emit(errors);
     }
 }

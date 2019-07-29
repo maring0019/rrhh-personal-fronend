@@ -36,12 +36,6 @@ export class UploaderStatusComponent implements OnInit {
                     this.fileUploadingInfo.progress = res.progress;
                     if (res.status === 'uploaded'){
                         this.notifySuccess(res);
-                        // if (this.attachFile && this.objectRef){
-                        //     this.attachFileToObj(res);
-                        // }
-                        // else{
-                        //     this.notifySuccces([res]);
-                        // }
                     }
                 }
             },

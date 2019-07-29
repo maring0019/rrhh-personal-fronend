@@ -1,4 +1,4 @@
-<form name="ausentismoForm" [formGroup]="ausentismoForm">
+<!-- <form name="ausentismoForm" [formGroup]="ausentismoForm">
     <div class="row">
         <div class="col-md-12">
             <plex-select 
@@ -51,11 +51,20 @@
                 multiline="true">
             </plex-text>
         </div>
-    </div>
+    </div> -->
+
+<app-ausentismo-form
+    *ngIf="ausentismoForm"
+    [form]="ausentismoForm"
+    [articulos]="articulos"
+    (onWarnings)="onFormWarnings($event)"
+    (onErrors)="onFormErrors($event)">
+</app-ausentismo-form>
+<br>
 
 <app-file-manager
     [filesOwner]="ausentismo"
-    [filesUploaded]="ausentismoFiles">
+    [filesAttached]="ausentismoFiles">
 </app-file-manager>
 
 <div class="row">
@@ -68,4 +77,3 @@
         </plex-button>
     </div>
 </div>
-</form>

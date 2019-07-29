@@ -7,7 +7,7 @@
     </div>
     <input #uploader hidden type="file" (change)="onClickToUpload(uploader.files)" />
 </header>
-<div *ngFor="let file of filesUploaded; let idx=index"
+<div *ngFor="let file of files; let idx=index"
     class="d-flex flex-row justify-content-between">
     <p>{{ file.filename }}</p>
     <div class="d-flex flex-row justify-content-end">
