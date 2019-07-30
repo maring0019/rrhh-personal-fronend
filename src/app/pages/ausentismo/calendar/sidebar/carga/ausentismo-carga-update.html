@@ -1,67 +1,11 @@
-<!-- <form name="ausentismoForm" [formGroup]="ausentismoForm">
-    <div class="row">
-        <div class="col-md-12">
-            <plex-select 
-                [data]="articulos"
-                name="articulo"
-                formControlName="articulo"
-                label="Selección de Artículo"
-                placeholder="Seleccione..."
-                [required]="true">
-            </plex-select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-5">
-            <plex-datetime
-                type="date"
-                label="Desde"
-                name="fechaDesde"
-                formControlName="fechaDesde"
-                [required]="true"
-                (change)="onChangedDate($event)">
-            </plex-datetime>
-        </div>
-        <div class="col-md-5">
-            <plex-datetime
-                type="date"
-                label="Hasta"
-                name="fechaHasta"
-                formControlName="fechaHasta"
-                [required]="true"
-                (change)="onChangedDate($event)">
-            </plex-datetime>
-        </div>
-        <div class="col-md-2">
-            <plex-float
-                name="cantidadDias"
-                formControlName="cantidadDias"
-                label="Días"
-                min="1"
-                [required]="true">
-            </plex-float>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <plex-text
-                name="observacion"
-                formControlName="observacion"
-                label="Observaciones"
-                multiline="true">
-            </plex-text>
-        </div>
-    </div> -->
-
 <app-ausentismo-form
     *ngIf="ausentismoForm"
     [form]="ausentismoForm"
     [articulos]="articulos"
-    (onWarnings)="onFormWarnings($event)"
-    (onErrors)="onFormErrors($event)">
+    (warnings)="onFormWarnings($event)"
+    (errors)="onFormErrors($event)">
 </app-ausentismo-form>
 <br>
-
 <app-file-manager
     [filesOwner]="ausentismo"
     [filesAttached]="ausentismoFiles">

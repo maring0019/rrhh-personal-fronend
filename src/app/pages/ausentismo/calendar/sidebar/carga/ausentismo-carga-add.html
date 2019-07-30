@@ -2,8 +2,8 @@
     *ngIf="ausentismoForm"
     [form]="ausentismoForm"
     [articulos]="articulos"
-    (onWarnings)="onFormWarnings($event)"
-    (onErrors)="onFormErrors($event)">
+    (warnings)="onFormWarnings($event)"
+    (errors)="onFormErrors($event)">
 </app-ausentismo-form>
 <br>
 <app-file-manager

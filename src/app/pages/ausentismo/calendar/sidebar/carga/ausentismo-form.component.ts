@@ -16,8 +16,8 @@ export class AusentismoCargaFormComponent implements OnInit {
     @Input() articulos: Articulo[];
 
     @Output() onSucess: EventEmitter<any> = new EventEmitter<any>();
-    @Output() onErrors: EventEmitter<any> = new EventEmitter<any>();    
-    @Output() onWarnings: EventEmitter<any> = new EventEmitter<any>();
+    @Output() errors: EventEmitter<any> = new EventEmitter<any>();    
+    @Output() warnings: EventEmitter<any> = new EventEmitter<any>();
     
     public ausentismoFiles: any = [];
 
@@ -25,7 +25,9 @@ export class AusentismoCargaFormComponent implements OnInit {
         private ausentismoService: AusentismoService,
         private rangeSelectorService: CalendarRangeSelectorService){}
 
-    public ngOnInit() {}
+    public ngOnInit() {
+        this.updateRangeSelection();
+    }
 
     public onChangedArticulo(articulo){
         if (articulo) this.sugerirDatosAusentismo();
@@ -61,7 +63,7 @@ export class AusentismoCargaFormComponent implements OnInit {
                 this.form.patchValue({fechaHasta:data.hasta})
                 this.updateRangeSelection();
             },
-            error=> this.onErrors.emit(error));            
+            error=> this.errors.emit(error));            
         }
     }
 
@@ -75,10 +77,10 @@ export class AusentismoCargaFormComponent implements OnInit {
                 this.form.patchValue({fechaHasta:data.hasta})
                 this.updateRangeSelection();
                 if (data.warnings){
-                    this.onWarnings.emit(data.warnings);            
+                    this.warnings.emit(data.warnings);            
                 }
             },
-            error=> this.onErrors.emit(error));            
+            error=> this.errors.emit(error));            
         }
     }
 

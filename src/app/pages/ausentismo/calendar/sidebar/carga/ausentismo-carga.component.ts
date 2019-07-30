@@ -11,7 +11,6 @@ import { FilesService } from 'src/app/services/files.service';
 
 import { Articulo } from 'src/app/models/Articulo';
 import { Ausentismo } from 'src/app/models/Ausentismo';
-import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 import { Agente } from 'src/app/models/Agente';
 
 @Component({
@@ -104,8 +103,6 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onSuccess(data){
-        console.log('Ausencias cargadas');
-        console.log(data);
         this.plex.info('info', 'Ausentismo ingresado correctamente')
             .then( e => {
                 
@@ -124,30 +121,14 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onWarnings(warnings){
-        console.log('Hay Warnings');
-        console.log(warnings);
-        const articulo = warnings[0].articulo.nombre;
-        let textWarning = ``;
-        for (const indicador of warnings){
-            textWarning= this.getTextPeriodos(indicador, textWarning);
-        }
-        this.plex.info('info', `<p>El agente <b>${this.agente.nombre}</b> no
-                                dispone de dias para el <b>Articulo ${articulo}</b>
-                                en los periodos:${textWarning} </p>`) ;
-    }
-
-    getTextPeriodos(indicador, textWarning){
-        if (indicador.periodo){
-            for (const intervalo of indicador.intervalos){
-                const desde = moment(intervalo.desde).format('DD/MM/YYYY');
-                const hasta = moment(intervalo.hasta).format('DD/MM/YYYY');
-                textWarning = `<p>${textWarning} ${indicador.periodo}: ${desde} - ${hasta} </p>`;
+        if (warnings && warnings.length){
+            let textWarning = ``;
+            for (const warn of warnings){
+                textWarning = `${textWarning}<p> ${warn} </p>`
             }
+            this.plex.info('info', `<p>El agente <b>${this.agente.nombre}</b> 
+                                    presenta los siguientes problemas: ${textWarning} </p>`) ;
         }
-        else{
-            textWarning = `<p>${textWarning} Periodo Total</p>`;
-        }
-        return textWarning;
     }
 
     public onClose(){

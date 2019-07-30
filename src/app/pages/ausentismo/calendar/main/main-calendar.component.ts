@@ -19,7 +19,8 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() weekends:Boolean;
 
     @Input() set periodoSeleccionado(periodo: DateRangeSelection) {
-        this.seleccionarPeriodo(periodo);
+        this._rangeSelection = periodo;
+        this.seleccionarPeriodo();
     }
 
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
@@ -27,12 +28,20 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
 
     subscription: Subscription;
+    private _rangeSelection:DateRangeSelection;
     
     constructor(
         private rangeSelectorService: CalendarRangeSelectorService){
             this.subscription = this.rangeSelectorService.getState().subscribe(
                 rangeSelection => {
-                    this.seleccionarPeriodo(rangeSelection);
+                    this._rangeSelection = rangeSelection;
+                    // Por un tema se sincronismo de la API del calendario, 
+                    // 1ero se debe actualizar la vista seleccionada (api.gotoDate)
+                    // 2do se debe indicar el periodo seleccionado   (api.select)
+                    if (this._rangeSelection && this._rangeSelection.fechaDesde){
+                        this.updateSelectedMonthView(this._rangeSelection.fechaDesde);
+                    }
+                    this.seleccionarPeriodo();
             });
         }
 
@@ -75,25 +84,37 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
     public gotoNextMonth(){
-        this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()+1);
-        this.calendarApi.gotoDate(this.mesVisualizado);
-        this.changedDate.emit(this.mesVisualizado);
+        this.updateSelectedMonthView(this._getNextMonth(this.mesVisualizado));
+        this.seleccionarPeriodo();
     }
 
     public gotoPreviousMonth(){
-        this.mesVisualizado.setMonth(this.mesVisualizado.getMonth()-1);
+        this.updateSelectedMonthView(this._getPrevMonth(this.mesVisualizado));
+        this.seleccionarPeriodo();
+    }
+
+    private updateSelectedMonthView(newMonth:Date){
+        this.mesVisualizado = newMonth;
         this.calendarApi.gotoDate(this.mesVisualizado);
         this.changedDate.emit(this.mesVisualizado);
     }
 
-    seleccionarPeriodo(periodo:DateRangeSelection){
-        if (periodo){
-            this.calendarApi.select(periodo.fechaDesde, periodo.fechaHasta );
+    private seleccionarPeriodo(){
+        if (this._rangeSelection){
+            this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta );
         }
         else{
             if (this.calendarApi){
                 this.calendarApi.unselect();
             }
         }
+    }
+
+    private _getNextMonth(currentMonth:Date):Date{
+        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth()+1));
+    }
+
+    private _getPrevMonth(currentMonth:Date):Date{
+        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth()-1));
     }
 }
