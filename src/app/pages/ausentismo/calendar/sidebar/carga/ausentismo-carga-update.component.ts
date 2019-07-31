@@ -70,13 +70,23 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     }
 
     saveAusentismo(ausentismo:Ausentismo){
-        console.log('Solo vamos a guardar los archivos');
-        this.saveFiles(ausentismo)
-        // this.ausentismoService.putAusentismo(ausentismo)
-        //     .subscribe(data => {
-        //         this.onSuccess.emit(data);
-        //     },
-        //     error => this.onErrors.emit(error));
+        console.log('Testing Update. Luego Resolver save files');
+        // this.saveFiles(ausentismo)
+        this.ausentismoService.putAusentismo(ausentismo)
+            .subscribe(data => {
+                if (data.warnings && data.warnings.length){
+                    console.log('Hay Warnings')
+                    this.onWarnings.emit(data.warnings);            
+                }
+                else{
+                    // Guardamos los archivos adjuntos
+                    // this.saveFiles(data);
+                    console.log('NO Hay Warnings')
+                    this.onSuccess.emit(data);
+                }
+                // this.onSuccess.emit(data);
+            },
+            error => this.onErrors.emit(error));
     }
 
     private saveFiles(ausentismo){

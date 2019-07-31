@@ -55,15 +55,16 @@ export class AusentismoService {
 
     putAusentismo(object: Ausentismo): Observable<any> {
         const url = `${this.url}/periodo/${object.id}`;
-        return this.server.put(url, object).pipe(
-            map(data =>
-                data.ausencias.map(e=> e = {
-                    'title': e.articulo.codigo,
-                    'start': e.fecha,
-                    'allDay': true
-                  })
-            )
-        );
+        return this.server.put(url, object);
+        // .pipe(
+        //     map(data =>
+        //         data.ausencias.map(e=> e = {
+        //             'title': e.articulo.codigo,
+        //             'start': e.fecha,
+        //             'allDay': true
+        //           })
+        //     )
+        // );
     }
 
     searchAusentismo(params?: any): Observable<Ausentismo[]> {
