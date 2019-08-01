@@ -60,6 +60,7 @@ export class AusentismoCargaAddComponent implements OnInit {
             fechaHasta        : [ausentismo.fechaHasta],
             cantidadDias      : [ausentismo.cantidadDias],
             observacion       : [ausentismo.observacion],
+            enableSugerencias : [true],
         });
     }
 

@@ -128,7 +128,7 @@ export class AusentismoCargaComponent implements OnInit {
             for (const warn of warnings){
                 textWarning = `${textWarning}<p> ${warn} </p>`
             }
-            this.plex.info('info', `<p>El ausentismo ingresado presenta los
+            this.plex.info('info', `<p>El articulo seleccionado presenta los
                                     siguientes problemas: ${textWarning} </p>`) ;
         }
     }

@@ -74,17 +74,22 @@ export class AusentismoCargaFormComponent implements OnInit {
     sugerirDatosAusentismo(){
         let ausentismo = new Ausentismo(this.form.value)
         let form:any = this.form.value;
-        if ( form.articulo && form.fechaDesde){
-            this.ausentismoService.postSugerirAusentismo(ausentismo)
-            .subscribe(data => {
-                this.form.patchValue({cantidadDias:data.dias});
-                this.form.patchValue({fechaHasta:data.hasta})
-                this.updateRangeSelection();
-                if (data.warnings){
-                    this.warnings.emit(data.warnings);            
-                }
-            },
-            error=> this.errors.emit(error));            
+        if (form.enableSugerencias){
+            if ( form.articulo && form.fechaDesde){
+                this.ausentismoService.postSugerirAusentismo(ausentismo)
+                .subscribe(data => {
+                    this.form.patchValue({cantidadDias:data.dias});
+                    this.form.patchValue({fechaHasta:data.hasta})
+                    this.updateRangeSelection();
+                    if (data.warnings){
+                        this.warnings.emit(data.warnings);            
+                    }
+                },
+                error=> this.errors.emit(error));            
+            }
+        }
+        else{
+            this.calcularDatosAusentismo();
         }
     }
 
