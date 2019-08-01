@@ -29,6 +29,7 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     public articulos: Articulo[] = [];
     
     public formTitle:String = 'Edición';
+    public disableGuardar = true;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -59,6 +60,28 @@ export class AusentismoCargaUpdateComponent implements OnInit {
         });
     }
 
+    saveAusentismo(ausentismo:Ausentismo){
+        this.ausentismoService.putAusentismo(ausentismo)
+            .subscribe(data => {
+                if (data.warnings && data.warnings.length){
+                    console.log('Hay Warnings')
+                    this.onWarnings.emit(data.warnings);            
+                }
+                else{
+                    // Guardamos los archivos adjuntos
+                    console.log('NO Hay Warnings')
+                    console.log(data)
+                    this.saveFiles(data);
+                    this.onSuccess.emit(data);
+                }
+            },
+            error => this.onErrors.emit(error));
+    }
+
+    private saveFiles(ausentismo){
+        this.fileManager.saveFileChanges(ausentismo);
+    }
+
     public onSave(){
         if (this.ausentismoForm.valid){
             this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
@@ -69,35 +92,19 @@ export class AusentismoCargaUpdateComponent implements OnInit {
         }
     }
 
-    saveAusentismo(ausentismo:Ausentismo){
-        console.log('Testing Update. Luego Resolver save files');
-        // this.saveFiles(ausentismo)
-        this.ausentismoService.putAusentismo(ausentismo)
-            .subscribe(data => {
-                if (data.warnings && data.warnings.length){
-                    console.log('Hay Warnings')
-                    this.onWarnings.emit(data.warnings);            
-                }
-                else{
-                    // Guardamos los archivos adjuntos
-                    // this.saveFiles(data);
-                    console.log('NO Hay Warnings')
-                    this.onSuccess.emit(data);
-                }
-                // this.onSuccess.emit(data);
-            },
-            error => this.onErrors.emit(error));
-    }
-
-    private saveFiles(ausentismo){
-        this.fileManager.saveFileChanges(ausentismo);
-    }
-
     public onFormWarnings(warnings){
         this.onWarnings.emit(warnings);
     }
 
     public onFormErrors(errors){
         this.onErrors.emit(errors);
+    }
+
+    public onFilesChanged(e){
+        this.disableGuardar = false;
+    }
+
+    public onValueChangedForm(obj){
+        this.disableGuardar = false;
     }
 }

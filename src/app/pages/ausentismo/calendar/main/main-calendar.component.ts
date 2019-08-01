@@ -41,6 +41,9 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     if (this._rangeSelection && this._rangeSelection.fechaDesde){
                         this.updateSelectedMonthView(this._rangeSelection.fechaDesde);
                     }
+                    else{
+                        this.updateSelectedMonthView(new Date()); //Reset al dia actual
+                    }
                     this.seleccionarPeriodo();
             });
         }
@@ -95,6 +98,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private updateSelectedMonthView(newMonth:Date){
         this.mesVisualizado = newMonth;
+        this.mesSeleccionado = newMonth;
         this.calendarApi.gotoDate(this.mesVisualizado);
         this.changedDate.emit(this.mesVisualizado);
     }

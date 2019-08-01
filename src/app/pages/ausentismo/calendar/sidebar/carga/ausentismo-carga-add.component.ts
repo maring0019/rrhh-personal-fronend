@@ -31,6 +31,7 @@ export class AusentismoCargaAddComponent implements OnInit {
     public articulos: Articulo[] = [];
     
     public formTitle:String = 'Carga';
+    public disableGuardar = true;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -62,15 +63,6 @@ export class AusentismoCargaAddComponent implements OnInit {
         });
     }
 
-    public onSave(){
-        if (this.ausentismoForm.valid){
-            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
-        }
-        else{
-            formUtils.markFormAsInvalid(this.ausentismoForm);
-            this.onErrors.emit();
-        }
-    }
 
     private saveAusentismo(ausentismo){
         this.ausentismoService.postAusentismo(ausentismo)
@@ -91,6 +83,16 @@ export class AusentismoCargaAddComponent implements OnInit {
         this.fileManager.saveFileChanges(ausentismo);
     }
 
+    public onSave(){
+        if (this.ausentismoForm.valid){
+            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
+        }
+        else{
+            formUtils.markFormAsInvalid(this.ausentismoForm);
+            this.onErrors.emit();
+        }
+    }
+
     public onFormWarnings(warnings){
         this.onWarnings.emit(warnings);
     }
@@ -98,4 +100,14 @@ export class AusentismoCargaAddComponent implements OnInit {
     public onFormErrors(errors){
         this.onErrors.emit(errors);
     }
+
+    public onFilesChanged(e){
+        this.disableGuardar = false;
+    }
+
+    public onValueChangedForm(obj){
+        this.disableGuardar = false;
+    }
+
+
 }

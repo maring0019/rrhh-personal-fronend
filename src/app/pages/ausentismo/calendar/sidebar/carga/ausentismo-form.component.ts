@@ -15,6 +15,7 @@ export class AusentismoCargaFormComponent implements OnInit {
     @Input() form: FormGroup;
     @Input() articulos: Articulo[];
 
+    @Output() changedValue: EventEmitter<any> = new EventEmitter<any>();
     @Output() onSucess: EventEmitter<any> = new EventEmitter<any>();
     @Output() errors: EventEmitter<any> = new EventEmitter<any>();    
     @Output() warnings: EventEmitter<any> = new EventEmitter<any>();
@@ -27,6 +28,9 @@ export class AusentismoCargaFormComponent implements OnInit {
 
     public ngOnInit() {
         this.updateRangeSelection();
+        this.form.valueChanges.subscribe(() => {
+            this.changedValue.emit(this.form.value);
+        });
     }
 
     public onChangedArticulo(articulo){

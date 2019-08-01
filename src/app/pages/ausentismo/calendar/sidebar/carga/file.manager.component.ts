@@ -12,7 +12,7 @@ import { UploaderStatusComponent } from './uploader.status.component';
 })
 export class FileManagerComponent implements OnInit {
     @Input() filesOwner:any;            // Objeto propietario de los archivos.
-    @Input() autoSave:Boolean = false; // Flag para indicar si los cambios impactan directamente sobre el obj propietario
+    @Input() autoSave:Boolean = false;  // Flag para indicar si los cambios impactan directamente sobre el obj propietario
     @Input() filesAttached = [];        // Almacena unicamente info sobre los archivos uploaded
     @Input() maxFiles;
     @Input() title = 'Archivos adjuntos';
@@ -22,8 +22,8 @@ export class FileManagerComponent implements OnInit {
     @ViewChild('dynamicUploaderStatus', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
     componentRef:any;
 
-   filesToAttach = [];
-   filesToDettach = [];
+    filesToAttach = [];
+    filesToDettach = [];
 
     get files(){
         let newFiles = this.filesAttached.concat(this.filesToAttach);
@@ -69,8 +69,7 @@ export class FileManagerComponent implements OnInit {
                 if (this.autoSave && this.filesOwner){
                     // TODO Implementar el attach inmediato    
                 }
-                this.filesToAttach.push(fileUploaded);
-                this.filesChanged.emit(fileUploaded);
+                this.addFileToAttach(fileUploaded);
                 componentRef.destroy();
             });
         componentRef.instance.cancelUpload
@@ -81,38 +80,57 @@ export class FileManagerComponent implements OnInit {
 
     public removeFile(index){
         if (this.autoSave){
-            this.plex.info('info', 'Desea quitar el archivo adjunto?')
-            .then( e => {
-                if (true){
-                    this.deleteFile(index);
-                }
-            });
+            // TODO Implementar dettach de un archivo individual
+            // this.plex.info('info', 'Desea quitar el archivo adjunto?')
+            // .then( e => {
+            //     if (true){
+            //         this.deleteFile(index);
+            //     }
+            // });
         }
         else{
-            this.deleteFile(index);
+            const file = this.files[index];
+            if (file.metadata && file.metadata.objID){
+                this.removeFileAttached(file);
+            }
+            else{
+                this.removeFileUploaded(file);
+            }
         }
     }
 
-    deleteFile(index){
-        const file = this.files[index];
-        if (file.metadata && file.metadata.objID){
-            this.deleteFileAttached(file);
-        }
-        else{
-            this.deleteFileUploaded(file);
-        }
+    /**
+     * Agrega un archivo al listado de archivos que se asociaran
+     * posteriormente a un objeto. 
+     * @param fileUploaded 
+     */
+    addFileToAttach(fileUploaded){
+        this.filesToAttach.push(fileUploaded);
+        this.filesChanged.emit();
     }
 
-    deleteFileAttached(file){
+    /**
+     * Remueve visualmente el archivo indicado del listado de archivos
+     * que ya han sido asociados a un objeto. No realiza un borrado fisico
+     * @param file 
+     */
+    removeFileAttached(file){
         const index = this.filesAttached.indexOf(file);
         this.filesAttached.splice(index, 1);
         this.filesToDettach.push(file);
+        this.filesChanged.emit();
     }
 
-    deleteFileUploaded(file){
+    /**
+     * Remueve visualmente el archivo indicado del listado de archivos
+     * uploaded, y a su vez realiza un borrado fisico del mismo. 
+     * @param file 
+     */
+    removeFileUploaded(file){
         const index = this.filesToAttach.indexOf(file);
         this.filesToAttach.splice(index, 1);
         this.filesService.delete(file._id).subscribe();
+        this.filesChanged.emit();
     }
 
     public viewFile(index){
@@ -126,6 +144,12 @@ export class FileManagerComponent implements OnInit {
     }
 
    
+    
+    /**
+     * Asocia los archivos uploaded a un objeto que sera el propietario
+     * de los mismos.
+     * @param file 
+     */
     private attachFilesToObj(obj?){
         if (this.filesToAttach.length){
             let filesIDs = this.filesToAttach.map(f=>f._id);
@@ -134,6 +158,11 @@ export class FileManagerComponent implements OnInit {
         }
     }
 
+    /**
+     * Realiza un borrado fisico de los archivos seleccionados para 
+     * esta accion
+     * @param file 
+     */
     private dettachFilesFromObj(obj?){
         if (this.filesToDettach.length){
             let filesIDs = this.filesToDettach.map(f=>f._id);

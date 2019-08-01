@@ -3,12 +3,14 @@
     [form]="ausentismoForm"
     [articulos]="articulos"
     (warnings)="onFormWarnings($event)"
-    (errors)="onFormErrors($event)">
+    (errors)="onFormErrors($event)"
+    (changedValue)="onValueChangedForm($event)">
 </app-ausentismo-form>
 <br>
 <app-file-manager
     [filesOwner]="ausentismo"
-    [filesAttached]="ausentismoFiles">
+    [filesAttached]="ausentismoFiles"
+    (filesChanged)="onFilesChanged($event)">
 </app-file-manager>
 
 <div class="row">
@@ -17,6 +19,7 @@
             type="success"
             label="Guardar"
             size="block"
+            [disabled]="disableGuardar"
             (click)="onSave()">
         </plex-button>
     </div>
