@@ -10,7 +10,8 @@ import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 
 @Component({
     selector: 'app-ausentismo-search',
-    templateUrl: 'ausentismo-search.html'
+    templateUrl: 'ausentismo-search.html',
+    styleUrls: ['./ausentismo-search.scss']
 })
 
 export class AusentismoSearchComponent implements OnInit {
@@ -81,4 +82,26 @@ export class AusentismoSearchComponent implements OnInit {
         this.searching = true;
         this.seleccionarAusentismo();
     }
+
+
+    // Harcodeo
+    indicadores = [
+        {
+            numero : 23,
+            detalle : 'Dias asignados'
+        },
+        {
+            numero : 11,
+            detalle : 'Dias disponibles'
+        },
+        {
+            numero : 7,
+            detalle : 'Art. 80 disponibles'
+        },
+        {
+            numero : 15,
+            detalle : 'Licencia extraordinaria'
+        }
+    ]
+
 }
