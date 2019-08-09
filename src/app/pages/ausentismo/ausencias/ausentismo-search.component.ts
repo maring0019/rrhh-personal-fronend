@@ -5,15 +5,18 @@ import { AgenteService } from 'src/app/services/agente.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
-import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+
 import { DateRangeSelection } from 'src/app/pages/ausentismo/calendar/agente-calendar.component';
 import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
+import { getTomorrow } from 'src/app/utils/dates';
+
 
 
 
 @Component({
     selector: 'app-ausentismo-search',
-    templateUrl: 'ausentismo-search.html'
+    templateUrl: 'ausentismo-search.html',
+    styleUrls: ['./ausentismo-search.scss']
 })
 
 export class AusentismoSearchComponent implements OnInit {
@@ -25,6 +28,22 @@ export class AusentismoSearchComponent implements OnInit {
     dateRangeSelection: DateRangeSelection;
     ausentismos:Ausentismo[];
     searching = true;
+
+    // Harcodeo
+    indicadores = [
+        {
+            numero : 45,
+            detalle : 'Dias asignados'
+        },
+        {
+            numero : 10,
+            detalle : 'Dias tomados'
+        },
+        {
+            numero : 35,
+            detalle : 'Dias disponibles'
+        }
+    ]
 
     constructor(
         private agenteService:AgenteService,
@@ -64,7 +83,7 @@ export class AusentismoSearchComponent implements OnInit {
                 this.ausentismoSeleccionado = obj;
                 this.dateRangeSelection = {
                     fechaDesde: this.ausentismoSeleccionado.fechaDesde,
-                    fechaHasta: this.ausentismoSeleccionado.fechaHasta
+                    fechaHasta: getTomorrow(this.ausentismoSeleccionado.fechaHasta)
                 }
             }
         }

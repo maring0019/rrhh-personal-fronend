@@ -1,31 +1,31 @@
 <form name="searchForm" [formGroup]="searchForm">
-    <div class="d-flex flex-row justify-content-end align-items-start container-gap">
-        <!-- <div class="col-md-4"> -->
+    <div class="row">
+        <div class="col-md-12">
             <plex-select *ngIf="articulos.length"
                 [data]="articulos"
+                [labelField]="'codigo + descripcion'"
                 formControlName="articulo"
                 name="articulos"
-                placeholder="Seleccione art."
-                class="input-sm flex-2">
+                placeholder="Seleccione art.">
             </plex-select>
-        <!-- </div>
-        <div class="col-md-4"> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <plex-datetime
                 formControlName="fechaDesde"
                 type="date"
                 name="fechaDesde"
-                placeholder="Desde"
-                class="input-sm flex-1">
+                placeholder="Desde">
             </plex-datetime>
-        <!-- </div>
-        <div class="col-md-4"> -->
+        </div>
+        <div class="col-md-6">
             <plex-datetime
                 formControlName="fechaHasta"
                 type="date"
                 name="fechaHasta"
-                placeholder="Hasta"
-                class=" input-sm flex-1">
+                placeholder="Hasta">
             </plex-datetime>
-        <!-- </div> -->
+        </div>
     </div>
 <form>

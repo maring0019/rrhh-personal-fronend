@@ -3,9 +3,9 @@
     <div class="d-flex flex-row list-content" (click)="seleccionarItem(item)">
         <article class="d-flex flex-column text-left align-self-center"> 
             <h6 class="d-flex flex-row mt-2">
-                {{ item.articulo?.codigo }}
+                {{ item.articulo?.codigo }} {{ item.articulo?.descripcion }}
             </h6>
-            <p>{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}</p>
+            <p><small>{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}</small></p>
         </article>
     </div>
     <!-- Botonera -->

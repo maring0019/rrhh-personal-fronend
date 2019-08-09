@@ -1,14 +1,15 @@
 
 <ng-container *ngIf="agente">
-<header class="d-flex flex-row justify-content-between">
+<header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5>Detalle Agente</h5>
+        <h5><strong>Agente |</strong> Detalle</h5>
     </div>
     <div *ngIf="showActions" class="d-flex flex-row justify-content-end">
         <plex-button type="succesful" icon="pencil" size="sm" (click)="gotoAgente()">Editar</plex-button>
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
     </div>
 </header>
+
     <section class="d-flex flex-row mt-2">
         <div class="d-flex flex-column align-items-center mt-2">
             <app-agente-foto

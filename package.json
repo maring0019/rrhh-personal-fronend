@@ -28,6 +28,7 @@
     "@fullcalendar/angular": "4.2.1",
     "@fullcalendar/core": "4.2.0",
     "@fullcalendar/daygrid": "4.2.0",
+    "@fullcalendar/interaction": "^4.2.0",
     "bowser": "^2.1.0",
     "core-js": "^2.5.4",
     "moment": "^2.24.0",

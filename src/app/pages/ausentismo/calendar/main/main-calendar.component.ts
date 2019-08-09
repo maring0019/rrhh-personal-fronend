@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import { DateRangeSelection } from '../agente-calendar.component';
 
 import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
@@ -52,7 +53,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     calendarApi:any;
     mesVisualizado:Date = new Date(2013, 1, 1);
     
-    calendarPlugins = [dayGridPlugin];
+    calendarPlugins = [dayGridPlugin, interactionPlugin];
 
     header = {
         left: '',
@@ -94,6 +95,17 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     public gotoPreviousMonth(){
         this.updateSelectedMonthView(this._getPrevMonth(this.mesVisualizado));
         this.seleccionarPeriodo();
+    }
+
+    public onDateClick(e){
+        console.log('Day clicked!!!!');
+        console.log(e);
+
+    }
+
+    public onDateRangeSelection(e){
+        console.log('Date Range selection!!!!');
+        console.log(e);
     }
 
     private updateSelectedMonthView(newMonth:Date){

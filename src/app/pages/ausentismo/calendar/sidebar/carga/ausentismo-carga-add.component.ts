@@ -31,7 +31,7 @@ export class AusentismoCargaAddComponent implements OnInit {
     public articulos: Articulo[] = [];
     
     public formTitle:String = 'Carga';
-    public disableGuardar = true;
+    public disableGuardar = true;      // Determina cuando habilitar el boton de guardado del form
 
     constructor(
         private formBuilder: FormBuilder,

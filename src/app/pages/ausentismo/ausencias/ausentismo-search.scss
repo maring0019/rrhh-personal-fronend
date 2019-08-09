@@ -1,0 +1,30 @@
+@import '../../../assets/variables/colores';
+
+section.contenedor-indicadores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(100px , 1fr));
+	grid-gap: 5px;
+	margin-top: 0.5rem;
+
+    article.bloque-indicador {
+		display: flex;
+		width: auto;
+
+        h2 {
+			color: $andes-cyan;
+			font-weight: 600;
+			margin-right: 0.5rem;
+			text-align: right;
+			min-width: 30px;
+        }
+
+        p {
+			font-size: 0.75rem;
+			white-space: normal;
+			line-height: 1.3; 
+			text-align: left;
+        }
+
+    }
+
+}

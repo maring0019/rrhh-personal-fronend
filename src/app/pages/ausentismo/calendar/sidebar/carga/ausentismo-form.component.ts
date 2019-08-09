@@ -6,6 +6,7 @@ import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
 import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
+import { getTomorrow } from 'src/app/utils/dates';
 
 @Component({
     selector: 'app-ausentismo-form',
@@ -16,7 +17,7 @@ export class AusentismoCargaFormComponent implements OnInit {
     @Input() articulos: Articulo[];
 
     @Output() changedValue: EventEmitter<any> = new EventEmitter<any>();
-    @Output() onSucess: EventEmitter<any> = new EventEmitter<any>();
+    @Output() success: EventEmitter<any> = new EventEmitter<any>();
     @Output() errors: EventEmitter<any> = new EventEmitter<any>();    
     @Output() warnings: EventEmitter<any> = new EventEmitter<any>();
     
@@ -94,7 +95,7 @@ export class AusentismoCargaFormComponent implements OnInit {
     }
 
 
-    updateRangeSelection(){
+    private updateRangeSelection(){
         let fd:Date = this.form.value.fechaDesde;
         let fh:Date = this.form.value.fechaHasta;
         if ((fd && fh) && (fd>fh)) return; // Form validation
@@ -103,22 +104,16 @@ export class AusentismoCargaFormComponent implements OnInit {
             return;
         }
         if (fd && fh) {
-            this.rangeSelectorService.setState({fechaDesde:fd, fechaHasta:this.getTomorrow(fh)});
+            this.rangeSelectorService.setState({fechaDesde:fd, fechaHasta: getTomorrow(fh)});
             return;
         }
         if (fd && !fh) {
-            this.rangeSelectorService.setState({fechaDesde:fd, fechaHasta:this.getTomorrow(fd)});
+            this.rangeSelectorService.setState({fechaDesde:fd, fechaHasta: getTomorrow(fd)});
             return;
         }
         if (!fd && fh) {
-            this.rangeSelectorService.setState({fechaDesde:fh, fechaHasta:this.getTomorrow(fh)});
+            this.rangeSelectorService.setState({fechaDesde:fh, fechaHasta: getTomorrow(fh)});
             return;
         }
-    }
-
-    public getTomorrow(date){
-        let tomorrow = new Date(date);
-        tomorrow.setDate(date.getDate() + 1);
-        return tomorrow;
     }
 }

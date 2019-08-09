@@ -12,12 +12,14 @@
         [weekends]="weekends"
         [fixedWeekCount]="false"
         [plugins]="calendarPlugins"
+        [selectable]="true"
         [header]="header"
         [locale]="'es'"
         [columnHeaderText]="columnHeaderText"
         [aspectRatio]="1.8"
         [events]="ausencias"
-        >
+        (dateClick)="onDateClick($event)"
+        (select)="onDateRangeSelection($event)">
     </full-calendar>
     <plex-button 
         class="cal-arrow ml-4"

@@ -1,8 +1,25 @@
 <header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5><strong>AUSENTISMO |</strong> Últimas ausencias</h5>
+        <h5><strong>AUSENTISMO | </strong> Indicadores</h5>
     </div>
 </header>
+
+<section class="contenedor-indicadores">
+    <article class="bloque-indicador" *ngFor="let indicador of indicadores">
+        <h2>{{ indicador.numero }}</h2>
+        <p>{{ indicador.detalle }}</p>
+    </article>
+</section>
+
+<hr class="white">
+<br>
+<header class="d-flex flex-row justify-content-between">
+    <div>
+        <h5>Últimas ausencias</h5>
+    </div>
+</header>
+<!-- <hr class="white"> -->
+
 
 <app-ausentismo-search-form
     *ngIf="agente"
