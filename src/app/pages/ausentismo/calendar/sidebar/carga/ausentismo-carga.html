@@ -4,6 +4,7 @@
         <h5><strong>AUSENTISMO |</strong> {{ formTitle }}</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
+        <plex-button *ngIf="ausentismo" icon="mdi mdi-file" size="sm" (click)="onPrint()"></plex-button>
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
     </div>
 </header>

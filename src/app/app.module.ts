@@ -33,6 +33,7 @@ import { ArticuloService } from './services/articulo.service';
 import { AusentismoService } from './services/ausentismo.service';
 import { FilesService } from './services/files.service';
 import { CalendarRangeSelectorService } from './services/calendar-range-selector.service';
+import { DescargasService } from './services/descargas.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -194,8 +195,8 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         ArticuloService,
         AusentismoService,
         FilesService,
-        CalendarRangeSelectorService
-
+        CalendarRangeSelectorService,
+        DescargasService
     ],
     bootstrap: [AppComponent],
     entryComponents: [UploaderStatusComponent]

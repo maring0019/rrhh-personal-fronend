@@ -8,10 +8,12 @@ import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { FilesService } from 'src/app/services/files.service';
+import { DescargasService } from 'src/app/services/descargas.service';
 
 import { Articulo } from 'src/app/models/Articulo';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
+
 
 @Component({
     selector: 'app-ausentismo-carga',
@@ -35,6 +37,7 @@ export class AusentismoCargaComponent implements OnInit {
         protected articuloService: ArticuloService,
         protected ausentismoService: AusentismoService,
         protected filesService: FilesService,
+        protected descargasService: DescargasService,
         protected plex: Plex){ }
 
     public ngOnInit() {
@@ -135,5 +138,26 @@ export class AusentismoCargaComponent implements OnInit {
 
     public onClose(){
         this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/listado`);
+    }
+
+    public onPrint(){
+        this.descargasService.download(this.ausentismo.id)
+            .subscribe(data => {                
+                this.descargarArchivo(data);
+            }, error => {
+                console.log('download error:', JSON.stringify(error));
+            }); 
+    }
+
+    private descargarArchivo(data){
+        let url = window.URL.createObjectURL(data.file);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = data.filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
     }
 }
