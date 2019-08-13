@@ -56,7 +56,14 @@ export class FilesService {
 
     getObjectFiles(objectId: any): Observable<any[]> {
         const url = `${this.baseUrl}/objects/${objectId}/files`;
-        return this.server.get(url);
+        return this.server.get(url).pipe(
+            map(files =>
+                files.map(file => {
+                    file.downloadURL = `${this.serverUrl}${this.baseUrl}/objects/${objectId}/files/${file.id}/download`;
+                    return file;
+                })
+            )
+        );
     }
 
     attachFiles(objectId: any, files?:any): Observable<any[]> {
