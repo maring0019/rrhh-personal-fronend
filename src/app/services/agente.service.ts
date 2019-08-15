@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
-import { IAusenciaEvento } from '../models/IAusenciaEvento';
 
 @Injectable()
 export class AgenteService {
@@ -48,17 +47,9 @@ export class AgenteService {
         return this.server.post(url, { imagen:file});
     }
 
-    getAusencias(agenteId):Observable<IAusenciaEvento[]> {
+    getAusencias(agenteId):Observable<any[]> {
         const url = `${this.agenteUrl}/${agenteId}/ausencias`;
-        return this.server.get(url).pipe(
-            map(data =>
-                data.map(e=> e = {
-                    'title': e.ausencias.articulo.codigo,
-                    'start': e.ausencias.fecha,
-                    'allDay': true
-                  })
-            )
-        );
+        return this.server.get(url);
     }
 
 }

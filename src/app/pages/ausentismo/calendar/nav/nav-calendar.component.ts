@@ -8,7 +8,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 })
 
 export class NavCalendarComponent implements OnInit, AfterViewInit, OnChanges {
-    @Input() ausencias;
+    @Input() eventos;
     @Input() mesSeleccionado:Date;  // Identifica visualmente el mes seleccioando
     @Input() rangeDesde:Date;       // 
     @Input() rangeHasta:Date;

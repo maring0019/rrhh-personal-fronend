@@ -2,15 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AgenteService } from 'src/app/services/agente.service';
+import { CalendarStoreService } from '../../../stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 
-import { DateRangeSelection } from 'src/app/pages/ausentismo/calendar/agente-calendar.component';
-import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
 import { getTomorrow } from 'src/app/utils/dates';
-
-
 
 
 @Component({
@@ -25,7 +22,6 @@ export class AusentismoSearchComponent implements OnInit {
 
     agente:Agente;
     ausentismoSeleccionado: Ausentismo;
-    dateRangeSelection: DateRangeSelection;
     ausentismos:Ausentismo[];
     searching = true;
 
@@ -47,7 +43,7 @@ export class AusentismoSearchComponent implements OnInit {
 
     constructor(
         private agenteService:AgenteService,
-        private rangeSelectorService: CalendarRangeSelectorService,
+        private calendarStoreService: CalendarStoreService,
         private router:Router,
         private route: ActivatedRoute){}
     
@@ -74,24 +70,26 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public seleccionarAusentismo(obj?:any){
+        let dateRangeSelection:any;
         if (obj){
             if (this.ausentismoSeleccionado == obj){
                 this.ausentismoSeleccionado = null;
-                this.dateRangeSelection = null;
+                dateRangeSelection = null;
             }
             else{
                 this.ausentismoSeleccionado = obj;
-                this.dateRangeSelection = {
+                dateRangeSelection = {
                     fechaDesde: this.ausentismoSeleccionado.fechaDesde,
                     fechaHasta: getTomorrow(this.ausentismoSeleccionado.fechaHasta)
                 }
             }
         }
         else{
-            this.dateRangeSelection = null;
-        }        
-        // this.ausentismoSelected.emit(this.ausentismoSeleccionado);
-        this.rangeSelectorService.setState(this.dateRangeSelection);
+            dateRangeSelection = null;
+        }
+        console.log('Vamos a editar el range')        
+        console.log(dateRangeSelection)
+        this.calendarStoreService.selectionRange = dateRangeSelection;
     }
 
     public editarAusentismo(ausentismo){

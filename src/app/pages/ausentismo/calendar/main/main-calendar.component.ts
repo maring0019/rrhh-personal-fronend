@@ -6,7 +6,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { DateRangeSelection } from '../agente-calendar.component';
 
-import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
+import { getTomorrow } from 'src/app/utils/dates';
+import { CalendarStoreService } from '../../../../stores/calendar.store.service';
 
 @Component({
     selector: 'app-main-calendar',
@@ -14,39 +15,28 @@ import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-se
 })
 
 export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
-    @Input() ausencias;
+    @Input() eventos;
     @Input() options;
     @Input() mesSeleccionado:Date;
     @Input() weekends:Boolean;
-
-    @Input() set periodoSeleccionado(periodo: DateRangeSelection) {
-        this._rangeSelection = periodo;
-        this.seleccionarPeriodo();
-    }
 
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
    
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
 
-    subscription: Subscription;
+    storeSubscription: Subscription;
     private _rangeSelection:DateRangeSelection;
     
-    constructor(
-        private rangeSelectorService: CalendarRangeSelectorService){
-            this.subscription = this.rangeSelectorService.getState().subscribe(
-                rangeSelection => {
+    constructor(private calendarStoreService: CalendarStoreService){
+            this.storeSubscription = this.calendarStoreService.selectionRange$
+                .subscribe(rangeSelection => {
+                    console.log('Cambio el range')
+                    if (rangeSelection) {
+                        this.updateSelectedMonthView(rangeSelection.fechaDesde);
+                    }
                     this._rangeSelection = rangeSelection;
-                    // Por un tema se sincronismo de la API del calendario, 
-                    // 1ero se debe actualizar la vista seleccionada (api.gotoDate)
-                    // 2do se debe indicar el periodo seleccionado   (api.select)
-                    if (this._rangeSelection && this._rangeSelection.fechaDesde){
-                        this.updateSelectedMonthView(this._rangeSelection.fechaDesde);
-                    }
-                    else{
-                        this.updateSelectedMonthView(new Date()); //Reset al dia actual
-                    }
-                    this.seleccionarPeriodo();
-            });
+                    this.marcarPeriodoSeleccionado();
+                });
         }
 
     
@@ -84,45 +74,43 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.storeSubscription.unsubscribe();
       }
 
     public gotoNextMonth(){
         this.updateSelectedMonthView(this._getNextMonth(this.mesVisualizado));
-        this.seleccionarPeriodo();
+        this.marcarPeriodoSeleccionado();
     }
 
     public gotoPreviousMonth(){
         this.updateSelectedMonthView(this._getPrevMonth(this.mesVisualizado));
-        this.seleccionarPeriodo();
+        this.marcarPeriodoSeleccionado();
     }
 
     public onDateClick(e){
-        console.log('Day clicked!!!!');
-        console.log(e);
-
+        this.calendarStoreService.selectionRange = { fechaDesde:e.date, fechaHasta:getTomorrow(e.date) };
     }
 
     public onDateRangeSelection(e){
-        console.log('Date Range selection!!!!');
-        console.log(e);
+        this.calendarStoreService.selectionRange = { fechaDesde:e.start, fechaHasta:e.end };
     }
 
     private updateSelectedMonthView(newMonth:Date){
         this.mesVisualizado = newMonth;
         this.mesSeleccionado = newMonth;
-        this.calendarApi.gotoDate(this.mesVisualizado);
+        if (this.calendarApi) this.calendarApi.gotoDate(this.mesVisualizado);
+        
         this.changedDate.emit(this.mesVisualizado);
     }
 
-    private seleccionarPeriodo(){
-        if (this._rangeSelection){
-            this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta );
-        }
-        else{
-            if (this.calendarApi){
-                this.calendarApi.unselect();
+    private marcarPeriodoSeleccionado(){
+        if (this.calendarApi){
+            if (this._rangeSelection){
+                this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta );
             }
+            else{
+                this.calendarApi.unselect();
+            }    
         }
     }
 

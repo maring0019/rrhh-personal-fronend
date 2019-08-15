@@ -7,6 +7,8 @@ import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
 import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
 import { getTomorrow } from 'src/app/utils/dates';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
+
 
 @Component({
     selector: 'app-ausentismo-form',
@@ -25,6 +27,7 @@ export class AusentismoCargaFormComponent implements OnInit {
 
     constructor(
         private ausentismoService: AusentismoService,
+        private calendarStoreService: CalendarStoreService,
         private rangeSelectorService: CalendarRangeSelectorService){}
 
     public ngOnInit() {

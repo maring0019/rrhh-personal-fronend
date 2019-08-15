@@ -2,20 +2,20 @@
     <plex-layout-main>
         <app-header-calendar
             (changedDate)="onChangeHeaderDate($event)"
-            (changedWeekends)="onChangeHeaderWeekends($event)">
+            (showHideWeekends)="onToggleWeekends($event)"
+            (showHideFeriados)="onToggleFeriados($event)">
         </app-header-calendar>
 
         <app-main-calendar
-            [ausencias]="ausencias"
+            [eventos]="eventos"
             [weekends]="weekends"
             [mesSeleccionado]="mesMainDefault"
-            [periodoSeleccionado]="dateRangeSelection"
             (changedDate)="onChangeMainDate($event)">
         </app-main-calendar>
 
         <app-nav-calendar
-            *ngIf="ausencias"
-            [ausencias]="ausencias"
+            *ngIf="eventos"
+            [eventos]="eventos"
             [mesSeleccionado]="mesNavDefault"
             (changedDate)="onChangeNavDate($event)">
         </app-nav-calendar>

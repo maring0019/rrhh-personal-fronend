@@ -1,10 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 
 import { AgenteService } from 'src/app/services/agente.service';
+import { EventosCalendarService } from 'src/app/services/eventos.calendar.service';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
+
+
+
 
 
 export interface DateRangeSelection {
@@ -20,7 +26,10 @@ export interface DateRangeSelection {
 
 export class AgenteCalendarComponent implements OnInit {
 
+    eventos: IAusenciaEvento[];
     ausencias: IAusenciaEvento[];
+    feriados: IAusenciaEvento[];
+    francos: IAusenciaEvento[];
     weekends: Boolean = true;
     mesMainDefault:Date = new Date();
     mesNavDefault:Date = new Date();
@@ -33,15 +42,20 @@ export class AgenteCalendarComponent implements OnInit {
         defaultDate: new Date()
     }
 
+    storeSubscription: Subscription;
+
     constructor(
-        private agenteService:AgenteService,
+        private calendarStoreService: CalendarStoreService,
+        private agenteService: AgenteService,
+        private eventosService: EventosCalendarService,
         private route: ActivatedRoute){}
     
     public ngOnInit() {
         this.route.params.subscribe(
             params =>{
                 this.agenteID = params['agenteId'];
-                this.refreshAusencias();
+                // this.refreshAusencias();
+                this.refreshEventos();
             }
         );
     }
@@ -63,18 +77,25 @@ export class AgenteCalendarComponent implements OnInit {
         this.weekends = value;
     }
 
+    onToggleFeriados(value){
+        if (value){
+            this.calendarStoreService.addFeriados();
+        }
+        else{
+            this.calendarStoreService.removeFeriados();
+        }
+    }
+
     onActivate(componentRef){
         console.log('Se activo el componente interno');
         console.log(componentRef);
-        this.refreshAusencias();
+        // this.refreshAusencias();
         // if (componentRef instanceof AusentismoSearchComponent) this.handleSearchComponentEvents(componentRef);
     }
 
-    refreshAusencias(){
-        if (this.agenteID){
-            this.agenteService.getAusencias(this.agenteID).subscribe((data) => {
-                    this.ausencias = data;
-            });
-        }
-    }
+
+    refreshEventos(){
+        this.storeSubscription = this.calendarStoreService.getEventos(this.agenteID)
+            .subscribe(eventos => this.eventos = eventos)
+    }   
 }

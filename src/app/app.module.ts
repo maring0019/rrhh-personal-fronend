@@ -34,6 +34,11 @@ import { AusentismoService } from './services/ausentismo.service';
 import { FilesService } from './services/files.service';
 import { CalendarRangeSelectorService } from './services/calendar-range-selector.service';
 import { DescargasService } from './services/descargas.service';
+import { FeriadoService } from './services/feriado.service';
+import { EventosCalendarService } from './services/eventos.calendar.service';
+
+// Stores
+import { CalendarStoreService } from './stores/calendar.store.service';
 
 // Pages
 import { HomePage } from './pages/home/home.page';
@@ -100,7 +105,8 @@ import { TitlePipe } from './pipes/title.pipe';
 import { EdadPipe } from './pipes/edad.pipe';
 
 
-import { AgenteMockService } from './hardcodeo/agente.service';
+import { AgenteMockService } from './hardcodeo/agente.service'
+
 
 @NgModule({
     declarations: [
@@ -194,9 +200,12 @@ import { AgenteMockService } from './hardcodeo/agente.service';
         RegimenHorarioService,
         ArticuloService,
         AusentismoService,
+        FeriadoService,
+        EventosCalendarService,
         FilesService,
         CalendarRangeSelectorService,
-        DescargasService
+        DescargasService,
+        CalendarStoreService
     ],
     bootstrap: [AppComponent],
     entryComponents: [UploaderStatusComponent]

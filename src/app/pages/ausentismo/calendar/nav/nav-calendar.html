@@ -12,7 +12,7 @@
                 (click)="seleccionarMes('0')">
                 <full-calendar
                     #calendarprev
-                    [events]="ausencias"
+                    [events]="eventos"
                     [defaultView]="'dayGridMonth'"
                     [fixedWeekCount]="false"
                     [showNonCurrentDates]="false"
@@ -28,7 +28,7 @@
                 (click)="seleccionarMes('1')">
                 <full-calendar
                     #calendarcenter
-                    [events]="ausencias"
+                    [events]="eventos"
                     [defaultView]="'dayGridMonth'"
                     [fixedWeekCount]="false"
                     [showNonCurrentDates]="false"
@@ -44,7 +44,7 @@
                 (click)="seleccionarMes('2')">
                 <full-calendar
                     #calendarnext
-                    [events]="ausencias"
+                    [events]="eventos"
                     [defaultView]="'dayGridMonth'"
                     [fixedWeekCount]="false"
                     [showNonCurrentDates]="false"

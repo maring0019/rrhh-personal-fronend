@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { Server } from '@andes/shared';
 import { Ausencia } from '../models/Ausencia';

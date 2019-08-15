@@ -7,10 +7,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeadCalendarComponent implements OnInit {
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
-    @Output() changedWeekends: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+    @Output() showHideWeekends: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+    @Output() showHideFeriados: EventEmitter<Boolean> = new EventEmitter<Boolean>();
     
     fechaSeleccion:Date;
     showWeekends:Boolean = true;
+    showFeriados:Boolean = true;
     agenteID:String;
 
     constructor(
@@ -33,7 +35,13 @@ export class HeadCalendarComponent implements OnInit {
 
     onChangedShowWeekends(evento){
         if (evento){
-            this.changedWeekends.emit(evento.value);
+            this.showHideWeekends.emit(evento.value);
+        }
+    }
+
+    onChangedShowFeriados(evento){
+        if (evento){
+            this.showHideFeriados.emit(evento.value);
         }
     }
 

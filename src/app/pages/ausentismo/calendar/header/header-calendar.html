@@ -22,7 +22,9 @@
             <plex-bool
                 type="slide"
                 name="verFeriados"
-                label="Ver Feriados">
+                label="Ver Feriados"
+                [(ngModel)]="showFeriados"
+                (change)="onChangedShowFeriados($event)">
             </plex-bool>
         </div>
         <div class="col-2">
