@@ -5,8 +5,10 @@ import { map } from 'rxjs/operators';
 import { Server } from '@andes/shared';
 
 import { IEventoCalendar } from '../models/IEventoCalendar';
+
 import { FeriadoService } from './feriado.service';
 import { AgenteService } from './agente.service';
+import { FrancoService } from 'src/app/services/franco.service';
 
 
 @Injectable()
@@ -16,7 +18,8 @@ export class EventosCalendarService {
     constructor(
         private server: Server,
         private feriadoService: FeriadoService,
-        private agenteService: AgenteService
+        private agenteService: AgenteService,
+        private francoService: FrancoService
     ) { }
 
 
@@ -60,13 +63,25 @@ export class EventosCalendarService {
         );
     }
 
-    // post(object: IEventoCalendar): Observable<IEventoCalendar> {
-    //     return this.server.post(this.url, object);
-    // }
-
-    // put(object: IEventoCalendar): Observable<IEventoCalendar> {
-    //     const url = `${this.url}/${object.id}`;
-    //     return this.server.put(url, object);
-    // }
+    
+    getFrancos(params?: any): Observable<IEventoCalendar[]> {
+        return this.francoService.get(params).pipe(
+            map(data =>
+                data.map(franco=> {
+                    let evento = {
+                        'id': franco.id,
+                        'title': franco.descripcion? franco.descripcion: 'Franco',
+                        'start': franco.fecha,
+                        'allDay': true,
+                        'color':'grey',
+                        'type': 'FRANCO',
+                        'ausentismoFechaDesde': franco.fecha,
+                        'ausentismoFechaHasta': franco.fecha
+                      }
+                      return evento;
+                })
+            )
+        );
+    }
 
 }

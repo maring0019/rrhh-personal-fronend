@@ -9,10 +9,13 @@ export class HeadCalendarComponent implements OnInit {
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() showHideWeekends: EventEmitter<Boolean> = new EventEmitter<Boolean>();
     @Output() showHideFeriados: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+    @Output() saltarFrancos: EventEmitter<Boolean> = new EventEmitter<Boolean>();
     
-    fechaSeleccion:Date;
-    showWeekends:Boolean = true;
-    showFeriados:Boolean = true;
+    public fechaSeleccion:Date;
+    public showWeekends:Boolean = true;
+    public showFeriados:Boolean = true;
+    public showFrancos:Boolean = false;
+    
     agenteID:String;
 
     constructor(
@@ -42,6 +45,12 @@ export class HeadCalendarComponent implements OnInit {
     onChangedShowFeriados(evento){
         if (evento){
             this.showHideFeriados.emit(evento.value);
+        }
+    }
+
+    onChangedSaltarFrancos(evento){
+        if (evento){
+            this.saltarFrancos.emit(evento.value);
         }
     }
 

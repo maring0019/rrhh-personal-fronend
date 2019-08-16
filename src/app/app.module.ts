@@ -36,6 +36,7 @@ import { CalendarRangeSelectorService } from './services/calendar-range-selector
 import { DescargasService } from './services/descargas.service';
 import { FeriadoService } from './services/feriado.service';
 import { EventosCalendarService } from './services/eventos.calendar.service';
+import { FrancoService } from './services/franco.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -201,6 +202,7 @@ import { AgenteMockService } from './hardcodeo/agente.service'
         ArticuloService,
         AusentismoService,
         FeriadoService,
+        FrancoService,
         EventosCalendarService,
         FilesService,
         CalendarRangeSelectorService,

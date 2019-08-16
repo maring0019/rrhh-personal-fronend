@@ -3,13 +3,12 @@ import {BehaviorSubject} from 'rxjs'
 import {shareReplay, map} from 'rxjs/operators'
 // import { uuid } from './uuid';
 
-// import {IEventoCalendarsService} from './eventos.service';
-import { FeriadoService } from '../services/feriado.service';
-import { AusentismoService } from '../services/ausentismo.service';
-
 import { combineLatest, forkJoin } from 'rxjs';
 import { EventosCalendarService } from 'src/app/services/eventos.calendar.service';
+import { FrancoService } from 'src/app/services/franco.service';
+
 import { IEventoCalendar } from 'src/app/models/IEventoCalendar';
+import { Franco } from 'src/app/models/Franco';
 
 export interface IDateRangeSelection {
     fechaDesde: Date,
@@ -21,6 +20,7 @@ export class CalendarStoreService {
 
     constructor(
         private eventosService: EventosCalendarService,
+        private francoService: FrancoService
     ) {
         // this.fetchAll();
     }
@@ -42,6 +42,7 @@ export class CalendarStoreService {
 
     feriados: IEventoCalendar[];
     ausencias: IEventoCalendar[];
+    francos: IEventoCalendar[];
 
     get selectionRange(): IDateRangeSelection {
         return this._selectionRange.getValue();
@@ -82,14 +83,45 @@ export class CalendarStoreService {
         this.eventos = this.eventos.filter( x => !this.feriados.filter( y => y.id === x.id).length);
     }
 
+    addFrancos(francos:Franco[]){
+        console.log('Vamos a crear Francos')
+        console.log(francos);
+        this.francoService.post(francos).subscribe(
+            francos=> {
+                console.log('Llegaron los nuevos Francos')
+                console.log(francos);
+                let eventosFranco = francos.map(franco=> {
+                    let evento = {
+                        'id': franco.id,
+                        'title': franco.descripcion? franco.descripcion: 'Franco',
+                        'start': franco.fecha,
+                        'allDay': true,
+                        'color':'grey',
+                        'type': 'FRANCO',
+                        'ausentismoFechaDesde': franco.fecha,
+                        'ausentismoFechaHasta': franco.fecha
+                      }
+                      return evento;
+                })
+                this.francos = this.francos.concat(eventosFranco);
+                this.eventos = this.eventos.concat(eventosFranco);
+            },
+            error =>{
+                console.log('Tenemos un problema Houston');
+            }
+        )
+    }
+
     fetchAll(agenteID) {
         let feriados$ = this.eventosService.getFeriados();
         let ausencias$ = this.eventosService.getAusencias(agenteID);
-        forkJoin(feriados$, ausencias$).subscribe( 
-            ([feriados, ausencias]) => {
+        let francos$ = this.eventosService.getFrancos({ 'agenteID': agenteID} );
+        forkJoin(feriados$, ausencias$, francos$).subscribe( 
+            ([feriados, ausencias, francos]) => {
                 this.feriados = feriados;
                 this.ausencias = ausencias;
-                this.eventos = feriados.concat(ausencias);
+                this.francos = francos;
+                this.eventos = feriados.concat(ausencias).concat(francos);
             }   
         )
     }

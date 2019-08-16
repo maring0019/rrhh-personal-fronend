@@ -4,10 +4,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { DateRangeSelection } from '../agente-calendar.component';
 
 import { getTomorrow } from 'src/app/utils/dates';
-import { CalendarStoreService } from '../../../../stores/calendar.store.service';
+import { CalendarStoreService, IDateRangeSelection } from 'src/app/stores/calendar.store.service';
+
 
 @Component({
     selector: 'app-main-calendar',
@@ -25,13 +25,11 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
 
     storeSubscription: Subscription;
-    private _rangeSelection:DateRangeSelection;
+    private _rangeSelection: IDateRangeSelection;
     
     constructor(private calendarStoreService: CalendarStoreService){
             this.storeSubscription = this.calendarStoreService.selectionRange$
                 .subscribe(rangeSelection => {
-                    console.log('Cambio el periodo');
-                    console.log(rangeSelection)
                     if (rangeSelection) {
                         this.updateSelectedMonthView(rangeSelection.fechaDesde);
                     }

@@ -7,16 +7,11 @@ import { EventosCalendarService } from 'src/app/services/eventos.calendar.servic
 import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
+import { Franco } from 'src/app/models/Franco';
 import { IAusenciaEvento } from 'src/app/models/IAusenciaEvento';
 
+import { getWeekdays } from 'src/app/utils/dates';
 
-
-
-
-export interface DateRangeSelection {
-    fechaDesde: Date,
-    fechaHasta: Date
-}
 
 @Component({
     selector: 'app-agente-calendar',
@@ -33,7 +28,6 @@ export class AgenteCalendarComponent implements OnInit {
     weekends: Boolean = true;
     mesMainDefault:Date = new Date();
     mesNavDefault:Date = new Date();
-    dateRangeSelection: DateRangeSelection;
     ausentismoSeleccionado: Ausentismo = null;
     agenteID:any;
     // TODO: Analizar de enviar todas las opciones del calendario por esta variable
@@ -73,7 +67,7 @@ export class AgenteCalendarComponent implements OnInit {
         this.mesNavDefault = new Date(date);
     }
 
-    onChangeHeaderWeekends(value){
+    onToggleWeekends(value){
         this.weekends = value;
     }
 
@@ -83,6 +77,18 @@ export class AgenteCalendarComponent implements OnInit {
         }
         else{
             this.calendarStoreService.removeFeriados();
+        }
+    }
+
+    onToggleFrancos(value){
+        if (value){
+            let weekends = getWeekdays(this.mesNavDefault.getMonth(), this.mesNavDefault.getFullYear());
+            let francos:Franco[] = weekends.map(f => f = {fecha:f, agente:{id:this.agenteID}});
+            this.calendarStoreService.addFrancos(francos);
+        }
+        else{
+            console.log('Hay que quitar los francos?')
+            // this.calendarStoreService.removeFeriados();
         }
     }
 
