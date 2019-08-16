@@ -4,5 +4,7 @@ export interface IEventoCalendar {
     start: Date,
     allDay: Boolean,
     color: String,
-    type: String
+    type: String,
+    ausentismoFechaDesde: Date,
+    ausentismoFechaHasta: Date,
 }

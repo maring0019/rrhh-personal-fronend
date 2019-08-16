@@ -11,6 +11,7 @@ import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 import { Articulo } from 'src/app/models/Articulo';
 import { FileManagerComponent } from 'src/app/pages/ausentismo/calendar/sidebar/carga/file.manager.component';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 @Component({
     selector: 'app-ausentismo-carga-add',
@@ -36,11 +37,13 @@ export class AusentismoCargaAddComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private articuloService: ArticuloService,
-        private ausentismoService: AusentismoService){}
+        private ausentismoService: AusentismoService,
+        private calendarStoreService: CalendarStoreService){}
 
     public ngOnInit() {
         this.initFormSelectOptions();
         this.initAusentismoForm();
+        this.patchFormRangeSelection();
     }
 
     initFormSelectOptions(){
@@ -62,6 +65,14 @@ export class AusentismoCargaAddComponent implements OnInit {
             observacion       : [ausentismo.observacion],
             enableSugerencias : [true],
         });
+    }
+
+    patchFormRangeSelection(){
+        const rangeSelection = this.calendarStoreService.selectionRange;
+        if (rangeSelection){
+            this.ausentismoForm.patchValue({ fechaDesde:rangeSelection.fechaDesde});
+            this.ausentismoForm.patchValue({ fechaHasta:rangeSelection.fechaHasta});
+        }
     }
 
 

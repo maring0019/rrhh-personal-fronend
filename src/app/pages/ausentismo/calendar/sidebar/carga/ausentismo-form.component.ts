@@ -2,12 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AusentismoService } from 'src/app/services/ausentismo.service';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
-import { CalendarRangeSelectorService } from 'src/app/services/calendar-range-selector.service';
 import { getTomorrow } from 'src/app/utils/dates';
-import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
+
 
 
 @Component({
@@ -27,8 +27,9 @@ export class AusentismoCargaFormComponent implements OnInit {
 
     constructor(
         private ausentismoService: AusentismoService,
-        private calendarStoreService: CalendarStoreService,
-        private rangeSelectorService: CalendarRangeSelectorService){}
+        private calendarStoreService: CalendarStoreService){
+
+        }
 
     public ngOnInit() {
         this.updateRangeSelection();
@@ -103,19 +104,19 @@ export class AusentismoCargaFormComponent implements OnInit {
         let fh:Date = this.form.value.fechaHasta;
         if ((fd && fh) && (fd>fh)) return; // Form validation
         if (!fd && !fh){
-            this.rangeSelectorService.setState(null);
+            this.calendarStoreService.selectionRange = null;
             return;
         }
         if (fd && fh) {
-            this.rangeSelectorService.setState({fechaDesde:fd, fechaHasta: getTomorrow(fh)});
+            this.calendarStoreService.selectionRange = {fechaDesde:fd, fechaHasta: getTomorrow(fh)};
             return;
         }
         if (fd && !fh) {
-            this.rangeSelectorService.setState({fechaDesde:fd, fechaHasta: getTomorrow(fd)});
+            this.calendarStoreService.selectionRange = {fechaDesde:fd, fechaHasta: getTomorrow(fd)};
             return;
         }
         if (!fd && fh) {
-            this.rangeSelectorService.setState({fechaDesde:fh, fechaHasta: getTomorrow(fh)});
+            this.calendarStoreService.selectionRange = {fechaDesde:fh, fechaHasta: getTomorrow(fh)};
             return;
         }
     }

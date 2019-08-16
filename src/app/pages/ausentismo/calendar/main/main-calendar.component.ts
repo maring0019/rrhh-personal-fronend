@@ -30,7 +30,8 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private calendarStoreService: CalendarStoreService){
             this.storeSubscription = this.calendarStoreService.selectionRange$
                 .subscribe(rangeSelection => {
-                    console.log('Cambio el range')
+                    console.log('Cambio el periodo');
+                    console.log(rangeSelection)
                     if (rangeSelection) {
                         this.updateSelectedMonthView(rangeSelection.fechaDesde);
                     }
@@ -91,6 +92,14 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.calendarStoreService.selectionRange = { fechaDesde:e.date, fechaHasta:getTomorrow(e.date) };
     }
 
+    public onEventClick(e){
+        if (e && e.event){
+            const props = e.event.extendedProps;
+            this.calendarStoreService.selectionRange = { fechaDesde:props.ausentismoFechaDesde, fechaHasta:getTomorrow(props.ausentismoFechaHasta) };
+        }
+    }
+
+
     public onDateRangeSelection(e){
         this.calendarStoreService.selectionRange = { fechaDesde:e.start, fechaHasta:e.end };
     }
@@ -104,6 +113,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private marcarPeriodoSeleccionado(){
+        console.log('MARCAR PERIODO SELECCIONADO###########')
         if (this.calendarApi){
             if (this._rangeSelection){
                 this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta );

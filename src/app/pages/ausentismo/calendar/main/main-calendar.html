@@ -19,7 +19,9 @@
         [aspectRatio]="1.8"
         [events]="eventos"
         (dateClick)="onDateClick($event)"
-        (select)="onDateRangeSelection($event)">
+        (eventClick)="onEventClick($event)"
+        (select)="onDateRangeSelection($event)"
+        [unselectAuto]="false">
     </full-calendar>
     <plex-button 
         class="cal-arrow ml-4"

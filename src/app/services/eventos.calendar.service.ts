@@ -8,6 +8,7 @@ import { IEventoCalendar } from '../models/IEventoCalendar';
 import { FeriadoService } from './feriado.service';
 import { AgenteService } from './agente.service';
 
+
 @Injectable()
 export class EventosCalendarService {
     private url = '/modules/ausentismo/IEventoCalendars'; // URL to web api
@@ -29,7 +30,9 @@ export class EventosCalendarService {
                         'start': feriado.fecha,
                         'allDay': true,
                         'color':'green',
-                        'type': 'FERIADO'
+                        'type': 'FERIADO',
+                        'ausentismoFechaDesde': feriado.fecha,
+                        'ausentismoFechaHasta': feriado.fecha
                       }
                       return evento;
                 })
@@ -47,7 +50,9 @@ export class EventosCalendarService {
                         'start': ausentismo.ausencias.fecha,
                         'allDay': true,
                         'color':'',
-                        'type': 'AUSENCIA'
+                        'type': 'AUSENCIA',
+                        'ausentismoFechaDesde': ausentismo.fechaDesde,
+                        'ausentismoFechaHasta': ausentismo.fechaHasta
                       }
                       return evento;
                 })
