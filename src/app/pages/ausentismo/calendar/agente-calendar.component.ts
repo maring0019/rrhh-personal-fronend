@@ -73,22 +73,21 @@ export class AgenteCalendarComponent implements OnInit {
 
     onToggleFeriados(value){
         if (value){
-            this.calendarStoreService.addFeriados();
+            this.calendarStoreService.showFeriados();
         }
         else{
-            this.calendarStoreService.removeFeriados();
+            this.calendarStoreService.hideFeriados();
         }
     }
 
     onToggleFrancos(value){
+        let weekends = getWeekdays(this.mesNavDefault.getMonth(), this.mesNavDefault.getFullYear());
         if (value){
-            let weekends = getWeekdays(this.mesNavDefault.getMonth(), this.mesNavDefault.getFullYear());
             let francos:Franco[] = weekends.map(f => f = {fecha:f, agente:{id:this.agenteID}});
             this.calendarStoreService.addFrancos(francos);
         }
         else{
-            console.log('Hay que quitar los francos?')
-            // this.calendarStoreService.removeFeriados();
+            this.calendarStoreService.removeFrancos(weekends);
         }
     }
 

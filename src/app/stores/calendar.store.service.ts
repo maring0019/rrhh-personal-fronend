@@ -38,10 +38,9 @@ export class CalendarStoreService {
     readonly eventos$ = this._eventos.asObservable();
     readonly selectionRange$ = this._selectionRange.asObservable();
 
-
-
-    feriados: IEventoCalendar[];
-    ausencias: IEventoCalendar[];
+    private _feriados: IEventoCalendar[]; // Contiene todos los feriados 
+    feriados: IEventoCalendar[];  // Puede o no contener los feriados dependiendo de si se visualizan o no en el listado de eventos
+    ausencias: IEventoCalendar[]; 
     francos: IEventoCalendar[];
 
     get selectionRange(): IDateRangeSelection {
@@ -75,21 +74,19 @@ export class CalendarStoreService {
     }
 
   
-    addFeriados(){
-        this.eventos = this.eventos.concat(this.feriados);
+    showFeriados(){
+        this.feriados = this._feriados;
+        this.refreshEventos();
     }
 
-    removeFeriados(){
-        this.eventos = this.eventos.filter( x => !this.feriados.filter( y => y.id === x.id).length);
+    hideFeriados(){
+        this.feriados = [];
+        this.refreshEventos();
     }
 
     addFrancos(francos:Franco[]){
-        console.log('Vamos a crear Francos')
-        console.log(francos);
-        this.francoService.post(francos).subscribe(
+        this.francoService.addFrancos(francos).subscribe(
             francos=> {
-                console.log('Llegaron los nuevos Francos')
-                console.log(francos);
                 let eventosFranco = francos.map(franco=> {
                     let evento = {
                         'id': franco.id,
@@ -104,119 +101,68 @@ export class CalendarStoreService {
                       return evento;
                 })
                 this.francos = this.francos.concat(eventosFranco);
-                this.eventos = this.eventos.concat(eventosFranco);
+                this.refreshEventos();
             },
             error =>{
-                console.log('Tenemos un problema Houston');
+                console.log('Tenemos un problema. Fixme');
             }
         )
     }
 
-    fetchAll(agenteID) {
+    removeFrancos(weekends:Date[]){
+        let francosToRemove = [];
+        for (const day of weekends){
+            const franco = this.francos.find( f => f.start.getTime() == day.getTime());
+            if (franco) francosToRemove.push(franco);
+        }
+        this.francoService.deleteFrancos(francosToRemove.map(f=>f.id)).subscribe(
+            francos => {
+                this.francos = this.filterAB(this.francos, francosToRemove);
+                this.refreshEventos();
+            },
+            error =>{
+                console.log('Tenemos un problema. Fixme');
+            }
+        )
+    }
+
+    /**
+     * Utilidad para quitar/filtrar todos los elementos de una lista que estan presentes
+     * en otra lista. Se utiliza el atributo id para realizar la comparacion entre elementos
+     * @param listA lista a filtrar
+     * @param listB elementos a filtrar en listA
+     */
+    private filterAB(listA, listB){
+        return listA.filter( x => !listB.filter( y => y.id === x.id).length);
+    }
+
+    private fetchAll(agenteID) {
         let feriados$ = this.eventosService.getFeriados();
         let ausencias$ = this.eventosService.getAusencias(agenteID);
         let francos$ = this.eventosService.getFrancos({ 'agenteID': agenteID} );
         forkJoin(feriados$, ausencias$, francos$).subscribe( 
             ([feriados, ausencias, francos]) => {
+                this._feriados = feriados;
                 this.feriados = feriados;
                 this.ausencias = ausencias;
                 this.francos = francos;
-                this.eventos = feriados.concat(ausencias).concat(francos);
+                this.refreshEventos();
             }   
         )
+    }
+
+    /**
+     * Actualiza el listado de eventos (feriados + francos + ausencias). Preferentemente
+     * cada vez que se modifica alguna sublista del listado de eventos se deberia llamar
+     * a este metodo para obtener un nuevo listado de eventos actualizado a la ultima version
+     */
+    private refreshEventos(){
+        this.eventos = this.feriados.concat(this.ausencias).concat(this.francos);
     }
 
     getEventos(agenteID){
         this.fetchAll(agenteID);
         return this.eventos$;
     }
-
-
-//   async addIEventoCalendar(title: string) {
-
-//     if(title && title.length) {
-
-//       // This is called an optimistic update
-//       // updating the record locally before actually getting a response from the server
-//       // this way, the interface seems blazing fast to the enduser
-//       // and we just assume that the server will return success responses anyway most of the time.
-//       // if server returns an error, we just revert back the changes in the catch statement 
-
-//       const tmpId = uuid();
-//       const tmpIEventoCalendar = {id: tmpId, title, isCompleted: false};
-
-//       this.eventos = [
-//         ...this.eventos, 
-//         tmpIEventoCalendar
-//       ];
-
-//       try {
-//         const todo = await this.eventosService
-//           .create({title, isCompleted: false})
-//           .toPromise();
-
-//         // we swap the local tmp record with the record from the server (id must be updated)
-//         const index = this.eventos.indexOf(this.eventos.find(t => t.id === tmpId));
-//         this.eventos[index] = {
-//           ...todo
-//         }
-//         this.eventos = [...this.eventos];
-//       } catch (e) {
-//         // is server sends back an error, we revert the changes
-//         console.error(e);
-//         this.removeIEventoCalendar(tmpId, false);
-//       }
-      
-//     }
-
-//   }
-
-//   async removeIEventoCalendar(id: string, serverRemove = true) {
-//     // optimistic update
-//     const todo = this.eventos.find(t => t.id === id);
-//     this.eventos = this.eventos.filter(todo => todo.id !== id);
-
-//     if(serverRemove) {
-//       try {
-//         await this.eventosService.remove(id).toPromise();
-//       } catch (e) {
-//         console.error(e);
-//         this.eventos = [...this.eventos, todo];
-//       }
-
-//     }
-
-//   }
-
-//   async setCompleted(id: string, isCompleted: boolean) {
-//     let todo = this.eventos.find(todo => todo.id === id);
-
-//     if(todo) {
-//       // optimistic update
-//       const index = this.eventos.indexOf(todo);
-
-//       this.eventos[index] = {
-//         ...todo,
-//         isCompleted
-//       }
-
-//       this.eventos = [...this.eventos];
-
-//       try {
-//         await this.eventosService
-//           .setCompleted(id, isCompleted)
-//           .toPromise();
-
-//       } catch (e) {
-
-//         console.error(e);
-//         this.eventos[index] = {
-//           ...todo,
-//           isCompleted: !isCompleted
-//         }
-//       }
-//     }
-//   }
-
     
 }
