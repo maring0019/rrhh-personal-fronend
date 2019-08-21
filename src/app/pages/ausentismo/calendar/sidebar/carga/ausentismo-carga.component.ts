@@ -46,14 +46,11 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     initAgente(){
-        this.route.parent.params.subscribe(
-            params =>{
+        this.route.parent.params.subscribe(params => {
                 const agenteID = params['agenteId'];
                 if (agenteID){
                     this.agenteService.getByID(agenteID).subscribe((data) => {
-                        if (data){
-                            this.agente = new Agente(data);
-                        }
+                        if (data)this.agente = new Agente(data);
                     });
                 }
             }
@@ -108,7 +105,6 @@ export class AusentismoCargaComponent implements OnInit {
     public onSuccess(data){
         this.plex.info('info', 'Ausentismo ingresado correctamente')
             .then( e => {
-                
                 this.onClose();
         });
     }

@@ -6,9 +6,14 @@ import { Server } from '@andes/shared';
 
 import { IEventoCalendar } from '../models/IEventoCalendar';
 
-import { FeriadoService } from './feriado.service';
 import { AgenteService } from './agente.service';
+import { FeriadoService } from './feriado.service';
 import { FrancoService } from 'src/app/services/franco.service';
+import { AusentismoService } from 'src/app/services/ausentismo.service';
+
+import { Franco } from 'src/app/models/Franco';
+import { Ausentismo } from 'src/app/models/Ausentismo';
+
 
 
 @Injectable()
@@ -19,7 +24,8 @@ export class EventosCalendarService {
         private server: Server,
         private feriadoService: FeriadoService,
         private agenteService: AgenteService,
-        private francoService: FrancoService
+        private francoService: FrancoService,
+        private ausentismoService: AusentismoService
     ) { }
 
 
@@ -63,25 +69,67 @@ export class EventosCalendarService {
         );
     }
 
+    addAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
+        return this.ausentismoService.postAusentismo(object).pipe(
+            map(ausentismo => {
+                let ausencias:IEventoCalendar[] = [];
+                if (!ausentismo.warnings){
+                    ausencias = ausentismo.ausencias
+                        .map( aus => { return {
+                            'id': aus.id,
+                            'title': aus.articulo.codigo,
+                            'start': aus.fecha,
+                            'allDay': true,
+                            'color':'',
+                            'type': 'AUSENCIA',
+                            'ausentismoFechaDesde': ausentismo.fechaDesde,
+                            'ausentismoFechaHasta': ausentismo.fechaHasta
+                        }
+                    });
+                }
+                let output:[any, IEventoCalendar[]] = [ausentismo, ausencias];
+                return output;
+            })
+        )
+    }
+
     
     getFrancos(params?: any): Observable<IEventoCalendar[]> {
         return this.francoService.get(params).pipe(
             map(data =>
                 data.map(franco=> {
-                    let evento = {
-                        'id': franco.id,
-                        'title': franco.descripcion? franco.descripcion: 'Franco',
-                        'start': franco.fecha,
-                        'allDay': true,
-                        'color':'grey',
-                        'type': 'FRANCO',
-                        'ausentismoFechaDesde': franco.fecha,
-                        'ausentismoFechaHasta': franco.fecha
-                      }
-                      return evento;
+                    return this.mapFranco(franco);
                 })
             )
         );
+    }
+
+    addFrancos(objects: Franco[]): Observable<IEventoCalendar[]> {
+        return this.francoService.addFrancos(objects).pipe(
+            map(data => 
+                data.map(franco=> {
+                    return this.mapFranco(franco);
+                })
+            )
+            
+        )
+    }
+
+    removeFrancos(francosToRemove){
+        return this.francoService.deleteFrancos(francosToRemove.map(f=>f.id));
+    }
+
+    mapFranco(franco){
+        return {
+            'id': franco.id,
+            'title': franco.descripcion? franco.descripcion: 'Franco',
+            'start': franco.fecha,
+            'allDay': true,
+            'color':'grey',
+            'type': 'FRANCO',
+            'ausentismoFechaDesde': franco.fecha,
+            'ausentismoFechaHasta': franco.fecha
+          }
     }
 
 }

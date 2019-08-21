@@ -13,8 +13,6 @@ import { AgenteSearchComponent } from './modules/agente/pages/search/agente-sear
 
 import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
-import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-add.component';
-import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-update.component';
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
 
 

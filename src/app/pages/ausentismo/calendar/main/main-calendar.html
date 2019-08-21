@@ -1,4 +1,5 @@
-<div class="d-flex flex-row justify-content-between align-items-center">
+<div  (click)="disableContextMenu()" oncontextmenu="return false;" 
+    class="d-flex flex-row justify-content-between align-items-center">
     <plex-button 
         class="cal-arrow mr-4"
         type="info"
@@ -29,4 +30,7 @@
         icon="chevron-right" 
         (click)="gotoNextMonth()">
     </plex-button>
+</div>
+<div *ngIf="contextmenu">
+    <app-contextmenu [x]="contextmenuX" [y]="contextmenuY"></app-contextmenu>
 </div>

@@ -92,8 +92,12 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public onEventClick(e){
         if (e && e.event){
+            console.log('EVENTO#############CLICKED');
+            console.log(e)
             const props = e.event.extendedProps;
+
             this.calendarStoreService.selectionRange = { fechaDesde:props.ausentismoFechaDesde, fechaHasta:getTomorrow(props.ausentismoFechaHasta) };
+            this.enableContextMenu(e);
         }
     }
 
@@ -120,6 +124,21 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.calendarApi.unselect();
             }    
         }
+    }
+
+    contextmenu = true;
+    contextmenuX = 0;
+    contextmenuY = 0;
+
+    //activates the menu with the coordinates
+    enableContextMenu(e){
+        this.contextmenuX=e.jsEvent.clientX
+        this.contextmenuY=e.jsEvent.clientY
+        this.contextmenu=true;
+    }
+    //disables the menu
+    disableContextMenu(){
+        this.contextmenu= false;
     }
 
     private _getNextMonth(currentMonth:Date):Date{

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs'
 import {shareReplay, map} from 'rxjs/operators'
@@ -5,10 +6,16 @@ import {shareReplay, map} from 'rxjs/operators'
 
 import { combineLatest, forkJoin } from 'rxjs';
 import { EventosCalendarService } from 'src/app/services/eventos.calendar.service';
+
 import { FrancoService } from 'src/app/services/franco.service';
+import { AusentismoService } from 'src/app/services/ausentismo.service';
 
 import { IEventoCalendar } from 'src/app/models/IEventoCalendar';
 import { Franco } from 'src/app/models/Franco';
+import { Ausentismo } from 'src/app/models/Ausentismo';
+
+
+
 
 export interface IDateRangeSelection {
     fechaDesde: Date,
@@ -20,7 +27,9 @@ export class CalendarStoreService {
 
     constructor(
         private eventosService: EventosCalendarService,
-        private francoService: FrancoService
+        private francoService: FrancoService,
+        private ausentismoService: AusentismoService
+
     ) {
         // this.fetchAll();
     }
@@ -84,22 +93,33 @@ export class CalendarStoreService {
         this.refreshEventos();
     }
 
+    addAusentismo(ausentismo: Ausentismo): Observable<any>{
+        return this.eventosService.addAusentismo(ausentismo).pipe(
+            map(data => {
+                let ausentismo = data[0];
+                let ausencias = data[1];
+                if (!ausentismo.warnings){
+                    this.ausencias = this.ausencias.concat(ausencias);
+                    this.refreshEventos();   
+                }
+                return ausentismo;
+            })
+        );
+            // .subscribe(data => {
+            //     let ausentismo = data[0];
+            //     let ausencias = data[1];
+            //     if (!ausentismo.warnings){
+            //         this.ausencias = this.ausencias.concat(ausencias);
+            //         this.refreshEventos();   
+            //     }
+            //     return ausentismo;
+            // },
+            // error=> console.log('Tenemos un problema. Fixme'));
+    }
+
     addFrancos(francos:Franco[]){
-        this.francoService.addFrancos(francos).subscribe(
-            francos=> {
-                let eventosFranco = francos.map(franco=> {
-                    let evento = {
-                        'id': franco.id,
-                        'title': franco.descripcion? franco.descripcion: 'Franco',
-                        'start': franco.fecha,
-                        'allDay': true,
-                        'color':'grey',
-                        'type': 'FRANCO',
-                        'ausentismoFechaDesde': franco.fecha,
-                        'ausentismoFechaHasta': franco.fecha
-                      }
-                      return evento;
-                })
+        this.eventosService.addFrancos(francos).subscribe(
+            eventosFranco => {
                 this.francos = this.francos.concat(eventosFranco);
                 this.refreshEventos();
             },
@@ -115,7 +135,7 @@ export class CalendarStoreService {
             const franco = this.francos.find( f => f.start.getTime() == day.getTime());
             if (franco) francosToRemove.push(franco);
         }
-        this.francoService.deleteFrancos(francosToRemove.map(f=>f.id)).subscribe(
+        this.eventosService.removeFrancos(francosToRemove).subscribe(
             francos => {
                 this.francos = this.filterAB(this.francos, francosToRemove);
                 this.refreshEventos();

@@ -1,44 +1,49 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
 import  *  as formUtils from 'src/app/utils/formUtils';
-import { AusentismoService } from 'src/app/services/ausentismo.service';
+
+import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
+
 import { ArticuloService } from 'src/app/services/articulo.service';
+import { AusentismoService } from 'src/app/services/ausentismo.service';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
+import { Agente } from 'src/app/models/Agente';
 import { Articulo } from 'src/app/models/Articulo';
-
-import { FileManagerComponent } from 'src/app/pages/ausentismo/calendar/sidebar/carga/file.manager.component';
 
 
 @Component({
-    selector: 'app-ausentismo-carga-update',
-    templateUrl: 'ausentismo-carga-update.html'
+    selector: 'app-ausentismo-carga-add',
+    templateUrl: 'ausentismo-carga-add.html'
 })
-export class AusentismoCargaUpdateComponent implements OnInit {
-    @Input() ausentismo: Ausentismo;
-    @Input() ausentismoFiles: any;
-
+export class AusentismoCargaAddComponent implements OnInit {
+    @Input() agente: Agente;
+    
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
     @Output() onErrors: EventEmitter<any> = new EventEmitter<any>();
     @Output() onWarnings: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
 
+    
+    public ausentismoFiles: any = [];
     public ausentismoForm: FormGroup;
     public articulos: Articulo[] = [];
     
-    public formTitle:String = 'Edición';
-    public disableGuardar = true;
+    public formTitle:String = 'Carga';
+    public disableGuardar = true;      // Determina cuando habilitar el boton de guardado del form
 
     constructor(
         private formBuilder: FormBuilder,
         private articuloService: ArticuloService,
-        private ausentismoService: AusentismoService){}
+        private ausentismoService: AusentismoService,
+        private calendarStoreService: CalendarStoreService){}
 
     public ngOnInit() {
         this.initFormSelectOptions();
         this.initAusentismoForm();
+        this.patchFormRangeSelection();
     }
 
     initFormSelectOptions(){
@@ -49,34 +54,41 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     }
 
     initAusentismoForm(){
+        const ausentismo = new Ausentismo();
         this.ausentismoForm = this.formBuilder.group({
-            agente            : [this.ausentismo.agente],
-            id                : [this.ausentismo.id],
-            articulo          : [this.ausentismo.articulo],
-            fechaDesde        : [this.ausentismo.fechaDesde],
-            fechaHasta        : [this.ausentismo.fechaHasta],
-            cantidadDias      : [this.ausentismo.cantidadDias],
-            observacion       : [this.ausentismo.observacion],
-            enableSugerencias : [false],
+            agente            : [this.agente],
+            id                : [ausentismo.id],
+            articulo          : [ausentismo.articulo],
+            fechaDesde        : [ausentismo.fechaDesde],
+            fechaHasta        : [ausentismo.fechaHasta],
+            cantidadDias      : [ausentismo.cantidadDias],
+            observacion       : [ausentismo.observacion],
+            enableSugerencias : [true],
         });
     }
 
-    saveAusentismo(ausentismo:Ausentismo){
-        this.ausentismoService.putAusentismo(ausentismo)
+    patchFormRangeSelection(){
+        const rangeSelection = this.calendarStoreService.selectionRange;
+        if (rangeSelection){
+            this.ausentismoForm.patchValue({ fechaDesde:rangeSelection.fechaDesde});
+            this.ausentismoForm.patchValue({ fechaHasta:rangeSelection.fechaHasta});
+        }
+    }
+
+
+    private saveAusentismo(ausentismo){
+        this.calendarStoreService.addAusentismo(ausentismo)
             .subscribe(data => {
-                if (data.warnings && data.warnings.length){
-                    console.log('Hay Warnings')
+                if (data.warnings){
                     this.onWarnings.emit(data.warnings);            
                 }
                 else{
                     // Guardamos los archivos adjuntos
-                    console.log('NO Hay Warnings')
-                    console.log(data)
                     this.saveFiles(data);
                     this.onSuccess.emit(data);
                 }
             },
-            error => this.onErrors.emit(error));
+            error=> this.onErrors.emit(error));
     }
 
     private saveFiles(ausentismo){
@@ -108,4 +120,6 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     public onValueChangedForm(obj){
         this.disableGuardar = false;
     }
+
+
 }

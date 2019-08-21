@@ -80,13 +80,11 @@ import { MainCalendarComponent } from './pages/ausentismo/calendar/main/main-cal
 import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calendar.component';
 import { HeadCalendarComponent } from './pages/ausentismo/calendar/header/header-calendar.component';
 import { SidebarCalendarComponent } from './pages/ausentismo/calendar/sidebar/sidebar-calendar.component';
-import { UploaderStatusComponent } from './pages/ausentismo/calendar/sidebar/carga/uploader.status.component';
-import { FileManagerComponent } from './pages/ausentismo/calendar/sidebar/carga/file.manager.component';
 
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
-import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-add.component';
-import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga-update.component';
-import { AusentismoCargaFormComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-form.component';
+import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/create/ausentismo-carga-add.component';
+import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/update/ausentismo-carga-update.component';
+import { AusentismoCargaFormComponent } from './pages/ausentismo/calendar/sidebar/carga/form/ausentismo-form.component';
 import { AusentismoListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausentismo-listado.component';
 import { AusentismoSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausentismo-search-form.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
@@ -99,12 +97,16 @@ import { DetalleComponent } from './componentes/detalle/detalle.component';
 import { TabsComponent } from './componentes/tabs/tabs.component';
 import { TabContactoComponent } from './componentes/tabs/tab-contacto/tab-contacto.component';
 import { EdicionComponent } from './componentes/edicion/edicion.component';
+import { UploaderStatusComponent } from './components/file-manager/uploader.status.component';
+import { FileManagerComponent } from './components/file-manager/file.manager.component';
 
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
 import { TitlePipe } from './pipes/title.pipe';
 import { EdadPipe } from './pipes/edad.pipe';
 
+
+import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
 import { AgenteMockService } from './hardcodeo/agente.service'
 
@@ -159,6 +161,8 @@ import { AgenteMockService } from './hardcodeo/agente.service'
         EdicionComponent,
         FileManagerComponent,
         UploaderStatusComponent,
+
+        ContextMenuComponent,
 
         // Pipes
         FechaPipe,
