@@ -10,8 +10,8 @@ import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basico
 import { AgenteDatosDireccionComponent } from './datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './datos-educacion/agente-datos-educacion.component';
-import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosSituacionComponent } from './datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
+import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosRegimenComponent } from './datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
 
 import { Contacto } from 'src/app/models/Contacto';
@@ -47,10 +47,10 @@ export class AgenteRegistroComponent implements OnInit {
     direccion: Direccion;
     contactos: Contacto[];
     educacion: Educacion[];
-    situacion: Situacion;
+    situacion: SituacionLaboral;
     cargo: Cargo;
     regimen: Regimen;
-    situacionLaboral: SituacionLaboral;
+    // situacionLaboral: SituacionLaboral;
 
     _agenteID:any; // To keep track of agente on edit
 
@@ -91,10 +91,10 @@ export class AgenteRegistroComponent implements OnInit {
         this.direccion = this.agente.direccion;
         this.contactos = this.agente.contactos;
         this.educacion = this.agente.educacion;
-        this.situacion = this.agente.situacionLaboralActiva.situacion;
-        this.cargo = this.agente.situacionLaboralActiva.cargo;
-        this.regimen = this.agente.situacionLaboralActiva.regimen;
-        this.situacionLaboral = this.agente.situacionLaboralActiva;
+        this.situacion = this.agente.situacionLaboral;
+        this.cargo = this.agente.situacionLaboral.cargo;
+        this.regimen = this.agente.situacionLaboral.regimen;
+        
     }
 
     onValueChangeAgente(obj: Agente){
@@ -114,16 +114,16 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteDetalle.educacion = educacion;
     }
 
-    onValueChangeSituacion(obj: Situacion){
-        this.agenteDetalle.situacionLaboralActiva.situacion = obj;
+    onValueChangeSituacion(obj: SituacionLaboral){
+        this.agenteDetalle.situacionLaboral = obj;
     }
 
     onValueChangeCargo(obj: Cargo){
-        this.agenteDetalle.situacionLaboralActiva.cargo = obj;
+        this.agenteDetalle.situacionLaboral.cargo = obj;
     }
 
     onValueChangeRegimen(obj: Regimen){
-        this.agenteDetalle.situacionLaboralActiva.regimen = obj;
+        this.agenteDetalle.situacionLaboral.regimen = obj;
     }
 
     allFormsValid(){
@@ -189,17 +189,17 @@ export class AgenteRegistroComponent implements OnInit {
         // Situacion Laboral (Situacion, Cargo, Regimen)
         const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
         const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
-        const situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
+        const situacion = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value);
         // const situacionLaboral = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value)
-        const situacionLaboral = new SituacionLaboral();
-        situacionLaboral.cargo = cargo;
-        situacionLaboral.regimen = regimen;
-        situacionLaboral.situacion = situacion;
+        // const situacionLaboral = new SituacionLaboral();
+        situacion.cargo = cargo;
+        situacion.regimen = regimen;
+        // situacionLaboral.situacion = situacion;
 
         agente.direccion = direccion;
         agente.contactos = contactos;
         agente.educacion = estudios;
-        agente.historiaLaboral.push(situacionLaboral);
+        // agente.historiaLaboral.push(situacionLaboral);
         return agente;
     }
 

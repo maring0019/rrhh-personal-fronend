@@ -4,14 +4,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
 import { Situacion } from 'src/app/models/Situacion';
+import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 
 @Component({
     selector: 'agente-datos-situacion',
     templateUrl: './agente-datos-situacion.html',
 })
 export class AgenteDatosSituacionComponent implements OnInit {
-    @Input() situacion: Situacion;
-    @Output() outputSituacion: EventEmitter<Situacion> = new EventEmitter<Situacion>();
+    @Input() situacion: SituacionLaboral;
+    @Output() outputSituacion: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
 
     datosSituacionForm: FormGroup;
     tiposSituacion: TipoSituacion[] = [];
@@ -36,8 +37,8 @@ export class AgenteDatosSituacionComponent implements OnInit {
     createDatosSituacionForm()
     {
         return this.formBuilder.group({
-            tipoSituacion          : [this.situacion.tipoSituacion],
-            situacionLugarPago     : [this.situacion.situacionLugarPago],
+            tipoSituacion          : [this.situacion.situacion],
+            situacionLugarPago     : [this.situacion.lugarPago],
             exceptuadoFichado      : [this.situacion.exceptuadoFichado],
             trabajaEnHospital      : [this.situacion.trabajaEnHospital],
             trasladado             : [this.situacion.trasladoDesde? true : false],

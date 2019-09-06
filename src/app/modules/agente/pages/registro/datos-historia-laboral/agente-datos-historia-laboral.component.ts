@@ -48,9 +48,9 @@ export class AgenteDatosHistoriaLaboralComponent implements OnInit {
             fechaIngresoHospital  : [this.situacionLaboral.fechaIngresoHospital],
             antiguedadVacaciones  : [this.situacionLaboral.antiguedadVacaciones],
             antiguedadPago        : [this.situacionLaboral.antiguedadPago],
-            tipoNormaLegal        : [this.situacionLaboral.tipoNormaLegal],
-            numeroNormaLegal      : [this.situacionLaboral.numeroNormaLegal],
-            fechaNormaLegal       : [this.situacionLaboral.fechaNormaLegal],
+            // tipoNormaLegal        : [this.situacionLaboral.tipoNormaLegal],
+            // numeroNormaLegal      : [this.situacionLaboral.numeroNormaLegal],
+            // fechaNormaLegal       : [this.situacionLaboral.fechaNormaLegal],
         });
     }
 

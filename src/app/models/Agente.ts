@@ -24,7 +24,8 @@ export class Agente {
     contactos: Contacto[];
     educacion: Educacion[];
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
-    historiaLaboral: SituacionLaboral[];
+    situacionLaboral: SituacionLaboral;
+    historiaLaboral: any[];
     foto: String;
     codigoFichado: String;
     activo: Boolean
@@ -32,6 +33,7 @@ export class Agente {
     constructor(agente?)
     {
         agente = agente || {};
+        this.activo = agente.activo;
         this.id = agente.id || null;
         this.numero = agente.numero || '';
         this.documento = agente.documento || '';
@@ -57,6 +59,7 @@ export class Agente {
                 this.educacion.push(new Educacion(e))
             });
         }
+        this.situacionLaboral = new SituacionLaboral(agente.situacionLaboral);
         this.historiaLaboral = [];
         if (agente.historiaLaboral){
             agente.historiaLaboral.forEach(e => {
