@@ -18,13 +18,13 @@ export class AgenteDatosBasicosComponent implements OnInit {
     // Notifica cualquier cambio en los datos basicos del formulario del agente (incluida la foto)
     @Output() outputAgente: EventEmitter<Agente> = new EventEmitter<Agente>();
 
-    datosBasicosForm: FormGroup;
+    public datosBasicosForm: FormGroup;
     // Form select options
-    sexos = enumerados.getObjSexos();
-    estados = enumerados.getObjEstadoCivil();
-    paises: IPais[] = [];
+    public sexos = enumerados.getObjSexos();
+    public estados = enumerados.getObjEstadoCivil();
+    public paises: IPais[] = [];
 
-    nuevaFotoAgente: any; // Aloja temporalmente la nueva imagen
+    public nuevaFotoAgente: any; // Aloja temporalmente una nueva imagen
 
     constructor(
         private formBuilder: FormBuilder,

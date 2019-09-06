@@ -21,7 +21,6 @@ import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
-import { Situacion } from 'src/app/models/Situacion';
 import { Regimen } from 'src/app/models/Regimen';
 
 
@@ -41,18 +40,20 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
     
     @HostBinding('class.plex-layout') layout = true;
-    agente: Agente;
-    agenteDetalle: Agente;
-    fotoAgente: any;
-    direccion: Direccion;
-    contactos: Contacto[];
-    educacion: Educacion[];
-    situacion: SituacionLaboral;
-    cargo: Cargo;
-    regimen: Regimen;
-    // situacionLaboral: SituacionLaboral;
+    // Datos para los formularios
+    public agente: Agente;
+    public direccion: Direccion;
+    public contactos: Contacto[];
+    public educacion: Educacion[];
+    public situacion: SituacionLaboral;
+    public cargo: Cargo;
+    public regimen: Regimen;
 
-    _agenteID:any; // To keep track of agente on edit
+    // Datos a mostrar del agente en el panel lateral. Los cambios realizados
+    // en los formularios son aplicados inmediatamente a este objeto
+    public agenteDetalle: Agente;
+
+    private _agenteID:any; // To keep track of agente on edit
 
     constructor(
         private agenteService:AgenteService,
@@ -190,16 +191,12 @@ export class AgenteRegistroComponent implements OnInit {
         const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
         const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
         const situacion = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value);
-        // const situacionLaboral = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value)
-        // const situacionLaboral = new SituacionLaboral();
         situacion.cargo = cargo;
         situacion.regimen = regimen;
-        // situacionLaboral.situacion = situacion;
-
+        agente.situacionLaboral = situacion;
         agente.direccion = direccion;
         agente.contactos = contactos;
         agente.educacion = estudios;
-        // agente.historiaLaboral.push(situacionLaboral);
         return agente;
     }
 

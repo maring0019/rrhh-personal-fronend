@@ -10,6 +10,8 @@ import { Agente } from 'src/app/models/Agente';
     styleUrls: ['./agente-item-listado.scss']
 })
 export class AgenteItemListadoComponent {
+    public routes = ['Ausencias', 'Editar']
+
     private _agentes: Agente[];
     private seleccionado: Agente;
 

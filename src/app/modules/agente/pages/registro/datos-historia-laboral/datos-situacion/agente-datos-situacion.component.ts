@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
-import { Situacion } from 'src/app/models/Situacion';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 
 @Component({
@@ -37,7 +36,13 @@ export class AgenteDatosSituacionComponent implements OnInit {
     createDatosSituacionForm()
     {
         return this.formBuilder.group({
-            tipoSituacion          : [this.situacion.situacion],
+            // Datos Generales
+            fechaIngresoEstado     : [this.situacion.fechaIngresoEstado],
+            fechaIngresoHospital   : [this.situacion.fechaIngresoHospital],
+            antiguedadVacaciones   : [this.situacion.antiguedadVacaciones],
+            antiguedadPago         : [this.situacion.antiguedadPago],
+            // Situacion
+            situacion              : [this.situacion.situacion],
             situacionLugarPago     : [this.situacion.lugarPago],
             exceptuadoFichado      : [this.situacion.exceptuadoFichado],
             trabajaEnHospital      : [this.situacion.trabajaEnHospital],

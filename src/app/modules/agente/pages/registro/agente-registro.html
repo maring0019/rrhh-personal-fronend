@@ -4,7 +4,7 @@
             <section class="d-flex flex-row justify-content-between mb-2">
                 <h5 class="align-self-center">
                     <strong>Agente |</strong>
-                    Alta de agente nuevo
+                    {{ (agente?.id)? 'Edición de agente' : 'Alta de agente nuevo' }}
                 </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <plex-button class="mx-2" label="Cancelar" type="danger" (click)="volverInicio()"></plex-button>
