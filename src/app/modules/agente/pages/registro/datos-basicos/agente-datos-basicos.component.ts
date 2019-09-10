@@ -57,7 +57,9 @@ export class AgenteDatosBasicosComponent implements OnInit {
             genero          : [this.agente.genero],
             estadoCivil     : [this.agente.estadoCivil],
             nacionalidad    : [this.agente.nacionalidad],
-            foto            : [this.agente.foto]
+            foto            : [this.agente.foto],
+            activo          : [this.agente.activo]
+
         });
     }
 

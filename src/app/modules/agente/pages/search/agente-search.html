@@ -16,14 +16,25 @@
         </ng-template>
         <ng-template #mostrarResultados>
             <app-agente-item-listado
-                *ngIf="agentes"
+                *ngIf="agentes || agentes.length > 0"
                 [agentes]="agentes"
                 (selected)="seleccionarAgente($event)"
                 (hover)="hoverAgente($event)">
             </app-agente-item-listado>
+
+            <div class="d-flex justify-content-center mt-4">
+                <plex-button
+                    *ngIf="showMore"
+                    label="Mostrar más resultados"
+                    type="info"
+                    (click)="showMoreResultados()">
+                </plex-button>
+            </div>
+            
             <app-search-leyenda
-                *ngIf="!agentes">
+                *ngIf="!agentes || agentes.length <= 0">
             </app-search-leyenda>
+        
         </ng-template>
     </plex-layout-main>
 
