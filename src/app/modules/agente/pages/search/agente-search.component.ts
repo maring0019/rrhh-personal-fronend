@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Agente } from 'src/app/models/Agente';
 
-
 @Component({
     selector: 'app-agente-search',
     templateUrl: 'agente-search.html',
     // styleUrls: ['agente-busqueda.scss']
 })
-
 export class AgenteSearchComponent implements OnInit {
 
     public agentes:Agente[];
     public agenteSeleccionado: Agente;
     public searching = false;
+    public searched = false;
     public showMore: Boolean = false;
-    private hiddenAgentes:Agente[];
+    private hiddenAgentes:Agente[]; 
 
     public ngOnInit() {
         this.agentes = [];
@@ -30,6 +29,7 @@ export class AgenteSearchComponent implements OnInit {
 
     showResultados(items:any){
         this.searching = false;
+        this.searched = true;
         this.hiddenAgentes = items ;
         this.showMoreResultados();   
         this.resetAgenteSeleccionado();
@@ -38,6 +38,7 @@ export class AgenteSearchComponent implements OnInit {
     clearResultados(event:any){
         this.waitingResultados();
         this.searching = false;
+        this.searched = false;
         
     }
 

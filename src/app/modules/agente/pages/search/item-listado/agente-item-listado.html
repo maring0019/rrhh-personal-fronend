@@ -1,57 +1,41 @@
-<app-search-leyenda
-    *ngIf="!listado.length"
-    [header]="'No se encontraron resultados!'">
-</app-search-leyenda>
-<li class="d-flex flex-row justify-content-between align-items-center py-2"
-    *ngFor="let agente of listado">
-    <div class="d-flex flex-row list-content" (click)="seleccionarAgente(agente)">
-        <app-agente-foto
-            [agente]="agente">
-        </app-agente-foto>
-        <article class="d-flex flex-column text-left align-self-center"> 
-                <div class="d-flex flex-row">
-                    <plex-badge type="info">
-                        {{ agente.situacionLaboral? (agente.situacionLaboral.situacion | title:'nombre') : 'Sin Situacion'}}
-                    </plex-badge>
-                    <plex-badge [type]="agente.activo? 'success': 'danger'">
-                        {{ agente.activo? 'Activo' : 'Baja' }}
-                    </plex-badge>
-                </div>
-            <h6 class="d-flex flex-row mt-2">
-                {{ agente.nombre }} {{ agente.apellido }}
-            </h6>
-        </article>
-    </div>
-    <!-- Botonera -->
-    <div class="d-flex flex-row list-actions">
-        <plex-button 
-            *ngIf="agente.estado == 'baja'"
-            type="success"
-            type="sm"
-            icon="star">Alta
-        </plex-button>
-        <plex-button
-            type="success"
-            type="sm"
-            icon="mdi mdi-pencil"
-            (click)="gotoAgente(agente)">Editar
-        </plex-button>
-        <plex-button 
-            type="warning"
-            type="sm"
-            icon="mdi mdi-eye"
-            (click)="seleccionarAgente(agente)">Ver
-        </plex-button>
-        <plex-button
-            type="success"
-            type="sm"
-            icon="mdi mdi-pencil"
-            (click)="gotoAusenciasAgente(agente)">Ausencias
-        </plex-button>
-        <plex-dropdown  [type]="disabled?'default':'primary'" class="dropdown-inline" [right]="true" 
-            [items]="routes"  icon="mdi mdi-pencil">
-        </plex-dropdown>
-        <!-- <plex-button type="success" type="sm" icon="mdi mdi-pencil" [routerLink]="['/agentes/registro/']">Editar</plex-button>
-        <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente.id]">Ver</plex-button> -->
-    </div>
-</li>
+<plex-list [striped]="true" [fullWidth]="true">
+    <ng-container *ngFor="let agente of agentes; let i=index">
+        <plex-item [layout]="layout">
+            <app-agente-foto class="mt-2 mb-2"
+                [agente]="agente">
+            </app-agente-foto>
+            <plex-label titulo="D.U {{agente.documento }}" [tituloBold]="false">
+            </plex-label>
+            <plex-label titulo="{{agente.nombre }} {{ agente.apellido }}">
+            </plex-label>
+            
+            <plex-badge type="info">
+                {{ agente.situacionLaboral? (agente.situacionLaboral.situacion | title:'nombre') : 'Sin Situacion'}}
+            </plex-badge>
+            <plex-badge [type]="agente.activo? 'success': 'danger'">
+                    {{ agente.activo? 'Activo' : 'Baja' }}
+            </plex-badge>
+            <plex-button 
+                type="info"
+                size="sm"
+                icon="mdi mdi-eye"
+                (click)="seleccionarAgente(agente)">Ver
+            </plex-button>
+            <plex-button
+                type="warning"
+                size="sm"
+                icon="mdi mdi-pencil"
+                (click)="gotoAgente(agente)">Editar
+            </plex-button>
+            <plex-button
+                type="success"
+                size="sm"
+                icon="clock"
+                (click)="gotoAusenciasAgente(agente)">Editar
+            </plex-button>
+            
+            <plex-dropdown icon="dots-vertical mdi-24px" [right]="true" [items]="dropitems">
+            </plex-dropdown>
+        </plex-item>
+    </ng-container>
+</plex-list>

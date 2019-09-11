@@ -3,6 +3,43 @@ import { Router} from '@angular/router';
 
 import { Agente } from 'src/app/models/Agente';
 
+export interface DropdownItem {
+    /**
+     * Label del item
+     *
+     * @type {string}
+     * @memberOf DropdownItem
+     */
+    label?: string;
+    /**
+     * Clase css del ícono
+     *
+     * @type {string}
+     * @memberOf DropdownItem
+     */
+    icon?: string;
+    /**
+     * Ruta opción para Angular Router
+     *
+     * @type {string}
+     * @memberOf DropdownItem
+     */
+    route?: string;
+    /**
+     * Callback a ejecutar cuando se selecciona el item
+     *
+     * @type {Function}
+     * @memberOf DropdownItem
+     */
+    handler?: Function;
+    /**
+     * Indica si el item es un divisor
+     *
+     * @type {boolean}
+     * @memberOf DropdownItem
+     */
+    divider?: boolean;
+}
 
 @Component({
     selector: 'app-agente-item-listado',
@@ -17,6 +54,13 @@ export class AgenteItemListadoComponent {
 
     // Propiedades públicas
     public listado: Agente[]; // Contiene un listado plano de agentes
+
+    public dropitems: DropdownItem[] = [
+        { label: 'Ir a inicio', icon: 'flag', route: '/incio' },
+        { label: 'Ir a ruta inexistente', icon: 'pencil', route: '/ruta-rota' },
+        { label: 'Item con handler', icon: 'eye     ', handler: (() => { alert('Este es un handler'); }) }
+    ];
+    layout = 'derecha';
 
     /**
      * Listado de agentes para mostrar. Acepta una lista de agentes

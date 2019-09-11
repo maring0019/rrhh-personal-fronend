@@ -15,6 +15,11 @@
             </plex-loader>
         </ng-template>
         <ng-template #mostrarResultados>
+            <app-search-leyenda
+                *ngIf="searched && agentes && !agentes.length"
+                [header]="'No se encontraron resultados!'">
+            </app-search-leyenda>
+
             <app-agente-item-listado
                 *ngIf="agentes || agentes.length > 0"
                 [agentes]="agentes"
@@ -48,8 +53,6 @@
             [educacion]="agenteSeleccionado.educacion"
             [situacion]="agenteSeleccionado.situacionLaboralActiva?.situacion">
         </app-agente-detalle>
-        <!-- <app-listado *ngIf="!agenteSeleccionado">
-        </app-listado> -->
     </plex-layout-sidebar>
     
 </plex-layout>
