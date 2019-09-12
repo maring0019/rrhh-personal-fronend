@@ -5,6 +5,7 @@ import { Educacion } from './Educacion';
 import { IPais } from './IPais';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
 import { SituacionLaboral } from './SituacionLaboral';
+import { BajaAgente } from './BajaAgente';
 
 export class Agente {
 
@@ -26,6 +27,7 @@ export class Agente {
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
     situacionLaboral: SituacionLaboral;
     historiaLaboral: any[];
+    bajas: BajaAgente[];
     foto: String;
     codigoFichado: String;
     activo: Boolean
@@ -61,9 +63,17 @@ export class Agente {
         }
         this.situacionLaboral = new SituacionLaboral(agente.situacionLaboral);
         this.historiaLaboral = [];
+        
         if (agente.historiaLaboral){
             agente.historiaLaboral.forEach(e => {
                 this.historiaLaboral.push(new SituacionLaboral(e))
+            });
+        }
+        
+        this.bajas = [];
+        if (agente.bajas && agente.bajas.length){
+            agente.bajas.forEach(e => {
+                this.bajas.push(new BajaAgente(e))
             });
         }
     }

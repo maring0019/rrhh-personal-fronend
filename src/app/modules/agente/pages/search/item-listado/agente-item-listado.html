@@ -1,4 +1,4 @@
-<plex-list [striped]="true" [fullWidth]="true">
+<plex-list [striped]="true" [fullWidth]="true" *ngIf="agentes && agentes.length">
     <ng-container *ngFor="let agente of agentes; let i=index">
         <plex-item [layout]="layout">
             <app-agente-foto class="mt-2 mb-2"
@@ -34,8 +34,23 @@
                 (click)="gotoAusenciasAgente(agente)">Editar
             </plex-button>
             
-            <plex-dropdown icon="dots-vertical mdi-24px" [right]="true" [items]="dropitems">
+            <plex-dropdown
+                icon="dots-vertical mdi-24px"
+                [right]="true"
+                [items]="accionesDropdownMenu[i]">
             </plex-dropdown>
+
         </plex-item>
     </ng-container>
 </plex-list>
+
+<jw-modal id="modal-baja-agente">
+    <div *ngIf="agenteSeleccionado">
+        <app-agente-baja 
+            [agente]="agenteSeleccionado"
+            (success)="onSuccessBaja($event)"
+            (error)="onErrorBaja($event)"
+            (cancel)="onCancelBaja($event)">
+        </app-agente-baja>
+    </div>
+</jw-modal>

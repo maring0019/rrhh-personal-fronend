@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
+import { BajaAgente } from '../models/BajaAgente';
 
 @Injectable()
 export class AgenteService {
@@ -35,6 +36,11 @@ export class AgenteService {
     put(agente: Agente): Observable<Agente> {
         const url = `${this.agenteUrl}/${agente.id}`;
         return this.server.put(url, agente);
+    }
+
+    baja(agente: Agente, baja:BajaAgente): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agente.id}/baja`;
+        return this.server.put(url, baja);
     }
 
     getFoto(agenteId: any): Observable<any> {

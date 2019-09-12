@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Agente } from 'src/app/models/Agente';
 
+import { ModalService } from 'src/app/services/modal.service';
+
 @Component({
     selector: 'app-agente-search',
     templateUrl: 'agente-search.html',
     // styleUrls: ['agente-busqueda.scss']
 })
 export class AgenteSearchComponent implements OnInit {
+
+    constructor(private modalService: ModalService) {
+    }
 
     public agentes:Agente[];
     public agenteSeleccionado: Agente;
@@ -31,8 +36,8 @@ export class AgenteSearchComponent implements OnInit {
         this.searching = false;
         this.searched = true;
         this.hiddenAgentes = items ;
+        this.agenteSeleccionado = null;
         this.showMoreResultados();   
-        this.resetAgenteSeleccionado();
     }
 
     clearResultados(event:any){
@@ -47,7 +52,7 @@ export class AgenteSearchComponent implements OnInit {
         this.agentes = []
         this.hiddenAgentes = [];
         this.showMore = false;
-        this.resetAgenteSeleccionado();
+        this.agenteSeleccionado = null;
     }
 
     showMoreResultados(e?:any){
@@ -63,7 +68,9 @@ export class AgenteSearchComponent implements OnInit {
         }   
     }
 
-    resetAgenteSeleccionado(){
-        this.agenteSeleccionado = null;
+    openModal(id: string) {
+        this.modalService.open(id);
     }
+
+    
 }

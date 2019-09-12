@@ -37,6 +37,7 @@ import { DescargasService } from './services/descargas.service';
 import { FeriadoService } from './services/feriado.service';
 import { EventosCalendarService } from './services/eventos.calendar.service';
 import { FrancoService } from './services/franco.service';
+import { CausaBajaService } from './services/causa-baja.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -66,12 +67,14 @@ import { AgenteDatosRegimenComponent } from './modules/agente/pages/registro/dat
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 import { AgenteSearchFormComponent } from './modules/agente/pages/search/search-form/agente-search-form.component';
 import { SearchLeyendaComponent } from './modules/agente/components/search-leyenda/search-leyenda.component';
-import { AgenteListadoComponent } from './modules/agente/pages/search/agente-listado/agente-listado.component';
 import { AgenteItemListadoComponent } from './modules/agente/pages/search/item-listado/agente-item-listado.component';
 
 // Agente Detalle
 import { AgenteFotoComponent } from './modules/agente/components/imagen-foto/agente-foto.component';
 import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle/agente-detalle.component';
+
+// Agente Baja
+import { AgenteBajaComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja.component';
 
 // Ausentismo
 import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
@@ -109,6 +112,7 @@ import { EdadPipe } from './pipes/edad.pipe';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
 import { AgenteMockService } from './hardcodeo/agente.service'
+import { ModalComponent } from './components/modal/modal.component';
 
 
 @NgModule({
@@ -133,10 +137,10 @@ import { AgenteMockService } from './hardcodeo/agente.service'
         AgenteSearchFormComponent,
         AgenteFotoComponent,
         SearchLeyendaComponent,
-
-        AgenteListadoComponent,
         AgenteItemListadoComponent,
         AgenteDetalleComponent,
+
+        AgenteBajaComponent,
         
         AgenteAusentismoComponent,
         AgenteCalendarComponent,
@@ -161,7 +165,7 @@ import { AgenteMockService } from './hardcodeo/agente.service'
         EdicionComponent,
         FileManagerComponent,
         UploaderStatusComponent,
-
+        ModalComponent,
         ContextMenuComponent,
 
         // Pipes
@@ -211,7 +215,8 @@ import { AgenteMockService } from './hardcodeo/agente.service'
         FilesService,
         CalendarRangeSelectorService,
         DescargasService,
-        CalendarStoreService
+        CalendarStoreService,
+        CausaBajaService
     ],
     bootstrap: [AppComponent],
     entryComponents: [UploaderStatusComponent]
