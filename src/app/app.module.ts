@@ -73,8 +73,9 @@ import { AgenteItemListadoComponent } from './modules/agente/pages/search/item-l
 import { AgenteFotoComponent } from './modules/agente/components/imagen-foto/agente-foto.component';
 import { AgenteDetalleComponent } from './modules/agente/components/agente-detalle/agente-detalle.component';
 
-// Agente Baja
+// Agente Baja/Reactivar
 import { AgenteBajaComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja.component';
+import { AgenteReactivarComponent } from './modules/agente/components/agente-reactivar/agente-reactivar.component';
 
 // Ausentismo
 import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
@@ -114,7 +115,6 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 import { AgenteMockService } from './hardcodeo/agente.service'
 import { ModalComponent } from './components/modal/modal.component';
 
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -141,6 +141,7 @@ import { ModalComponent } from './components/modal/modal.component';
         AgenteDetalleComponent,
 
         AgenteBajaComponent,
+        AgenteReactivarComponent,
         
         AgenteAusentismoComponent,
         AgenteCalendarComponent,

@@ -19,7 +19,7 @@
                 type="info"
                 size="sm"
                 icon="mdi mdi-eye"
-                (click)="seleccionarAgente(agente)">Ver
+                (click)="seleccionarAgente(agente, i)">Ver
             </plex-button>
             <plex-button
                 type="warning"
@@ -50,7 +50,18 @@
             [agente]="agenteSeleccionado"
             (success)="onSuccessBaja($event)"
             (error)="onErrorBaja($event)"
-            (cancel)="onCancelBaja($event)">
+            (cancel)="onCancelModal('modal-baja-agente')">
         </app-agente-baja>
+    </div>
+</jw-modal>
+
+<jw-modal id="modal-reactivar-agente">
+    <div *ngIf="agenteSeleccionado">
+        <app-agente-reactivar 
+            [agente]="agenteSeleccionado"
+            (success)="onSuccessReactivar($event)"
+            (error)="onErrorReactivar($event)"
+            (cancel)="onCancelModal('modal-reactivar-agente')">
+        </app-agente-reactivar>
     </div>
 </jw-modal>

@@ -43,6 +43,11 @@ export class AgenteService {
         return this.server.put(url, baja);
     }
 
+    reactivar(agente: Agente): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agente.id}/reactivar`;
+        return this.server.put(url, {});
+    }
+
     getFoto(agenteId: any): Observable<any> {
         const url = `${this.agenteUrl}/${agenteId}/fotos`;
         return this.server.get(url);

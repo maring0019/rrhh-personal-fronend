@@ -1,6 +1,6 @@
 <header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5><strong>Agente | </strong> Baja</h5>
+        <h5><strong>Agente | </strong> Reactivar</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
@@ -24,39 +24,25 @@
         </div>
         <div class="col-md-9 col-xs-12">
             <div class="row">
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-4 col-xs-12">
                     <plex-datetime
                         type="date"
-                        label="Fecha de baja"
+                        label="Fecha"
                         name="fecha"
                         formControlName="fecha"
-                        [required]="true"
                         class="input-sm">
                     </plex-datetime>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <plex-select 
-                        [data]="causas"
-                        name="causa"
-                        formControlName="causa"
-                        [required]="true"
-                        label="Causa"
-                        placeholder="Seleccione...">
-                    </plex-select>
-                </div>
-            </div>    
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
+                </div>  
+                <div class="col-md-4 col-xs-12">
                     <plex-select 
                         [data]="tiposNormaLegal"
                         name="tipoNormaLegal"
                         formControlName="tipoNormaLegal"
                         label="Tipo Norma"
-                        placeholder="Seleccione..."
-                        [required]="true">
+                        placeholder="Seleccione...">
                     </plex-select>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-4 col-xs-12">
                     <plex-text
                         name="numeroNormaLegal"
                         formControlName="numeroNormaLegal"
@@ -81,5 +67,5 @@
 <br>
 <div class="d-flex flex-row justify-content-end">
     <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
-    <plex-button label="Aceptar Baja" type="success" (click)="guardar()"></plex-button>
+    <plex-button label="Aceptar Reactivar" type="success" (click)="guardar()"></plex-button>
 </div>
