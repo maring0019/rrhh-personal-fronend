@@ -13,7 +13,7 @@
             </section>
         </header>
         <plex-tabs>
-            <plex-tab label="DATOS PERSONALES">
+            <plex-tab label="GENERAL">
                 <div *ngIf="agente">
                     <agente-datos-basicos 
                         [agente]="agente"
@@ -68,6 +68,11 @@
                         (outputRegimen)='onValueChangeRegimen($event)'>
                     </agente-datos-regimen>
                 </div>
+            </plex-tab>
+            <plex-tab label="ADJUNTOS">
+                <br>
+                <app-file-manager *ngIf="agente" [filesOwner]="agente">
+                </app-file-manager>
             </plex-tab>
         </plex-tabs>
     </plex-layout-main>

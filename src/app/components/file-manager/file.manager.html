@@ -3,11 +3,16 @@
         <h5>{{title }}</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <plex-button icon="mdi mdi-file" size="sm" (click)="uploader.click()"></plex-button>
+        <plex-button 
+            titlePosition="left"
+            type="primary btn-sm"
+            icon="plus"
+            (click)="uploader.click()">
+        </plex-button>
     </div>
     <input #uploader hidden type="file" (change)="onClickToUpload(uploader.files)" />
 </header>
-<div *ngFor="let file of files; let idx=index"
+<!-- <div *ngFor="let file of files; let idx=index"
     class="d-flex flex-row justify-content-between">
     <p>{{ file.filename }}</p>
     <div class="d-flex flex-row justify-content-end">
@@ -28,5 +33,31 @@
             </plex-button>
         </div>
     </div>
-</div>
+</div> -->
+<dplex-list [striped]="true" [fullWidth]="true" *ngIf="files && files.length">
+    <ng-container *ngFor="let file of files; let idx=index">
+        <dplex-item [layout]="'izquierda'">
+            <plex-icon name="file"></plex-icon>
+            <plex-label 
+                titulo="{{ file.filename }}"
+                subtitulo="archivo">
+            </plex-label>
+
+            <a id="downloader-{{ idx }}" target="_blank" href="{{ file.downloadURL }}" download="{{ file.filename }}">
+                <plex-button
+                    size="sm"
+                    type="primary"
+                    icon="mdi mdi-eye"
+                    (click)="viewFile(idx)">Ver Archivo
+                </plex-button>
+            </a>
+            <plex-button
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="removeFile(idx)">Quitar archivo
+            </plex-button>
+        </dplex-item>
+    </ng-container>
+</dplex-list>
 <ng-template #dynamicUploaderStatus></ng-template>

@@ -115,6 +115,11 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 import { AgenteMockService } from './hardcodeo/agente.service'
 import { ModalComponent } from './components/modal/modal.component';
 
+// Plex
+import { DPlexItemComponent } from 'src/app/components/item-list/item.component';
+import { DPlexHeadingComponent } from 'src/app/components/item-list/heading.component';
+import { DPlexListComponent } from 'src/app/components/item-list/list.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -168,6 +173,11 @@ import { ModalComponent } from './components/modal/modal.component';
         UploaderStatusComponent,
         ModalComponent,
         ContextMenuComponent,
+
+        // Plex
+        DPlexListComponent,
+        DPlexItemComponent,
+        DPlexHeadingComponent,
 
         // Pipes
         FechaPipe,

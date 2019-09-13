@@ -85,12 +85,12 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     initAusentismoFiles(){
-        if (this.ausentismoID){
-            this.filesService.getObjectFiles(this.ausentismoID)
-                .subscribe(data => {
-                    this.ausentismoFiles = data;
-            });
-        }
+        // if (this.ausentismoID){
+        //     this.filesService.getObjectFiles(this.ausentismoID)
+        //         .subscribe(data => {
+        //             this.ausentismoFiles = data;
+        //     });
+        // }
     }
 
     initFormTitle(){    

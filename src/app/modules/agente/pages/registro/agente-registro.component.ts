@@ -13,6 +13,7 @@ import { AgenteDatosEducacionComponent } from './datos-educacion/agente-datos-ed
 import { AgenteDatosSituacionComponent } from './datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
 import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosRegimenComponent } from './datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
+import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
 
 import { Contacto } from 'src/app/models/Contacto';
 import { Agente } from 'src/app/models/Agente';
@@ -22,7 +23,6 @@ import { Educacion } from 'src/app/models/Educacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Regimen } from 'src/app/models/Regimen';
-
 
 @Component({
     selector: 'app-agente-registro',
@@ -38,6 +38,7 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
     @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
+    @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
     
     @HostBinding('class.plex-layout') layout = true;
     // Datos para los formularios
@@ -96,6 +97,15 @@ export class AgenteRegistroComponent implements OnInit {
         this.cargo = this.agente.situacionLaboral.cargo;
         this.regimen = this.agente.situacionLaboral.regimen;
         
+    }
+
+    initAusentismoFiles(){
+        // if (this._agenteID){
+        //     this.filesService.getObjectFiles(this.ausentismoID)
+        //         .subscribe(data => {
+        //             this.ausentismoFiles = data;
+        //     });
+        // }
     }
 
     onValueChangeAgente(obj: Agente){
@@ -203,6 +213,7 @@ export class AgenteRegistroComponent implements OnInit {
     addAgente(agente){
         this.agenteService.post(agente)
             .subscribe(data=> {
+                this.saveFiles(data);
                 this.plex.info('success', 'El agente se ingresó correctamente')
                     .then( e => {
                         this.volverInicio();
@@ -223,12 +234,17 @@ export class AgenteRegistroComponent implements OnInit {
                     })
                 }
                 else{
+                    this.saveFiles(agenteData);
                     this.plex.info('success', 'El agente se modificó correctamente')
                         .then( e => {
                         this.volverInicio();
                     });
                 }
         })
+    }
+
+    private saveFiles(agente){
+        this.fileManager.saveFileChanges(agente);
     }
 
     volverInicio() {

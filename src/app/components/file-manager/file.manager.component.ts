@@ -36,7 +36,21 @@ export class FileManagerComponent implements OnInit {
         public plex: Plex,
         private resolver: ComponentFactoryResolver){}
 
-    public ngOnInit() {}
+    public ngOnInit() {
+        this.initAusentismoFiles();
+    }
+
+    private initAusentismoFiles(){
+        console.log('Searching files');
+        console.log(this.filesOwner)
+        if (this.filesOwner && this.filesOwner.id){
+            this.filesService.getObjectFiles(this.filesOwner.id)
+                .subscribe(data => {
+                    console.log('Volcimos de la busqueda');
+                    this.filesAttached = data;
+            });
+        }
+    }
 
     public onClickToUpload(files){
         if (files.length === 0) return;
@@ -151,7 +165,10 @@ export class FileManagerComponent implements OnInit {
      * @param file 
      */
     private attachFilesToObj(obj?){
+        console.log('Guardado Fisico')
         if (this.filesToAttach.length){
+            console.log(this.filesToAttach);
+            console.log(obj)
             let filesIDs = this.filesToAttach.map(f=>f._id);
             let objID = obj? obj.id : this.filesOwner.id;
             return this.filesService.attachFiles(objID, filesIDs).subscribe();

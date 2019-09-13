@@ -11,9 +11,6 @@ import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
 
 
-
-
-
 @Component({
     selector: 'app-ausentismo-carga-update',
     templateUrl: 'ausentismo-carga-update.html'
