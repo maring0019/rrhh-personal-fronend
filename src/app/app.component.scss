@@ -54,3 +54,54 @@ body.jw-modal-open {
     /* body overflow is hidden to hide main scrollbar when modal window is open */
     overflow: hidden;
 }
+
+
+$gap: 5px;
+
+::ng-deep dl {
+  background-color: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px $gap/2;
+  dt, dd {
+    margin: $gap/2;
+    text-indent: 10px;}
+  dt {
+    background-color: gold;
+    flex: 0 0 calc(100% - #{$gap});
+  }
+  dd {
+    background-color: lightblue;
+    flex: 0 0 calc(25% - #{$gap});
+  }
+  .half {
+    flex: 0 0 calc(75% - #{$gap});
+   }
+}
+
+
+
+::ng-deep div.dl {
+    // background-color: #eee;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px $gap/2;
+    div.dt, div.dd {
+      margin: $gap/2;
+      text-indent: 10px;}
+    div.dt {
+      background-color: gold;
+      flex: 0 0 calc(100% - #{$gap});
+    }
+    div.dd {
+      
+      flex: 0 0 calc(75% - #{$gap});
+      height: 30px;
+    }
+    div.botonera {
+      flex: 0 0 calc(25% - #{$gap});
+     }
+  }

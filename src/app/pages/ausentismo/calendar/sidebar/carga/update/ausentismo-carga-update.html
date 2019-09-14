@@ -8,6 +8,7 @@
 </app-ausentismo-form>
 <br>
 <app-file-manager
+    [size]="'sm'"
     [filesOwner]="ausentismo"
     [filesAttached]="ausentismoFiles"
     (filesChanged)="onFilesChanged($event)">

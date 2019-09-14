@@ -15,6 +15,7 @@ export class FileManagerComponent implements OnInit {
     @Input() autoSave:Boolean = false;  // Flag para indicar si los cambios impactan directamente sobre el obj propietario
     @Input() filesAttached = [];        // Almacena unicamente info sobre los archivos uploaded
     @Input() maxFiles;
+    @Input() size = 'lg';
     @Input() title = 'Archivos adjuntos';
 
     @Output() filesChanged:EventEmitter<any> = new EventEmitter<any>(); // Notifica 
