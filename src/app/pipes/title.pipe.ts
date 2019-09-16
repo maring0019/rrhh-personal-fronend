@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 /**
  * Dada una cadena recibida por parametro intenta retornar la misma cadena 
  * con todas sus letras iniciales en mayusculas.
- * Si la cadena ingresada es vacia o nula retorna la cadena estatica '---'
+ * Si la cadena ingresada es vacia o nula retorna la cadena '---'
  * Alternativamente a una cadena se puede recibir un objeto mas complejo 
  * acompañado de un argumento indicando el atributo del objeto que contiene
  * la cadena a transformar. La funcion en este caso se llama recursivamente
