@@ -19,3 +19,17 @@ export function resetForm(form:FormGroup, formDirective?:FormGroupDirective){
         formDirective.resetForm();
     } 
 }
+
+
+export function isEmpty(obj){
+    return obj === null || undefined
+    ? true
+    : (() => {
+            for (const prop in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+                    return false;
+                }
+            }
+            return true;
+        })();
+}

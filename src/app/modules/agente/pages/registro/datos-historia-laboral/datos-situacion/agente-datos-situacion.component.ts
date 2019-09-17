@@ -43,7 +43,7 @@ export class AgenteDatosSituacionComponent implements OnInit {
             antiguedadPago         : [this.situacion.antiguedadPago],
             // Situacion
             situacion              : [this.situacion.situacion],
-            situacionLugarPago     : [this.situacion.lugarPago],
+            lugarPago              : [this.situacion.lugarPago],
             exceptuadoFichado      : [this.situacion.exceptuadoFichado],
             trabajaEnHospital      : [this.situacion.trabajaEnHospital],
             trasladado             : [this.situacion.trasladoDesde? true : false],

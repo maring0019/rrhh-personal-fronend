@@ -6,6 +6,7 @@ import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { Agente } from 'src/app/models/Agente';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { isEmpty } from 'src/app/utils/formUtils';
 
 
 @Component({
@@ -68,7 +69,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     private prepareSearchParams(){
         let params:any = {};
         let form = this.searchForm.value;
-        if (form.textoLibre && form.textoLibre.length > 5){
+        if (form.textoLibre && form.textoLibre.length >= 4){
             const exp = form.textoLibre;
             params['filter'] = JSON.stringify(
                 {"$or":[
@@ -107,7 +108,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
         }
         // Inicia búsqueda
         let searchParams = this.prepareSearchParams();
-        if (searchParams) {
+        if (!isEmpty(searchParams)) {
             this.timeoutHandle = window.setTimeout(() => {
                 this.searchStart.emit();
                 this.timeoutHandle = null;
