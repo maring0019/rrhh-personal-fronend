@@ -13,8 +13,8 @@ export class DescargasService {
     
     constructor(private server: Server, private http: Http) { }
 
-    download(ausentismoId: any): Observable<any> {
-        const url = `${this.serverUrl}${this.baseUrl}/ausentismo/${ausentismoId}/comprobantes/certificado`;
+    download(ausentismoId: any): Observable<any> { 
+        const url = `${this.serverUrl}${this.baseUrl}/ausentismo/${ausentismoId}/comprobantes/certificado/download`;
         const options = new RequestOptions({responseType: ResponseContentType.Blob });
         return this.http.get(url, options)
             .map(res => {
