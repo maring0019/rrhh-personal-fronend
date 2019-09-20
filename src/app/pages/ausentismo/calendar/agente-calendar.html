@@ -24,36 +24,6 @@
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
         <router-outlet (activate)="onActivate($event)"></router-outlet>
-
-        <!-- <plex-tabs>
-
-            <plex-tab label="DETALLE">
-                <app-ausentismo-search
-                    [agente]="agente"
-                    (ausentismoSelected)="onAusentismoSelected($event)">
-                </app-ausentismo-search>
-            </plex-tab>
-
-            <plex-tab label="CARGA">
-                <app-ausentismo-carga-add
-                    [agente]="agente"
-                    (changedAusentismo)="onChangedAusentismo($event)"
-                    (changedDateRange)="onChangedDateRange($event)"
-                    (canceled)="onCancelCarga($event)">
-                </app-ausentismo-carga-add>
-            </plex-tab>
-
-            <plex-tab label="EDICION">
-                <app-ausentismo-carga-update
-                    *ngIf="ausentismoSeleccionado"
-                    [ausentismo]="ausentismoSeleccionado"
-                    [agente]="agente"
-                    (changedAusentismo)="onChangedAusentismo($event)"
-                    (changedDateRange)="onChangedDateRange($event)"
-                    (canceled)="onCancelCarga($event)">
-                </app-ausentismo-carga-update>
-            </plex-tab>
-        </plex-tabs> -->
     </plex-layout-sidebar>
 </plex-layout>
 

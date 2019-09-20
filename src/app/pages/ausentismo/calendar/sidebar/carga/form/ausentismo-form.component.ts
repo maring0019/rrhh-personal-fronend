@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AusentismoService } from 'src/app/services/ausentismo.service';
@@ -14,7 +14,7 @@ import { getTomorrow } from 'src/app/utils/dates';
     selector: 'app-ausentismo-form',
     templateUrl: 'ausentismo-form.html'
 })
-export class AusentismoCargaFormComponent implements OnInit {
+export class AusentismoCargaFormComponent implements OnInit, AfterViewInit {
     @Input() form: FormGroup;
     @Input() articulos: Articulo[];
 
@@ -32,10 +32,15 @@ export class AusentismoCargaFormComponent implements OnInit {
         }
 
     public ngOnInit() {
-        this.updateRangeSelection();
+        this.updateRangeSelection(); 
         this.form.valueChanges.subscribe(() => {
             this.changedValue.emit(this.form.value);
         });
+    }
+
+    public ngAfterViewInit(){
+        this.form.patchValue({ fechaDesde: this.form.value.fechaDesde });
+        this.form.patchValue({ fechaHasta: this.form.value.fechaHasta });
     }
 
     public onChangedArticulo(articulo){

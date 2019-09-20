@@ -44,6 +44,7 @@ export class AusentismoCargaAddComponent implements OnInit {
         this.initFormSelectOptions();
         this.initAusentismoForm();
         this.patchFormRangeSelection();
+        
     }
 
     initFormSelectOptions(){

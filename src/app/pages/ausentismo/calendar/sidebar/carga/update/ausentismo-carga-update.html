@@ -8,9 +8,9 @@
 </app-ausentismo-form>
 <br>
 <app-file-manager
+    *ngIf="ausentismo"
     [size]="'sm'"
     [filesOwner]="ausentismo"
-    [filesAttached]="ausentismoFiles"
     (filesChanged)="onFilesChanged($event)">
 </app-file-manager>
 

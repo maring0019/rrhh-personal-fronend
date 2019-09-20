@@ -84,9 +84,9 @@ export class FileManagerComponent implements OnInit {
                 if (this.autoSave && this.filesOwner){
                     // TODO Implementar el attach inmediato    
                 }
-                this.addFileToAttach(fileUploaded);
+                if (fileUploaded) this.addFileToAttach(fileUploaded);
                 componentRef.destroy();
-            });
+            }); 
         componentRef.instance.cancelUpload
             .subscribe(e => {
                 componentRef.destroy();
