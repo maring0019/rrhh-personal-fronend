@@ -59,6 +59,11 @@ export abstract class CRUDItemListComponent {
     @Output() hover: EventEmitter<any> = new EventEmitter<any>();
 
     /**
+     * Evento que se emite cuando se quiere eliminar un objeto
+     */
+    @Output() delete: EventEmitter<any> = new EventEmitter<any>();
+
+    /**
      * 
      */
     @Output() accion: EventEmitter<ActionEvent> = new EventEmitter<ActionEvent>();
@@ -81,8 +86,12 @@ export abstract class CRUDItemListComponent {
         }
     }
 
-    public hoverObjecto(objeto: any) {
+    public hoverObjeto(objeto: any) {
         this.hover.emit(objeto);
+    }
+
+    public eliminarObjeto(objeto: any) {
+        this.delete.emit(objeto);
     }
 
     public gotoObjecto(objeto) {

@@ -9,6 +9,8 @@ export abstract class CRUDListComponent implements OnInit {
 
     public searchFormComponent:any;
     public itemListComponent:any;
+    public titulo: string; // Encabezado de la pagina
+
 
     @ViewChild('searchForm', { read: ViewContainerRef }) searchFormViewContainerRef: ViewContainerRef;
     @ViewChild('itemList', { read: ViewContainerRef }) itemListViewContainerRef: ViewContainerRef;
@@ -69,7 +71,11 @@ export abstract class CRUDListComponent implements OnInit {
         this.itemListComponentRef.instance.hover
             .subscribe(event => {
                 this.onHover(event);
-            }); 
+            });
+        this.itemListComponentRef.instance.delete
+            .subscribe(event => {
+                this.onDelete(event);
+            });
     }
 
     public onHover(obj:any){
@@ -79,6 +85,11 @@ export abstract class CRUDListComponent implements OnInit {
     public onSelection(obj:any){
         this.objSelected = obj;
         this.router.navigate([this.router.url+'/editar/'+obj.id]);
+    }
+
+    public onDelete(obj:any){
+        this.objSelected = obj;
+        // this.router.navigate([this.router.url+'/editar/'+obj.id]);
     }
 
     

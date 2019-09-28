@@ -1,6 +1,14 @@
 <plex-layout main="12">
 
     <plex-layout-main>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>{{ titulo }}</strong></h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+            </div>
+        </header>
         <ng-template #searchForm></ng-template>
         <br>
 

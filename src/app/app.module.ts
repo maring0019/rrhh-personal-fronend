@@ -124,13 +124,16 @@ import { DPlexListComponent } from 'src/app/components/item-list/list.component'
 import { FeriadoSearchFormComponent } from './modules/tm/components/feriados/list/search/feriado-search.component';
 
 import { FeriadoItemListComponent } from './modules/tm/components/feriados/list/item/feriado-item-list.component';
-import { FeriadoCreateComponent } from './modules/tm/components/feriados/create/feriado-create.component';
-// import { FeriadoUpdateComponent } from './modules/tm/components/feriados/update/feriado-update-form';
+
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
 import { SituacionItemListComponent } from './modules/tm/components/situacion/list/item/situacion-item-list.component';
 import { SituacionSearchFormComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
-import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/create/form/feriado-create-form.component';
+import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
+import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-create-form.component';
+import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
+import { FeriadoUpdateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-update-form.component';
+
 
 const ADMIN_COMPONENTS = [
     FeriadoListComponent,
@@ -138,6 +141,8 @@ const ADMIN_COMPONENTS = [
     FeriadoItemListComponent,
     FeriadoCreateComponent,
     FeriadoCreateFormComponent,
+    FeriadoUpdateComponent,
+    FeriadoUpdateFormComponent,
     SituacionListComponent,
     SituacionSearchFormComponent,
     SituacionItemListComponent

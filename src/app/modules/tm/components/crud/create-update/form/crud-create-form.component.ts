@@ -1,16 +1,15 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
-import { Feriado } from 'src/app/models/Feriado';
 
 @Component({
     selector: 'app-crud-create-form',
-    templateUrl: './crud-create-form.html'
+    templateUrl: './crud-form.html'
   })
 
-export abstract class CrudCreateFormComponent implements OnInit, AfterViewInit {
+export abstract class CrudCreateFormComponent implements OnInit {
     
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
@@ -18,7 +17,6 @@ export abstract class CrudCreateFormComponent implements OnInit, AfterViewInit {
 
     @ViewChild(FormGroupDirective) _form;
 
-    protected object: Feriado;
     public form: FormGroup;
     
     constructor(
@@ -27,13 +25,8 @@ export abstract class CrudCreateFormComponent implements OnInit, AfterViewInit {
     ){}
 
     ngOnInit() {
-        // this.initFormSelectOptions();
-        // this.object = new Feriado();
-        // this.form = this.initForm(); 
-    }
-
-    ngAfterViewInit(){
-        // this.form.patchValue({ fecha: this.form.value.fecha });
+        this.initFormSelectOptions();
+        this.form = this.initForm(); 
     }
 
     /**
@@ -50,10 +43,10 @@ export abstract class CrudCreateFormComponent implements OnInit, AfterViewInit {
     }
     
     /**
-     * Override this
+     * Override this if necessary
      */
     protected guardar(){
-        const feriado = new Feriado(this.form.value);
+        const feriado = this.form.value;
         this.objectService.post(feriado)
             .subscribe(
                 data=> {

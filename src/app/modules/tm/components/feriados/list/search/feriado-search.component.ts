@@ -39,6 +39,7 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
     prepareSearchParams(){
         let params:any = {};
         let form = this.searchForm.value;
+        // Filters
         if (form.textoLibre && form.textoLibre.length >= 4){
             const exp = form.textoLibre;
             params['filter'] = JSON.stringify({"descripcion":{"$regex": exp, "$options":"i"}}) 
@@ -49,6 +50,8 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
         if (form.fechaHasta){
             params['fecha<'] = form.fechaHasta;
         }
+        // Sorting
+            params['sort'] = '-fecha';
         return params;
     }
 

@@ -14,6 +14,7 @@ export class FeriadoListComponent extends CRUDListComponent implements OnInit {
 
     public searchFormComponent = FeriadoSearchFormComponent;
     public itemListComponent = FeriadoItemListComponent;
+    public titulo = 'Feriados';
 
     constructor(public router: Router, public resolver: ComponentFactoryResolver) {
         super(router, resolver);

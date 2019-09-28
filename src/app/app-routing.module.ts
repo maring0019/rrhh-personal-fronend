@@ -15,10 +15,12 @@ import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-cale
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
 
-import { FeriadoCreateComponent } from './modules/tm/components/feriados/create/feriado-create.component';
-// import { FeriadoUpdateComponent } from './modules/tm/components/feriados/update/feriado-update-form';
+
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { SituacionListComponent } from 'src/app/modules/tm/components/situacion/list/situacion-list.component';
+import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
+import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
+
 
 
 
@@ -29,7 +31,7 @@ const routes: Routes = [
     { path: 'tm/situacion', component: SituacionListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'tm/feriados', component: FeriadoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'tm/feriados/crear', component: FeriadoCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    // { path: 'tm/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'tm/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
     { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     

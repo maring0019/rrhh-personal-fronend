@@ -3,12 +3,12 @@ import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-crud-create',
-    templateUrl: 'crud-create.html',
+    selector: 'app-crud-create-update',
+    templateUrl: 'crud-create-update.html',
 })
-export abstract class CRUDCreateComponent implements OnInit {
+export abstract class CRUDCreateUpdateComponent implements OnInit {
 
-    public formComponent:any;
+    protected formComponent:any; 
 
     @ViewChild('form', { read: ViewContainerRef }) formViewContainerRef: ViewContainerRef;
 
