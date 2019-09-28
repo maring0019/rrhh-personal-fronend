@@ -22,6 +22,7 @@ import { SituacionCreateComponent } from './modules/tm/components/situacion/crea
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
 import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
 import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
+import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 
 
 
@@ -40,8 +41,11 @@ const routes: Routes = [
     { path: 'tm/feriados/crear', component: FeriadoCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'tm/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
-    { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    // Reportes
+    { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
+    // Agentes Busqueda y Registro
+    { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { 

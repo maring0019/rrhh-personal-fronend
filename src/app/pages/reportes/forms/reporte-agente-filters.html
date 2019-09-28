@@ -1,0 +1,66 @@
+<header class="d-flex flex-row justify-content-between subheader mt-4">
+    <div>
+        <h5>Paso 1. Seleccion de Agentes</h5>
+    </div>
+    <!-- <div class="d-flex flex-row justify-content-end">
+        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+    </div> -->
+</header>
+<form name="agenteFilterForm" [formGroup]="agenteFilterForm">
+    <div class="row">
+        <div class="col-md-6 mb-2">
+            <plex-radio 
+                *ngIf="opcionesAgenteTodos"
+                [data]="opcionesAgenteTodos"
+                formControlName="optionAgenteTodos"
+                name="optionAgenteTodos"
+                (change)="onChangeOptionAgenteTodos($event)">
+            </plex-radio>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <plex-radio 
+                *ngIf="opcionesAgenteLugarTrabajo"
+                [data]="opcionesAgenteLugarTrabajo"
+                formControlName="optionAgenteLugarTrabajo"
+                name="optionAgenteLugarTrabajo"
+                (change)="onChangeOptionAgenteLugarTrabajo($event)">
+            </plex-radio>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ml-4 col-md-9">
+            <plex-select 
+                [data]="sectores"
+                name="lugarTrabajo"
+                formControlName="lugarTrabajo"
+                placeholder="Buscar Lugares de trabajo"
+                [multiple]="true">
+            </plex-select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+            <div class="col-md-6 mb-3">
+                <plex-radio 
+                    *ngIf="opcionesAgente"
+                    [data]="opcionesAgente"
+                    formControlName="optionAgente"
+                    name="optionAgente"
+                    (change)="onChangeOptionAgente($event)">
+                </plex-radio>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ml-4 col-md-9">
+                <plex-select 
+                    [data]="agentes"
+                    name="agente"
+                    formControlName="agente"
+                    placeholder="Buscar Agente">
+                </plex-select>
+            </div>
+        </div>
+</form>

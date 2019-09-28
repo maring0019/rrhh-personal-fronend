@@ -140,6 +140,9 @@ import { ArticuloCreateComponent } from './modules/tm/components/articulo/create
 import { ArticuloCreateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-create-form.component';
 import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
 import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-update-form.component';
+import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
+import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
+import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -227,6 +230,11 @@ const ADMIN_COMPONENTS = [
         DPlexItemComponent,
         DPlexHeadingComponent,
 
+        // Reportes
+        ReporteSearchComponent,
+        ReporteAgenteFiltersComponent,
+        ReporteSeleccionTipoComponent,
+        
         // Pipes
         FechaPipe,
         TitlePipe,

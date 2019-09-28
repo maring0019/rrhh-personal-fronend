@@ -1,0 +1,35 @@
+<plex-layout main="8">
+    <plex-layout-main>
+        <header>
+            <section class="d-flex flex-row justify-content-between mb-2">
+                <h5 class="align-self-center">
+                    <strong>Reportes |</strong> Gestión de Personal
+                </h5>
+                <!-- <div class="d-flex flex-row justify-content-end">
+                    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="volverInicio()"></plex-button>
+                    <plex-button label="Guardar Agente" type="success" (click)="saveAgente()"></plex-button>
+                </div> -->
+            </section>
+        </header>
+        <plex-tabs>
+            <plex-tab label="1. SELECCION DE AGENTES">
+                <div>
+                    <app-reporte-agente-filters></app-reporte-agente-filters>
+                </div>
+            </plex-tab>
+            <plex-tab label="2. FILTROS DE BÚSQUEDA">
+                <div >
+                   
+                </div>
+            </plex-tab>
+            <plex-tab label="3. TIPO DE REPORTE">
+                <div>
+                    <app-reporte-seleccion-tipo></app-reporte-seleccion-tipo>
+                </div>
+            </plex-tab>
+        </plex-tabs>
+    </plex-layout-main>
+    <plex-layout-sidebar type="invert">
+    </plex-layout-sidebar>
+</plex-layout>
+    
