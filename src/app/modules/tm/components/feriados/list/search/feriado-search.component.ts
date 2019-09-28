@@ -25,9 +25,6 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
         super.ngOnDestroy();
     }
 
-    initFormSelectOptions(){
-    }
-
     initSearchForm(){
         return this.formBuilder.group({
             textoLibre  : [],
@@ -51,7 +48,7 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
             params['fecha<'] = form.fechaHasta;
         }
         // Sorting
-            params['sort'] = '-fecha';
+        params['sort'] = '-fecha';
         return params;
     }
 

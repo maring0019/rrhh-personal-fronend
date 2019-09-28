@@ -13,11 +13,12 @@ export class SituacionListComponent extends CRUDListComponent implements OnInit 
 
     public searchFormComponent = SituacionSearchFormComponent;
     public itemListComponent = SituacionItemListComponent;
+    public titulo = 'Situación en Planta';
 
     constructor(
         public router: Router,
         public resolver: ComponentFactoryResolver) {
-        super(router, resolver);
+        super(router, resolver); 
     }
 
     public ngOnInit() {

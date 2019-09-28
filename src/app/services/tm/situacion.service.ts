@@ -18,6 +18,11 @@ export class TipoSituacionService {
 
     get(params?: any): Observable<TipoSituacion[]> {
         return this.server.get(this.situacionUrl, { params: params, showError: true });
+    } 
+
+    getByID(objectId?: any): Observable<TipoSituacion> {
+        const url = `${this.situacionUrl}/${objectId}`;
+        return this.server.get(url);
     }
 
     post(situacion: TipoSituacion): Observable<TipoSituacion> {

@@ -5,7 +5,6 @@ import { DropdownItem, Plex } from '@andes/plex';
 import { CRUDItemListComponent } from 'src/app/modules/tm/components/crud/list/item/crud-item-list.component';
 
 
-
 @Component({
     selector: 'app-feriado-item-list',
     templateUrl: './feriado-item-list.html',

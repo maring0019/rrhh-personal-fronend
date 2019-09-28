@@ -48,10 +48,6 @@ import { LoginPage } from './pages/login/login.page';
 
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
-
-import { ListTipoSituacionComponent } from './modules/tm/components/situacion/list-situacion/list-situacion.component';
-import { CreateUpdateTipoSituacionComponent } from './modules/tm/components/situacion/create-update-situacion/create-update-situacion.component';
-
 // ABM Agente
 import { AgenteRegistroComponent } from './modules/agente/pages/registro/agente-registro.component';
 import { AgenteDatosBasicosComponent } from './modules/agente/pages/registro/datos-basicos/agente-datos-basicos.component';
@@ -133,6 +129,10 @@ import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-
 import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-create-form.component';
 import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
 import { FeriadoUpdateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-update-form.component';
+import { SituacionCreateComponent } from './modules/tm/components/situacion/create-update/situacion-create.component';
+import { SituacionCreateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-create-form.component';
+import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
+import { SituacionUpdateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-update-form.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -145,7 +145,11 @@ const ADMIN_COMPONENTS = [
     FeriadoUpdateFormComponent,
     SituacionListComponent,
     SituacionSearchFormComponent,
-    SituacionItemListComponent
+    SituacionItemListComponent,
+    SituacionCreateComponent,
+    SituacionCreateFormComponent,
+    SituacionUpdateComponent,
+    SituacionUpdateFormComponent
   ]
 
 @NgModule({
@@ -153,9 +157,7 @@ const ADMIN_COMPONENTS = [
         AppComponent,
         LoginPage,
         HomePage,
-        ListTipoSituacionComponent,
-        CreateUpdateTipoSituacionComponent,
-
+        
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
         AgenteDatosDireccionComponent,
