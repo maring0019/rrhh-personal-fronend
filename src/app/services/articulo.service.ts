@@ -14,6 +14,11 @@ export class ArticuloService {
         return this.server.get(this.url, { params: params, showError: true });
     }
 
+    getByID(objectId?: any): Observable<Articulo> {
+        let url = `${this.url}/${objectId}`;
+        return this.server.get(url);
+    }
+
     post(object: Articulo): Observable<Articulo> {
         return this.server.post(this.url, object);
     }

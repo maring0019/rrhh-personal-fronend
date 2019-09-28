@@ -6,7 +6,7 @@ import { CRUDCreateUpdateComponent } from 'src/app/modules/tm/components/crud/cr
 import { FeriadoUpdateFormComponent } from 'src/app/modules/tm/components/feriados/create-update/form/feriado-update-form.component';
 
 @Component({
-    selector: 'app-feriado-create',
+    selector: 'app-feriado-update',
     templateUrl: '../../crud/create-update/crud-create-update.html'
   })
 

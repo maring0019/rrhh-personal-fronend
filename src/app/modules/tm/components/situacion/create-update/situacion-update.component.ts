@@ -7,7 +7,7 @@ import { SituacionUpdateFormComponent } from 'src/app/modules/tm/components/situ
 
 
 @Component({
-    selector: 'app-situacion-create',
+    selector: 'app-situacion-update',
     templateUrl: '../../crud/create-update/crud-create-update.html'
   })
 

@@ -19,13 +19,18 @@ import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
 import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
 import { SituacionCreateComponent } from './modules/tm/components/situacion/create-update/situacion-create.component';
+import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
+import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
+import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
 
 
 
 
 const routes: Routes = [
     // Tablas maestras
-    // { path: 'tm/situaciones', component: ListTipoSituacionComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'tm/articulos', component: ArticuloListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'tm/articulos/crear', component: ArticuloCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'tm/articulos/editar/:id', component: ArticuloUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     { path: 'tm/situaciones', component: SituacionListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'tm/situaciones/crear', component: SituacionCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },

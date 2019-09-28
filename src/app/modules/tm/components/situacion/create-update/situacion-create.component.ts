@@ -8,7 +8,7 @@ import { SituacionCreateFormComponent } from 'src/app/modules/tm/components/situ
 
 
 @Component({
-    selector: 'app-feriado-create-update',
+    selector: 'app-feriado-create',
     templateUrl: '../../crud/create-update/crud-create-update.html'
   })
 

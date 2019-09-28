@@ -133,6 +133,13 @@ import { SituacionCreateComponent } from './modules/tm/components/situacion/crea
 import { SituacionCreateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-create-form.component';
 import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
 import { SituacionUpdateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-update-form.component';
+import { ArticuloItemListComponent } from './modules/tm/components/articulo/list/item/articulo-item-list.component';
+import { ArticuloSearchFormComponent } from './modules/tm/components/articulo/list/search/articulo-search.component';
+import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
+import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
+import { ArticuloCreateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-create-form.component';
+import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
+import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-update-form.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -143,13 +150,22 @@ const ADMIN_COMPONENTS = [
     FeriadoCreateFormComponent,
     FeriadoUpdateComponent,
     FeriadoUpdateFormComponent,
+    
     SituacionListComponent,
     SituacionSearchFormComponent,
     SituacionItemListComponent,
     SituacionCreateComponent,
     SituacionCreateFormComponent,
     SituacionUpdateComponent,
-    SituacionUpdateFormComponent
+    SituacionUpdateFormComponent,
+    
+    ArticuloListComponent,
+    ArticuloSearchFormComponent,
+    ArticuloItemListComponent,
+    ArticuloCreateComponent,
+    ArticuloCreateFormComponent,
+    ArticuloUpdateComponent,
+    ArticuloUpdateFormComponent,
   ]
 
 @NgModule({
@@ -157,7 +173,7 @@ const ADMIN_COMPONENTS = [
         AppComponent,
         LoginPage,
         HomePage,
-        
+
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
         AgenteDatosDireccionComponent,
