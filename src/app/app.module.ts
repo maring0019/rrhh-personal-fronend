@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -120,6 +120,29 @@ import { DPlexItemComponent } from 'src/app/components/item-list/item.component'
 import { DPlexHeadingComponent } from 'src/app/components/item-list/heading.component';
 import { DPlexListComponent } from 'src/app/components/item-list/list.component';
 
+
+import { FeriadoSearchFormComponent } from './modules/tm/components/feriados/list/search/feriado-search.component';
+
+import { FeriadoItemListComponent } from './modules/tm/components/feriados/list/item/feriado-item-list.component';
+import { FeriadoCreateComponent } from './modules/tm/components/feriados/create/feriado-create.component';
+// import { FeriadoUpdateComponent } from './modules/tm/components/feriados/update/feriado-update-form';
+import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
+import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
+import { SituacionItemListComponent } from './modules/tm/components/situacion/list/item/situacion-item-list.component';
+import { SituacionSearchFormComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
+import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/create/form/feriado-create-form.component';
+
+const ADMIN_COMPONENTS = [
+    FeriadoListComponent,
+    FeriadoSearchFormComponent,
+    FeriadoItemListComponent,
+    FeriadoCreateComponent,
+    FeriadoCreateFormComponent,
+    SituacionListComponent,
+    SituacionSearchFormComponent,
+    SituacionItemListComponent
+  ]
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -173,6 +196,8 @@ import { DPlexListComponent } from 'src/app/components/item-list/list.component'
         UploaderStatusComponent,
         ModalComponent,
         ContextMenuComponent,
+        // Tablas Maestras,
+        ...ADMIN_COMPONENTS,
 
         // Plex
         DPlexListComponent,
@@ -230,6 +255,6 @@ import { DPlexListComponent } from 'src/app/components/item-list/list.component'
         CausaBajaService
     ],
     bootstrap: [AppComponent],
-    entryComponents: [UploaderStatusComponent]
+    entryComponents: [UploaderStatusComponent, ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

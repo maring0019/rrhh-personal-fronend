@@ -10,6 +10,12 @@ export class TipoSituacionService {
     private situacionUrl = '/core/tm/tiposituaciones'; // URL to web api
     constructor(private server: Server) { }
 
+    search(params?: any): Observable<TipoSituacion[]> {
+        const url = `${this.situacionUrl}/search`; 
+        return this.server.get(url, { params: params, showError: true });
+    }
+
+
     get(params?: any): Observable<TipoSituacion[]> {
         return this.server.get(this.situacionUrl, { params: params, showError: true });
     }

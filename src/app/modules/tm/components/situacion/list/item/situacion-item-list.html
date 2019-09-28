@@ -1,0 +1,36 @@
+<plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
+    <plex-heading [layout]="layout">
+        <label>Nombre</label>
+        <label>Requiere Vencimiento</label>
+    </plex-heading>
+    <ng-container *ngFor="let object of objects; let i=index">
+        <plex-item [layout]="layout">
+            
+            <plex-label titulo="{{object.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-bool 
+                type="slide"
+                [(ngModel)]="object.requiereVencimiento"
+                [readonly]="true"
+                label="">
+            </plex-bool>
+            <plex-button 
+                type="info"
+                size="sm"
+                icon="mdi mdi-eye"
+                (click)="seleccionarObjeto(object, i)">Ver
+            </plex-button>
+            <plex-button
+                type="warning"
+                size="sm"
+                icon="mdi mdi-pencil"
+                (click)="gotoObjeto(object)">Editar
+            </plex-button>
+            <plex-dropdown
+                icon="dots-vertical mdi-24px"
+                [right]="true"
+                [items]="accionesDropdownMenu[i]">
+            </plex-dropdown>
+
+        </plex-item>
+    </ng-container>
+</plex-list>

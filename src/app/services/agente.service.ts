@@ -23,7 +23,6 @@ export class AgenteService {
     }
 
     search(params?: any): Observable<Agente[]> {
-        console.log(params)
         const url = `${this.agenteUrl}/search`; 
         return this.server.get(url, { params: params, showError: true });
     }
