@@ -34,6 +34,22 @@ export class ReportesService {
             .catch(this.handleError)
     }
 
+    show(params?: any): Observable<any> { 
+        console.log(params)
+        const url = `${this.serverUrl}${this.baseUrl}/agentes/legajo`;
+        let options = this.prepareOptions({ params: params, showError: true });
+        options.responseType = ResponseContentType.Text;
+        // const options = new RequestOptions({responseType: ResponseContentType.Blob });
+        return this.http.get(url, options).catch(this.handleError);
+            // .map(res => {
+            //     return {
+            //         filename: 'legajoAgente.pdf',
+            //         file: res.blob()
+            //     };
+            // })
+            // .catch(this.handleError)
+    }
+
     private handleError(error: any) {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';

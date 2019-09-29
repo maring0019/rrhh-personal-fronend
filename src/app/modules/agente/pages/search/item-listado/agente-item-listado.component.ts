@@ -4,7 +4,8 @@ import { Router} from '@angular/router';
 import { DropdownItem, Plex } from '@andes/plex';
 
 import { Agente } from 'src/app/models/Agente';
-import { ModalService } from '../../../../../services/modal.service';
+import { ModalService } from 'src/app/services/modal.service';
+
 
 export interface ActionEvent {
     accion:String;

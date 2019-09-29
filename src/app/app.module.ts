@@ -144,6 +144,7 @@ import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/cr
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
 import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
+import { SanitizeHtmlPipe } from './pipes/html.pipe';
 
 
 
@@ -240,7 +241,8 @@ const ADMIN_COMPONENTS = [
         // Pipes
         FechaPipe,
         TitlePipe,
-        EdadPipe
+        EdadPipe,
+        SanitizeHtmlPipe
     ],
     imports: [
         BrowserModule,

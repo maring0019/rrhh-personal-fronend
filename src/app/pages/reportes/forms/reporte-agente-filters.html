@@ -14,7 +14,7 @@
                 [data]="opcionesAgenteTodos"
                 formControlName="optionAgenteTodos"
                 name="optionAgenteTodos"
-                (change)="onChangeOptionAgenteTodos($event)">
+                (change)="updateRadioOptionSelection('optionAgenteTodos')">
             </plex-radio>
         </div>
     </div>
@@ -26,41 +26,55 @@
                 [data]="opcionesAgenteLugarTrabajo"
                 formControlName="optionAgenteLugarTrabajo"
                 name="optionAgenteLugarTrabajo"
-                (change)="onChangeOptionAgenteLugarTrabajo($event)">
+                (change)="updateRadioOptionSelection('optionAgenteLugarTrabajo')">
             </plex-radio>
         </div>
     </div>
     <div class="row">
-        <div class="ml-4 col-md-9">
+        <div class="ml-4 col-md-6">
             <plex-select 
                 [data]="sectores"
                 name="lugarTrabajo"
                 formControlName="lugarTrabajo"
                 placeholder="Buscar Lugares de trabajo"
+                (change)="onChangeLugarTrabajo($event)" 
                 [multiple]="false">
             </plex-select>
         </div>
     </div>
     <hr>
     <div class="row">
-            <div class="col-md-6 mb-3">
-                <plex-radio 
-                    *ngIf="opcionesAgente"
-                    [data]="opcionesAgente"
-                    formControlName="optionAgente"
-                    name="optionAgente"
-                    (change)="onChangeOptionAgente($event)">
-                </plex-radio>
-            </div>
+        <div class="col-md-6 mb-3">
+            <plex-radio 
+                *ngIf="opcionesAgente"
+                [data]="opcionesAgente"
+                formControlName="optionAgente"
+                name="optionAgente"
+                (change)="updateRadioOptionSelection('optionAgente')">
+            </plex-radio>
         </div>
-        <div class="row">
-            <div class="ml-4 col-md-9">
-                <plex-select 
-                    [data]="agentes"
-                    name="agente"
-                    formControlName="agente"
-                    placeholder="Buscar Agente">
-                </plex-select>
-            </div>
+    </div>
+    <div class="row">
+        <div class="ml-4 col-md-6">
+            <plex-select 
+                (getData)="onSearchAgentes($event)" 
+                (change)="onChangeAgente($event)" 
+                name="agente"
+                formControlName="agente"
+                placeholder="Buscar Agente">
+            </plex-select>
         </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="ml-4 col-md-6">
+            <plex-select 
+                [data]="opcionesTiposEstados" 
+                label="Filtrar"
+                name="activo"
+                formControlName="activo"
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
 </form>

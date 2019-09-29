@@ -11,7 +11,13 @@
                 </div> -->
             </section>
         </header>
-        <plex-tabs>
+        
+        <plex-loader *ngIf="generandoReporte"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+        
+        <plex-tabs *ngIf="!generandoReporte">
             <plex-tab label="1. SELECCION DE AGENTES">
                 <div>
                     <app-reporte-agente-filters #agenteFilters></app-reporte-agente-filters>
@@ -31,10 +37,25 @@
         <br>
         <div class="d-flex flex-row justify-content-end">
             <!-- <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button> -->
-            <plex-button label="Consultar" type="success" (click)="consultar()"></plex-button>
+            <plex-button label="Consultar" type="success" (click)="consultar(); false;"></plex-button>
         </div>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
     </plex-layout-sidebar>
 </plex-layout>
+
+<jw-modal id="modal-show-results">
+    <div>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Resultados | </strong>Legajos Agentes</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button class="mr-2" type="primary" icon="mdi mdi-printer" size="sm" (click)="onPrint()"></plex-button>
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
+            </div>
+        </header>
+        <div [innerHTML]="htmlReport | sanitizeHtml"></div>
+    </div>
+</jw-modal>
     
