@@ -5,10 +5,9 @@
                 <h5 class="align-self-center">
                     <strong>Reportes |</strong> Gestión de Personal
                 </h5>
-                <!-- <div class="d-flex flex-row justify-content-end">
-                    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="volverInicio()"></plex-button>
-                    <plex-button label="Guardar Agente" type="success" (click)="saveAgente()"></plex-button>
-                </div> -->
+                <div class="d-flex flex-row justify-content-end">
+                    <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancel()">Cerrar</plex-button>
+                </div>
             </section>
         </header>
         
@@ -24,8 +23,12 @@
                 </div>
             </plex-tab>
             <plex-tab label="2. FILTROS DE BÚSQUEDA">
-                <div >
-                   
+                <div>
+                    <header class="d-flex flex-row justify-content-between subheader mt-4">
+                        <div>
+                            <h5>Paso 2. Filtros de búsqueda</h5>
+                        </div>
+                    </header>
                 </div>
             </plex-tab>
             <plex-tab label="3. TIPO DE REPORTE">
@@ -37,7 +40,7 @@
         <br>
         <div class="d-flex flex-row justify-content-end">
             <!-- <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button> -->
-            <plex-button label="Consultar" type="success" (click)="consultar(); false;"></plex-button>
+            <plex-button label="Consultar" type="success" (click)="onSearch();"></plex-button>
         </div>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">

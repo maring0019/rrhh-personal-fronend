@@ -12,8 +12,12 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class ReporteSearchComponent implements OnInit {
 
-    public generandoReporte = false;
-    public htmlReport;
+    public generandoReporte = false; // Flag al momento de generar el reporte
+    public htmlReport; // Contenedor para el reporte generado en formato html
+
+    // TODO ver porque se resetean los forms y no se pueden recuperar los valores
+    // previos para utilizar en la impresion 
+    public reportQueryParams; 
 
     @ViewChild('agenteFilters') agenteFiltersComponent: ReporteAgenteFiltersComponent;
     // @ViewChild('propiedadesFilters') datosDireccion: AgenteDatosDireccionComponent;
@@ -27,46 +31,56 @@ export class ReporteSearchComponent implements OnInit {
     
     public ngOnInit() {}
 
-    public onPrint(){
-        let queryParams = this.prepareSearchParams();
-        // this.generandoReporte = true;
-        // this.reportesService.download(queryParams)
-        //     .subscribe(data => {                
-        //         this.descargarArchivo(data);
-        //     }, error => {
-        //         this.generandoReporte = false;
-        //         console.log('download error:', JSON.stringify(error));
-        //     }); 
-    }
-
-    public onCloseModal(){
-        this.modalService.close('modal-show-results');
-    }
-
-    public consultar(){
-        let queryParams = this.prepareSearchParams();
+    public onSearch(){
+        this.prepareSearchParams();
+        const tipoReporte = this.getTipoReporte();
         this.generandoReporte = true;
-        this.reportesService.show(queryParams)
+        this.reportesService.show(tipoReporte, this.reportQueryParams)
             .subscribe(data => {
                 this.generandoReporte = false;
                 this.htmlReport = data._body;
                 this.modalService.open('modal-show-results');
             }, error => {
                 this.generandoReporte = false;
+                console.log('Report error:', JSON.stringify(error));
+            }); 
+    }
+
+    public onPrint(){
+        const tipoReporte = this.getTipoReporte();
+        this.generandoReporte = true;
+        this.reportesService.download(tipoReporte, this.reportQueryParams)
+            .subscribe(data => {                
+                this.descargarArchivo(data);
+            }, error => {
+                this.generandoReporte = false;
                 console.log('download error:', JSON.stringify(error));
             }); 
     }
 
+    public onCloseModal(){
+        this.modalService.close('modal-show-results');
+    }
+
+    public onCancel(){
+
+    }
+
+    private getTipoReporte(){
+        const form = this.tipoReporteComponent.form.value;
+        if (form.reporte) return form.reporte.id;
+    }
 
     private prepareSearchParams(){
         const filtros_paso_1 = this.agenteFiltersComponent.prepareSearchParams();
         const filtros_paso_2 = this.tipoReporteComponent.prepareSearchParams();
         let queryParams = {...filtros_paso_1, ...filtros_paso_2};
-        console.log('Filtros!!!!!');
-        console.log(filtros_paso_1);
-        console.log(filtros_paso_2);
+        // console.log('Filtros!!!!!');
+        // console.log(filtros_paso_1);
+        // console.log(filtros_paso_2);
         console.log(queryParams);
-        return queryParams;
+        this.reportQueryParams = queryParams;
+        // return queryParams;
     }
 
 

@@ -16,38 +16,38 @@ export class ReportesService {
 
     private serverUrl= environment.API;
     private baseUrl = '/modules/reportes'; // URL to web api
+
+    // Listado de reportes con su respectiva url
+    private reportesUrl = {
+            'listado_agentes': `${this.serverUrl}${this.baseUrl}/agentes/listado`,
+            'legajos_agentes': `${this.serverUrl}${this.baseUrl}/agentes/legajo`,
+            'ausentismo': `${this.serverUrl}${this.baseUrl}/agentes/ausentismo`,
+            'ausentismo_totalesxarticulo': `${this.serverUrl}${this.baseUrl}/agentes/ausentismo/totalesporarticulo`,
+            'licencias_agentes': `${this.serverUrl}${this.baseUrl}/agentes/licencias` 
+        }
     
     constructor(private server: Server, private http: Http) { }
 
-    download(params?: any): Observable<any> { 
-        const url = `${this.serverUrl}${this.baseUrl}/agentes/legajo/download`;
+    download(tipoReporte:string, params?: any): Observable<any> { 
+        const url = this.reportesUrl[tipoReporte];
         let options = this.prepareOptions({ params: params, showError: true });
         options.responseType = ResponseContentType.Blob;
         // const options = new RequestOptions({responseType: ResponseContentType.Blob });
-        return this.http.get(url, options)
+        return this.http.get(url+'/download', options)
             .map(res => {
                 return {
-                    filename: 'legajoAgente.pdf',
+                    filename: tipoReporte+'.pdf',
                     file: res.blob()
                 };
             })
             .catch(this.handleError)
     }
 
-    show(params?: any): Observable<any> { 
-        console.log(params)
-        const url = `${this.serverUrl}${this.baseUrl}/agentes/legajo`;
+    show(tipoReporte:string, params?: any): Observable<any> { 
+        const url = this.reportesUrl[tipoReporte];
         let options = this.prepareOptions({ params: params, showError: true });
         options.responseType = ResponseContentType.Text;
-        // const options = new RequestOptions({responseType: ResponseContentType.Blob });
         return this.http.get(url, options).catch(this.handleError);
-            // .map(res => {
-            //     return {
-            //         filename: 'legajoAgente.pdf',
-            //         file: res.blob()
-            //     };
-            // })
-            // .catch(this.handleError)
     }
 
     private handleError(error: any) {

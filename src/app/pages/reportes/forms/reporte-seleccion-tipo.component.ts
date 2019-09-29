@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ArticuloService } from 'src/app/services/articulo.service';
 
 @Component({
     selector: 'app-reporte-seleccion-tipo',
@@ -8,15 +9,23 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ReporteSeleccionTipoComponent implements OnInit {
 
     public form: FormGroup;
+
+    // Opciones de visualizacion
+    public showAnios;
+    public showPeriodos;
+    public showArticulos;
+    public showAgrupamiento;
     
     // Form select options
     public opcionesTiposReportes;
+    public opcionesArticulos = [];
     public opcionesAgrupamiento = [];
     public opcionesOrdenamiento = [];
     public opcionesVisualizacion = [];
 
     constructor(
-        private formBuilder: FormBuilder){}
+        private formBuilder: FormBuilder,
+        private articuloService: ArticuloService){}
     
     ngOnInit() {
         this.initFormSelectOptions();
@@ -24,14 +33,6 @@ export class ReporteSeleccionTipoComponent implements OnInit {
     }
 
     private initFormSelectOptions(){
-        // this.sectorService.get({})
-        //     .subscribe(data => {
-        //         this.sectores = data;
-        // });
-        // // this.agenteService.get({})
-        // //     .subscribe(data => {
-        // //         this.agentes = data;
-        // // });
         this.opcionesTiposReportes = [
             { id: 'listado_agentes', nombre: 'Listado de Agentes' },
             { id: 'legajos_agentes', nombre: 'Legajos de Agentes' },
@@ -50,28 +51,87 @@ export class ReporteSeleccionTipoComponent implements OnInit {
             // Domicilio
             { id: 'direccion.localidad.nombre', nombre: 'Localidad' },
             { id: 'direccion.localidad.provincia.nombre', nombre: 'Provincia' },
-            // Cargo
-            { id: 8, nombre: 'Lugar de Trabajo' },
-            { id: 9, nombre: 'Servicio' },
-            { id: 10, nombre: 'Departamento' },
-            { id: 10, nombre: 'Norma Legal' },
-            { id: 10, nombre: 'Categoría' },
-            { id: 10, nombre: 'Función' },
+            // Cargo TODO Terminar de cargar las opciones de ordenamiento
+            { id: 'situacionLaboral.cargo.sector.nombre', nombre: 'Lugar de Trabajo' },
+            // { id: 9, nombre: 'Servicio' },
+            // { id: 10, nombre: 'Departamento' },
+            // { id: 10, nombre: 'Norma Legal' },
+            // { id: 10, nombre: 'Categoría' },
+            // { id: 10, nombre: 'Función' },
         ];
-        // this.opcionesAgenteLugarTrabajo = [
-        //     { id: 'true', label: 'Agentes con Lugar de Trabajo en:'}];
-        // this.opcionesAgente = [
-        //     { id: 'true', label: 'Sólo el agente'}];
+
+        this.opcionesAgrupamiento = [
+            { id: 'estadoCivil', nombre: 'Estado Civil' },
+            { id: 'nacionalidad.nombre', nombre: 'nacionalidad' },
+            { id: 'sexo', nombre: 'Sexo' },
+            // { id: 'sexo', nombre: 'Edad' }, TODO Ver como resolver esta opcion
+            // Domicilio
+            { id: 'direccion.localidad.nombre', nombre: 'Localidad' },
+            { id: 'direccion.localidad.provincia.nombre', nombre: 'Provincia' },
+            // Cargo TODO Implementar todas las opciones
+            { id: 'situacionLaboral.cargo.sector.nombre', nombre: 'Lugar de Trabajo' },
+            // { id: 9, nombre: 'Servicio' },
+            // { id: 10, nombre: 'Departamento' },
+            // { id: 10, nombre: 'Norma Legal' },
+            // { id: 10, nombre: 'Categoría' },
+            // { id: 10, nombre: 'Función' },
+        ];
+        this.articuloService.get({})
+            .subscribe(data => {
+            this.opcionesArticulos = data;
+        });
     }
 
     initForm()
     {
         return this.formBuilder.group({
             reporte          : [{ id: 'legajos_agentes', nombre: 'Legajos de Agentes' }],
-            agrupamiento     : [],
+            agrupamiento     : [{ id: 'situacionLaboral.cargo.sector.nombre', nombre: 'Lugar de Trabajo' }],
             ordenamiento     : [{ id: 'numero', nombre: 'Número de Legajo' },],
+            fechaDesde       : [],
+            fechaHasta       : [],
+            anioDesde        : [],
+            anioHasta        : [],
+            articulos        : [],
             visualizacion    : []
         });
+    }
+
+    public onChangeTipoReporte(e){
+        // Debemos actualizar las opciones de filtrado en el form
+        if (!e.value) return;
+        switch(e.value.id){
+            case 'legajos_agentes':
+                this.showAnios = false;
+                this.showPeriodos = false;
+                this.showArticulos = false;
+                this.showAgrupamiento = false;
+                break;
+            case 'listado_agentes':
+                this.showAnios = false;
+                this.showPeriodos = false;
+                this.showArticulos = false;
+                this.showAgrupamiento = true;
+                break;
+            case 'ausentismo':
+                this.showAnios = false;
+                this.showPeriodos = true;
+                this.showArticulos = true;
+                this.showAgrupamiento = true;
+                break;
+            case 'ausentismo_totalesxarticulo':
+                this.showAnios = false;
+                this.showPeriodos = true;
+                this.showArticulos = true;
+                this.showAgrupamiento = true;
+                break;
+            case 'licencias_agentes':
+                this.showAnios = true;
+                this.showPeriodos = false;
+                this.showArticulos = false;
+                this.showAgrupamiento = true;
+                break;  
+        }
     }
 
     prepareSearchParams(){
@@ -79,14 +139,22 @@ export class ReporteSeleccionTipoComponent implements OnInit {
         let form = this.form.value;
         // Filters
         if (form.reporte){
-            console.log(form.reporte)
             switch(form.reporte.id){
                 case 'legajos_agentes':
                     params = this.prepareLegajoSearchParams();
                     break;
-                case 'listados_agentes':
-
+                case 'listado_agentes':
+                    params = this.prepareListadoSearchParams();
                     break;
+                case 'ausentismo':
+                    params = this.prepareAusentismoSearchParams();
+                    break;
+                case 'ausentismo_totalesxarticulo':
+                    params = this.prepareAusentismoSearchParams();
+                    break;
+                case 'licencias_agentes':
+                    params = this.prepareLicenciasSearchParams();
+                    break;  
             }
             
         }
@@ -101,6 +169,74 @@ export class ReporteSeleccionTipoComponent implements OnInit {
             params['sort'] = form.ordenamiento.id;
         }
         return params;
+    }
+
+    prepareListadoSearchParams(){
+        let params:any = {};
+        let form = this.form.value;
+        // Agrupamiento
+        if (form.agrupamiento){
+            params['$group'] = form.agrupamiento.id;
+        }
+        // Sorting
+        if (form.ordenamiento){
+            params['sort'] = form.ordenamiento.id;
+        }
+        return params;
+    }
+
+    prepareAusentismoSearchParams(){
+        let params:any = {};
+        let form = this.form.value;
+        if (form.fechaDesde){
+            params['fechaDesde'] = this.parseDate(form.fechaDesde);
+        }
+        if (form.fechaHasta){
+            params['fechaHasta'] = this.parseDate(form.fechaHasta);
+        }
+        if (form.articulos){
+            params['articulos'] =  (form.articulos.map(e=>e.id)).join();
+        }
+        // Agrupamiento
+        if (form.agrupamiento){
+            params['$group'] = form.agrupamiento.id;
+        }
+        // Sorting
+        if (form.ordenamiento){
+            params['sort'] = form.ordenamiento.id;
+        }
+        return params;
+    }
+
+    private prepareLicenciasSearchParams(){
+        let params:any = {};
+        let form = this.form.value;
+        if (form.anioDesde && form.anioHasta){
+            params['anios'] = (this.parseAnios(form.anioDesde, form.anioHasta)).join();
+        }
+        // Agrupamiento
+        if (form.agrupamiento){
+            params['$group'] = form.agrupamiento.id;
+        }
+        // Sorting
+        if (form.ordenamiento){
+            params['sort'] = form.ordenamiento.id;
+        }
+        return params;
+    }
+
+    // TODO Implementar en otro lugar
+    private parseDate(date){
+        return moment(date).format('YYYY-MM-DD');
+    }
+
+    private parseAnios(desde, hasta){
+        let anios = [];
+        while (desde<=hasta) {
+            anios.push(desde);
+            desde = desde + 1;
+        }
+        return anios;
     }
 
 }
