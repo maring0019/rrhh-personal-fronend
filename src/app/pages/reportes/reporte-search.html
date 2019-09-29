@@ -14,7 +14,7 @@
         <plex-tabs>
             <plex-tab label="1. SELECCION DE AGENTES">
                 <div>
-                    <app-reporte-agente-filters></app-reporte-agente-filters>
+                    <app-reporte-agente-filters #agenteFilters></app-reporte-agente-filters>
                 </div>
             </plex-tab>
             <plex-tab label="2. FILTROS DE BÚSQUEDA">
@@ -24,10 +24,15 @@
             </plex-tab>
             <plex-tab label="3. TIPO DE REPORTE">
                 <div>
-                    <app-reporte-seleccion-tipo></app-reporte-seleccion-tipo>
+                    <app-reporte-seleccion-tipo #tipoReporte></app-reporte-seleccion-tipo>
                 </div>
             </plex-tab>
         </plex-tabs>
+        <br>
+        <div class="d-flex flex-row justify-content-end">
+            <!-- <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button> -->
+            <plex-button label="Consultar" type="success" (click)="consultar()"></plex-button>
+        </div>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
     </plex-layout-sidebar>

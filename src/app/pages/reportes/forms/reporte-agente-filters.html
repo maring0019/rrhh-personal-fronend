@@ -6,7 +6,7 @@
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
     </div> -->
 </header>
-<form name="agenteFilterForm" [formGroup]="agenteFilterForm">
+<form name="form" [formGroup]="form">
     <div class="row">
         <div class="col-md-6 mb-2">
             <plex-radio 
@@ -37,7 +37,7 @@
                 name="lugarTrabajo"
                 formControlName="lugarTrabajo"
                 placeholder="Buscar Lugares de trabajo"
-                [multiple]="true">
+                [multiple]="false">
             </plex-select>
         </div>
     </div>

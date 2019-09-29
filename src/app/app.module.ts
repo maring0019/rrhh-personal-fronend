@@ -38,6 +38,7 @@ import { FeriadoService } from './services/feriado.service';
 import { EventosCalendarService } from './services/eventos.calendar.service';
 import { FrancoService } from './services/franco.service';
 import { CausaBajaService } from './services/causa-baja.service';
+import { ReportesService } from './services/reportes.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -143,6 +144,7 @@ import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/cr
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
 import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
+
 
 
 const ADMIN_COMPONENTS = [
@@ -283,7 +285,8 @@ const ADMIN_COMPONENTS = [
         CalendarRangeSelectorService,
         DescargasService,
         CalendarStoreService,
-        CausaBajaService
+        CausaBajaService,
+        ReportesService
     ],
     bootstrap: [AppComponent],
     entryComponents: [UploaderStatusComponent, ...ADMIN_COMPONENTS]

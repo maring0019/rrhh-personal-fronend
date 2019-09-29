@@ -3,3 +3,56 @@
         <h5>Paso 3. Tipo de Reporte</h5>
     </div>
 </header>
+
+<form name="form" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-6 mb-2">
+            <plex-select 
+                [data]="opcionesTiposReportes"
+                name="reporte"
+                formControlName="reporte"
+                label="Elija el reporte que desea mostrar"
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <header class="d-flex flex-row justify-content-between subheader">
+        <div>
+            <h5>Opciones del  Reporte</h5>
+        </div>
+    </header>
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select 
+                [data]="opcionesAgrupamiento"
+                name="agrupamiento"
+                formControlName="agrupamiento"
+                label="Agrupar por"
+                placeholder="Seleccione una opción de agrupamiento"
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select 
+                [data]="opcionesOrdenamiento"
+                name="ordenamiento"
+                formControlName="ordenamiento"
+                label="Ordenar por"
+                [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-6">
+                <plex-radio 
+                    *ngIf="opcionesAgente"
+                    [data]="opcionesAgente"
+                    formControlName="optionAgente"
+                    name="optionAgente"
+                    (change)="onChangeOptionAgente($event)">
+                </plex-radio>
+            </div>
+        </div>
+</form>

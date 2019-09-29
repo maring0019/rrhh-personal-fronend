@@ -13,7 +13,7 @@ import { AgenteService } from 'src/app/services/agente.service';
 })
 export class ReporteAgenteFiltersComponent implements OnInit {
 
-    public agenteFilterForm: FormGroup;
+    public form: FormGroup;
     
     // Form select options
     public agentes: Agente[] = [];
@@ -30,7 +30,7 @@ export class ReporteAgenteFiltersComponent implements OnInit {
     
     ngOnInit() {
         this.initFormSelectOptions();
-        this.agenteFilterForm = this.initAgenteFilterForm();
+        this.form = this.initAgenteFilterForm();
     }
 
     private initFormSelectOptions(){
@@ -43,18 +43,18 @@ export class ReporteAgenteFiltersComponent implements OnInit {
         //         this.agentes = data;
         // });
         this.opcionesAgenteTodos = [
-            { id: 'true', label: 'Todos los Agentes' }];
+            { id: true, label: 'Todos los Agentes' }];
         this.opcionesAgenteLugarTrabajo = [
-            { id: 'true', label: 'Agentes con Lugar de Trabajo en:'}];
+            { id: true, label: 'Agentes con Lugar de Trabajo en:'}];
         this.opcionesAgente = [
-            { id: 'true', label: 'Sólo el agente'}];
+            { id: true, label: 'Sólo el agente'}];
     }
 
     initAgenteFilterForm()
     {
         return this.formBuilder.group({
             // Radio buttons options
-            optionAgenteTodos        : ['true'],
+            optionAgenteTodos        : [true],
             optionAgenteLugarTrabajo : [],
             optionAgente             : [],
             // Filter options
@@ -64,20 +64,33 @@ export class ReporteAgenteFiltersComponent implements OnInit {
         });
     }
 
+    prepareSearchParams(){
+        let params:any = {};
+        let form = this.form.value;
+        // Filters
+        if (form.optionAgenteLugarTrabajo){
+            params['situacionLaboral.cargo.sector._id'] = form.lugarTrabajo.id;
+        }
+        if (form.optionAgente){
+            params['_id'] = form.agente.id;
+        }   
+        return params;
+    }
+
     public onChangeOptionAgenteTodos(e){
-        this.agenteFilterForm.patchValue(
+        this.form.patchValue(
             { optionAgenteLugarTrabajo: false,
               optionAgente: false});
     }
     
     public onChangeOptionAgenteLugarTrabajo(e){
-        this.agenteFilterForm.patchValue(
+        this.form.patchValue(
             { optionAgenteTodos: false, 
               optionAgente: false});
     }
 
     public onChangeOptionAgente(e){
-        this.agenteFilterForm.patchValue(
+        this.form.patchValue(
             { optionAgenteLugarTrabajo: false,
               optionAgenteTodos: false});
     }
