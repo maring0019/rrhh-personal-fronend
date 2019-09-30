@@ -16,8 +16,8 @@ export class SituacionSearchFormComponent extends CRUDSearchFormComponent implem
 
     constructor(
         formBuilder: FormBuilder,
-        objectService: TipoSituacionService) {
-            super(formBuilder, objectService);
+        private objectService: TipoSituacionService) {
+            super(formBuilder);
     }
 
     ngOnInit() {
@@ -57,6 +57,17 @@ export class SituacionSearchFormComponent extends CRUDSearchFormComponent implem
         // Sorting
         params['sort'] = 'nombre';      
         return params;
+    }
+
+    search(searchParams){
+        this.objectService.get(searchParams).subscribe(
+            objects => {
+                this.searchEnd.emit(objects);
+            },
+            (err) => {
+                this.searchEnd.emit([])
+            }
+        );
     }
 
 }

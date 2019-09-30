@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 import { CrudUpdateFormComponent } from 'src/app/modules/tm/components/crud/create-update/form/crud-update-form.component';
 import { ArticuloService } from 'src/app/services/articulo.service';
+import { Articulo } from 'src/app/models/Articulo';
 
 @Component({
     selector: 'app-articulo-update-form',
@@ -17,10 +19,10 @@ export class ArticuloUpdateFormComponent extends CrudUpdateFormComponent impleme
 
     constructor(
         public formBuilder: FormBuilder,
+        public route: ActivatedRoute,
         public objectService: ArticuloService,
-        public route: ActivatedRoute
     ){
-        super(formBuilder, objectService, route);
+        super(formBuilder, route);
     }
 
     ngOnInit() {
@@ -37,6 +39,14 @@ export class ArticuloUpdateFormComponent extends CrudUpdateFormComponent impleme
             diasHabiles           : [this.object.diasHabiles],          
             descuentaDiasLicencia : [this.object.descuentaDiasLicencia]
         });
+    }
+
+    getDataToUpdate(objID):Observable<Articulo>{
+        return this.objectService.getByID(objID);
+    }
+
+    guardar(object):Observable<Articulo>{
+        return this.objectService.put(object);
     }
 
 }

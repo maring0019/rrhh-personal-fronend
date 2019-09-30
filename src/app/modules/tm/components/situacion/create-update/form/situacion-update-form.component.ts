@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 import { CrudUpdateFormComponent } from 'src/app/modules/tm/components/crud/create-update/form/crud-update-form.component';
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
+import { TipoSituacion } from 'src/app/models/TipoSituacion';
+
 
 @Component({
     selector: 'app-situacion-update-form',
@@ -18,10 +21,10 @@ export class SituacionUpdateFormComponent extends CrudUpdateFormComponent implem
 
     constructor(
         public formBuilder: FormBuilder,
-        public objectService: TipoSituacionService,
-        public route: ActivatedRoute
+        public route: ActivatedRoute,
+        public objectService: TipoSituacionService
     ){
-        super(formBuilder, objectService, route);
+        super(formBuilder, route);
     }
 
     ngOnInit() {
@@ -34,6 +37,14 @@ export class SituacionUpdateFormComponent extends CrudUpdateFormComponent implem
             nombre              : [this.object.nombre],
             requiereVencimiento : [this.object.requiereVencimiento]
         });
+    }
+
+    getDataToUpdate(objID):Observable<TipoSituacion>{
+        return this.objectService.getByID(objID);
+    }
+
+    guardar(object):Observable<TipoSituacion>{
+        return this.objectService.put(object);
     }
 
 }

@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { Router } from '@angular/router';
 
-@Component({
-    selector: 'app-crud-list',
-    templateUrl: 'crud-list.html',
-})
+
 export abstract class CRUDListComponent implements OnInit {
 
     public searchFormComponent:any;
@@ -150,5 +147,7 @@ export abstract class CRUDListComponent implements OnInit {
     public altaObject(){
         this.router.navigate([this.router.url+'/crear']);
     }
+
+    public cancelar(){}
 
 }

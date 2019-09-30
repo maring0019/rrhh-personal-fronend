@@ -147,9 +147,8 @@ import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-se
 import { SanitizeHtmlPipe } from './pipes/html.pipe';
 import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indicadores/indicador-licencias.component';
 
-
-
 const ADMIN_COMPONENTS = [
+
     FeriadoListComponent,
     FeriadoSearchFormComponent,
     FeriadoItemListComponent,

@@ -18,8 +18,8 @@ export class ArticuloSearchFormComponent extends CRUDSearchFormComponent impleme
 
     constructor(
         formBuilder: FormBuilder,
-        objectService: ArticuloService) {
-            super(formBuilder, objectService);
+        private objectService: ArticuloService) {
+            super(formBuilder);
     }
 
     ngOnInit() {
@@ -65,6 +65,17 @@ export class ArticuloSearchFormComponent extends CRUDSearchFormComponent impleme
         // Sorting
         params['sort'] = 'codigo';      
         return params;
+    }
+
+    search(searchParams){
+        this.objectService.get(searchParams).subscribe(
+            objects => {
+                this.searchEnd.emit(objects);
+            },
+            (err) => {
+                this.searchEnd.emit([])
+            }
+        );
     }
 
 }

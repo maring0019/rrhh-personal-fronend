@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 import { FeriadoService } from 'src/app/services/feriado.service';
 import { CrudCreateFormComponent } from 'src/app/modules/tm/components/crud/create-update/form/crud-create-form.component';
+import { Feriado } from 'src/app/models/Feriado';
 
 
 
@@ -19,9 +21,9 @@ export class FeriadoCreateFormComponent extends CrudCreateFormComponent implemen
 
     constructor(
         public formBuilder: FormBuilder,
-        public objectService: FeriadoService,
-    ){
-        super(formBuilder, objectService);
+        public objectService: FeriadoService)
+    {
+        super(formBuilder);
     }
 
     ngOnInit() {
@@ -35,4 +37,16 @@ export class FeriadoCreateFormComponent extends CrudCreateFormComponent implemen
                 descripcion  : [],
             });
         }
+    
+    guardar(object):Observable<Feriado>{
+        return this.objectService.post(object);
+            // .post(object)
+            // .subscribe(
+            //     data=> {
+            //         this.success.emit(data);
+            //         // formUtils.resetForm(this.form, this._form);
+            //     },
+            //     error => this.error.emit(error)
+            // )
+    }
 }

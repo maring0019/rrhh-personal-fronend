@@ -1,12 +1,6 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { isEmpty } from 'src/app/utils/formUtils';
 
-
-@Component({
-    selector: 'app-crud-search-form',
-    templateUrl: 'crud-search.html',
-})
 export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
     public searchForm: FormGroup;
     private timeoutHandle: number;
@@ -24,8 +18,7 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
 
 
     constructor(
-        public formBuilder: FormBuilder,
-        public objectService: any) {
+        public formBuilder: FormBuilder) { 
     }
 
     public ngOnInit() {
@@ -69,20 +62,16 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
             this.timeoutHandle = window.setTimeout(() => {
                 this.searchStart.emit();
                 this.timeoutHandle = null;
-                this.objectService.get(searchParams).subscribe(
-                    objects => {
-                        this.searchEnd.emit(objects);
-                    },
-                    (err) => {
-                        this.searchEnd.emit([])
-                    }
-                );
+                this.search(searchParams);
             }, 1000);
         } else {
             this.searchClear.emit();
         }
     }
 
+    protected search(searchParams){
+
+    }
 
     ngOnDestroy(): void {
         clearInterval(this.timeoutHandle);

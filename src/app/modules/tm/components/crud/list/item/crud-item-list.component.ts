@@ -1,18 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { DropdownItem, Plex } from '@andes/plex';
-
 
 export interface ActionEvent {
     accion:String;
     objeto:any;
 }
 
-@Component({
-    selector: 'app-crud-item-list',
-    templateUrl: './crud-item-list.html'
-})
 export abstract class CRUDItemListComponent {
     public routes = ['Ausencias', 'Editar']
 

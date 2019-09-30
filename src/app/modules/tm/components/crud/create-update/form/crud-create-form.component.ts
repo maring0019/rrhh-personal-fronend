@@ -1,13 +1,9 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
-
-@Component({
-    selector: 'app-crud-create-form',
-    templateUrl: './crud-form.html'
-  })
 
 export abstract class CrudCreateFormComponent implements OnInit {
     
@@ -19,10 +15,7 @@ export abstract class CrudCreateFormComponent implements OnInit {
 
     public form: FormGroup;
     
-    constructor(
-        public formBuilder: FormBuilder,
-        public objectService: any,
-    ){}
+    constructor(public formBuilder: FormBuilder){}
 
     ngOnInit() {
         this.initFormSelectOptions();
@@ -42,26 +35,15 @@ export abstract class CrudCreateFormComponent implements OnInit {
         return this.formBuilder.group({});
     }
     
-    /**
-     * Override this if necessary
-     */
-    protected guardar(){
-        const feriado = this.form.value;
-        this.objectService.post(feriado)
-            .subscribe(
-                data=> {
-                    this.success.emit(data);
-                    formUtils.resetForm(this.form, this._form);
-                },
-                error => this.error.emit(error)
-            )
-    }
-  
+    
+    abstract guardar(object):Observable<any>;
+
 
     public cancelar(){
         formUtils.resetForm(this.form, this._form);
         this.cancel.emit();
     }
+
 
     public invalid(){
         if (this.form.invalid){
@@ -75,6 +57,14 @@ export abstract class CrudCreateFormComponent implements OnInit {
 
     public aceptar(){
         if (this.invalid()) return;
-        this.guardar();
+        const object = this.form.value;
+        this.guardar(object)
+            .subscribe(
+                data=> {
+                    this.success.emit(data);
+                    formUtils.resetForm(this.form, this._form);
+                },
+                error => this.error.emit(error)
+            )
     }   
 }

@@ -13,8 +13,8 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
     
     constructor(
         formBuilder: FormBuilder,
-        objectService: FeriadoService) {
-            super(formBuilder, objectService);
+        private objectService: FeriadoService) {
+            super(formBuilder);
     }
 
     ngOnInit() {
@@ -52,4 +52,14 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
         return params;
     }
 
+    search(searchParams){
+        this.objectService.get(searchParams).subscribe(
+            objects => {
+                this.searchEnd.emit(objects);
+            },
+            (err) => {
+                this.searchEnd.emit([])
+            }
+        );
+    }
 }

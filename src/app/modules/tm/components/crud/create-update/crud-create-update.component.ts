@@ -1,11 +1,7 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import {Location} from '@angular/common';
+import { OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
-@Component({
-    selector: 'app-crud-create-update',
-    templateUrl: 'crud-create-update.html',
-})
 export abstract class CRUDCreateUpdateComponent implements OnInit {
 
     protected formComponent:any; 

@@ -21,7 +21,7 @@ export class AgenteItemListadoComponent {
     public routes = ['Ausencias', 'Editar']
 
     private _agentes: Agente[];
-    private agenteSeleccionado: Agente;
+    public agenteSeleccionado: Agente;
     private idxAgenteSeleccionado:any;
 
     public accionesDropdownMenu = [];
