@@ -54,7 +54,7 @@ export class EventosCalendarService {
             map(data =>
                 data.map(ausentismo=> {
                     let evento = {
-                        'id': ausentismo.ausencias.id,
+                        'id': ausentismo.ausencias._id,
                         'title': ausentismo.ausencias.articulo.codigo,
                         'start': ausentismo.ausencias.fecha,
                         'allDay': true,
@@ -71,6 +71,46 @@ export class EventosCalendarService {
 
     addAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
         return this.ausentismoService.postAusentismo(object).pipe(
+            map(ausentismo => {
+                let ausencias:IEventoCalendar[] = [];
+                if (!ausentismo.warnings){
+                    ausencias = ausentismo.ausencias
+                        .map( aus => { return {
+                            'id': aus.id,
+                            'title': aus.articulo.codigo,
+                            'start': aus.fecha,
+                            'allDay': true,
+                            'color':'',
+                            'type': 'AUSENCIA',
+                            'ausentismoFechaDesde': ausentismo.fechaDesde,
+                            'ausentismoFechaHasta': ausentismo.fechaHasta
+                        }
+                    });
+                }
+                let output:[any, IEventoCalendar[]] = [ausentismo, ausencias];
+                return output;
+            })
+        )
+    }
+
+
+    updateAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
+        // this.ausentismoService.putAusentismo(ausentismo)
+        //     .subscribe(data => {
+        //         if (data.warnings && data.warnings.length){
+        //             // console.log('Hay Warnings')
+        //             this.onWarnings.emit(data.warnings);            
+        //         }
+        //         else{
+        //             // Guardamos los archivos adjuntos
+        //             // console.log('NO Hay Warnings')
+        //             // console.log(data)
+        //             this.saveFiles(data);
+        //             this.onSuccess.emit(data);
+        //         }
+        //     },
+        //     error => this.onErrors.emit(error));
+        return this.ausentismoService.putAusentismo(object).pipe(
             map(ausentismo => {
                 let ausencias:IEventoCalendar[] = [];
                 if (!ausentismo.warnings){

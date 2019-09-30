@@ -63,7 +63,7 @@ export class ArticuloSearchFormComponent extends CRUDSearchFormComponent impleme
             }
         }
         // Sorting
-        params['sort'] = 'nombre';      
+        params['sort'] = 'codigo';      
         return params;
     }
 

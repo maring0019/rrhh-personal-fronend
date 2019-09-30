@@ -1,12 +1,21 @@
 <plex-list [striped]="true" [fullWidth]="true" *ngIf="agentes && agentes.length">
     <ng-container *ngFor="let agente of agentes; let i=index">
         <plex-item [layout]="layout">
-            <app-agente-foto class="mt-2 mb-2"
-                [agente]="agente">
+            <app-agente-foto
+                class="mt-2 mb-2"
+                [agente]="agente"
+                (click)="seleccionarAgente(agente, i)"
+                [style.cursor]="'pointer'">
             </app-agente-foto>
-            <plex-label titulo="D.U {{agente.documento }}" [tituloBold]="false">
+            <plex-label
+                titulo="D.U {{agente.documento }}"
+                [tituloBold]="false"
+                (click)="seleccionarAgente(agente, i)">
             </plex-label>
-            <plex-label titulo="{{ agente.apellido }}, {{agente.nombre }} ">
+            <plex-label
+                titulo="{{ agente.apellido }}, {{agente.nombre }} "
+                (click)="seleccionarAgente(agente, i)"
+                [style.cursor]="'pointer'">
             </plex-label>
             
             <plex-badge type="info">

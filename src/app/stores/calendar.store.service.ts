@@ -105,16 +105,22 @@ export class CalendarStoreService {
                 return ausentismo;
             })
         );
-            // .subscribe(data => {
-            //     let ausentismo = data[0];
-            //     let ausencias = data[1];
-            //     if (!ausentismo.warnings){
-            //         this.ausencias = this.ausencias.concat(ausencias);
-            //         this.refreshEventos();   
-            //     }
-            //     return ausentismo;
-            // },
-            // error=> console.log('Tenemos un problema. Fixme'));
+    }
+
+    updateAusentismo(ausentismoToUpdate:Ausentismo, ausentismoActual:Ausentismo){
+        let ausenciasToRemove = ausentismoActual.ausencias;
+        return this.eventosService.updateAusentismo(ausentismoToUpdate).pipe(
+            map(data => {
+                let ausentismo = data[0];
+                let ausencias = data[1];
+                if (!ausentismo.warnings){
+                    this.ausencias = this.filterAB(this.ausencias, ausenciasToRemove);
+                    this.ausencias = this.ausencias.concat(ausencias);
+                    this.refreshEventos();   
+                }
+                return ausentismo;
+            })
+        );
     }
 
     addFrancos(francos:Franco[]){
@@ -153,6 +159,8 @@ export class CalendarStoreService {
      * @param listB elementos a filtrar en listA
      */
     private filterAB(listA, listB){
+        console.log(listA);
+        console.log(listB)
         return listA.filter( x => !listB.filter( y => y.id === x.id).length);
     }
 

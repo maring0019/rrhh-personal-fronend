@@ -9,6 +9,7 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private articuloService: ArticuloService,
-        private ausentismoService: AusentismoService){}
+        private ausentismoService: AusentismoService,
+        private calendarStoreService: CalendarStoreService){}
 
     public ngOnInit() {
         this.initFormSelectOptions();
@@ -61,22 +63,19 @@ export class AusentismoCargaUpdateComponent implements OnInit {
         });
     }
 
-    saveAusentismo(ausentismo:Ausentismo){
-        this.ausentismoService.putAusentismo(ausentismo)
+    saveAusentismo(ausentismoToUpdate:Ausentismo, ausentismoActual){
+        this.calendarStoreService.updateAusentismo(ausentismoToUpdate, ausentismoActual)
             .subscribe(data => {
-                if (data.warnings && data.warnings.length){
-                    console.log('Hay Warnings')
+                if (data.warnings){
                     this.onWarnings.emit(data.warnings);            
                 }
                 else{
                     // Guardamos los archivos adjuntos
-                    console.log('NO Hay Warnings')
-                    console.log(data)
                     this.saveFiles(data);
                     this.onSuccess.emit(data);
                 }
             },
-            error => this.onErrors.emit(error));
+            error=> this.onErrors.emit(error));
     }
 
     private saveFiles(ausentismo){
@@ -85,7 +84,7 @@ export class AusentismoCargaUpdateComponent implements OnInit {
 
     public onSave(){
         if (this.ausentismoForm.valid){
-            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value));
+            this.saveAusentismo(new Ausentismo(this.ausentismoForm.value), this.ausentismo);
         }
         else{
             formUtils.markFormAsInvalid(this.ausentismoForm);

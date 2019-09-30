@@ -83,7 +83,7 @@ export class AgenteFotoComponent implements OnChanges{
 
     /**
      * Realiza solo el preview de una imagen recientemente cargada.
-     * No es resposable de realizar el upload al servidor. Para esto
+     * No es responsable de realizar el upload al servidor. Para esto
      * notifica hacia el exterior la nueva imagen cargada delegando
      * esta tarea.
      * @param files imagen a mostrar, cargada desde el dispositivo
