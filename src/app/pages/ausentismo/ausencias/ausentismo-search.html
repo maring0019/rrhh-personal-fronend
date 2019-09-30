@@ -4,12 +4,7 @@
     </div>
 </header>
 
-<section class="contenedor-indicadores">
-    <article class="bloque-indicador" *ngFor="let indicador of indicadores">
-        <h2>{{ indicador.numero }}</h2>
-        <p>{{ indicador.detalle }}</p>
-    </article>
-</section>
+<app-indicador-licencias *ngIf="agente" [agente]="agente"></app-indicador-licencias>
 
 <hr class="white">
 <br>

@@ -25,22 +25,6 @@ export class AusentismoSearchComponent implements OnInit {
     ausentismos:Ausentismo[];
     searching = true;
 
-    // Harcodeo
-    indicadores = [
-        {
-            numero : 45,
-            detalle : 'Dias asignados'
-        },
-        {
-            numero : 10,
-            detalle : 'Dias tomados'
-        },
-        {
-            numero : 35,
-            detalle : 'Dias disponibles'
-        }
-    ]
-
     constructor(
         private agenteService:AgenteService,
         private calendarStoreService: CalendarStoreService,

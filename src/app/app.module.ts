@@ -145,6 +145,7 @@ import { ReporteSearchComponent } from './pages/reportes/reporte-search.componen
 import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
 import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
 import { SanitizeHtmlPipe } from './pipes/html.pipe';
+import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indicadores/indicador-licencias.component';
 
 
 
@@ -213,6 +214,7 @@ const ADMIN_COMPONENTS = [
         AusentismoListadoComponent,
         AusentismoSearchFormComponent,
         AusentismoSearchComponent,
+        IndicadorLicenciasComponent,
 
         ListadoComponent,
         ItemListadoComponent,

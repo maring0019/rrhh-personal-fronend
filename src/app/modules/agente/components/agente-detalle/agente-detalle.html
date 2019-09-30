@@ -168,6 +168,8 @@
                 <plex-panel 
                     icon="mdi icon-nodos"
                     tituloPrincipal="Ausentismo">
+                    <app-indicador-licencias *ngIf="agente" [agente]="agente">
+                    </app-indicador-licencias>
                 </plex-panel>
             </plex-accordion>
         </li>
