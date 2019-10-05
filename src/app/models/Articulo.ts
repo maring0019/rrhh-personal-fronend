@@ -8,5 +8,6 @@ export class Articulo {
     requiereInformacionAdicional: Boolean; // TODO consultar este dato
     tituloInformacionAdicional: String;
     codigoOTI: String;                     // TODO consultar este dato
+    color:String;
     // formulas: [FormulaSchema]           // TODO Definir
 }

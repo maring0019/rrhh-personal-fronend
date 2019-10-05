@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, AfterViewInit, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, AfterViewInit, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -27,7 +27,8 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     storeSubscription: Subscription;
     private _rangeSelection: IDateRangeSelection;
     
-    constructor(private calendarStoreService: CalendarStoreService){
+    constructor(private calendarStoreService: CalendarStoreService,
+        private renderer: Renderer2){
             this.storeSubscription = this.calendarStoreService.selectionRange$
                 .subscribe(rangeSelection => {
                     if (rangeSelection) {
@@ -54,6 +55,65 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         var shortDayName = days[date.getDay()];
         return shortDayName;
     }
+
+    eventRender = (info:any) => {
+        
+        // console.log(info.el)
+        
+            // this.searchStart.emit();
+            // this.timeoutHandle = null;
+            // this.search(searchParams);
+        // return false;
+        
+        console.log(info)
+        
+        let colEvent: HTMLDivElement  = this.renderer.createElement('div');
+        let linkEvent: HTMLAnchorElement = this.renderer.createElement('a');
+        colEvent.className = "fc-custom-event"
+        linkEvent.className = "fc-event"
+        linkEvent.innerText = info.event.title;
+        // linkEvent.addEventListener("click", function(){alert('Hola')});
+        linkEvent.addEventListener('click', this.onClicker.bind(this, info.event));
+        colEvent.appendChild(linkEvent);
+        // console.log('El');
+        // console.log(info.el);
+        // this.renderer.setValue(info.el,)
+        info.el.innerHtml = colEvent;
+        // let parent = this.renderer.parentNode(info.el);//  appendChild(info.el.parentNode, colEvent);
+        // console.log(parent);
+        //  this.renderer.appendChild(this.div.nativeElement, p)
+        // return false;
+        // console.log('Hola Render');
+        // console.log(info);
+        // info.el = '<td>hola</td>'
+        // console.log(p);
+        // info.el = p;
+        // return p;
+        // return '<td>hola</td>';
+    }
+
+    onClicker(event){
+        
+        console.log('HOLITA!!!!!!!!!')
+        console.log(event);
+    }
+
+    customEventRenderWithReturnValue(info){
+        console.log(info);
+        let colEvent: HTMLDivElement  = this.renderer.createElement('div');
+        let linkEvent: HTMLAnchorElement = this.renderer.createElement('a');
+        colEvent.className = "fc-custom-event"
+        colEvent.style.backgroundColor = info.event.backgroundColor;
+        linkEvent.className = "fc-event"
+        linkEvent.innerText = info.event.title;
+        colEvent.appendChild(linkEvent);
+        // // info.el = colEvent;
+        // let parent = this.renderer.parentNode(info.el);//  appendChild(info.el.parentNode, colEvent);
+        // console.log(parent);
+        // return colEvent;
+        // return false;
+        return colEvent;
+    }
     
     public ngOnInit() {
 
@@ -61,6 +121,9 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(){
         this.calendarApi = this.calendarComponent.getApi();
+        this.calendarComponent.getApi().setOption('eventRender', (info) => {
+            return this.customEventRenderWithReturnValue(info);
+          });
     }
 
     ngOnChanges(){
@@ -71,6 +134,8 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
     }
+    
+
 
     ngOnDestroy() {
         this.storeSubscription.unsubscribe();
@@ -87,6 +152,12 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public onDateClick(e){
+        console.log('DATE CLICK')
+        console.log(e);
+        // if (jsEvent.target.classList.contains('fc-bgevent')) {
+        //     alert('Click Background Event Area');
+        // }
+
         this.calendarStoreService.selectionRange = { fechaDesde:e.date, fechaHasta:getTomorrow(e.date) };
     }
 

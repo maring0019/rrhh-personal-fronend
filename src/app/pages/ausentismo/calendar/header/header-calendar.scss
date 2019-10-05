@@ -1,0 +1,86 @@
+@import '../../../../assets/variables/colores';
+
+.cal-header {
+    //background-color: $andes-gris-claro;
+    margin: 0 0 15px 0; 
+}
+
+::ng-deep .mat-slide-toggle-label {
+    margin-top: 4px; 
+}
+
+::ng-deep .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 12px;
+    // font-family: "TypoPRO Source Sans Pro";
+}
+
+
+::ng-deep .fc-highlight {
+    background-color: $andes-cyan;
+    opacity: 0.2;
+    outline: none;
+    border: 2px solid;
+    box-shadow: 0 0 10px $andes-cyan;
+}
+
+::ng-deep .plex-box ::-webkit-scrollbar, plex-box > DIV ::-webkit-scrollbar {
+    width: 0px;
+    height: 8px;
+}
+// .fc-row .fc-bgevent-skeleton {
+//     /* z-index: 9; */
+// }
+
+// Eventos
+// ::ng-deep .fc-event, .fc-event-dot {
+//     cursor: pointer;
+//     background: none;
+//     text-align: center;
+//     text-transform: uppercase;
+//     font-weight: 600;
+//     border: none;
+//     z-index: 4;
+// }
+
+// ::ng-deep .fc-bgevent {
+//     opacity: 1 !important;
+// }
+
+// ::ng-deep .fc-row .fc-highlight-skeleton td, .fc-row .fc-bgevent-skeleton td {
+//     border-color: none !important;
+// }
+
+// ::ng-deep .fc-row .fc-content-skeleton {
+//     padding-bottom: 0px;
+// }
+
+::ng-deep .fc-event {
+    cursor: pointer;
+    background: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: none;
+    z-index: 4;
+}
+
+::ng-deep .fc-custom-event{
+    height: 76px;
+    margin-top: -29px !important;
+    width: 100%;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: #e9e9e9;
+}
+
+// ::ng-deep tr:first-child > td > .fc-day-grid-event {
+//     /* margin-top: 2px; */
+//     margin: -29px 0 0 0 !important;
+//     border-radius: 0px;
+//     /* margin-top: -29px; */
+//     height: 79px;
+// }

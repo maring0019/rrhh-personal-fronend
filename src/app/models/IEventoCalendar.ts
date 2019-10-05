@@ -3,8 +3,9 @@ export interface IEventoCalendar {
     title: String,
     start: Date,
     allDay: Boolean,
-    color: String,
+    color?: String,
     type: String,
+    rendering?: String,
     ausentismoFechaDesde: Date,
     ausentismoFechaHasta: Date,
 }

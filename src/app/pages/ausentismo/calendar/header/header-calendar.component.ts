@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-header-calendar',
-    templateUrl: 'header-calendar.html'
+    templateUrl: 'header-calendar.html',
+    styleUrls: ['./header-calendar.scss']
 })
 export class HeadCalendarComponent implements OnInit {
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();

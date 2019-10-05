@@ -2,5 +2,5 @@ export interface IAusenciaEvento {
     title: String,
     start: Date,
     allDay: Boolean,
-    color: String
+    color?: String
 }

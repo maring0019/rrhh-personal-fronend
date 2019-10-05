@@ -7,7 +7,8 @@ export class Ausentismo {
     };
     articulo: {
         id: String,
-        codigo: String
+        codigo: String,
+        color: String
     };
     fechaDesde: Date;
     fechaHasta:Date;

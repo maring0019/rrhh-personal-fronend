@@ -38,7 +38,9 @@ export class EventosCalendarService {
                         'title': feriado.descripcion? feriado.descripcion: 'Feriado',
                         'start': feriado.fecha,
                         'allDay': true,
-                        'color':'green',
+                        // 'rendering': 'background',
+                        'backgroundColor': '#e9e9e9',
+                        'textColor':'#7d7d7d',
                         'type': 'FERIADO',
                         'ausentismoFechaDesde': feriado.fecha,
                         'ausentismoFechaHasta': feriado.fecha
@@ -53,16 +55,7 @@ export class EventosCalendarService {
         return this.agenteService.getAusencias(params).pipe(
             map(data =>
                 data.map(ausentismo=> {
-                    let evento = {
-                        'id': ausentismo.ausencias._id,
-                        'title': ausentismo.ausencias.articulo.codigo,
-                        'start': ausentismo.ausencias.fecha,
-                        'allDay': true,
-                        'color':'',
-                        'type': 'AUSENCIA',
-                        'ausentismoFechaDesde': ausentismo.fechaDesde,
-                        'ausentismoFechaHasta': ausentismo.fechaHasta
-                      }
+                    let evento = this.mapAusencia(ausentismo.ausencias, ausentismo)  
                       return evento;
                 })
             )
@@ -75,16 +68,7 @@ export class EventosCalendarService {
                 let ausencias:IEventoCalendar[] = [];
                 if (!ausentismo.warnings){
                     ausencias = ausentismo.ausencias
-                        .map( aus => { return {
-                            'id': aus.id,
-                            'title': aus.articulo.codigo,
-                            'start': aus.fecha,
-                            'allDay': true,
-                            'color':'',
-                            'type': 'AUSENCIA',
-                            'ausentismoFechaDesde': ausentismo.fechaDesde,
-                            'ausentismoFechaHasta': ausentismo.fechaHasta
-                        }
+                        .map( aus => { return this.mapAusencia(aus, ausentismo)
                     });
                 }
                 let output:[any, IEventoCalendar[]] = [ausentismo, ausencias];
@@ -95,36 +79,12 @@ export class EventosCalendarService {
 
 
     updateAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
-        // this.ausentismoService.putAusentismo(ausentismo)
-        //     .subscribe(data => {
-        //         if (data.warnings && data.warnings.length){
-        //             // console.log('Hay Warnings')
-        //             this.onWarnings.emit(data.warnings);            
-        //         }
-        //         else{
-        //             // Guardamos los archivos adjuntos
-        //             // console.log('NO Hay Warnings')
-        //             // console.log(data)
-        //             this.saveFiles(data);
-        //             this.onSuccess.emit(data);
-        //         }
-        //     },
-        //     error => this.onErrors.emit(error));
         return this.ausentismoService.putAusentismo(object).pipe(
             map(ausentismo => {
                 let ausencias:IEventoCalendar[] = [];
                 if (!ausentismo.warnings){
                     ausencias = ausentismo.ausencias
-                        .map( aus => { return {
-                            'id': aus.id,
-                            'title': aus.articulo.codigo,
-                            'start': aus.fecha,
-                            'allDay': true,
-                            'color':'',
-                            'type': 'AUSENCIA',
-                            'ausentismoFechaDesde': ausentismo.fechaDesde,
-                            'ausentismoFechaHasta': ausentismo.fechaHasta
-                        }
+                        .map( aus => { return this.mapAusencia(aus, ausentismo)
                     });
                 }
                 let output:[any, IEventoCalendar[]] = [ausentismo, ausencias];
@@ -165,11 +125,27 @@ export class EventosCalendarService {
             'title': franco.descripcion? franco.descripcion: 'Franco',
             'start': franco.fecha,
             'allDay': true,
+            // 'rendering': 'background',
             'color':'grey',
             'type': 'FRANCO',
             'ausentismoFechaDesde': franco.fecha,
             'ausentismoFechaHasta': franco.fecha
           }
+    }
+
+
+    mapAusencia(ausencia, ausentismo){
+        return {
+            'id': ausencia.id? ausencia.id:ausencia._id,
+            'title':  `ART. ${ausentismo.articulo.codigo}`,
+            'start': ausencia.fecha,
+            'allDay': true,
+            'backgroundColor': ausentismo.articulo.color? ausentismo.articulo.color: '#bce8f1',
+            'color':'',
+            'type': 'AUSENCIA',
+            'ausentismoFechaDesde': ausentismo.fechaDesde,
+            'ausentismoFechaHasta': ausentismo.fechaHasta
+        }
     }
 
 }
