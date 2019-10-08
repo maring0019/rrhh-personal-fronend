@@ -22,7 +22,10 @@ import { SituacionCreateComponent } from './modules/tm/components/situacion/crea
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
 import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
 import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
+
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
+
+import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
 
 
 
@@ -43,7 +46,11 @@ const routes: Routes = [
     
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    
+
+    // Partes
+    { path: 'partes', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
+
     // Agentes Busqueda y Registro
     { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },

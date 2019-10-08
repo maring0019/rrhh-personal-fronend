@@ -39,6 +39,8 @@ import { EventosCalendarService } from './services/eventos.calendar.service';
 import { FrancoService } from './services/franco.service';
 import { CausaBajaService } from './services/causa-baja.service';
 import { ReportesService } from './services/reportes.service';
+import { ParteService } from './services/parte.service';
+import { ParteEstadoService } from './services/parte-estado.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -146,6 +148,10 @@ import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-ag
 import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
 import { SanitizeHtmlPipe } from './pipes/html.pipe';
 import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indicadores/indicador-licencias.component';
+import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
+import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
+import { ParteSearchFormComponent } from './pages/partes/parte/list/search/parte-search.component';
+
 
 const ADMIN_COMPONENTS = [
 
@@ -193,10 +199,8 @@ const ADMIN_COMPONENTS = [
         AgenteSearchComponent,
         AgenteSearchFormComponent,
         AgenteFotoComponent,
-        SearchLeyendaComponent,
         AgenteItemListadoComponent,
         AgenteDetalleComponent,
-
         AgenteBajaComponent,
         AgenteReactivarComponent,
         
@@ -215,6 +219,11 @@ const ADMIN_COMPONENTS = [
         AusentismoSearchComponent,
         IndicadorLicenciasComponent,
 
+        ParteListComponent,
+        ParteItemListComponent,
+        ParteSearchFormComponent,
+
+        SearchLeyendaComponent,
         ListadoComponent,
         ItemListadoComponent,
         BuscadorComponent,
@@ -289,9 +298,16 @@ const ADMIN_COMPONENTS = [
         DescargasService,
         CalendarStoreService,
         CausaBajaService,
-        ReportesService
+        ReportesService,
+        ParteService,
+        ParteEstadoService
+        
     ],
     bootstrap: [AppComponent],
-    entryComponents: [UploaderStatusComponent, ...ADMIN_COMPONENTS]
+    entryComponents: [
+        UploaderStatusComponent,
+        ParteItemListComponent,
+        ParteSearchFormComponent,
+        ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

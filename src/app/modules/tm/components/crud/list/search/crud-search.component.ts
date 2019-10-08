@@ -28,13 +28,12 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
         this.buscar();
     }
 
-    protected initFormSelectOptions(){
-        return;
-    }
+    abstract initFormSelectOptions();
 
-    protected initSearchForm(){
-        return this.formBuilder.group({});
-    }
+    abstract initSearchForm();
+    // {
+    //     return this.formBuilder.group({});
+    // }
 
     protected prepareSearchParams(){
         return {};

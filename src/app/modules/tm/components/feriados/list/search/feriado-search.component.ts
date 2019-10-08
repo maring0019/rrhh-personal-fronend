@@ -25,6 +25,10 @@ export class FeriadoSearchFormComponent extends CRUDSearchFormComponent implemen
         super.ngOnDestroy();
     }
 
+    initFormSelectOptions(){
+        return;
+    }
+
     initSearchForm(){
         return this.formBuilder.group({
             textoLibre  : [],

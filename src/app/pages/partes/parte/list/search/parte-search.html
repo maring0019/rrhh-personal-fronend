@@ -1,0 +1,63 @@
+<header>
+    <form name="searchForm" [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-md-3">
+                <plex-datetime
+                    formControlName="fechaDesde"
+                    type="date"
+                    name="fechaDesde"
+                    placeholder="Desde"
+                    (change)="buscar($event)">
+                </plex-datetime>
+            </div>
+            <div class="col-md-3">
+                <plex-datetime
+                    formControlName="fechaHasta"
+                    type="date"
+                    name="fechaHasta"
+                    placeholder="Hasta"
+                    (change)="buscar($event)">
+                </plex-datetime>
+            </div>
+            <div class="col-md-1">
+                <plex-button
+                    type="primary"
+                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
+                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
+                </plex-button>
+            </div>
+        </div>
+        <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-3">
+                <plex-select
+                    [data]="parteEstadoOpciones"
+                    formControlName="estado"
+                    name="estado"
+                    label="Estado del parte"
+                    placeholder="Seleccione.."
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+            <div class="col-md-3">
+                <plex-select
+                    [data]="procesadoOpciones"
+                    formControlName="procesado"
+                    name="procesado"
+                    label="Procesado"
+                    placeholder="Seleccione.."
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+            <div class="col-md-4">
+                <plex-select
+                    [data]="servicioOpciones"
+                    formControlName="servicio"
+                    name="servicio"
+                    label="Dependencia Administrativa"
+                    placeholder="Seleccione.."
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+        </div>
+    </form>
+</header>

@@ -7,6 +7,8 @@ export abstract class CRUDListComponent implements OnInit {
     public searchFormComponent:any;
     public itemListComponent:any;
     public titulo: string; // Encabezado de la pagina
+    
+    public canCreateObject: boolean = true;
 
 
     @ViewChild('searchForm', { read: ViewContainerRef }) searchFormViewContainerRef: ViewContainerRef;
