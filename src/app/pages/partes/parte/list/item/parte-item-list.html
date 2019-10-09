@@ -19,15 +19,19 @@
                     (click)="verPartesAgentes(object)">
                 </plex-button>    
             </div>
-            <plex-label titulo="{{object.fecha | title }}" [tituloBold]="true"></plex-label>
-            <plex-label titulo="{{object.fecha | title }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.servicio.nombre | title }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.fecha | title }}" [tituloBold]="false"></plex-label>
-            <plex-icon
-                type="warning"
-                size="sm"
-                name="mdi mdi-pencil">
-            </plex-icon>
+            <plex-label titulo="{{object.fecha | fecha:'dia' }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+            <div>
+                <plex-button
+                    type="{{ (object.estado.nombre == 'Sin presentar')? 'danger': ((object.estado.nombre == 'Presentación parcial')? 'warning' : 'success')}}"
+                    size="sm"
+                    icon="mdi mdi-eye"
+                    label="{{ object.estado.nombre }}">
+
+                </plex-button>    
+            </div>
             <plex-icon
                 type="danger"
                 size="sm"

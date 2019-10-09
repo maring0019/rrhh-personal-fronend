@@ -13,6 +13,7 @@ export class Parte {
     
     constructor(parte?)
     {
+        console.log('Hola Constructor')
         parte = parte || {};
         this.id = parte.id || null;
         this.fecha = parte.fecha;

@@ -5,10 +5,11 @@ import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list
 
 import { ParteService } from 'src/app/services/parte.service';
 import { ParteEstadoService } from 'src/app/services/parte-estado.service';
-import { ServicioService } from 'src/app/services/servicio.service';
+import { UbicacionService } from 'src/app/services/ubicacion.service';
 
-import { Servicio } from 'src/app/models/Servicio';
 import { ParteEstado } from 'src/app/models/ParteEstado';
+import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
+
 
 @Component({
     selector: 'app-parte-search-form',
@@ -19,13 +20,13 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
     //Search form options
     public parteEstadoOpciones:ParteEstado[] = [];
     public procesadoOpciones; 
-    public servicioOpciones:Servicio[] = []; 
+    public servicioOpciones:UbicacionServicio[] = []; 
 
     constructor(
         formBuilder: FormBuilder,
         private objectService: ParteService,
         private parteEstadoService: ParteEstadoService,
-        private servicioService: ServicioService) {
+        private ubicacionService: UbicacionService) {
             super(formBuilder);
     }
 
@@ -47,7 +48,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
             .subscribe(data => {
                 this.parteEstadoOpciones = data;
         });
-        this.servicioService.get({})
+        this.ubicacionService.get({})
             .subscribe(data => {
                 this.servicioOpciones = data;
         });
@@ -73,7 +74,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
             params['fecha<'] = form.fechaHasta;
         }
         if (form.estado){   // Filtro por estado del parte
-            params['estado._id'] = form.estado.id;
+            params['estado.id'] = form.estado.id;
         }
         if (form.procesado){
             if (form.procesado.id == 'si'){
@@ -84,7 +85,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
             }
         }
         if (form.servicio){ // Filtro por servicio del parte
-            params['servicio._id'] = form.servicio.id;
+            params['ubicacion.id'] = form.servicio.id;
         }
         // Sorting
         // params['sort'] = 'nombre';   

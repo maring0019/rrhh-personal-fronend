@@ -151,6 +151,7 @@ import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indica
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
 import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
 import { ParteSearchFormComponent } from './pages/partes/parte/list/search/parte-search.component';
+import { UbicacionService } from './services/ubicacion.service';
 
 
 const ADMIN_COMPONENTS = [
@@ -300,7 +301,8 @@ const ADMIN_COMPONENTS = [
         CausaBajaService,
         ReportesService,
         ParteService,
-        ParteEstadoService
+        ParteEstadoService,
+        UbicacionService
         
     ],
     bootstrap: [AppComponent],
