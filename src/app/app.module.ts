@@ -152,6 +152,10 @@ import { ParteListComponent } from './pages/partes/parte/list/parte-list.compone
 import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
 import { ParteSearchFormComponent } from './pages/partes/parte/list/search/parte-search.component';
 import { UbicacionService } from './services/ubicacion.service';
+import { ParteAgenteService } from './services/parte-agente.service';
+import { ParteAgenteSearchFormComponent } from 'src/app/pages/partes/parte-agente/list/search/parte-agente-search.component';
+import { ParteAgenteItemListComponent } from 'src/app/pages/partes/parte-agente/list/item/parte-agente-item-list.component';
+import { ParteAgenteListComponent } from 'src/app/pages/partes/parte-agente/list/parte-agente-list.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -219,10 +223,14 @@ const ADMIN_COMPONENTS = [
         AusentismoSearchFormComponent,
         AusentismoSearchComponent,
         IndicadorLicenciasComponent,
-
+        
+        // Partes
         ParteListComponent,
         ParteItemListComponent,
         ParteSearchFormComponent,
+        ParteAgenteListComponent,
+        ParteAgenteItemListComponent,
+        ParteAgenteSearchFormComponent,
 
         SearchLeyendaComponent,
         ListadoComponent,
@@ -302,7 +310,9 @@ const ADMIN_COMPONENTS = [
         ReportesService,
         ParteService,
         ParteEstadoService,
-        UbicacionService
+        UbicacionService,
+
+        ParteAgenteService
         
     ],
     bootstrap: [AppComponent],
@@ -310,6 +320,8 @@ const ADMIN_COMPONENTS = [
         UploaderStatusComponent,
         ParteItemListComponent,
         ParteSearchFormComponent,
+        ParteAgenteItemListComponent,
+        ParteAgenteSearchFormComponent,
         ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

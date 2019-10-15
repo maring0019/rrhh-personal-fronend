@@ -1,0 +1,32 @@
+<header>
+    <form name="searchForm" [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-md-3">
+                <plex-datetime
+                    formControlName="fecha"
+                    type="date"
+                    name="fecha"
+                    placeholder="Fecha Parte"
+                    (change)="buscar($event)">
+                </plex-datetime>
+            </div>
+            <div class="col-md-4">
+                <plex-select
+                    [data]="servicioOpciones"
+                    formControlName="servicio"
+                    name="servicio"
+                    
+                    placeholder="Seleccione Dependencia Administrativa"
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+            <!-- <div class="col-md-1">
+                <plex-button
+                    type="primary"
+                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
+                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
+                </plex-button>
+            </div> -->
+        </div>
+    </form>
+</header>

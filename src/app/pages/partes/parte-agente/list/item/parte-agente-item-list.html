@@ -1,0 +1,47 @@
+<plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
+    <plex-heading [layout]="layout">
+        <label></label>
+        <label>Agente</label>
+        <label>Entrada</label>
+        <label>Salida</label>
+        <label>Horas de Trabajo</label>
+        <label>Artículo Registrado</label>
+        <label>Justificación de Fichado</label>
+        <label>Observaciones</label>
+    </plex-heading>
+    <ng-container *ngFor="let object of objects; let i=index">
+        <plex-item [layout]="layout">
+            <div>
+                <plex-button
+                    type="info"
+                    size="sm"
+                    icon="mdi mdi-eye"
+                    (click)="accionToDo(object)">
+                </plex-button>    
+            </div>
+            <plex-label titulo="{{object.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.fechaHoraEntrada | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.fechaHoraSalida | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.horasTrabajadas | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.articulo | title }}" [tituloBold]="false"></plex-label>
+
+            <plex-label *ngIf="readOnly" titulo="{{object.justificacion | title }}" [tituloBold]="false"></plex-label>
+            <plex-label *ngIf="readOnly" titulo="{{object.observaciones | title }}" [tituloBold]="false"></plex-label>
+
+            <plex-select 
+                *ngIf="!readOnly"
+                [data]="justificaciones"
+                name="justificacion"
+                [(ngModel)]="object.justificacion"
+                label=""
+                placeholder="Seleccione...">
+            </plex-select>
+            <plex-text
+                *ngIf="!readOnly"
+                name="observaciones"
+                [(ngModel)]="object.observaciones"
+                label="">
+            </plex-text>
+        </plex-item>
+    </ng-container>
+</plex-list>

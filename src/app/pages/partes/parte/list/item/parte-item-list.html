@@ -27,8 +27,7 @@
                 <plex-button
                     type="{{ (object.estado.nombre == 'Sin presentar')? 'danger': ((object.estado.nombre == 'Presentación parcial')? 'warning' : 'success')}}"
                     size="sm"
-                    icon="mdi mdi-eye"
-                    label="{{ object.estado.nombre }}">
+                    icon="mdi mdi-clipboard-text">
 
                 </plex-button>    
             </div>
@@ -40,8 +39,8 @@
             <plex-bool 
                 type="slide"
                 [(ngModel)]="object.procesado"
-                [readonly]="true"
-                label="">
+                label=""
+                (change)="updateEstadoProcesado(object)">
             </plex-bool>      
         </plex-item>
     </ng-container>

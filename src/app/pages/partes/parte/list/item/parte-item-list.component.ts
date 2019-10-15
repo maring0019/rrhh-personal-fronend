@@ -19,4 +19,9 @@ export class ParteItemListComponent extends CRUDItemListComponent{
         console.log('Mostrar los partes de los agentes');
     }
 
+    public updateEstadoProcesado(obj){
+        console.log('Se actualizo el estado');
+        console.log(obj);
+    }
+
 } 

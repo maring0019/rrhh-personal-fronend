@@ -11,7 +11,6 @@ import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-cale
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
 
-
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
 import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
@@ -26,6 +25,7 @@ import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
+import { ParteAgenteListComponent } from 'src/app/pages/partes/parte-agente/list/parte-agente-list.component';
 
 
 
@@ -49,6 +49,7 @@ const routes: Routes = [
 
     // Partes
     { path: 'partes', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes/agentes', component: ParteAgenteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
 
     // Agentes Busqueda y Registro
