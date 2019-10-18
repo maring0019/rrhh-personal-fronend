@@ -19,13 +19,13 @@
                     (click)="accionToDo(object)">
                 </plex-button>    
             </div>
-            <plex-label titulo="{{object.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
-            <plex-label titulo="{{object.fechaHoraEntrada | fecha:'utc' }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.fechaHoraSalida | fecha:'utc' }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.horasTrabajadas | title }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.articulo | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.agente?.apellido | title }} {{object.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.fichadas?.entrada }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.fichadas?.salida }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.fichadas?.horasTrabajadas | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.ausencia?.articulo.codigo | title }}" [tituloBold]="false"></plex-label>
 
-            <plex-label *ngIf="readOnly" titulo="{{object.justificacion | title }}" [tituloBold]="false"></plex-label>
+            <plex-label *ngIf="readOnly" titulo="{{object.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label *ngIf="readOnly" titulo="{{object.observaciones | title }}" [tituloBold]="false"></plex-label>
 
             <plex-select 

@@ -75,7 +75,23 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     search(searchParams){
         this.objectService.get(searchParams).subscribe(
             objects => {
-                // TODO: Recuperar los partes de los agentes
+                if (objects && objects.length){
+                    const parte = objects[0]; // TODO Quizas mejorar esto. Reemplazar get por getById
+                    this.searchPartesAgentes(parte.id);
+                }
+                else {
+                    this.searchEnd.emit(objects);
+                }
+            },
+            (err) => {
+                this.searchEnd.emit([])
+            }
+        );
+    }
+
+    searchPartesAgentes(parteID){
+        this.objectService.getPartesAgentes(parteID).subscribe(
+            objects => {
                 this.searchEnd.emit(objects);
             },
             (err) => {

@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 
 import { Server } from '@andes/shared';
 import { Parte } from '../models/Parte';
+import { ParteAgente } from '../models/ParteAgente';
 
 @Injectable()
-export class ParteService {
+export class ParteService { 
     private url = '/modules/partes/partes'; // URL to web api
     
     constructor(private server: Server) { }
@@ -16,6 +17,11 @@ export class ParteService {
 
     getByID(objectId?: any): Observable<Parte> {
         let url = `${this.url}/${objectId}`;
+        return this.server.get(url);
+    }
+
+    getPartesAgentes(objectId: any): Observable<ParteAgente[]> {
+        let url = `${this.url}/${objectId}/partesagentes`;
         return this.server.get(url);
     }
 
