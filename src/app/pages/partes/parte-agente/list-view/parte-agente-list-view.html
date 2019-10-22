@@ -1,0 +1,30 @@
+<plex-layout main="12">
+    <plex-layout-main>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Partes Diarios Recibidos</strong></h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+            </div>
+        </header>
+        <br>
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
+        <app-parte-agente-item-list
+            *ngIf="partesAgentes"            
+            [objects]="partesAgentes"
+            [readonly]="true">
+        </app-parte-agente-item-list>
+        
+        
+        
+        
+    </plex-layout-main>   
+</plex-layout>
+    
+    

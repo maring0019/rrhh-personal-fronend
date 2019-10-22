@@ -14,7 +14,7 @@ export class ParteListComponent extends CRUDListComponent implements OnInit {
 
     public searchFormComponent = ParteSearchFormComponent;
     public itemListComponent = ParteItemListComponent;
-    public titulo = 'Partes Diarios';
+    public titulo = 'Partes Diarios Recibidos';
     public canCreateObject: boolean = false;
 
     constructor(

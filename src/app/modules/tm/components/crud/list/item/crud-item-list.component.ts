@@ -89,7 +89,7 @@ export abstract class CRUDItemListComponent {
         this.delete.emit(objeto);
     }
 
-    public gotoObjecto(objeto) {
+    public onNavigate(objeto) {
         
         if (objeto.id){
             this.router.navigate(['/objetos/registro' , { id: objeto.id }]);

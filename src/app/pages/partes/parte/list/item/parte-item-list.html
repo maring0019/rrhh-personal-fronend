@@ -15,21 +15,30 @@
                 <plex-button
                     type="info"
                     size="sm"
-                    icon="mdi mdi-eye"
-                    (click)="verPartesAgentes(object)">
+                    icon="mdi mdi-magnify"
+                    (click)="onNavigate(object)">
                 </plex-button>    
             </div>
-            <plex-label titulo="{{object.fecha | fecha:'dia' }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.fecha | fecha:'dia' | title }}" [tituloBold]="true"></plex-label>
             <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
-            <div>
-                <plex-button
-                    type="{{ (object.estado.nombre == 'Sin presentar')? 'danger': ((object.estado.nombre == 'Presentación parcial')? 'warning' : 'success')}}"
+            <div [ngSwitch]="object.estado.nombre">
+                <plex-button *ngSwitchCase="'Sin Presentar'"
+                    type="danger"
                     size="sm"
                     icon="mdi mdi-clipboard-text">
-
-                </plex-button>    
+                </plex-button>
+                <plex-button *ngSwitchCase="'Presentación parcial'"
+                    type="warning"
+                    size="sm"
+                    icon="mdi mdi-clipboard-text">
+                </plex-button>
+                <plex-button *ngSwitchDefault
+                    type="success"
+                    size="sm"
+                    icon="mdi mdi-clipboard-text">
+                </plex-button>
             </div>
             <plex-icon
                 type="danger"
@@ -45,3 +54,21 @@
         </plex-item>
     </ng-container>
 </plex-list>
+
+
+<jw-modal id="modal-partes-agente">
+    <div *ngIf="partesAgenteSeleccionado">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Partes Diarios | </strong> {{ parteSeleccionado.ubicacion.nombre }} ({{parteSeleccionado?.fecha | fecha:'utc' }}) </h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
+            </div>
+        </header>
+        <app-parte-agente-item-list 
+            [objects]="partesAgenteSeleccionado"
+            [readonly]="true">
+        </app-parte-agente-item-list>
+    </div>
+</jw-modal>

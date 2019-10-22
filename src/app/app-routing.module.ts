@@ -26,8 +26,7 @@ import { ReporteSearchComponent } from './pages/reportes/reporte-search.componen
 
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
 import { ParteAgenteListComponent } from 'src/app/pages/partes/parte-agente/list/parte-agente-list.component';
-
-
+import { ParteAgenteListViewComponent } from 'src/app/pages/partes/parte-agente/list-view/parte-agente-list-view.component';
 
 
 const routes: Routes = [
@@ -49,6 +48,7 @@ const routes: Routes = [
 
     // Partes
     { path: 'partes', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes/:id/agentes', component: ParteAgenteListViewComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'partes/agentes', component: ParteAgenteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
 

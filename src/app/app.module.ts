@@ -41,6 +41,7 @@ import { CausaBajaService } from './services/causa-baja.service';
 import { ReportesService } from './services/reportes.service';
 import { ParteService } from './services/parte.service';
 import { ParteEstadoService } from './services/parte-estado.service';
+import { UbicacionService } from './services/ubicacion.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -107,7 +108,7 @@ import { FileManagerComponent } from './components/file-manager/file.manager.com
 import { FechaPipe } from './pipes/fecha.pipe';
 import { TitlePipe } from './pipes/title.pipe';
 import { EdadPipe } from './pipes/edad.pipe';
-
+import { SanitizeHtmlPipe } from './pipes/html.pipe';
 
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
@@ -121,21 +122,22 @@ import { DPlexListComponent } from 'src/app/components/item-list/list.component'
 
 
 import { FeriadoSearchFormComponent } from './modules/tm/components/feriados/list/search/feriado-search.component';
-
 import { FeriadoItemListComponent } from './modules/tm/components/feriados/list/item/feriado-item-list.component';
-
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
 import { SituacionItemListComponent } from './modules/tm/components/situacion/list/item/situacion-item-list.component';
 import { SituacionSearchFormComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
+
 import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
 import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-create-form.component';
 import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
 import { FeriadoUpdateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-update-form.component';
+
 import { SituacionCreateComponent } from './modules/tm/components/situacion/create-update/situacion-create.component';
 import { SituacionCreateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-create-form.component';
 import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
 import { SituacionUpdateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-update-form.component';
+
 import { ArticuloItemListComponent } from './modules/tm/components/articulo/list/item/articulo-item-list.component';
 import { ArticuloSearchFormComponent } from './modules/tm/components/articulo/list/search/articulo-search.component';
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
@@ -143,19 +145,20 @@ import { ArticuloCreateComponent } from './modules/tm/components/articulo/create
 import { ArticuloCreateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-create-form.component';
 import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
 import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-update-form.component';
+
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
 import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
-import { SanitizeHtmlPipe } from './pipes/html.pipe';
 import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indicadores/indicador-licencias.component';
+
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
 import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
 import { ParteSearchFormComponent } from './pages/partes/parte/list/search/parte-search.component';
-import { UbicacionService } from './services/ubicacion.service';
 import { ParteAgenteService } from './services/parte-agente.service';
 import { ParteAgenteSearchFormComponent } from 'src/app/pages/partes/parte-agente/list/search/parte-agente-search.component';
 import { ParteAgenteItemListComponent } from 'src/app/pages/partes/parte-agente/list/item/parte-agente-item-list.component';
 import { ParteAgenteListComponent } from 'src/app/pages/partes/parte-agente/list/parte-agente-list.component';
+import { ParteAgenteListViewComponent } from 'src/app/pages/partes/parte-agente/list-view/parte-agente-list-view.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -229,6 +232,7 @@ const ADMIN_COMPONENTS = [
         ParteItemListComponent,
         ParteSearchFormComponent,
         ParteAgenteListComponent,
+        ParteAgenteListViewComponent,
         ParteAgenteItemListComponent,
         ParteAgenteSearchFormComponent,
 
