@@ -48,9 +48,9 @@ export class CalendarStoreService {
     readonly selectionRange$ = this._selectionRange.asObservable();
 
     private _feriados: IEventoCalendar[]; // Contiene todos los feriados 
-    feriados: IEventoCalendar[];  // Puede o no contener los feriados dependiendo de si se visualizan o no en el listado de eventos
-    ausencias: IEventoCalendar[]; 
-    francos: IEventoCalendar[];
+    feriados: IEventoCalendar[] =[];  // Puede o no contener los feriados dependiendo de si se visualizan o no en el listado de eventos
+    ausencias: IEventoCalendar[] = []; 
+    francos: IEventoCalendar[] = [];
 
     get selectionRange(): IDateRangeSelection {
         return this._selectionRange.getValue();

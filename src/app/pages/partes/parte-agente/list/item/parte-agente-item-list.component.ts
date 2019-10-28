@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DropdownItem, Plex } from '@andes/plex';
@@ -14,6 +14,8 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent{
 
     @Input() readonly = false;
 
+    @Output() changed: EventEmitter<any> = new EventEmitter<any>();
+
     public justificaciones = [];
     
     constructor(public router: Router,
@@ -22,11 +24,46 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent{
         super(router, plex);
     }
 
-    public accionToDo(){
-        console.log('Accion a realizar');
-        this.modalService.close('modal-partes-agente');
-        // this.modalService.open('modal-carga-articulo');
+    public accionToDo(obj, index){
+        this.seleccionarObjeto(obj, index);
+        this.modalService.open('modal-carga-articulo');
     }
+
+    public onCloseModal(){
+        this.modalService.close('modal-carga-articulo');
+    }
+
+    public onSuccess(data){
+        this.plex.info('info', 'Ausentismo ingresado correctamente')
+            .then( e => {
+                this.onCloseModal();
+                this.changed.emit();
+        });
+    }
+
+    public onErrors(error){
+        if(error){
+            console.log('Errores');
+            console.log(error)
+            // this.plex.info('info', error);
+        }
+        else{
+            this.plex.info('info', 'Debe completar todos los datos obligatorios');
+        }
+        
+    }
+
+    public onWarnings(warnings){
+        if (warnings && warnings.length){
+            let textWarning = ``;
+            for (const warn of warnings){
+                textWarning = `${textWarning}<p> ${warn} </p>`
+            }
+            this.plex.info('info', `<p>El articulo seleccionado presenta los
+                                    siguientes problemas: ${textWarning} </p>`) ;
+        }
+    }
+
 
     // public updateEstadoProcesado(obj){
     //     console.log('Se actualizo el estado');

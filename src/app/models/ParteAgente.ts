@@ -11,7 +11,7 @@ export class ParteAgente {
     fichadas: {
         entrada: Date,
         salida: Date,
-        horasTrabajadas: String
+        horasTrabajadas: String // milisegundos
     };
     ausencia: {
         articulo: { 
