@@ -13,4 +13,8 @@ export class UbicacionService {
     get(params: any): Observable<UbicacionServicio[]> {
         return this.server.get(this.baseUrl, { params: params, showError: true });
     }
+
+    getByUserID(userID): Observable<UbicacionServicio[]> {
+        return this.server.get(this.baseUrl + '/usuario/' + userID,);
+    }
 }

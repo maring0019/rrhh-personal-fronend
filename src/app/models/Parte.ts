@@ -10,7 +10,7 @@ export class Parte {
     procesado: Boolean;
     estado: ParteEstado;
     fechaEntrega: Date;
-    servicio: Servicio;
+    ubicacion: Servicio;
     partesAgentes: ParteAgente[];
     
     constructor(parte?)
@@ -19,8 +19,8 @@ export class Parte {
         this.id = parte.id || null;
         this.fecha = parte.fecha;
         this.procesado = parte.procesado;
-        this.estado = new ParteEstado(parte.estado);
-        this.servicio = new Servicio(parte.estado);
+        this.estado = parte.estado? new ParteEstado(parte.estado): null;
+        this.ubicacion = parte.ubicacion? new Servicio(parte.ubicacion): null;
         this.partesAgentes = [];
         if (parte.partesAgentes && parte.partesAgentes.length){
             parte.partesAgentes.forEach(p => {

@@ -1,5 +1,5 @@
 <header>
-    <form name="searchForm" [formGroup]="searchForm">
+    <form *ngIf="searchForm" name="searchForm" [formGroup]="searchForm">
         <div class="row">
             <div class="col-md-3">
                 <plex-datetime
@@ -13,9 +13,9 @@
             <div class="col-md-4">
                 <plex-select
                     [data]="servicioOpciones"
+                    required
                     formControlName="servicio"
                     name="servicio"
-                    
                     placeholder="Seleccione Dependencia Administrativa"
                     (change)="buscar($event)">
                 </plex-select>

@@ -7,6 +7,7 @@ import { ParteService } from 'src/app/services/parte.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 
 import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
+import { Parte } from '../../../../../models/Parte';
 
 
 @Component({
@@ -26,14 +27,18 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     ngOnInit() {
-        super.ngOnInit();
+        this.initFormSelectOptions();
     }
 
     ngAfterViewInit(){
-        this.searchForm.patchValue({ 
-            fecha: this.searchForm.value.fecha,
-            servicio: this.getServiciosUserLogged()[1]
-             })
+        // Parche para visualizar correctamente la fecha en el form
+        window.setTimeout(() => {
+            if (this.searchForm){
+                this.searchForm.patchValue({ 
+                    fecha: this.searchForm.value.fecha,
+                 })
+            }
+        }, 1000);
     }
 
     ngOnDestroy(){
@@ -41,34 +46,36 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     initFormSelectOptions(){
-        this.ubicacionService.get({})
+        this.getServiciosUserLogged()
             .subscribe(data => {
                 this.servicioOpciones = data;
+                this.searchForm = this.initSearchForm();
+                this.buscar();
         });
     }
 
     initSearchForm(){
         return this.formBuilder.group({
             fecha     : [ new Date()],
-            servicio  : []
+            servicio  : [ this.servicioOpciones[1]]
         });
     }
 
     private getServiciosUserLogged(){
-        return this.servicioOpciones;
+        return this.ubicacionService.getByUserID({});
     }
 
     prepareSearchParams(){
         let params:any = {};
-        let form = this.searchForm.value;
-        if (form.fecha){
-            params['fecha'] = form.fecha;
+        if (this.searchForm.valid){
+            let form = this.searchForm.value;
+            if (form.fecha){
+                params['fecha'] = form.fecha;
+            }
+            if (form.servicio){ // Filtro por servicio del parte
+                params['ubicacion.id'] = form.servicio.id;
+            }
         }
-        if (form.servicio){ // Filtro por servicio del parte
-            params['ubicacion.id'] = form.servicio.id;
-        }
-        // Sorting
-        // params['sort'] = 'nombre';   
         return params;
     }
 
@@ -76,11 +83,15 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
         this.objectService.get(searchParams).subscribe(
             objects => {
                 if (objects && objects.length){
-                    const parte = objects[0]; // TODO Quizas mejorar esto. Reemplazar get por getById
+                    // Si el parte existe buscamos los partes de los
+                    // agentes asociados al parte encontrado
+                    const parte = objects[0];
                     this.searchPartesAgentes(parte.id);
                 }
                 else {
-                    this.searchEnd.emit(objects);
+                    // Si el parte no existe lo creamos junto a los
+                    // partes de los agentes.
+                    this.createPartes();
                 }
             },
             (err) => {
@@ -98,6 +109,23 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
                 this.searchEnd.emit([])
             }
         );
+    }
+
+    createPartes(){
+        if (this.searchForm.valid){
+            const form = this.searchForm.value;
+            let parte = new Parte({ fecha: form.fecha, ubicacion: form.servicio });
+            this.objectService.post(parte).subscribe(
+                object => {
+                    if (object) return this.searchPartesAgentes(object.id)
+                    this.searchEnd.emit([]);
+                },
+                (err) => {
+                    this.searchEnd.emit([])
+                }
+            );
+        }
+        
     }
 
 }

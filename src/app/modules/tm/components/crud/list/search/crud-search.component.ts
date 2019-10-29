@@ -30,10 +30,9 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
 
     abstract initFormSelectOptions();
 
-    abstract initSearchForm();
-    // {
-    //     return this.formBuilder.group({});
-    // }
+    abstract initSearchForm():FormGroup; // {  return this.formBuilder.group({}) }
+
+    abstract search(searchParams);
 
     protected prepareSearchParams(){
         return {};
@@ -68,9 +67,6 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
         }
     }
 
-    protected search(searchParams){
-
-    }
 
     ngOnDestroy(): void {
         clearInterval(this.timeoutHandle);
