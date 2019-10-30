@@ -35,7 +35,15 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
     }
 
     ngAfterViewInit(){
-
+        // Parche para visualizar correctamente la fecha en el reactive form
+        window.setTimeout(() => {
+            if (this.searchForm){
+                this.searchForm.patchValue({ 
+                    fechaDesde: this.searchForm.value.fechaDesde,
+                    fechaHasta: this.searchForm.value.fechaHasta,
+                 })
+            }
+        }, 1000);
     }
 
     ngOnDestroy(){
@@ -56,8 +64,8 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
 
     initSearchForm(){
         return this.formBuilder.group({
-            fechaDesde  : [],
-            fechaHasta  : [],
+            fechaDesde  : [ moment().subtract(2, 'days').toDate()],
+            fechaHasta  : [ new Date()],
             estado      : [],
             procesado   : [],
             servicio    : []
@@ -66,41 +74,46 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
 
     prepareSearchParams(){
         let params:any = {};
-        let form = this.searchForm.value;
-        if (form.fechaDesde){
-            params['fecha>'] = form.fechaDesde;
-        }
-        if (form.fechaHasta){
-            params['fecha<'] = form.fechaHasta;
-        }
-        if (form.estado){   // Filtro por estado del parte
-            params['estado.id'] = form.estado.id;
-        }
-        if (form.procesado){
-            if (form.procesado.id == 'si'){
-                params['procesado'] = true;
+        if (this.searchForm.valid){
+            let form = this.searchForm.value;
+            if (form.fechaDesde){
+                params['fecha>'] = form.fechaDesde;
             }
-            else{
-                params['procesado!'] = true;
+            if (form.fechaHasta){
+                params['fecha<'] = form.fechaHasta;
             }
+            if (form.estado){   // Filtro por estado del parte
+                params['estado.id'] = form.estado.id;
+            }
+            if (form.procesado){
+                if (form.procesado.id == 'si'){
+                    params['procesado'] = true;
+                }
+                else{
+                    params['procesado!'] = true;
+                }
+            }
+            if (form.servicio){ // Filtro por servicio del parte
+                params['ubicacion.id'] = form.servicio.id;
+            }
+            // Sorting
+            params['sort'] = '-fecha';
         }
-        if (form.servicio){ // Filtro por servicio del parte
-            params['ubicacion.id'] = form.servicio.id;
-        }
-        // Sorting
-        // params['sort'] = 'nombre';   
+        console.log(params)
         return params;
     }
 
     search(searchParams){
-        this.objectService.get(searchParams).subscribe(
-            objects => {
-                this.searchEnd.emit(objects);
-            },
-            (err) => {
-                this.searchEnd.emit([])
-            }
-        );
+        // if (this.searchForm.valid){
+            this.objectService.get(searchParams).subscribe(
+                objects => {
+                    this.searchEnd.emit(objects);
+                },
+                (err) => {
+                    this.searchEnd.emit([])
+                }
+            );
+        // }
     }
 
 }

@@ -31,7 +31,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     ngAfterViewInit(){
-        // Parche para visualizar correctamente la fecha en el form
+        // Parche para visualizar correctamente la fecha en el reactive form
         window.setTimeout(() => {
             if (this.searchForm){
                 this.searchForm.patchValue({ 
