@@ -1,7 +1,15 @@
+
+
+ <header>
+    <section class="d-flex flex-row justify-content-end mb-2">
+            <plex-button class="mx-2" label="Cancelar" type="danger" (click)="volverInicio()"></plex-button>
+            <plex-button label="Guardar Agente" type="success" (click)="saveAgente()"></plex-button>
+    </section>
+</header>
 <plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
     <plex-heading [layout]="layout">
-        <label></label>
-        <label>Agente</label>
+        <label *ngIf="readonly"></label>
+        <label>Agente Laboral</label>
         <label>Entrada</label>
         <label>Salida</label>
         <label>Hs. de Trabajo</label>
@@ -11,7 +19,7 @@
     </plex-heading>
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
-            <div>
+            <div *ngIf="readonly">
                 <plex-button
                     *ngIf="!object.ausencia"
                     type="info"
@@ -35,7 +43,8 @@
                 name="justificacion"
                 [(ngModel)]="object.justificacion"
                 label=""
-                placeholder="Seleccione...">
+                placeholder="Seleccione..."
+                (change)="onChangeJustificacion(object)">
             </plex-select>
             <plex-text
                 *ngIf="!readonly"
@@ -65,9 +74,9 @@
         </header>
         <app-ausentismo-carga-add
             [agente]="objetoSeleccionado.agente"
-            (onSuccess)="onSuccess($event)"
-            (onErrors)="onErrors($event)"
-            (onWarnings)="onWarnings($event)">
+            (onSuccess)="onSuccessCargaAusencia($event)"
+            (onErrors)="onErrorsCargaAusencia($event)"
+            (onWarnings)="onWarningsCargaAusencia($event)">
         </app-ausentismo-carga-add>
     </div>
 </jw-modal>

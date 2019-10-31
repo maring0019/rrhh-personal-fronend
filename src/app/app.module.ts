@@ -41,6 +41,8 @@ import { CausaBajaService } from './services/causa-baja.service';
 import { ReportesService } from './services/reportes.service';
 import { ParteService } from './services/parte.service';
 import { ParteEstadoService } from './services/parte-estado.service';
+import { ParteAgenteService } from './services/parte-agente.service';
+import { ParteJustificacionService } from './services/parte-justificacion.service';
 import { UbicacionService } from './services/ubicacion.service';
 
 // Stores
@@ -154,7 +156,6 @@ import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indica
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
 import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
 import { ParteSearchFormComponent } from './pages/partes/parte/list/search/parte-search.component';
-import { ParteAgenteService } from './services/parte-agente.service';
 import { ParteAgenteSearchFormComponent } from 'src/app/pages/partes/parte-agente/list/search/parte-agente-search.component';
 import { ParteAgenteItemListComponent } from 'src/app/pages/partes/parte-agente/list/item/parte-agente-item-list.component';
 import { ParteAgenteListComponent } from 'src/app/pages/partes/parte-agente/list/parte-agente-list.component';
@@ -314,6 +315,7 @@ const ADMIN_COMPONENTS = [
         ReportesService,
         ParteService,
         ParteEstadoService,
+        ParteJustificacionService,
         UbicacionService,
 
         ParteAgenteService

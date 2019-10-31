@@ -31,7 +31,7 @@ export class ParteAgente {
         this.agente = parte.agente || null;
         this.fichadas = parte.fichadas || null;
         this.ausencia = parte.ausencia || null;
-        this.justificacion = new ParteJustificacion(parte.justificacion);
+        this.justificacion = parte.justificacion || null;
         this.observaciones = parte.observaciones || '';
     }
 }
