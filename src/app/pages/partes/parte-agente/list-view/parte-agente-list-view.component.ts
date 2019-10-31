@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+
 import { ParteService } from 'src/app/services/parte.service';
 import { ParteAgente } from 'src/app/models/ParteAgente';
+import { Parte } from 'src/app/models/Parte';
 
 
 @Component({
@@ -12,13 +14,16 @@ import { ParteAgente } from 'src/app/models/ParteAgente';
 
 /**
  * Idem ParteAgenteListComponent, excepto que muestra un listado de solo
- * lectura sin posibilidad de realizar nuevas busquedas o filtrados
+ * lectura sin posibilidad de realizar nuevas busquedas o filtrados. El 
+ * parte a mostrar se obtiene a partir del id especificado por parametro
+ * en la url
  */
 export class ParteAgenteListViewComponent implements OnInit {
     
     private _objectID:any;
     
     public searching;
+    public parte: Parte;
     public partesAgentes: ParteAgente[];
 
     constructor(
@@ -32,6 +37,7 @@ export class ParteAgenteListViewComponent implements OnInit {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._objectID = params.get('id');
             if (this._objectID){
+                this.searchParteDiario();
                 this.searchPartesAgentes();
             }
         });
@@ -45,14 +51,18 @@ export class ParteAgenteListViewComponent implements OnInit {
         this.searchPartesAgentes();
     }
 
-   
-    // Implementar el encabezado para este listado (Mostrar fecha y ubicacion)
-    // Implementar la carga de articulos desde aqui ( Accion del boton mas)
-    //  * Llamar al formulario con una fecha determinada si se puede
-    //  * Analizar si es posible editar un articulo previamente cargado
-    // En partes revisar todo el comportamiento en general:
-    //  * Filtros
-    //  * Fechas iniciales
+
+    private searchParteDiario(){
+        this.searching = true;
+        this.parteService.getByID(this._objectID).subscribe(
+            object => {
+                this.parte = object;
+            },
+            (err) => {
+                this.partesAgentes = [];
+            }
+        ).add(() => this.searching = false);
+    }
 
     private searchPartesAgentes(){
         this.searching = true;

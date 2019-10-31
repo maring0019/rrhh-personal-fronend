@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
@@ -17,7 +17,7 @@ import { Articulo } from 'src/app/models/Articulo';
     selector: 'app-ausentismo-carga-add',
     templateUrl: 'ausentismo-carga-add.html'
 })
-export class AusentismoCargaAddComponent implements OnInit {
+export class AusentismoCargaAddComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
     
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
@@ -27,7 +27,6 @@ export class AusentismoCargaAddComponent implements OnInit {
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
 
     
-    public ausentismoFiles: any = [];
     public ausentismoForm: FormGroup;
     public articulos: Articulo[] = [];
     
@@ -42,9 +41,22 @@ export class AusentismoCargaAddComponent implements OnInit {
 
     public ngOnInit() {
         this.initFormSelectOptions();
-        this.initAusentismoForm();
         this.patchFormRangeSelection();
         
+    }
+
+    /**
+     * Actualizamos el formulario ante cualquier cambio del agente 
+     * como @Input. Igualmente quitamos cualquier archivo adjunto
+     * previamente cargado.
+     */
+    public ngOnChanges(){
+        if (this.ausentismoForm){
+            // Si el formulario ya existia, limpiamos cualquier valor previo
+            this.ausentismoForm.reset();
+            this.fileManager.reset();
+        }
+        this.initAusentismoForm();
     }
 
     initFormSelectOptions(){
@@ -121,6 +133,5 @@ export class AusentismoCargaAddComponent implements OnInit {
     public onValueChangedForm(obj){
         this.disableGuardar = false;
     }
-
 
 }

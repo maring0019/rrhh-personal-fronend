@@ -54,21 +54,3 @@
         </plex-item>
     </ng-container>
 </plex-list>
-
-
-<jw-modal id="modal-partes-agente">
-    <div *ngIf="partesAgenteSeleccionado">
-        <header class="d-flex flex-row justify-content-between subheader">
-            <div>
-                <h5><strong>Partes Diarios | </strong> {{ parteSeleccionado.ubicacion.nombre }} ({{parteSeleccionado?.fecha | fecha:'utc' }}) </h5>
-            </div>
-            <div class="d-flex flex-row justify-content-end">
-                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
-            </div>
-        </header>
-        <app-parte-agente-item-list 
-            [objects]="partesAgenteSeleccionado"
-            [readonly]="true">
-        </app-parte-agente-item-list>
-    </div>
-</jw-modal>

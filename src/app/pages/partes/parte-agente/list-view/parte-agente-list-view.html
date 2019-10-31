@@ -2,7 +2,7 @@
     <plex-layout-main>
         <header class="d-flex flex-row justify-content-between subheader">
             <div>
-                <h5><strong>Partes Diarios Recibidos | </strong></h5>
+                <h5><strong>Partes Diarios Recibidos</strong> | {{ parte?.ubicacion.nombre }} ({{parte?.fecha | fecha:'utc' }}) </h5>
             </div>
             <div class="d-flex flex-row justify-content-end">
                 <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancel()">Cerrar</plex-button>
@@ -21,10 +21,7 @@
             [readonly]="true"
             (changed)="onParteChanged()">
         </app-parte-agente-item-list>
-        
-        
-        
-        
+            
     </plex-layout-main>   
 </plex-layout>
     

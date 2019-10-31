@@ -13,6 +13,7 @@
         <plex-item [layout]="layout">
             <div>
                 <plex-button
+                    *ngIf="!object.ausencia"
                     type="info"
                     size="sm"
                     icon="mdi mdi-plus"

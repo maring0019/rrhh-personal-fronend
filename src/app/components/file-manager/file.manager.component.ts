@@ -28,7 +28,6 @@ export class FileManagerComponent implements OnInit {
 
     get files(){
         let newFiles = this.filesAttached.concat(this.filesToAttach);
-        // console.log(newFiles);
         return newFiles;
     }
 
@@ -158,6 +157,14 @@ export class FileManagerComponent implements OnInit {
         this.dettachFilesFromObj(obj);
     }
 
+    /**
+     * Reinicia el componente a los valores iniciales.Es decir sin
+     * elementos para adjuntar o quitar.
+     */
+    public reset(){
+        this.filesToAttach = [];
+        this.filesToDettach = [];
+    }
    
     
     /**
