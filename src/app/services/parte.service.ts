@@ -34,6 +34,11 @@ export class ParteService {
         return this.server.post(this.url, object);
     }
 
+    procesar(object: Parte): Observable<Parte> {
+        const url = `${this.url}/${object.id}/procesar`;
+        return this.server.post(url, object);
+    }
+
     put(object: Parte): Observable<Parte> {
         const url = `${this.url}/${object.id}`;
         return this.server.put(url, object);

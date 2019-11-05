@@ -40,16 +40,24 @@
                     icon="mdi mdi-clipboard-text">
                 </plex-button>
             </div>
-            <plex-icon
-                type="danger"
-                size="sm"
-                name="mdi mdi-close">
-            </plex-icon>
+            <div>
+                <plex-button
+                    type="info"
+                    size="sm"
+                    icon="mdi mdi-eye">
+                </plex-button>
+                <plex-button
+                    type="danger"
+                    size="sm"
+                    icon="mdi mdi-eye">
+                </plex-button>
+            </div>
             <plex-bool 
                 type="slide"
                 [(ngModel)]="object.procesado"
+                [readonly]="object.procesado"
                 label=""
-                (change)="updateEstadoProcesado(object)">
+                (change)="procesarParte(object)">
             </plex-bool>      
         </plex-item>
     </ng-container>

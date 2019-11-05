@@ -46,6 +46,7 @@
                 (change)="onChangeParteAgente(object)">
             </plex-text>
             <plex-button
+                *ngIf="readonly"
                 type="info"
                 size="sm"
                 icon="mdi mdi-eye"

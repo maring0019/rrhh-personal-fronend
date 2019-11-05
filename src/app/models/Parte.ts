@@ -19,7 +19,7 @@ export class Parte {
         this.id = parte.id || null;
         this.fecha = parte.fecha;
         this.procesado = parte.procesado;
-        this.estado = parte.estado? new ParteEstado(parte.estado): null;
+        this.estado = parte.estado || null;
         this.ubicacion = parte.ubicacion? new Servicio(parte.ubicacion): null;
         this.partesAgentes = [];
         if (parte.partesAgentes && parte.partesAgentes.length){
