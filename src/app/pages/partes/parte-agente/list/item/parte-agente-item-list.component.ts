@@ -5,6 +5,7 @@ import { DropdownItem, Plex } from '@andes/plex';
 import { CRUDItemListComponent } from 'src/app/modules/tm/components/crud/list/item/crud-item-list.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { ParteJustificacionService } from 'src/app/services/parte-justificacion.service';
+import { ParteAgente } from 'src/app/models/ParteAgente';
 
 
 
@@ -18,7 +19,7 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
 
     @Output() changed: EventEmitter<any> = new EventEmitter<any>();
 
-    public justificaciones = [];
+    public justificaciones = []; // Opciones para el select de cada parte
     
     constructor(public router: Router,
             public plex: Plex,
@@ -28,7 +29,6 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
     }
 
     ngOnInit(){
-        console.log('Vamos a buscar justificaciones')
         this.parteJustificacionService.get({})
             .subscribe(data => {
                 console.log(data);
@@ -36,9 +36,8 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
             })
     }
 
-    public onChangeJustificacion(obj){
-        console.log("CAMBIO")
-        console.log(obj)
+    public onChangeParteAgente(obj:ParteAgente){
+        this.accion.emit({ accion:'edit', objeto:obj})
     }
 
     public accionToDo(obj, index){
@@ -60,14 +59,11 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
 
     public onErrorsCargaAusencia(error){
         if(error){
-            console.log('Errores');
-            console.log(error)
-            // this.plex.info('info', error);
+            this.plex.info('info', error);
         }
         else{
             this.plex.info('info', 'Debe completar todos los datos obligatorios');
         }
-        
     }
 
     public onWarningsCargaAusencia(warnings){
@@ -80,11 +76,4 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
                                     siguientes problemas: ${textWarning} </p>`) ;
         }
     }
-
-
-    // public updateEstadoProcesado(obj){
-    //     console.log('Se actualizo el estado');
-    //     console.log(obj);
-    // }
-
 } 

@@ -1,11 +1,3 @@
-
-
- <header>
-    <section class="d-flex flex-row justify-content-end mb-2">
-            <plex-button class="mx-2" label="Cancelar" type="danger" (click)="volverInicio()"></plex-button>
-            <plex-button label="Guardar Agente" type="success" (click)="saveAgente()"></plex-button>
-    </section>
-</header>
 <plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
     <plex-heading [layout]="layout">
         <label *ngIf="readonly"></label>
@@ -44,13 +36,14 @@
                 [(ngModel)]="object.justificacion"
                 label=""
                 placeholder="Seleccione..."
-                (change)="onChangeJustificacion(object)">
+                (change)="onChangeParteAgente(object)">
             </plex-select>
             <plex-text
                 *ngIf="!readonly"
                 name="observaciones"
                 [(ngModel)]="object.observaciones"
-                label="">
+                label=""
+                (change)="onChangeParteAgente(object)">
             </plex-text>
             <plex-button
                 type="info"

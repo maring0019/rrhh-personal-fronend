@@ -1,5 +1,6 @@
 import { OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { Router } from '@angular/router';
+import { IActionEvent } from 'src/app/models/IActionEvent';
 
 
 export abstract class CRUDListComponent implements OnInit {
@@ -14,7 +15,8 @@ export abstract class CRUDListComponent implements OnInit {
     @ViewChild('searchForm', { read: ViewContainerRef }) searchFormViewContainerRef: ViewContainerRef;
     @ViewChild('itemList', { read: ViewContainerRef }) itemListViewContainerRef: ViewContainerRef;
 
-    private itemListComponentRef:any
+    protected itemListComponentRef:any
+    protected searchFormComponentRef:any
 
     constructor(
         public router: Router,
@@ -41,17 +43,17 @@ export abstract class CRUDListComponent implements OnInit {
 
     private createSearchFormComponent() {
         const factory = this.resolver.resolveComponentFactory(this.searchFormComponent);
-        let componentRef:any = this.searchFormViewContainerRef.createComponent(factory);
+        this.searchFormComponentRef = this.searchFormViewContainerRef.createComponent(factory);
         // Subscribe to child Output() events
-        componentRef.instance.searchStart
+        this.searchFormComponentRef.instance.searchStart
             .subscribe(event => {
                 this.onSearchStart(event);
             }); 
-        componentRef.instance.searchEnd
+        this.searchFormComponentRef.instance.searchEnd
             .subscribe(event => {
                 this.onSearchEnd(event);
             }); 
-        componentRef.instance.searchClear
+        this.searchFormComponentRef.instance.searchClear
             .subscribe(event => {
                 this.onClearResultados(event);
             }); 
@@ -64,32 +66,41 @@ export abstract class CRUDListComponent implements OnInit {
         this.itemListComponentRef.instance.objects = this.objects;
         // Subscribe to child Output() events
         this.itemListComponentRef.instance.selected
-            .subscribe(event => {
-                this.onSelection(event);
+            .subscribe(obj => {
+                this.onItemListSelection(obj);
             }); 
         this.itemListComponentRef.instance.hover
-            .subscribe(event => {
-                this.onHover(event);
+            .subscribe(obj => {
+                this.onItemListHover(obj);
             });
         this.itemListComponentRef.instance.delete
-            .subscribe(event => {
-                this.onDelete(event);
+            .subscribe(obj => {
+                this.onItemListDelete(obj);
+            });
+        this.itemListComponentRef.instance.accion
+            .subscribe((event:IActionEvent) => {
+                this.onItemListAction(event);
             });
     }
 
-    public onHover(obj:any){
-        console.log(obj);
-    }
+    /**
+     * Override me
+     * @param obj 
+     */
+    public onItemListHover(obj:any){}
 
-    public onSelection(obj:any){
+    public onItemListSelection(obj:any){
         this.objSelected = obj;
         this.router.navigate([this.router.url+'/editar/'+obj.id]);
     }
 
-    public onDelete(obj:any){
+    public onItemListDelete(obj:any){
         this.objSelected = obj;
         // this.router.navigate([this.router.url+'/editar/'+obj.id]);
     }
+
+
+    public onItemListAction(actionEvent:IActionEvent){}
 
     
     /**
@@ -100,7 +111,6 @@ export abstract class CRUDListComponent implements OnInit {
      * @param items 
      */
     public onSearchEnd(items:any){
-        console.log(items)
         this.searching = false;
         this.searched = true;
         this.hiddenObjects = items ;

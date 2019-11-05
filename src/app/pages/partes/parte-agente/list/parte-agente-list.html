@@ -1,0 +1,49 @@
+<plex-layout main="12">
+    <plex-layout-main>
+        <header>
+            <section class="d-flex flex-row justify-content-between mb-2">
+                <h5 class="align-self-center"><strong>{{ titulo }}</strong></h5>
+                <div class="d-flex flex-row justify-content-end">
+                    <plex-button
+                        class="mx-2"
+                        label="Cancelar"
+                        type="danger"
+                        (click)="volverInicio()">
+                    </plex-button>
+                    <plex-button
+                        [disabled]="!saveButtonEnabled"
+                        label="Guardar Cambios"
+                        type="success"
+                        (click)="onSave()">
+                    </plex-button>
+                </div>
+            </section> 
+        </header>
+
+        <ng-template #searchForm></ng-template>
+        <br>
+
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+        
+        <app-search-leyenda
+            *ngIf="searched && objects && !objects.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <ng-template #itemList></ng-template>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="onShowMoreResultados()">
+            </plex-button>
+        </div>
+        
+    </plex-layout-main>   
+</plex-layout>

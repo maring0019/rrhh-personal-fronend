@@ -2,11 +2,8 @@ import { Input, Output, EventEmitter } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { DropdownItem, Plex } from '@andes/plex';
+import { IActionEvent } from 'src/app/models/IActionEvent';
 
-export interface ActionEvent {
-    accion:String;
-    objeto:any;
-}
 
 export abstract class CRUDItemListComponent {
     public routes = ['Ausencias', 'Editar']
@@ -61,7 +58,7 @@ export abstract class CRUDItemListComponent {
     /**
      * 
      */
-    @Output() accion: EventEmitter<ActionEvent> = new EventEmitter<ActionEvent>();
+    @Output() accion: EventEmitter<IActionEvent> = new EventEmitter<IActionEvent>();
 
 
     constructor(

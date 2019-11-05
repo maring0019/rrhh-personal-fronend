@@ -6,7 +6,7 @@ import { ParteAgente } from '../models/ParteAgente';
 
 @Injectable()
 export class ParteAgenteService {
-    private url = '/modules/partes/partes'; // URL to web api
+    private url = '/modules/partes/partesagentes'; // URL to web api
     
     constructor(private server: Server) { }
 
@@ -26,6 +26,11 @@ export class ParteAgenteService {
     put(object: ParteAgente): Observable<ParteAgente> {
         const url = `${this.url}/${object.id}`;
         return this.server.put(url, object);
+    }
+
+    patch(objects: ParteAgente[]): Observable<ParteAgente[]> {
+        const url = `${this.url}/batch-update`;
+        return this.server.patch(url, objects);
     }
 
 }
