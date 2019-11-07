@@ -3,18 +3,25 @@
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
                 <h5 class="align-self-center"><strong>{{ titulo }}</strong></h5>
-                <div class="d-flex flex-row justify-content-end">
+                <div class="d-flex flex-row justify-content-end align-items-center">
                     <plex-button
-                        class="mx-2"
-                        label="Cancelar"
-                        type="danger"
-                        (click)="volverInicio()">
+                        class="mr-2"
+                        label="Guardar"
+                        type="info"
+                        (click)="onSavePartes()">
                     </plex-button>
                     <plex-button
+                        class="mr-2"
                         [disabled]="!saveButtonEnabled"
-                        label="Guardar Cambios"
+                        label="Guardar y Confimar"
                         type="success"
-                        (click)="onSave()">
+                        (click)="onConfirmarPartes()">
+                    </plex-button>
+                    <plex-button 
+                        type="danger"
+                        icon="mdi mdi-close"
+                        size="sm"
+                        (click)="onCancel()">Cerrar
                     </plex-button>
                 </div>
             </section> 

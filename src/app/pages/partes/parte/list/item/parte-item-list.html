@@ -24,33 +24,23 @@
             <plex-label titulo="{{object.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
             <div [ngSwitch]="object.estado.nombre">
-                <plex-button *ngSwitchCase="'Sin Presentar'"
-                    type="danger"
-                    size="sm"
-                    icon="mdi mdi-clipboard-text">
-                </plex-button>
-                <plex-button *ngSwitchCase="'Presentación parcial'"
-                    type="warning"
-                    size="sm"
-                    icon="mdi mdi-clipboard-text">
-                </plex-button>
-                <plex-button *ngSwitchDefault
-                    type="success"
-                    size="sm"
-                    icon="mdi mdi-clipboard-text">
-                </plex-button>
+                <plex-badge *ngSwitchCase="'Sin Presentar'" type="danger" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchCase="'Presentación parcial'" type="warning" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchDefault type="success" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                </plex-badge>
             </div>
             <div>
-                <plex-button
-                    type="info"
-                    size="sm"
-                    icon="mdi mdi-eye">
-                </plex-button>
-                <plex-button
-                    type="danger"
-                    size="sm"
-                    icon="mdi mdi-eye">
-                </plex-button>
+                <plex-badge type="info" size="sm">
+                    <plex-icon name="mdi mdi-eye"></plex-icon>
+                </plex-badge>
+                <plex-badge type="danger" size="sm">
+                    <plex-icon name="mdi mdi-eye"></plex-icon>
+                </plex-badge>
             </div>
             <plex-bool 
                 type="slide"

@@ -9,8 +9,8 @@ export abstract class CRUDItemListComponent {
     public routes = ['Ausencias', 'Editar']
 
     private _objetos: any[];
-    private objetoSeleccionado: any;
-    private idxObjetoSeleccionado:any;
+    public objetoSeleccionado: any;
+    public idxObjetoSeleccionado:any;
 
     public accionesDropdownMenu = [];
 

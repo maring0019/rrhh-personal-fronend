@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
@@ -16,6 +16,8 @@ import { Parte } from '../../../../../models/Parte';
 })
 export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    @Output() searchEndParte: EventEmitter<Parte> = new EventEmitter<Parte>();
+    
     //Search form options
     public servicioOpciones:UbicacionServicio[] = []; 
 
@@ -83,9 +85,10 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
         this.objectService.get(searchParams).subscribe(
             objects => {
                 if (objects && objects.length){
-                    // Si el parte existe buscamos los partes de los
-                    // agentes asociados al parte encontrado
+                    // Si el parte existe buscamos los partes de los agentes
+                    // asociados al parte encontrado y notificamos
                     const parte = objects[0];
+                    this.searchEndParte.emit(parte);
                     this.searchPartesAgentes(parte.id);
                 }
                 else {
@@ -117,15 +120,20 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
             let parte = new Parte({ fecha: form.fecha, ubicacion: form.servicio });
             this.objectService.post(parte).subscribe(
                 object => {
-                    if (object) return this.searchPartesAgentes(object.id)
-                    this.searchEnd.emit([]);
+                    if (object) {
+                        this.searchEndParte.emit(object);
+                        return this.searchPartesAgentes(object.id)
+                    }
+                    else{
+                        this.searchEndParte.emit(null);
+                        this.searchEnd.emit([]);
+                    }
                 },
                 (err) => {
                     this.searchEnd.emit([])
                 }
             );
         }
-        
     }
 
 }

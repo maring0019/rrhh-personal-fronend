@@ -26,11 +26,6 @@ export class ParteAgenteService {
     put(object: ParteAgente): Observable<ParteAgente> {
         const url = `${this.url}/${object.id}`;
         return this.server.put(url, object);
-    }
-
-    patch(objects: ParteAgente[]): Observable<ParteAgente[]> {
-        const url = `${this.url}/batch-update`;
-        return this.server.patch(url, objects);
-    }
+    } 
 
 }
