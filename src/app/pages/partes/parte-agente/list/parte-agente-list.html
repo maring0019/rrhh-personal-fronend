@@ -3,16 +3,39 @@
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
                 <h5 class="align-self-center"><strong>{{ titulo }}</strong></h5>
-                <div class="d-flex flex-row justify-content-end align-items-center">
+                <div class="d-flex flex-row justify-content-end align-items-center"
+                    *ngIf="parteToUpdate">
                     <plex-button
+                        *ngIf="estadoPresentacionConfirmada && !editionEnabled"
+                        class="mr-2"
+                        label="Editar Parte Presentado"
+                        type="info"
+                        (click)="onEnableEdition()">
+                    </plex-button>
+                    <plex-button
+                        *ngIf="estadoPresentacionConfirmada && editionEnabled"
+                        class="mr-2"
+                        label="Cancelar"
+                        type="danger"
+                        (click)="onCancelEdition()">
+                    </plex-button>
+                    <plex-button
+                        *ngIf="estadoPresentacionConfirmada && editionEnabled"
+                        class="mr-2"
+                        label="Guardar Edición"
+                        type="success"
+                        (click)="onSaveEdition()">
+                    </plex-button>
+                    <plex-button
+                        *ngIf="!estadoPresentacionConfirmada"
                         class="mr-2"
                         label="Guardar"
                         type="info"
                         (click)="onSavePartes()">
                     </plex-button>
                     <plex-button
+                        *ngIf="!estadoPresentacionConfirmada"
                         class="mr-2"
-                        [disabled]="!saveButtonEnabled"
                         label="Guardar y Confimar"
                         type="success"
                         (click)="onConfirmarPartes()">

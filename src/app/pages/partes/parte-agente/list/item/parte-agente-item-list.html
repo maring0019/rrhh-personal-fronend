@@ -26,11 +26,11 @@
             <plex-label titulo="{{object.fichadas?.horasTrabajadas | fecha:'duracion' }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.ausencia?.articulo.codigo | title }}" [tituloBold]="false"></plex-label>
 
-            <plex-label *ngIf="readonly" titulo="{{object.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
-            <plex-label *ngIf="readonly" titulo="{{object.observaciones | title }}" [tituloBold]="false"></plex-label>
+            <plex-label *ngIf="readonly || !editionEnabled" titulo="{{object.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label *ngIf="readonly || !editionEnabled" titulo="{{object.observaciones | title }}" [tituloBold]="false"></plex-label>
 
             <plex-select 
-                *ngIf="!readonly"
+                *ngIf="!readonly && editionEnabled"
                 [data]="justificaciones"
                 name="justificacion"
                 [(ngModel)]="object.justificacion"
@@ -39,7 +39,7 @@
                 (change)="onChangeParteAgente(object)">
             </plex-select>
             <plex-text
-                *ngIf="!readonly"
+                *ngIf="!readonly && editionEnabled"
                 name="observaciones"
                 [(ngModel)]="object.observaciones"
                 label=""

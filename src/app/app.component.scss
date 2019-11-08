@@ -104,3 +104,8 @@ $gap: 5px;
       flex: 0 0 calc(25% - #{$gap});
      }
   }
+
+  /* Listados plex-item */
+  ::ng-deep div.item-list plex-label {
+    min-height: 45px !important;
+}

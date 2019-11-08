@@ -41,12 +41,17 @@ export class ParteService {
 
     guardar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
         const url = `${this.url}/${object.id}/guardar`;
-        return this.server.patch(url, partesAgentes);
+        return this.server.post(url, partesAgentes);
     }
 
     confirmar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
-        const url = `${this.url}/${object.id}/procesar`;
-        return this.server.patch(url, partesAgentes);
+        const url = `${this.url}/${object.id}/confirmar`;
+        return this.server.post(url, partesAgentes);
+    }
+
+    editar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
+        const url = `${this.url}/${object.id}/editar`;
+        return this.server.post(url, partesAgentes);
     }
 
     put(object: Parte): Observable<Parte> {

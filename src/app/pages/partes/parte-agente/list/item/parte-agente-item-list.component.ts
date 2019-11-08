@@ -16,6 +16,7 @@ import { ParteAgente } from 'src/app/models/ParteAgente';
 export class ParteAgenteItemListComponent extends CRUDItemListComponent implements OnInit{
 
     @Input() readonly = false;
+    @Input() editionEnabled = false;
 
     @Output() changed: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,7 +32,6 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
     ngOnInit(){
         this.parteJustificacionService.get({})
             .subscribe(data => {
-                console.log(data);
                 this.justificaciones = data
             })
     }

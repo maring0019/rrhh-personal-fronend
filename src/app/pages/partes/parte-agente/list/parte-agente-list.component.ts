@@ -1,13 +1,15 @@
 import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { Router } from '@angular/router';
+import { Plex } from '@andes/plex';
 
 import { CRUDListComponent } from 'src/app/modules/tm/components/crud/list/crud-list.component';
 
 import { ParteAgenteSearchFormComponent } from './search/parte-agente-search.component';
 import { ParteAgenteItemListComponent } from './item/parte-agente-item-list.component';
-import { IActionEvent } from '../../../../models/IActionEvent';
 import { Parte } from 'src/app/models/Parte';
 import { ParteService } from 'src/app/services/parte.service';
+import { IActionEvent } from '../../../../models/IActionEvent';
+
 
 @Component({
     selector: 'app-parte-agente-list',
@@ -21,19 +23,24 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
     public canCreateObject: boolean = false;
 
     public saveButtonEnabled = false;
+    public editionEnabled = false;
+    public estadoPresentacionConfirmada;
 
     private parteToUpdate:Parte; 
 
     constructor(
         public router: Router,
         public resolver: ComponentFactoryResolver,
+        public plex: Plex,
         private parteService: ParteService) {
         super(router, resolver); 
     }
 
     public ngOnInit() {
         super.ngOnInit();
-
+        // Como el componente searchForm se crea dinamicamente nos
+        // suscribimos aqui para eschuchar cuando un parte ha sido
+        // encontrado correctamente en la busqueda realizada
         this.searchFormComponentRef.instance.searchEndParte
             .subscribe(parte => {
                 this.onSearchParte(parte);
@@ -42,6 +49,13 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
 
     public onSearchParte(parte){
         this.parteToUpdate = parte;
+        if (parte.estado && parte.estado.nombre == "Presentación total") {
+            this.estadoPresentacionConfirmada = true;
+        }
+        else {
+            this.estadoPresentacionConfirmada = false;
+        }
+        this.enableEdition(false);
     }
 
     public onItemListAction(actionEvent: IActionEvent){
@@ -49,6 +63,7 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
             this.saveButtonEnabled = true;
         }
     }
+
 
     /**
      * Guardado 'temporal' sin confirmacion definitiva de todos los partes
@@ -61,7 +76,11 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
         this.parteService.guardar(this.parteToUpdate, this.objects)
             .subscribe(data => {
                 // TODO Mejorar el manejo de errores
-                this.refreshSearch();
+                this.plex.info('info', `Parte actualizado correctamente. El parte
+                    se encuentra aún es estado de 'Presentación Parcial'`)
+                    .then( e => {
+                        this.refreshSearch();
+                });
         })
     }
 
@@ -78,8 +97,40 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
         this.parteService.confirmar(this.parteToUpdate, this.objects)
             .subscribe(data => {
                 // TODO Mejorar el manejo de errores
-                this.refreshSearch();
+                this.plex.info('info', `Parte actualizado y confirmado correctamente.
+                    El parte se encuentra ahora en estado de 'Presentación Total'`)
+                    .then( e => {
+                        this.refreshSearch();
+                });
         })
+    }
+
+    public onEnableEdition(){
+        this.enableEdition(true);
+    }
+
+    public onCancelEdition(){
+        this.refreshSearch();
+    }
+
+    
+    /**
+     * Guardado de un parte en edicion, que ya habia sido confirmado
+     * previamente. El estado del parte continua como Presentacion Total. 
+     * Se debe notificar a los responsables que corresponda de estos
+     * cambios (responsabilidad del endpoint confirmar)
+     */
+    public onSaveEdition(){
+        this.parteService.confirmar(this.parteToUpdate, this.objects)
+        .subscribe(data => {
+            // TODO Mejorar el manejo de errores
+            // TODO Terminar de definir a quienes se notifica y que se notifica
+            this.plex.info('info', `Parte editado correctamente. Se ha notificado
+                a los responsables de esta actualización.`)
+                .then( e => {
+                    this.refreshSearch();
+            });
+    })
     }
 
     private refreshSearch(){
@@ -88,8 +139,26 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
 
     public onCancel(){}
 
-    // TODO
-    // Revisar que hayan quedado bien el resto de los eventos de salida
-
-
+    /**
+     * Oculta/muestra los botones de guardar y cancelar al editar un parte.
+     * Ademas habilita o no la edicion 'inline' en el listado de partes de
+     * los agentes (puntualmente la carga/edicion de la justificacion de cada
+     * parte y sus observaciones).
+     * @param enable indica si se habiita o no la edicion
+     */
+    private enableEdition(enable:boolean){
+        if (enable){
+            this.editionEnabled = true;
+            this.itemListComponentRef.instance.editionEnabled = true;
+        }
+        else{
+            this.editionEnabled = false;
+            if (this.estadoPresentacionConfirmada) {
+                this.itemListComponentRef.instance.editionEnabled = false;
+            }
+            else{
+                this.itemListComponentRef.instance.editionEnabled = true;
+            }
+        }
+    }
 }
