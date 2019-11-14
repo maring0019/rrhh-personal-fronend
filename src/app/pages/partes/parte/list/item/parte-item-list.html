@@ -24,7 +24,7 @@
             <plex-label titulo="{{object.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
             <div [ngSwitch]="object.estado.nombre">
-                <plex-badge *ngSwitchCase="'Sin Presentar'" type="danger" size="sm">
+                <plex-badge *ngSwitchCase="'Sin presentar'" type="danger" size="sm">
                     <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
                 </plex-badge>
                 <plex-badge *ngSwitchCase="'Presentación parcial'" type="warning" size="sm">

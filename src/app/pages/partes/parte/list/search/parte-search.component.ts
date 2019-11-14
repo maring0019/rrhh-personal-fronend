@@ -99,7 +99,6 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
             // Sorting
             params['sort'] = '-fecha';
         }
-        console.log(params)
         return params;
     }
 
@@ -107,6 +106,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
         // if (this.searchForm.valid){
             this.objectService.get(searchParams).subscribe(
                 objects => {
+                    console.log(objects)
                     this.searchEnd.emit(objects);
                 },
                 (err) => {

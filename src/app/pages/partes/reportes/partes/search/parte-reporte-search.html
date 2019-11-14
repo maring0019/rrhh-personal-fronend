@@ -1,0 +1,43 @@
+<header>
+    <form name="searchForm" [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-md-3">
+                <plex-datetime
+                    required
+                    formControlName="fechaDesde"
+                    type="date"
+                    name="fechaDesde"
+                    placeholder="Desde"
+                    (change)="buscar($event)">
+                </plex-datetime>
+            </div>
+            <div class="col-md-3">
+                <plex-datetime
+                    required
+                    formControlName="fechaHasta"
+                    type="date"
+                    name="fechaHasta"
+                    placeholder="Hasta"
+                    (change)="buscar($event)">
+                </plex-datetime>
+            </div>
+            <div class="col-md-4">
+                <plex-select   
+                    (getData)="onSearchAgentes($event)" 
+                    formControlName="agente"
+                    name="agente"
+                    placeholder="Seleccione Agente"
+                    (change)="buscar($event)"
+                    required>
+                </plex-select>
+            </div>
+            <!-- <div class="col-md-1">
+                <plex-button
+                    type="primary"
+                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
+                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
+                </plex-button>
+            </div> -->
+        </div>
+    </form>
+</header>

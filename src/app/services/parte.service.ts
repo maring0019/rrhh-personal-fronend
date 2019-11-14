@@ -25,6 +25,11 @@ export class ParteService {
         return this.server.get(url);
     }
 
+    getPartesAgenteReporte(params: any): Observable<ParteAgente[]> {
+        let url = `${this.url}/agentes/reportes`;
+        return this.server.get(url, { params: params, showError: true });
+    }
+
     putPartesAgentes(objectId: any, objects: ParteAgente[]): Observable<Parte> {
         let url = `${this.url}/${objectId}/partesagentes`;
         return this.server.put(url, objects);

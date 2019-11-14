@@ -22,6 +22,27 @@ export class AgenteService {
         return this.server.get(url);
     }
 
+    filter(query):Observable<Agente[]>{   
+        let params:any = {};
+        params['filter'] = JSON.stringify(
+            {"$or":[
+                {"nombre"   :{"$regex": query, "$options":"i"}},
+                {"apellido" :{"$regex": query, "$options":"i"}},
+                {"numero"   :{"$regex": query, "$options":"i"}},
+            ]});
+
+        return this.search(params).pipe(
+            map(agentes => {
+                return agentes.map(
+                    dato => { 
+                        dato.nombre = `${dato.numero} - ${dato.apellido}, ${dato.nombre}`;
+                        return dato;
+                    });
+                }
+            )
+        )
+    }
+
     search(params?: any): Observable<Agente[]> {
         const url = `${this.agenteUrl}/search`; 
         return this.server.get(url, { params: params, showError: true });

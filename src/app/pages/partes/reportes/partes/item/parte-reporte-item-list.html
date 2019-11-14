@@ -1,0 +1,24 @@
+<plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
+    <plex-heading [layout]="layout">
+        <label>Fecha Parte</label>
+        <label>Usuario del Envio</label>
+        <label>Fecha de Envio</label>
+        <label>Entrada</label>
+        <label>Salida</label>
+        <label>Justificación</label>
+        <label>Artículo</label>
+        <label>Observaciones</label>
+    </plex-heading>
+    <ng-container *ngFor="let object of objects; let i=index">
+        <plex-item [layout]="layout">
+            <plex-label titulo="{{object.fecha | fecha:'dia' | title }} {{object.fecha | fecha:'utc' }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.parte.usuarioEnvio?.apellido | title }} {{object.parte.usuarioEnvio?.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.parte.fechaEnvio | fecha:'utc' }}"></plex-label>
+            <plex-label titulo="{{object.fichadas?.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.fichadas?.salida | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.ausencia?.articulo.codigo | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.observaciones | title }}" [tituloBold]="false"></plex-label>  
+        </plex-item>
+    </ng-container>
+</plex-list>

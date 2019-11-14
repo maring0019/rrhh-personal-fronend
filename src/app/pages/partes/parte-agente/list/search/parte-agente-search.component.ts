@@ -29,6 +29,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     ngOnInit() {
+        // Aqui hacemos un override completo del evento ngOnInit
         this.initFormSelectOptions();
     }
 
