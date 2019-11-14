@@ -28,6 +28,7 @@ import { ParteListComponent } from './pages/partes/parte/list/parte-list.compone
 import { ParteAgenteListComponent } from 'src/app/pages/partes/parte-agente/list/parte-agente-list.component';
 import { ParteAgenteListViewComponent } from 'src/app/pages/partes/parte-agente/list-view/parte-agente-list-view.component';
 import { ParteReporteListComponent } from './pages/partes/reportes/partes/reporte-parte-list.component';
+import { FichadaReporteListComponent } from 'src/app/pages/partes/reportes/fichadas/reporte-fichada-list.component';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ const routes: Routes = [
     { path: 'partes', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'partes/:id/agentes', component: ParteAgenteListViewComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'partes/agentes', component: ParteAgenteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/agentes/reportes', component: ParteReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes/reportes/partes', component: ParteReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes/reportes/fichadas', component: FichadaReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
 
     // Agentes Busqueda y Registro

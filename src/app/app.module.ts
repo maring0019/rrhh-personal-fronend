@@ -163,6 +163,9 @@ import { ParteAgenteListViewComponent } from 'src/app/pages/partes/parte-agente/
 import { ParteReporteListComponent } from './pages/partes/reportes/partes/reporte-parte-list.component';
 import { ParteReporteSearchFormComponent } from './pages/partes/reportes/partes/search/parte-reporte-search.component';
 import { ParteReporteItemListComponent } from './pages/partes/reportes/partes/item/parte-reporte-item-list.component';
+import { FichadaReporteItemListComponent } from 'src/app/pages/partes/reportes/fichadas/item/fichada-reporte-item-list.component';
+import { FichadaReporteSearchFormComponent } from 'src/app/pages/partes/reportes/fichadas/search/fichada-reporte-search.component';
+import { FichadaReporteListComponent } from './pages/partes/reportes/fichadas/reporte-fichada-list.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -242,6 +245,9 @@ const ADMIN_COMPONENTS = [
         ParteReporteItemListComponent,
         ParteReporteSearchFormComponent,
         ParteReporteListComponent,
+        FichadaReporteSearchFormComponent,
+        FichadaReporteItemListComponent, 
+        FichadaReporteListComponent,
 
         SearchLeyendaComponent,
         ListadoComponent,
@@ -336,6 +342,8 @@ const ADMIN_COMPONENTS = [
         ParteAgenteSearchFormComponent,
         ParteReporteItemListComponent,
         ParteReporteSearchFormComponent,
+        FichadaReporteSearchFormComponent,
+        FichadaReporteItemListComponent,
         ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

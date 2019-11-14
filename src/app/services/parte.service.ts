@@ -2,8 +2,11 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
 import { Server } from '@andes/shared';
-import { Parte } from '../models/Parte';
-import { ParteAgente } from '../models/ParteAgente';
+
+import { Parte } from 'src/app/models/Parte';
+import { ParteAgente } from 'src/app/models/ParteAgente';
+import { Fichada } from 'src/app/models/Fichada';
+
 
 @Injectable()
 export class ParteService { 
@@ -26,7 +29,12 @@ export class ParteService {
     }
 
     getPartesAgenteReporte(params: any): Observable<ParteAgente[]> {
-        let url = `${this.url}/agentes/reportes`;
+        let url = `${this.url}/reportes/agentes`;
+        return this.server.get(url, { params: params, showError: true });
+    }
+
+    getFichadasAgentesReporte(params: any): Observable<Fichada[]> {
+        let url = `${this.url}/reportes/fichadas`;
         return this.server.get(url, { params: params, showError: true });
     }
 

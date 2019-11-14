@@ -1,0 +1,20 @@
+<plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
+    <plex-heading [layout]="layout">
+        <label>Lugar de Trabajo</label>
+        <label>Agente</label>
+        <label>Cód. Fichado</label>
+        <label>Entrada</label>
+        <label>Salida</label>
+        <label>Hs. Trabajo</label>
+    </plex-heading>
+    <ng-container *ngFor="let object of objects; let i=index">
+        <plex-item [layout]="layout">
+            <plex-label titulo="{{object.lugarTrabajo | title }} " [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.agente?.apellido | title }} {{object.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.codigoFichado | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.salida | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.horasTrabajadas | fecha:'duracion' }}" [tituloBold]="false"></plex-label>
+        </plex-item>
+    </ng-container>
+</plex-list>
