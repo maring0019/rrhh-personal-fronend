@@ -79,6 +79,10 @@ import { AgenteDetalleComponent } from './modules/agente/components/agente-detal
 import { AgenteBajaComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja.component';
 import { AgenteReactivarComponent } from './modules/agente/components/agente-reactivar/agente-reactivar.component';
 
+// Otros
+import { AgenteFormSelectComponent } from './modules/agente/components/agente-form-select/agente-form-select.component';
+import { UbicaciónFormSelectComponent } from './components/forms/ubicacion-form-select/ubicacion-form-select.component';
+
 // Ausentismo
 import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
 import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
@@ -218,6 +222,7 @@ const ADMIN_COMPONENTS = [
         AgenteDetalleComponent,
         AgenteBajaComponent,
         AgenteReactivarComponent,
+        AgenteFormSelectComponent,
         
         AgenteAusentismoComponent,
         AgenteCalendarComponent,
@@ -261,6 +266,7 @@ const ADMIN_COMPONENTS = [
         UploaderStatusComponent,
         ModalComponent,
         ContextMenuComponent,
+        UbicaciónFormSelectComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 

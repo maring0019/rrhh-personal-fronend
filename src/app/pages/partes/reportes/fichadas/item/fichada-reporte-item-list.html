@@ -9,7 +9,7 @@
     </plex-heading>
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
-            <plex-label titulo="{{object.lugarTrabajo | title }} " [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.ubicacion?.nombre | title }} " [tituloBold]="true"></plex-label>
             <plex-label titulo="{{object.agente?.apellido | title }} {{object.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
             <plex-label titulo="{{object.codigoFichado | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>

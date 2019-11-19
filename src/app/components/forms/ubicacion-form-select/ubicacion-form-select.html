@@ -1,9 +1,10 @@
 <div [formGroup]="parent">
     <plex-select
-        (getData)="onGetData($event)"
+        [data]="ubicaciones$ | async"
         (change)="onChange($event)"
         name="name"
         [formControlName]="formControlName"
-        [placeholder]="placeholder">
+        [placeholder]="placeholder"
+        [label]="label">
     </plex-select>
 </div>

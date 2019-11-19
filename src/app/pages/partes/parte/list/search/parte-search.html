@@ -32,7 +32,7 @@
         <div class="row" *ngIf="mostrarMasOpciones">
             <div class="col-md-3">
                 <plex-select
-                    [data]="parteEstadoOpciones"
+                    [data]="parteEstadoOpciones$ | async"
                     formControlName="estado"
                     name="estado"
                     label="Estado del parte"
@@ -51,14 +51,12 @@
                 </plex-select>
             </div>
             <div class="col-md-4">
-                <plex-select
-                    [data]="servicioOpciones"
-                    formControlName="servicio"
-                    name="servicio"
-                    label="Dependencia Administrativa"
-                    placeholder="Seleccione.."
+                <app-ubicacion-form-select
+                    [parent]="searchForm"
+                    [label]="'Dependencia Administrativa'"
+                    [placeholder]="'Seleccione...'"
                     (change)="buscar($event)">
-                </plex-select>
+                </app-ubicacion-form-select>
             </div>
         </div>
     </form>

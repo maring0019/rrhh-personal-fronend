@@ -1,7 +1,7 @@
 <header>
     <form name="searchForm" [formGroup]="searchForm">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <plex-datetime
                     required
                     formControlName="fechaDesde"
@@ -11,7 +11,7 @@
                     (change)="buscar($event)">
                 </plex-datetime>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <plex-datetime
                     required
                     formControlName="fechaHasta"
@@ -22,13 +22,16 @@
                 </plex-datetime>
             </div>
             <div class="col-md-4">
-                <plex-select   
-                    (getData)="onSearchAgentes($event)" 
-                    formControlName="agente"
-                    name="agente"
-                    placeholder="Seleccione Agente"
+                <app-ubicacion-form-select
+                    [parent]="searchForm"
                     (change)="buscar($event)">
-                </plex-select>
+                </app-ubicacion-form-select>
+            </div>
+            <div class="col-md-4">
+                <app-agente-form-select
+                    [parent]="searchForm"
+                    (change)="buscar($event)">
+                </app-agente-form-select>
             </div>
             <!-- <div class="col-md-1">
                 <plex-button

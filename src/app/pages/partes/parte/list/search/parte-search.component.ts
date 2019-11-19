@@ -5,10 +5,6 @@ import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list
 
 import { ParteService } from 'src/app/services/parte.service';
 import { ParteEstadoService } from 'src/app/services/parte-estado.service';
-import { UbicacionService } from 'src/app/services/ubicacion.service';
-
-import { ParteEstado } from 'src/app/models/ParteEstado';
-import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
 
 
 @Component({
@@ -18,15 +14,13 @@ import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
 export class ParteSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //Search form options
-    public parteEstadoOpciones:ParteEstado[] = [];
-    public procesadoOpciones; 
-    public servicioOpciones:UbicacionServicio[] = []; 
+    public procesadoOpciones;
+    public parteEstadoOpciones$ = this.parteEstadoService.get({});
 
     constructor(
         formBuilder: FormBuilder,
         private objectService: ParteService,
-        private parteEstadoService: ParteEstadoService,
-        private ubicacionService: UbicacionService) {
+        private parteEstadoService: ParteEstadoService) {
             super(formBuilder);
     }
 
@@ -52,14 +46,6 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
 
     initFormSelectOptions(){
         this.procesadoOpciones = [{id:'si', nombre:'Si'}, {id:'no', nombre:'No'}];
-        this.parteEstadoService.get({})
-            .subscribe(data => {
-                this.parteEstadoOpciones = data;
-        });
-        this.ubicacionService.get({})
-            .subscribe(data => {
-                this.servicioOpciones = data;
-        });
     }
 
     initSearchForm(){
@@ -68,7 +54,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
             fechaHasta  : [ new Date()],
             estado      : [],
             procesado   : [],
-            servicio    : []
+            ubicacion   : []
         });
     }
 
@@ -93,8 +79,8 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
                     params['procesado!'] = true;
                 }
             }
-            if (form.servicio){ // Filtro por servicio del parte
-                params['ubicacion.id'] = form.servicio.id;
+            if (form.ubicacion){
+                params['ubicacion.id'] = form.ubicacion.id;
             }
             // Sorting
             params['sort'] = '-fecha';

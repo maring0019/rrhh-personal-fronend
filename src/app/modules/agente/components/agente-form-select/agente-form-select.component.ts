@@ -1,44 +1,40 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input, EventEmitter, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
 import { AgenteService } from 'src/app/services/agente.service';
 
 @Component({
     selector: 'app-agente-form-select',
     templateUrl: './agente-form-select.html',
 })
-export class AgenteFormSelectComponent implements OnInit, OnDestroy {
+export class AgenteFormSelectComponent implements  OnDestroy {
+    
+    @Input() parent: FormGroup;
+    @Input() name: string = "agente";
+    @Input() formControlName: string = "agente";
+    @Input() placeholder: string = "Seleccione agente";
 
-    private timeoutHandle: number;
+    @Output() change: EventEmitter<any> = new EventEmitter<any>();
+    
+    private timeoutHandler: number;
 
     constructor(private agenteService: AgenteService){}
     
-    ngOnInit() {
-        // this.initFormSelectOptions();
-        // this.form = this.initAgenteFilterForm();
-    }
 
     ngOnDestroy(): void {
-        clearInterval(this.timeoutHandle);
+        clearInterval(this.timeoutHandler);
     }
 
-    public onSearchAgentes(event){
+    public onGetData(event){
         if (event && event.query && event.query.length >= 4) {
             // Cancela la búsqueda anterior
-            if (this.timeoutHandle) {
-                window.clearTimeout(this.timeoutHandle);
+            if (this.timeoutHandler) {
+                window.clearTimeout(this.timeoutHandler);
             }
-            
-            let params:any = {};
-            params['filter'] = JSON.stringify(
-                {"$or":[
-                    {"nombre"   :{"$regex": event.query, "$options":"i"}},
-                    {"apellido" :{"$regex": event.query, "$options":"i"}},
-                    {"numero"   :{"$regex": event.query, "$options":"i"}},
-                ]});
-            this.timeoutHandle = window.setTimeout(() => {
-                this.timeoutHandle = null;
-                this.agenteService.search(params).subscribe(
+            this.timeoutHandler = window.setTimeout(() => {
+                this.timeoutHandler = null;
+                this.agenteService.filter(event.query).subscribe(
                     (agentes) => {
-                        agentes.map(dato => { dato.nombre = `${dato.numero} - ${dato.apellido}, ${dato.nombre}`});
                         event.callback(agentes);
                     },
                     (err) => {
@@ -50,6 +46,10 @@ export class AgenteFormSelectComponent implements OnInit, OnDestroy {
         else {    
             event.callback([]);
         }
+    }
+
+    public onChange(agente){
+        this.change.emit(agente);
     }
 
 }
