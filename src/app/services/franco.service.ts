@@ -6,20 +6,25 @@ import { Franco } from '../models/Franco';
 
 @Injectable()
 export class FrancoService {
-    private url = '/modules/ausentismo/francos'; // URL to web api
+    private baseUrl = '/modules/ausentismo/francos'; // URL to web api
     
     constructor(private server: Server) { }
 
     get(params?: any): Observable<Franco[]> {
-        return this.server.get(this.url, { params: params, showError: true });
+        return this.server.get(this.baseUrl, { params: params, showError: true });
+    }
+
+    getAsEventos(params?: any): Observable<any[]> {
+        const url = `${this.baseUrl}/eventos`;
+        return this.server.get(url, { params: params, showError: true });
     }
 
     post(object: Franco): Observable<Franco> {
-        return this.server.post(this.url, object);
+        return this.server.post(this.baseUrl, object);
     }
 
     put(object: Franco): Observable<Franco> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.baseUrl}/${object.id}`;
         return this.server.put(url, object);
     }
 
@@ -29,7 +34,7 @@ export class FrancoService {
      * @param objects 
      */
     addFrancos(objects: Franco[]): Observable<Franco[]> {
-        const url = `${this.url}/addMany`;
+        const url = `${this.baseUrl}/addMany`;
         return this.server.post(url, objects);
     }
 
@@ -38,7 +43,7 @@ export class FrancoService {
      * @param ids listado de id de francos a eliminar
      */
     deleteFrancos(ids: String[]): Observable<any> {
-        const url = `${this.url}/deleteMany`;
+        const url = `${this.baseUrl}/deleteMany`;
         return this.server.post(url, ids);
     }
 

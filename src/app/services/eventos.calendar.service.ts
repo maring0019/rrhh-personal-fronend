@@ -30,36 +30,15 @@ export class EventosCalendarService {
 
 
     getFeriados(params?: any): Observable<IEventoCalendar[]> {
-        return this.feriadoService.get(params).pipe(
-            map(data =>
-                data.map(feriado=> {
-                    let evento = {
-                        'id': feriado.id,
-                        'title': feriado.descripcion? feriado.descripcion: 'Feriado',
-                        'start': feriado.fecha,
-                        'allDay': true,
-                        // 'rendering': 'background',
-                        'backgroundColor': '#e9e9e9',
-                        'textColor':'#7d7d7d',
-                        'type': 'FERIADO',
-                        'ausentismoFechaDesde': feriado.fecha,
-                        'ausentismoFechaHasta': feriado.fecha
-                      }
-                      return evento;
-                })
-            )
-        );
+        return this.feriadoService.getAsEventos(params);
     }
 
     getAusencias(params?: any): Observable<IEventoCalendar[]> {
-        return this.agenteService.getAusencias(params).pipe(
-            map(data =>
-                data.map(ausentismo=> {
-                    let evento = this.mapAusencia(ausentismo.ausencias, ausentismo)  
-                      return evento;
-                })
-            )
-        );
+        return this.agenteService.getAusenciasAsEventos(params);
+    }
+
+    getFrancos(params?: any): Observable<IEventoCalendar[]> {
+        return this.francoService.getAsEventos(params);
     }
 
     addAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
@@ -93,16 +72,6 @@ export class EventosCalendarService {
         )
     }
 
-    
-    getFrancos(params?: any): Observable<IEventoCalendar[]> {
-        return this.francoService.get(params).pipe(
-            map(data =>
-                data.map(franco=> {
-                    return this.mapFranco(franco);
-                })
-            )
-        );
-    }
 
     addFrancos(objects: Franco[]): Observable<IEventoCalendar[]> {
         return this.francoService.addFrancos(objects).pipe(

@@ -27,6 +27,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     storeSubscription: Subscription;
     private _rangeSelection: IDateRangeSelection;
     
+    
     constructor(private calendarStoreService: CalendarStoreService,
         private renderer: Renderer2){
             this.storeSubscription = this.calendarStoreService.selectionRange$
@@ -56,64 +57,39 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         return shortDayName;
     }
 
-    eventRender = (info:any) => {
-        
-        // console.log(info.el)
-        
-            // this.searchStart.emit();
-            // this.timeoutHandle = null;
-            // this.search(searchParams);
-        // return false;
-        
-        console.log(info)
-        
-        let colEvent: HTMLDivElement  = this.renderer.createElement('div');
-        let linkEvent: HTMLAnchorElement = this.renderer.createElement('a');
-        colEvent.className = "fc-custom-event"
-        linkEvent.className = "fc-event"
-        linkEvent.innerText = info.event.title;
-        // linkEvent.addEventListener("click", function(){alert('Hola')});
-        linkEvent.addEventListener('click', this.onClicker.bind(this, info.event));
-        colEvent.appendChild(linkEvent);
-        // console.log('El');
-        // console.log(info.el);
-        // this.renderer.setValue(info.el,)
-        info.el.innerHtml = colEvent;
-        // let parent = this.renderer.parentNode(info.el);//  appendChild(info.el.parentNode, colEvent);
-        // console.log(parent);
-        //  this.renderer.appendChild(this.div.nativeElement, p)
-        // return false;
-        // console.log('Hola Render');
-        // console.log(info);
-        // info.el = '<td>hola</td>'
-        // console.log(p);
-        // info.el = p;
-        // return p;
-        // return '<td>hola</td>';
-    }
-
-    onClicker(event){
-        
-        console.log('HOLITA!!!!!!!!!')
-        console.log(event);
-    }
-
+    /**
+     * Renderiza los eventos en el calendario con las siguientes condiciones:
+     *  - Si existe solo un evento en un dia, la celda se 'rellena' completamente
+     *    con el color indicado en el evento
+     *  - Si existe mas de un evento en un dia se utiliza el render por default
+     *    el cual 'apila' los eventos de la celda del dia.
+     * @param info object provisto por fullcalendar. Contiene el evento interno 
+     */
     customEventRenderWithReturnValue(info){
-        console.log(info);
-        let colEvent: HTMLDivElement  = this.renderer.createElement('div');
-        let linkEvent: HTMLAnchorElement = this.renderer.createElement('a');
-        colEvent.className = "fc-custom-event"
-        colEvent.style.backgroundColor = info.event.backgroundColor;
-        linkEvent.className = "fc-event"
-        linkEvent.innerText = info.event.title;
-        colEvent.appendChild(linkEvent);
-        // // info.el = colEvent;
-        // let parent = this.renderer.parentNode(info.el);//  appendChild(info.el.parentNode, colEvent);
-        // console.log(parent);
-        // return colEvent;
-        // return false;
+        let colEvent: HTMLDivElement;
+        if (!this.otherEventOnSameDay(info.event)){
+            colEvent = this.renderer.createElement('div');
+            let linkEvent: HTMLAnchorElement = this.renderer.createElement('a');
+            colEvent.className = "fc-custom-event"
+            colEvent.style.backgroundColor = info.event.backgroundColor;
+            linkEvent.className = "fc-event"
+            linkEvent.innerText = info.event.title;
+            colEvent.appendChild(linkEvent);
+        }        
         return colEvent;
     }
+
+    otherEventOnSameDay(eventB){
+        const evento = this.eventos.find(
+            eventA => (eventA.startString == eventB.extendedProps.startString
+                    && eventA.id != eventB.id)
+        );
+        return evento;       
+    }
+
+    // compareEvent(eventA, eventB):boolean{
+    //     return ()
+    // }
     
     public ngOnInit() {
 

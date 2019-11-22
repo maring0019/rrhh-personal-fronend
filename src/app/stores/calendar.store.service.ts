@@ -152,6 +152,7 @@ export class CalendarStoreService {
         )
     }
 
+
     /**
      * Utilidad para quitar/filtrar todos los elementos de una lista que estan presentes
      * en otra lista. Se utiliza el atributo id para realizar la comparacion entre elementos
@@ -159,10 +160,9 @@ export class CalendarStoreService {
      * @param listB elementos a filtrar en listA
      */
     private filterAB(listA, listB){
-        console.log(listA);
-        console.log(listB)
         return listA.filter( x => !listB.filter( y => y.id === x.id).length);
     }
+    
 
     private fetchAll(agenteID) {
         let feriados$ = this.eventosService.getFeriados();

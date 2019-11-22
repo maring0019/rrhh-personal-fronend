@@ -19,6 +19,11 @@ export class FeriadoService {
         return this.server.get(this.baseUrl, { params: params, showError: true });
     }
 
+    getAsEventos(params?: any): Observable<any[]> {
+        const url = `${this.baseUrl}/eventos`; 
+        return this.server.get(url, { params: params, showError: true });
+    }
+
     getByID(feriadoId?: any): Observable<Feriado> {
         const url = `${this.baseUrl}/${feriadoId}`;
         return this.server.get(url);

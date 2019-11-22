@@ -8,4 +8,5 @@ export interface IEventoCalendar {
     rendering?: String,
     ausentismoFechaDesde: Date,
     ausentismoFechaHasta: Date,
+    startString?: String
 }

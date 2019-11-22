@@ -84,6 +84,11 @@ export class AgenteService {
         return this.server.get(url);
     }
 
+    getAusenciasAsEventos(agenteId):Observable<any[]> {
+        const url = `${this.agenteUrl}/${agenteId}/ausencias/eventos`;
+        return this.server.get(url);
+    }
+
     getLicenciasTotales(agenteId):Observable<any[]> {
         const url = `${this.agenteUrl}/${agenteId}/licencias/totales`;
         return this.server.get(url);
