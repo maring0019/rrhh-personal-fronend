@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { PaisService } from 'src/app/services/pais.service';
@@ -7,17 +7,21 @@ import { IPais } from 'src/app/models/IPais';
 import { Agente } from 'src/app/models/Agente';
 import * as enumerados from 'src/app/models/enumerados';
 import { getCuilCuit } from 'src/app/utils/cuilGenerator';
+import { PlexTextComponent } from '@andes/plex/src/lib/text/text.component';
 
 @Component({
     selector: 'agente-datos-basicos',
     templateUrl: './agente-datos-basicos.html',
 })
-export class AgenteDatosBasicosComponent implements OnInit {
+export class AgenteDatosBasicosComponent implements OnInit, AfterViewInit {
 
     @Input() agente: Agente;
     // Notifica cualquier cambio en los datos basicos del formulario del agente (incluida la foto)
     @Output() outputAgente: EventEmitter<Agente> = new EventEmitter<Agente>();
-
+    
+    @ViewChild("apellido") apellidoField: PlexTextComponent; // Para poder setear el focus
+    public autoFocus = 0;
+    
     public datosBasicosForm: FormGroup;
     // Form select options
     public sexos = enumerados.getObjSexos();
@@ -42,6 +46,16 @@ export class AgenteDatosBasicosComponent implements OnInit {
         this.datosBasicosForm.valueChanges.subscribe(() => {
             this.outputAgente.emit(this.datosBasicosForm.value);
         });
+    }
+
+    ngAfterViewInit(){
+        // Patch para poder visualizar correctamente la fecha de nacimiento
+        // y colocar el focus en el campo apellido al inicializar 
+        window.setTimeout(() => {
+            this.datosBasicosForm
+                .patchValue({ fechaNacimiento : this.datosBasicosForm.value.fechaNacimiento});
+            this.apellidoField.autoFocus = this.autoFocus + 1;
+        }, 1000);
     }
 
     createDatosBasicosForm()

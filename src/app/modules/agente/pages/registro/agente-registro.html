@@ -7,12 +7,12 @@
                     {{ (agente?.id)? 'Edición de agente' : 'Alta de agente nuevo' }}
                 </h5>
                 <div class="d-flex flex-row justify-content-end">
-                    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="volverInicio()"></plex-button>
+                    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
                     <plex-button label="Guardar Agente" type="success" (click)="saveAgente()"></plex-button>
                 </div>
             </section>
         </header>
-        <plex-tabs>
+        <plex-tabs #tabs>
             <plex-tab label="GENERAL">
                 <div *ngIf="agente">
                     <agente-datos-basicos 
@@ -74,6 +74,23 @@
                 <app-file-manager *ngIf="agente" [filesOwner]="agente">
                 </app-file-manager>
             </plex-tab>
+
+            <!-- Habilitar cuando sea posible 
+                <div *ngIf="agente"
+                class="d-flex flex-row justify-content-end align-items-center">
+                <plex-button 
+                    class="cal-arrow mr-2"
+                    type="info"
+                    icon="chevron-left"
+                    (click)="prevTab()">
+                </plex-button>
+                <plex-button 
+                    class="cal-arrow"
+                    type="info"
+                    icon="chevron-right" 
+                    (click)="nextTab()">
+                </plex-button>
+            </div> -->
         </plex-tabs>
     </plex-layout-main>
     <plex-layout-sidebar type="invert">
@@ -83,7 +100,8 @@
             [direccion]="agenteDetalle.direccion"
             [contactos]="agenteDetalle.contactos"
             [educacion]="agenteDetalle.educacion"
-            [situacion]="agenteDetalle.situacionLaboralActiva?.situacion">
+            [situacion]="agenteDetalle.situacionLaboral?.situacion"
+            [regimen]="agenteDetalle.situacionLaboral?.regimen">
         </app-agente-detalle>
     </plex-layout-sidebar>
 </plex-layout>

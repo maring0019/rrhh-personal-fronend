@@ -5,8 +5,7 @@ import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
     selector: 'app-agente-search',
-    templateUrl: 'agente-search.html',
-    // styleUrls: ['agente-busqueda.scss']
+    templateUrl: 'agente-search.html'
 })
 export class AgenteSearchComponent implements OnInit {
 

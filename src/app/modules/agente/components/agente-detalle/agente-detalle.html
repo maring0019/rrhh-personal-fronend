@@ -113,13 +113,13 @@
                     tituloPrincipal="Datos de Contacto">
                     <ng-container *ngFor="let contacto of contactos">
                         <article class="d-inline-block mr-4">
-                                <strong>Tipo de Contacto</strong>
-                                <p>{{ contacto.tipo | title: 'nombre'}}</p>
-                            </article>
-                            <article class="d-inline-block mr-4">
-                                <strong>Contacto</strong>
-                                <p>{{ contacto.valor }}</p>
-                            </article>
+                            <strong>Tipo de Contacto</strong>
+                            <p>{{ contacto.tipo | title: 'nombre'}}</p>
+                        </article>
+                        <article class="d-inline-block mr-4">
+                            <strong>Contacto</strong>
+                            <p>{{ contacto.valor }}</p>
+                        </article>
                     </ng-container>
                 </plex-panel>
             </plex-accordion>
@@ -146,10 +146,10 @@
                 <plex-panel 
                     icon="mdi icon-hospital"
                     tituloPrincipal="Situación y Cargo">
-                    <div *ngIf=situacion>
+                    <div *ngIf="situacion">
                         <article class="d-inline-block mr-4">
-                            <strong>Situación</strong>
-                            <p>{{ situacion.tipoSituacion | title:'nombre' }}</p>
+                            <strong>Situación Laboral</strong>
+                            <p>{{ situacion | title:'nombre' }}</p>
                         </article>
                     </div>
                 </plex-panel>
@@ -160,6 +160,16 @@
                 <plex-panel 
                     icon="mdi icon-nodos"
                     tituloPrincipal="Regímenes">
+                    <div *ngIf="regimen">
+                        <article class="d-inline-block mr-4">
+                            <strong>Régimen Horario</strong>
+                            <p>{{ regimen.regimenHorario | title:'nombre' }} hs.</p>
+                        </article>
+                        <article class="d-inline-block mr-4">
+                            <strong>Dedicación Exclusiva</strong>
+                            <p>{{ regimen.dedicacionExclusiva? 'Si' : 'No' }}</p>
+                        </article>
+                    </div>
                 </plex-panel>
             </plex-accordion>
         </li>

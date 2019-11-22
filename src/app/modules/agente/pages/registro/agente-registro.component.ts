@@ -23,6 +23,7 @@ import { Educacion } from 'src/app/models/Educacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Regimen } from 'src/app/models/Regimen';
+import { PlexTabsComponent } from '@andes/plex/src/lib/tabs/tabs.component';
 
 @Component({
     selector: 'app-agente-registro',
@@ -39,6 +40,8 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
+    @ViewChild("tabs") agenteTabs: PlexTabsComponent;
+    
     
     @HostBinding('class.plex-layout') layout = true;
     // Datos para los formularios
@@ -246,6 +249,34 @@ export class AgenteRegistroComponent implements OnInit {
     private saveFiles(agente){
         this.fileManager.saveFileChanges(agente);
     }
+
+    public cancelar(){
+        this.volverInicio();
+    }
+
+    public nextTab(){
+        const maxTabs = this.agenteTabs.tabs.length;
+        const idxTab = this.agenteTabs.activeIndex
+        if ( (maxTabs-1) == idxTab ){
+            this.agenteTabs.activeIndex = 0;
+        }
+        else{
+            this.agenteTabs.activeIndex = this.agenteTabs.activeIndex + 1;
+        }        
+    }
+
+    public prevTab(){
+        const maxTabs = this.agenteTabs.tabs.length;
+        const idxTab = this.agenteTabs.activeIndex
+        if ( idxTab == 0 ){
+            this.agenteTabs.activeIndex = maxTabs - 1;
+        }
+        else{
+            this.agenteTabs.activeIndex = this.agenteTabs.activeIndex - 1;
+        }
+        
+    }
+
 
     volverInicio() {
         this.router.navigate(['/agentes/busqueda'])
