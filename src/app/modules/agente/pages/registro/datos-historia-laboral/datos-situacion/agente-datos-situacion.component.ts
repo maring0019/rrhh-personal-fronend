@@ -11,6 +11,7 @@ import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 })
 export class AgenteDatosSituacionComponent implements OnInit {
     @Input() situacion: SituacionLaboral;
+    @Input() editable: boolean = false;
     @Output() outputSituacion: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
 
     datosSituacionForm: FormGroup;

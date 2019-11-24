@@ -16,6 +16,7 @@ import { PlexTextComponent } from '@andes/plex/src/lib/text/text.component';
 export class AgenteDatosBasicosComponent implements OnInit, AfterViewInit {
 
     @Input() agente: Agente;
+    @Input() editable: boolean = false;
     // Notifica cualquier cambio en los datos basicos del formulario del agente (incluida la foto)
     @Output() outputAgente: EventEmitter<Agente> = new EventEmitter<Agente>();
     

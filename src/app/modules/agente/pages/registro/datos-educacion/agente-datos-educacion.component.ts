@@ -13,6 +13,7 @@ import { EducacionService } from 'src/app/services/educacion.service';
 export class AgenteDatosEducacionComponent implements OnInit {
 
     @Input() educacion: Educacion[];
+    @Input() editable: boolean = false;
     @Output() outputEducacion: EventEmitter<Educacion[]> = new EventEmitter<Educacion[]>();
     
     datosEducacionForm: FormGroup;

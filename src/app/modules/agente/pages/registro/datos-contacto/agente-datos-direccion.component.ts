@@ -16,6 +16,7 @@ import { Provincia } from 'src/app/models/Provincia';
 export class AgenteDatosDireccionComponent implements OnInit {
 
     @Input() direccion: Direccion;
+    @Input() editable: boolean = false;
     @Output() outputDireccion: EventEmitter<Direccion> = new EventEmitter<Direccion>();
     direccionForm: FormGroup;
     provincias: Provincia[] = [];

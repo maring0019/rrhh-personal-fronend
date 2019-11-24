@@ -8,7 +8,8 @@
                 formControlName="regimenHorario"
                 label="Régimen Horario"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -16,7 +17,8 @@
                 name="prolongacionJornada"
                 formControlName="prolongacionJornada"
                 label="Prolongación Jornada"
-                placeholder="Ingrese valor...">
+                placeholder="Ingrese valor..."
+                [readonly]="!editable">
             </plex-text>
         </div>
         <div class="col-md-4">
@@ -24,7 +26,8 @@
                 name="actividadCritica"
                 formControlName="actividadCritica"
                 label="Actividad Crítica"
-                placeholder="Ingrese valor...">
+                placeholder="Ingrese valor..."
+                [readonly]="!editable">
             </plex-text>
         </div>
     </div>
@@ -34,7 +37,8 @@
                 type="slide"
                 name="dedicacionExclusiva"
                 formControlName="dedicacionExclusiva"
-                label="Dedicación Exclusiva">
+                label="Dedicación Exclusiva"
+                [readonly]="!editable">
             </plex-bool>
         </div>
         <div class="col-md-3">
@@ -42,7 +46,8 @@
                 type="slide"
                 name="tiempoPleno"
                 formControlName="tiempoPleno"
-                label="Trasladado">
+                label="Trasladado"
+                [readonly]="!editable">
             </plex-bool>
         </div>
         <div class="col-md-3">
@@ -50,7 +55,8 @@
                 type="slide"
                 name="guardiasPasivas"
                 formControlName="guardiasPasivas"
-                label="Guardias Pasivas">
+                label="Guardias Pasivas"
+                [readonly]="!editable">
             </plex-bool>
         </div>
         <div class="col-md-3">
@@ -58,7 +64,8 @@
                 type="slide"
                 name="guardiasActivas"
                 formControlName="guardiasActivas"
-                label="Guardias Activas">
+                label="Guardias Activas"
+                [readonly]="!editable">
             </plex-bool>
         </div>
     </div>

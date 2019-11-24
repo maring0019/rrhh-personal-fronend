@@ -9,7 +9,8 @@
                         formControlName="valor"
                         label="Dirección"
                         placeholder="Ingrese Dirección..."
-                        [required]="true">
+                        [required]="true"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-md-12">
@@ -20,6 +21,7 @@
                         label="Provincia"
                         placeholder="Seleccione..."
                         [required]="false"
+                        [readonly]="!editable"
                         (change)='onChangeProvincia($event)'>
                     </plex-select>
                 </div>
@@ -30,7 +32,8 @@
                         formControlName="localidad"
                         label="Localidad"
                         placeholder="Seleccione..."
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-select>
                 </div>
                 <div class="col-md-6">
@@ -39,7 +42,8 @@
                         formControlName="barrio" 
                         label="Barrio"
                         placeholder="Ingrese Barrio"
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-md-6">
@@ -48,7 +52,8 @@
                         formControlName="codigoPostal" 
                         label="CP"
                         placeholder="Ingrese CP..."
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-md-12">
@@ -67,7 +72,8 @@
                         formControlName="calleIzquierda"
                         label="Calle Izquierda"
                         placeholder="Ingrese valor..."
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-md-12">
@@ -76,7 +82,8 @@
                         formControlName="calleDerecha"
                         label="Calle Derecha"
                         placeholder="Ingrese valor..."
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-md-12">
@@ -85,7 +92,8 @@
                         formControlName="calleParalela"
                         label="Calle Parelela"
                         placeholder="Ingrese valor..."
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-md-12">
@@ -94,7 +102,8 @@
                         formControlName="complementarios" 
                         label="Otros datos"
                         placeholder="Ingrese valor..."
-                        [required]="false">
+                        [required]="false"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
             </div>

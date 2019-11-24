@@ -3,5 +3,5 @@
     *ngIf="imagen"
     [ngClass]="imagenSizeClass()"
     [src]="imagen"
-    [style.cursor]="editable ? 'pointer' : 'auto' "
+    [style.cursor]="'pointer'"
     (click)="editable && uploader.click()">

@@ -10,7 +10,8 @@
             <plex-label
                 titulo="D.U {{agente.documento }}"
                 [tituloBold]="false"
-                (click)="seleccionarAgente(agente, i)">
+                (click)="seleccionarAgente(agente, i)"
+                [style.cursor]="'pointer'">
             </plex-label>
             <plex-label
                 titulo="{{ agente.apellido }}, {{agente.nombre }} "
@@ -25,18 +26,21 @@
                     {{ agente.activo? 'Activo' : 'Baja' }}
             </plex-badge>
             <plex-button 
+                title="Seleccionar Agente"
+                type="warning"
+                size="sm"
+                icon="mdi mdi-cursor-default"
+                (click)="seleccionarAgente(agente, i)">
+            </plex-button>
+            <plex-button
+                title="Ver Agente Detalle"
                 type="info"
                 size="sm"
                 icon="mdi mdi-eye"
-                (click)="seleccionarAgente(agente, i)">Ver
+                (click)="gotoAgente(agente)">
             </plex-button>
             <plex-button
-                type="warning"
-                size="sm"
-                icon="mdi mdi-pencil"
-                (click)="gotoAgente(agente)">Editar
-            </plex-button>
-            <plex-button
+                title="Ver Ausentismo"
                 type="success"
                 size="sm"
                 icon="clock"

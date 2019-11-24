@@ -7,7 +7,8 @@
                 titlePosition="left"
                 type="primary btn-sm"
                 icon="plus"
-                (click)="addContacto()">
+                (click)="addContacto()"
+                [disabled]="!editable">
             </plex-button>
         </div>
     </div>
@@ -22,7 +23,8 @@
                         formControlName="tipo"
                         label="Tipo de contacto"
                         placeholder="Seleccione..."
-                        [required]="true">
+                        [required]="true"
+                        [readonly]="!editable">
                     </plex-select>
                 </div>
                 <div class="col-md-4">
@@ -31,7 +33,8 @@
                         formControlName="valor" 
                         label="Dato de contacto"
                         placeholder="Ingrese valor..."
-                        [required]="true">
+                        [required]="true"
+                        [readonly]="!editable">
                     </plex-text>
                 </div>
                 <div class="col-2" *ngIf="i > 0">
@@ -41,7 +44,9 @@
                         label=""
                         type="danger btn-sm"
                         icon="close"
-                        (click)="deleteContacto(i)"></plex-button>
+                        (click)="deleteContacto(i)"
+                        [disabled]="!editable">
+                    </plex-button>
                 </div>
             </div>
         </div>

@@ -24,6 +24,7 @@ import { Sector } from 'src/app/models/Sector';
 })
 export class AgenteDatosCargoComponent implements OnInit {
     @Input() cargo: Cargo;
+    @Input() editable: boolean = false;
     @Output() outputCargo: EventEmitter<Cargo> = new EventEmitter<Cargo>();
 
     datosCargoForm: FormGroup;

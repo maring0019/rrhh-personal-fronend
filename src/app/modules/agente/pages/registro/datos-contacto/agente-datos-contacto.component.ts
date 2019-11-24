@@ -11,6 +11,7 @@ import { Contacto } from 'src/app/models/Contacto';
 export class AgenteDatosContactoComponent implements OnInit {
 
     @Input() contactos: Contacto[];
+    @Input() editable: boolean = false;
     @Output() outputContactos: EventEmitter<Contacto[]> = new EventEmitter<Contacto[]>();
     
     datosContactoForm: FormGroup;

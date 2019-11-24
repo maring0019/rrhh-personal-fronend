@@ -5,8 +5,21 @@
         <h5><strong>Agente |</strong> Detalle</h5>
     </div>
     <div *ngIf="showActions" class="d-flex flex-row justify-content-end">
-        <plex-button type="warning" icon="pencil" size="sm" class="mr-2" (click)="gotoAgente()">Editar</plex-button>
-        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
+        <plex-button
+            title="Ver Agente Detalle"
+            type="info"
+            size="sm"
+            class="mr-2"
+            icon="mdi mdi-eye"
+            (click)="gotoAgente(agente)">
+        </plex-button>
+        <plex-button
+            title="Cerrar"
+            type="danger"
+            icon="mdi mdi-close"
+            size="sm"
+            (click)="onClose()">
+        </plex-button>
     </div>
 </header>
 

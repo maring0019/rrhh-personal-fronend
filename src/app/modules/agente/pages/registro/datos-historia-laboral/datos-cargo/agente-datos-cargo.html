@@ -1,14 +1,15 @@
 <form name="datosCargoForm" [formGroup]="datosCargoForm">
-    <h5 class="subheader">Norma Legal</h5>
+    <!-- <h5 class="subheader">Norma Legal</h5> -->
     <div class="row">
         <div class="col-md-4">
             <plex-select 
                 [data]="tiposNormaLegal"
                 name="tipoNormaLegal"
                 formControlName="tipoNormaLegal"
-                label="Tipo Norma"
+                label="Tipo Norma Legal"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -16,7 +17,8 @@
                 name="numeroNormaLegal"
                 formControlName="numeroNormaLegal"
                 label="Nro. Norma Legal"
-                placeholder="Ingrese Nro...">
+                placeholder="Ingrese Nro..."
+                [readonly]="!editable">
             </plex-text>
         </div>
         <div class="col-md-4">
@@ -24,7 +26,8 @@
                 type="date"
                 label="Fecha de la Norma"
                 name="fechaNormaLegal"
-                formControlName="fechaNormaLegal">
+                formControlName="fechaNormaLegal"
+                [readonly]="!editable">
             </plex-datetime>
         </div>
     </div>
@@ -37,7 +40,8 @@
                 formControlName="agrupamiento"
                 label="Agrupamiento"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -47,7 +51,8 @@
                 formControlName="puesto"
                 label="Puesto/Agrupamiento"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -57,7 +62,8 @@
                 formControlName="subpuesto"
                 label="SubPuesto/Función"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
     </div>
@@ -69,7 +75,8 @@
                 formControlName="sector"
                 label="Lugar de Trabajo/Sector"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
         <div class="col-md-6">
@@ -79,7 +86,8 @@
                 formControlName="servicio"
                 label="Servicio"
                 placeholder="Seleccione..."
-                [required]="true">
+                [required]="true"
+                [readonly]="!editable">
             </plex-select>
         </div>
     </div>
@@ -89,7 +97,8 @@
                 name="observaciones"
                 formControlName="observaciones"
                 label="Observaciones"
-                placeholder="Ingrese observaciones...">
+                placeholder="Ingrese observaciones..."
+                [readonly]="!editable">
             </plex-text>
         </div>
     </div>

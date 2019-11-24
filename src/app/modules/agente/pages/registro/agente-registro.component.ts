@@ -53,8 +53,12 @@ export class AgenteRegistroComponent implements OnInit {
     public cargo: Cargo;
     public regimen: Regimen;
 
-    // Datos a mostrar del agente en el panel lateral. Los cambios realizados
-    // en los formularios son aplicados inmediatamente a este objeto
+    // Variable de control para determinar si se puede puede editar
+    // los datos de un agente. En el caso de un alta siempre es true
+    public isEditable: boolean= true;
+
+    // Datos a mostrar del agente en el panel lateral. Los cambios en
+    // los formularios son aplicados inmediatamente a este objeto
     public agenteDetalle: Agente;
 
     private _agenteID:any; // To keep track of agente on edit
@@ -70,27 +74,35 @@ export class AgenteRegistroComponent implements OnInit {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._agenteID = params.get('id');
             if (this._agenteID){
-                this.agenteService.getByID(this._agenteID).subscribe((data) => {
-                    if (data){
-                        this.agente = new Agente(data);
-                        this.agenteDetalle = new Agente(data);
-                        this.initValueForms();
-                    }else{
-                        this.plex.info('info', 'El agente que desea editar no existe!')
-                            .then( e => {
-                                this.volverInicio();
-                        });
-                    }
-                });
+                this.prepareDataForEdition();
             }
             else{
-                this.agente = new Agente();
-                this.agenteDetalle = new Agente();
-                this.initValueForms();
+                this.prepareDataForCreation();
             }
         });
     }
 
+    private prepareDataForEdition(){
+        this.isEditable = false;
+        this.agenteService.getByID(this._agenteID).subscribe((data) => {
+            if (data){
+                this.agente = new Agente(data);
+                this.agenteDetalle = new Agente(data);
+                this.initValueForms();
+            }else{
+                this.plex.info('info', 'El agente que desea editar no existe!')
+                    .then( e => {
+                        this.volverInicio();
+                });
+            }
+        });
+    }
+
+    private prepareDataForCreation(){
+        this.agente = new Agente();
+        this.agenteDetalle = new Agente();
+        this.initValueForms();
+    }
 
     initValueForms(){
         this.direccion = this.agente.direccion;
@@ -99,7 +111,6 @@ export class AgenteRegistroComponent implements OnInit {
         this.situacion = this.agente.situacionLaboral;
         this.cargo = this.agente.situacionLaboral.cargo;
         this.regimen = this.agente.situacionLaboral.regimen;
-        
     }
 
     initAusentismoFiles(){
@@ -250,11 +261,17 @@ export class AgenteRegistroComponent implements OnInit {
         this.fileManager.saveFileChanges(agente);
     }
 
-    public cancelar(){
+    // Button Actions
+
+    public onEditar(){
+        this.isEditable = true;
+    }
+
+    public onCancelar(){
         this.volverInicio();
     }
 
-    public nextTab(){
+    public onNextTab(){
         const maxTabs = this.agenteTabs.tabs.length;
         const idxTab = this.agenteTabs.activeIndex
         if ( (maxTabs-1) == idxTab ){
@@ -265,7 +282,7 @@ export class AgenteRegistroComponent implements OnInit {
         }        
     }
 
-    public prevTab(){
+    public onPrevTab(){
         const maxTabs = this.agenteTabs.tabs.length;
         const idxTab = this.agenteTabs.activeIndex
         if ( idxTab == 0 ){

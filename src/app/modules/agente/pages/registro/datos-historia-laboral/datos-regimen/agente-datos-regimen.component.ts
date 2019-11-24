@@ -14,6 +14,7 @@ import { RegimenHorario } from 'src/app/models/RegimenHorario';
 })
 export class AgenteDatosRegimenComponent implements OnInit {
     @Input() regimen: Regimen;
+    @Input() editable: boolean = false;
     @Output() outputRegimen: EventEmitter<Regimen> = new EventEmitter<Regimen>();
 
     datosRegimenForm: FormGroup;

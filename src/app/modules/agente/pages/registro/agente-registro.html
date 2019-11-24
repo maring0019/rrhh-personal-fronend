@@ -2,13 +2,24 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center">
-                    <strong>Agente |</strong>
-                    {{ (agente?.id)? 'Edición de agente' : 'Alta de agente nuevo' }}
+                <h5 class="align-self-center" *ngIf="!agente.id">
+                    <strong>Agente |</strong> Alta de agente
                 </h5>
+                <h5 class="align-self-center" *ngIf="agente.id">
+                        <strong>Agente |</strong>
+                        {{ (isEditable)? 'Edición de agente' : 'Detalle de agente' }}
+                    </h5>
                 <div class="d-flex flex-row justify-content-end">
-                    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
-                    <plex-button label="Guardar Agente" type="success" (click)="saveAgente()"></plex-button>
+                    <div *ngIf="!isEditable">
+                        <plex-button class="mx-2" label="Editar Agente" type="info" (click)="onEditar()"></plex-button>
+                        <plex-button class="mx-2" label="Nueva Historia Laboral" type="info" (click)="onCancelar()"></plex-button>
+                        <plex-button type="danger"  icon="mdi mdi-close"  (click)="onCancelar()" title="Cerrar"></plex-button>
+                    </div>
+                    <div *ngIf="isEditable">
+                        <plex-button label="Guardar" type="success" (click)="saveAgente()"></plex-button>
+                        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="onCancelar()"></plex-button>
+                    </div>
+                    
                 </div>
             </section>
         </header>
@@ -17,6 +28,7 @@
                 <div *ngIf="agente">
                     <agente-datos-basicos 
                         [agente]="agente"
+                        [editable]="isEditable"
                         (outputAgente)='onValueChangeAgente($event)'>
                     </agente-datos-basicos>
                 </div>
@@ -25,6 +37,7 @@
                 <div *ngIf="direccion">
                     <agente-datos-direccion 
                         [direccion]="direccion"
+                        [editable]="isEditable"
                         (outputDireccion)='onValueChangeDireccion($event)'>
                     </agente-datos-direccion>
                 </div>
@@ -33,6 +46,7 @@
                 <div *ngIf="contactos">
                     <agente-datos-contacto 
                         [contactos]="contactos"
+                        [editable]="isEditable"
                         (outputContactos)='onValueChangeContactos($event)'>
                     </agente-datos-contacto>
                 </div>
@@ -41,6 +55,7 @@
                 <div *ngIf="educacion">
                     <agente-datos-educacion 
                         [educacion]="educacion"
+                        [editable]="isEditable"
                         (outputEducacion)='onValueChangeEducacion($event)'>
                     </agente-datos-educacion>
                 </div>
@@ -49,6 +64,7 @@
                 <div *ngIf="situacion">
                     <agente-datos-situacion
                         [situacion]="situacion"
+                        [editable]="isEditable"
                         (outputSituacion)='onValueChangeSituacion($event)'>
                     </agente-datos-situacion>
                 </div>
@@ -57,6 +73,7 @@
                 <div *ngIf="cargo">
                     <agente-datos-cargo
                         [cargo]="cargo"
+                        [editable]="isEditable"
                         (outputCargo)='onValueChangeCargo($event)'>
                     </agente-datos-cargo>
                 </div>
@@ -65,6 +82,7 @@
                 <div *ngIf="regimen">
                     <agente-datos-regimen
                         [regimen]="regimen"
+                        [editable]="isEditable"
                         (outputRegimen)='onValueChangeRegimen($event)'>
                     </agente-datos-regimen>
                 </div>
