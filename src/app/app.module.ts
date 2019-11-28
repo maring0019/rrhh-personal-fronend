@@ -171,6 +171,12 @@ import { FichadaReporteItemListComponent } from 'src/app/pages/partes/reportes/f
 import { FichadaReporteSearchFormComponent } from 'src/app/pages/partes/reportes/fichadas/search/fichada-reporte-search.component';
 import { FichadaReporteListComponent } from './pages/partes/reportes/fichadas/reporte-fichada-list.component';
 
+// Guardias
+import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
+import { GuardiaFormComponent } from './pages/guardias/guardia-servicio/create-update/form/guardia-form.component';
+import { GuardiaPlanillaComponent } from './pages/guardias/guardia-servicio/create-update/planilla/guardia-planilla.component';
+import { RangeDirective } from './directives/range';
+
 
 const ADMIN_COMPONENTS = [
 
@@ -254,6 +260,11 @@ const ADMIN_COMPONENTS = [
         FichadaReporteItemListComponent, 
         FichadaReporteListComponent,
 
+        // Guardias
+        GuardiaCreateUpdateComponent,
+        GuardiaFormComponent,
+        GuardiaPlanillaComponent,
+
         SearchLeyendaComponent,
         ListadoComponent,
         ItemListadoComponent,
@@ -284,7 +295,10 @@ const ADMIN_COMPONENTS = [
         FechaPipe,
         TitlePipe,
         EdadPipe,
-        SanitizeHtmlPipe
+        SanitizeHtmlPipe,
+
+        // Directives
+        RangeDirective,
     ],
     imports: [
         BrowserModule,

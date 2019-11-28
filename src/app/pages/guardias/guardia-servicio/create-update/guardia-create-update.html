@@ -1,0 +1,37 @@
+<plex-layout main="12">
+    <plex-layout-main>
+        <header>
+            <section class="d-flex flex-row justify-content-between mb-2">
+                <h5 class="align-self-center" *ngIf="!guardia.id">
+                    <strong>Guardia |</strong> Alta nueva planilla
+                </h5>
+                <h5 class="align-self-center" *ngIf="guardia.id">
+                        <strong>Guardia |</strong>
+                        {{ (isEditable)? 'Edición de planilla' : 'Detalle de planilla' }}
+                    </h5>
+                <div class="d-flex flex-row justify-content-end">
+                    <!-- <div *ngIf="!isEditable">
+                        <plex-button class="mx-2" label="Editar Agente" type="info" (click)="onEditar()"></plex-button>
+                        <plex-button class="mx-2" label="Nueva Historia Laboral" type="info" (click)="onCancelar()"></plex-button>
+                        <plex-button type="danger"  icon="mdi mdi-close"  (click)="onCancelar()" title="Cerrar"></plex-button>
+                    </div> -->
+                    <div *ngIf="isEditable">
+                        <plex-button label="Guardar" type="success" (click)="onGuardar()"></plex-button>
+                        <plex-button label="Cancelar" type="danger" (click)="onCancelar()" class="mx-2"></plex-button>
+                    </div> 
+                    
+                </div>
+            </section>
+        </header>
+
+        <app-guardia-form
+            [guardia]="guardia">
+        </app-guardia-form>
+        <br>
+        <app-guardia-planilla
+            *ngIf="guardia"
+            [guardia]="guardia">
+        </app-guardia-planilla>
+
+    </plex-layout-main>
+</plex-layout>

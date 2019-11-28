@@ -30,14 +30,16 @@
                         *ngIf="!estadoPresentacionConfirmada"
                         class="mr-2"
                         label="Guardar"
+                        title="Guardar y Continuar Editando"
                         type="info"
                         (click)="onSavePartes()">
                     </plex-button>
                     <plex-button
                         *ngIf="!estadoPresentacionConfirmada"
                         class="mr-2"
-                        label="Guardar y Confimar"
+                        label="Confirmar"
                         type="success"
+                        title="Confirmar Parte"
                         (click)="onConfirmarPartes()">
                     </plex-button>
                     <plex-button 

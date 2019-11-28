@@ -1,0 +1,30 @@
+<div class="striped">
+    <div class="dl guardia d-flex flex-row justify-content-start">
+        <div>
+            <plex-label titulo="Agente"></plex-label>
+        </div>  
+        <div *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia">
+            <plex-label
+                titulo="{{ diaGuardia | fecha:'diasmall' | title}}"
+                subtitulo="{{ diaGuardia | fecha:'diames' }}">
+            </plex-label>    
+        </div>
+        <div>
+            <plex-label titulo="Total"></plex-label>
+        </div>
+    </div>
+    
+    <div class="dl guardia d-flex flex-row justify-content-start">
+        <div>
+            <plex-label titulo="Mariana Vazquez" subtitulo="Nro: 206342"></plex-label>
+        </div>
+        <div class="d-flex flex-column justify-content-center"
+            *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia"
+            (click)="onClick(diaGuardia)">
+            <plex-icon name="mdi mdi-cursor-default"></plex-icon>
+        </div>
+        <div>
+            <plex-label titulo="0"></plex-label>
+        </div>
+    </div>
+</div>

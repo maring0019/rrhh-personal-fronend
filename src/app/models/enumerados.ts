@@ -38,6 +38,11 @@ export enum TipoEducacion {
     postgrado = 'Postgrado',
 }
 
+export enum TipoGuardia {
+    pasiva = 'Guardia Pasiva',
+    activa = 'Guardia Activa',
+}
+
 export function getObjTipoEducacion() {
     let arrTC = Object.keys(TipoComunicacion);
     let salida = arrTC.map(elem => {
@@ -89,7 +94,7 @@ export function getSexo() {
     arrSexo = arrSexo.slice(arrSexo.length / 2);
     return arrSexo;
 }
-
+ 
 export function getObjSexos() {
     let arrSexo = Object.keys(Sexo);
     arrSexo = arrSexo.slice(arrSexo.length / 2);

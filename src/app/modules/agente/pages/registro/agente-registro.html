@@ -11,8 +11,8 @@
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <div *ngIf="!isEditable">
-                        <plex-button class="mx-2" label="Editar Agente" type="info" (click)="onEditar()"></plex-button>
-                        <plex-button class="mx-2" label="Nueva Historia Laboral" type="info" (click)="onCancelar()"></plex-button>
+                        <plex-button label="Editar Agente" type="info" (click)="onEditar()" class="mx-2"></plex-button>
+                        <plex-button label="Nueva Historia Laboral" type="info" (click)="onCancelar()" class="mx-2"></plex-button>
                         <plex-button type="danger"  icon="mdi mdi-close"  (click)="onCancelar()" title="Cerrar"></plex-button>
                     </div>
                     <div *ngIf="isEditable">

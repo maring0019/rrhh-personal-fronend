@@ -15,6 +15,8 @@ export class FechaPipe implements PipeTransform {
                 if (arg1 === 'diahora') return moment(value).utc().format('ddd DD/MM hh:mm');
                 if (arg1 === 'utc') return moment(value).utc().format('DD/MM/YYYY');
                 if (arg1 === 'dia') return moment(value).utc().format('dddd');
+                if (arg1 === 'diasmall') return moment(value).utc().format('dd');
+                if (arg1 === 'diames') return moment(value).utc().format('DD/MM');
                 if (arg1 === 'duracion') return this.duracion(value);
             } else {
                 return moment(value).format('DD/MM/YYYY');

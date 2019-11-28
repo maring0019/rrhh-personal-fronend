@@ -1,0 +1,46 @@
+<header>
+    <form name="form" [formGroup]="form">
+        <div class="row">
+            <div class="col-md-3">
+                <plex-select
+                    [data]="periodoOpciones$ | async"
+                    formControlName="periodo"
+                    name="periodo"
+                    label="Periodo"
+                    placeholder="Seleccione periodo"
+                    [required]="true">
+                </plex-select>
+            </div>
+            <div class="col-md-3">
+                <plex-select
+                    [data]="servicioOpciones$ | async"
+                    formControlName="servicio"
+                    name="servicio"
+                    label="Servicio"
+                    placeholder="Seleccione servicio"
+                    [required]="true">
+                </plex-select>
+            </div>
+            <div class="col-md-3">
+                <plex-select
+                    [data]="categoriaOpciones$ | async"
+                    formControlName="categoria"
+                    name="categoria"
+                    label="Categoría"
+                    placeholder="Seleccione categoría"
+                    [required]="true">
+                </plex-select>
+            </div>
+            <div class="col-md-3">
+                <plex-select
+                    [data]="tipoGuardiaOpciones"
+                    formControlName="tipoGuardia"
+                    name="tipoGuardia"
+                    label="Tipo de Guardia"
+                    placeholder="Seleccione un tipo de guardia"
+                    [required]="true">
+                </plex-select>
+            </div>
+        </div>
+    </form>
+</header>

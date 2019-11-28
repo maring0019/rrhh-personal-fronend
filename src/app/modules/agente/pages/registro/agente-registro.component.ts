@@ -74,15 +74,15 @@ export class AgenteRegistroComponent implements OnInit {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._agenteID = params.get('id');
             if (this._agenteID){
-                this.prepareDataForEdition();
+                this.prepareDataForUpdate();
             }
             else{
-                this.prepareDataForCreation();
+                this.prepareDataForCreate();
             }
         });
     }
 
-    private prepareDataForEdition(){
+    private prepareDataForUpdate(){
         this.isEditable = false;
         this.agenteService.getByID(this._agenteID).subscribe((data) => {
             if (data){
@@ -98,7 +98,7 @@ export class AgenteRegistroComponent implements OnInit {
         });
     }
 
-    private prepareDataForCreation(){
+    private prepareDataForCreate(){
         this.agente = new Agente();
         this.agenteDetalle = new Agente();
         this.initValueForms();
