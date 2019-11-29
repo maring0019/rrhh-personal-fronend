@@ -14,17 +14,20 @@
         </div>
     </div>
     
-    <div class="dl guardia d-flex flex-row justify-content-start">
+    <div *ngFor="let item of guardia.planilla; let iplanilla=index" class="dl guardia d-flex flex-row justify-content-start">
         <div>
-            <plex-label titulo="Mariana Vazquez" subtitulo="Nro: 206342"></plex-label>
+            <plex-label titulo="{{ item.agente.apellido }}, {{ item.agente.nombre }}" subtitulo="Nro: {{ item.agente.numero }}"></plex-label>
         </div>
         <div class="d-flex flex-column justify-content-center"
-            *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia"
-            (click)="onClick(diaGuardia)">
-            <plex-icon name="mdi mdi-cursor-default"></plex-icon>
+            *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia; let irange=index"
+            (click)="onClick(diaGuardia, iplanilla, irange)">
+            <ng-container *ngIf="item.diasGuardia[irange]">
+                <plex-icon *ngIf="item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle"></plex-icon>
+                <plex-icon *ngIf="!item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle-outline"></plex-icon>
+            </ng-container>
         </div>
         <div>
-            <plex-label titulo="0"></plex-label>
+            <plex-label titulo="{{ item.totalDias }}"></plex-label>
         </div>
     </div>
 </div>

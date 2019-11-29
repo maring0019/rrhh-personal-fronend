@@ -15,7 +15,23 @@ export class GuardiaPlanillaComponent implements OnInit {
 
     }
 
-    public onClick(dia){
-        console.log(dia);
+    public onClick(dia, planillaIndex, diaIndex){
+        // Habilitamos el click unicamente en las celdas de
+        // la planilla que tengan dias validos
+        if (dia){ 
+            let diaGuardia = this.guardia.planilla[planillaIndex].diasGuardia[diaIndex];
+            if (!diaGuardia){
+                diaGuardia = { fecha: dia, diaCompleto: true } 
+            }
+            else{
+                if (diaGuardia.diaCompleto){
+                    diaGuardia.diaCompleto = false;
+                }
+                else{
+                    diaGuardia = null;
+                }
+            }
+            this.guardia.planilla[planillaIndex].diasGuardia[diaIndex] = diaGuardia;
+        }
     }
 }

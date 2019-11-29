@@ -1,5 +1,9 @@
 import { Directive, Input, ViewContainerRef, TemplateRef } from '@angular/core';
 
+
+/**
+ * From https://netbasal.com/the-power-of-structural-directives-in-angular-bfe4d8c44fb1
+ */
 @Directive({
       selector: '[dateRange]'
   })
@@ -10,9 +14,10 @@ import { Directive, Input, ViewContainerRef, TemplateRef } from '@angular/core';
       set dateRange( value ) {
           this.vcr.clear();
           this._range = this.generateDateRange(value[0], value[1] );
-          this._range.forEach(val => {
+          this._range.forEach((val, idx) => {
               this.vcr.createEmbeddedView(this.tpl, {
-                  $implicit: val
+                  $implicit: val,
+                  index : idx
               });
           });
       }

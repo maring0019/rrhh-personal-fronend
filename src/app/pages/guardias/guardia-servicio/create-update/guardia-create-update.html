@@ -32,6 +32,12 @@
             *ngIf="guardia"
             [guardia]="guardia">
         </app-guardia-planilla>
+        <br>
+        <div class="d-flex flex-row justify-content-end">
+            <div *ngIf="isEditable">
+                <plex-button label="Agregar Agente" type="info" (click)="onGuardar()"></plex-button>
+            </div> 
+        </div>
 
     </plex-layout-main>
 </plex-layout>
