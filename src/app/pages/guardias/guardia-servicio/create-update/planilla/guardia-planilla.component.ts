@@ -34,4 +34,8 @@ export class GuardiaPlanillaComponent implements OnInit {
             this.guardia.planilla[planillaIndex].diasGuardia[diaIndex] = diaGuardia;
         }
     }
+
+    onRemoveAgente(){
+        
+    }
 }

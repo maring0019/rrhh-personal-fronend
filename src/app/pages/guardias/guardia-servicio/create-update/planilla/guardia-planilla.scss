@@ -13,13 +13,20 @@ div.dl {
 
 .guardia div:first-child {
     padding-left: 12px;
-    width: 150px; 
+    width: 120px; 
     text-align: start;
 }
 
-.guardia div:last-child {
-    padding-right: 12px;
+.guardia-content {
+    display: flex;
+    justify-content: center; 
+    flex-direction: column;
+    align-content: center;
 }
+
+// .guardia div:last-child {
+//     padding-right: 12px;
+// }
 
 
 ::ng-deep .guardia small {

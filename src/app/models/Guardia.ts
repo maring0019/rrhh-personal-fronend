@@ -8,7 +8,7 @@ interface IDiaGuardia {
     diaCompleto?: Boolean
 }
 
-export class GuardiaPlanilla{
+export class GuardiaPlanilla {
     agente: {
         id: String,
         nombre: String,
@@ -43,7 +43,7 @@ export class Guardia {
     planilla: GuardiaPlanilla[];
     estado: String;
     fechaEntrega: Date;
-    responsableEntrega: { // Agente Jefe de Servicio
+    responsableEntrega: {    // Agente Jefe de Servicio
         id: String,
         nombre: String,
         apellido: String
@@ -56,6 +56,8 @@ export class Guardia {
     }; 
     fechaValidacion: Date;
 
+    // Estructura auxiliar para contabilizar guardias por dia 
+    _guardiasPorDia:Number[]=[]; 
 
     constructor(guardia?)
     {
@@ -80,6 +82,44 @@ export class Guardia {
         this.validado = guardia.validado;
         this.responsableValidacion = guardia.responsableValidacion;
         this.fechaValidacion = guardia.fechaValidacion;
+        this._guardiasPorDia = this.generateDateRange(this.periodo.fechaDesde, this.periodo.fechaHasta);
+
+    }
+
+    get guardiasPorDia():Number[]{
+        let totales = [];
+        this._guardiasPorDia.forEach((item, index) => {
+            let totalDia = 0;
+            this.planilla.forEach(elem => {
+                const diaGuardia = elem.diasGuardia[index];
+                if (diaGuardia && diaGuardia.diaCompleto) totalDia += 1;
+                if (diaGuardia && !diaGuardia.diaCompleto) totalDia += 0.5;
+            });
+            totales[index] = totalDia;
+        });
+        return totales;
+    }
+
+    private generateDateRange(startDate:Date, endDate:Date) {   
+        let range = [];
+        while (startDate.getTime() <= endDate.getTime()) {
+            const tomorrow = this.addOneDay(startDate);
+            if ( tomorrow.getMonth() != startDate.getMonth()){
+                let dayNumber = startDate.getDate();
+                while (dayNumber < 31){
+                    range.push(null);
+                    dayNumber +=1;
+                }
+            }
+            range.push(0);
+            startDate = tomorrow;
+        }
+        return range;
+    }
+
+    private addOneDay(date:Date){
+        let tomorrow = new Date(date);
+        return new Date(tomorrow.setDate(tomorrow.getDate() + 1 ));
     }
 
 }

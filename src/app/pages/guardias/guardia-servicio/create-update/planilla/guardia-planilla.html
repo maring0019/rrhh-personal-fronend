@@ -1,4 +1,5 @@
 <div class="striped">
+    <!-- Table Heading -->
     <div class="dl guardia d-flex flex-row justify-content-start">
         <div>
             <plex-label titulo="Agente"></plex-label>
@@ -12,13 +13,15 @@
         <div>
             <plex-label titulo="Total"></plex-label>
         </div>
+        <div></div>
     </div>
     
+    <!-- Table Body -->
     <div *ngFor="let item of guardia.planilla; let iplanilla=index" class="dl guardia d-flex flex-row justify-content-start">
         <div>
             <plex-label titulo="{{ item.agente.apellido }}, {{ item.agente.nombre }}" subtitulo="Nro: {{ item.agente.numero }}"></plex-label>
         </div>
-        <div class="d-flex flex-column justify-content-center"
+        <div class="guardia-content"
             *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia; let irange=index"
             (click)="onClick(diaGuardia, iplanilla, irange)">
             <ng-container *ngIf="item.diasGuardia[irange]">
@@ -26,8 +29,34 @@
                 <plex-icon *ngIf="!item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle-outline"></plex-icon>
             </ng-container>
         </div>
-        <div>
+        <div class="guardia-content">
             <plex-label titulo="{{ item.totalDias }}"></plex-label>
         </div>
+        <div class="guardia-content">
+            <plex-icon
+                title="Quitar Agente"
+                type="danger"
+                name="mdi mdi-trash-can-outline"
+                size="sm"
+                (click)="onRemoveAgente()">
+            </plex-icon>
+        </div>
     </div>
+
+    <!-- Table Footer -->
+    <div class="dl guardia d-flex flex-row justify-content-start">
+        <div>
+            <plex-label titulo="Totales"></plex-label>
+        </div>  
+        <div *ngFor="let total of guardia.guardiasPorDia;">
+            <plex-label
+                titulo="{{ total }}">
+            </plex-label>    
+        </div>
+        <div>
+            <plex-label titulo=""></plex-label>
+        </div>
+        <div></div>
+    </div>
+
 </div>

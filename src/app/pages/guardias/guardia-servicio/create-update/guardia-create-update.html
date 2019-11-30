@@ -28,6 +28,18 @@
             [guardia]="guardia">
         </app-guardia-form>
         <br>
+        
+        <!-- <section class="d-flex flex-row justify-content-between mb-2">
+            <h5 class="align-self-center">
+                    <strong> Planilla </strong>
+                </h5>
+            <div class="d-flex flex-row justify-content-end">
+                <div *ngIf="isEditable">
+                    <plex-button label="Agregar Agente" type="info" (click)="onAddAgente()"></plex-button>
+                </div> 
+            </div>
+        </section> -->
+        
         <app-guardia-planilla
             *ngIf="guardia"
             [guardia]="guardia">
@@ -35,7 +47,12 @@
         <br>
         <div class="d-flex flex-row justify-content-end">
             <div *ngIf="isEditable">
-                <plex-button label="Agregar Agente" type="info" (click)="onGuardar()"></plex-button>
+                <plex-button
+                    label="Agregar Agente"
+                    type="info"
+                    icon="mdi mdi-plus"
+                    (click)="onAddAgente()">
+                </plex-button>
             </div> 
         </div>
 
