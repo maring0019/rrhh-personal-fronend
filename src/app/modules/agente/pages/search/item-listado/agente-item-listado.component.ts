@@ -51,6 +51,19 @@ export class AgenteItemListadoComponent {
     * Indica como se muestra la tabla de resultados
     */
     @Input() type: 'default' | 'sm' = 'default';
+
+    /**
+    * Indica si es posible realizar acciones extras sobre un agente. 
+    * Por defecto la lista se comporta unicamente como un componente
+    * de seleccion utilizando la propiedad "selected" para notificar
+    * este evento.
+    * Si "editable" es true se habilitan las siguientes acciones:
+    *     - Ver el detalle de un agente
+    *     - Ver ausentismo de un agente
+    *     - Dar de baja de un agente
+    *     - Activar un agente
+    */
+    @Input() editable: Boolean = false;
     
     /**
      * Evento que se emite cuando se selecciona un agente

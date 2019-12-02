@@ -1,0 +1,51 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5><strong>Seleccione Agente </strong></h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancel()" title="Cerrar"></plex-button>
+    </div>
+</header>
+
+<app-agente-select-search-form
+    (searchStart)="waitingResultados($event)"
+    (searchEnd)="showResultados($event)"
+    (searchClear)="clearResultados($event)">
+</app-agente-select-search-form>
+<br>
+<ng-container *ngIf="searching; then mostrarSearchingActivity; else mostrarResultados"></ng-container>
+<ng-template #mostrarSearchingActivity>
+    <plex-loader 
+        class="d-flex flex-column align-items-center justify-content-center h-75"
+        type="ball-beat">
+    </plex-loader>
+</ng-template>
+<ng-template #mostrarResultados>
+    <app-search-leyenda
+        *ngIf="searched && agentes && !agentes.length"
+        [header]="'No se encontraron resultados!'">
+    </app-search-leyenda>
+
+    <app-agente-item-listado
+        *ngIf="agentes || agentes.length > 0"
+        [editable]="false"
+        [agentes]="agentes"
+        (selected)="onSelected($event)"
+        (hover)="hoverAgente($event)">
+    </app-agente-item-listado>
+
+    <div class="d-flex justify-content-center mt-4">
+        <plex-button
+            *ngIf="showMore"
+            label="Mostrar más resultados"
+            type="info"
+            (click)="showMoreResultados()">
+        </plex-button>
+    </div>
+            
+    <app-search-leyenda
+        *ngIf="!searched">
+    </app-search-leyenda>
+</ng-template>      
+
+    

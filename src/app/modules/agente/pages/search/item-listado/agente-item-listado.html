@@ -33,6 +33,7 @@
                 (click)="seleccionarAgente(agente, i)">
             </plex-button>
             <plex-button
+                *ngIf="editable"
                 title="Ver Agente Detalle"
                 type="info"
                 size="sm"
@@ -40,6 +41,7 @@
                 (click)="gotoAgente(agente)">
             </plex-button>
             <plex-button
+                *ngIf="editable"
                 title="Ver Ausentismo"
                 type="success"
                 size="sm"
@@ -48,6 +50,7 @@
             </plex-button>
             
             <plex-dropdown
+                *ngIf="editable"
                 icon="dots-vertical mdi-24px"
                 [right]="true"
                 [items]="accionesDropdownMenu[i]">

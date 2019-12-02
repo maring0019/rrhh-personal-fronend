@@ -176,6 +176,8 @@ import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/
 import { GuardiaFormComponent } from './pages/guardias/guardia-servicio/create-update/form/guardia-form.component';
 import { GuardiaPlanillaComponent } from './pages/guardias/guardia-servicio/create-update/planilla/guardia-planilla.component';
 import { RangeDirective } from './directives/range';
+import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
+import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
 
 
 const ADMIN_COMPONENTS = [
@@ -229,6 +231,8 @@ const ADMIN_COMPONENTS = [
         AgenteBajaComponent,
         AgenteReactivarComponent,
         AgenteFormSelectComponent,
+        AgenteSelectSearchFormComponent,
+        AgenteSelectComponent,
         
         AgenteAusentismoComponent,
         AgenteCalendarComponent,

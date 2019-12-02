@@ -22,6 +22,7 @@
 
             <app-agente-item-listado
                 *ngIf="agentes || agentes.length > 0"
+                [editable]="true"
                 [agentes]="agentes"
                 (selected)="seleccionarAgente($event)"
                 (hover)="hoverAgente($event)">

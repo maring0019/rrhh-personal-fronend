@@ -1,0 +1,42 @@
+<header>
+    <form name="searchForm" [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-md-8">
+                <plex-text
+                    formControlName="textoLibre"
+                    name="textoLibre"
+                    (change)="buscar($event)"
+                    [autoFocus]="autoFocus"
+                    placeholder="Ingrese un parámetro de búsqueda. (Nombre, Apellido, DNI o CUIL)">
+                </plex-text>
+            </div>
+            <!-- <div class="col-md-1">
+                <plex-button
+                    type="primary"
+                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
+                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
+                </plex-button>
+            </div> -->
+        </div>
+        <!-- <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-4">
+                <plex-select *ngIf="tiposSituacion.length"
+                    [data]="tiposSituacion"
+                    formControlName="situacion"
+                    name="situacion"
+                    label="Situacion en Planta"
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+            <div class="col-md-4">
+                <plex-select
+                    [data]="tiposEstados"
+                    formControlName="estado"
+                    name="estado"
+                    label="Estado"
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+        </div> -->
+    </form>
+</header>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Guardia } from 'src/app/models/Guardia';
+import { Guardia, GuardiaPlanilla } from 'src/app/models/Guardia';
+import { ModalService } from 'src/app/services/modal.service';
+import { Agente } from 'src/app/models/Agente';
 
 
 @Component({
@@ -15,7 +17,10 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     
     private _objectID:any; // To keep track of object on update
 
-    constructor(private route: ActivatedRoute){}
+    constructor(
+        private route: ActivatedRoute,
+        private modalService: ModalService)
+        {}
 
     ngOnInit(){
 
@@ -53,7 +58,9 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     //   OK. Ver de No permitir hacer click en las celdas en donde no hay dias validos
     //   Ok. Ver de contabilizar correctamente la cantidad de dias de guardia por agente
     //   Ok. Ver de contabilizar las guardias por dia
-    //   Ver como agregar agentes a la plantilla
+    //   Ok. Remover un agente de la planilla de guardias
+    //   Ok. Ver si es posible agregar info de contexto al pasar el mouse por arriba de una celda
+    //   Ver como agregar agentes a la plantilla. (Parametrizar filtros al buscador de agentes)
 
     //   Ver como armar la estructura necesaria para el html una vez consultado el servicio
     //   Ver de realizar validaciones segun alguna configuracion a definiar 
@@ -61,9 +68,9 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     
     //   Ver de agregar un pointer al realizar un hover sobre las celdas
     //   Ver como calcular los dias de un agente en otraaaas planillas para el mismo periodo?
-    //   Ver si se puede resaltar una fila al hacer click
-    //   Ver si se puede resaltar una columna al hacer hover o click
-    //   Ver si es posible agregar info de contexto al pasar el mouse por arriba de una celda
+
+
+    
 
     
     private prepareDataForCreate(){
@@ -107,8 +114,44 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.guardia = new Guardia(mock);
     }
     
-    public onAddAgente(){
-        
+    
+
+    /**
+     * Inicia el proceso de carga de agente para las guardias,
+     * abriendo simplemente el modal de seleccion de agentes.
+     */
+    public onAddAgenteSearch(){
+        this.modalService.open('modal-add-agente');
+    }
+
+    /**
+     * Una vez seleccionado un agente se crea una instancia de
+     * la planilla para agregar al listado general de guardias
+     */
+    public onAddAgenteSelected(agente:Agente){
+        this.guardia.planilla.push( new GuardiaPlanilla({
+            agente: 
+                {
+                    id: agente.id,
+                    nombre: agente.nombre,
+                    apellido: agente.apellido,
+                    numero: agente.numero
+                },
+            diasGuardia: [],
+            totalDias: 0
+        }));
+        this.closeModal();
+    }
+
+    /**
+     * Si se cancela la busqueda de agentes, cerramos el modal.
+     */
+    public onAddAgenteCancel(){
+        this.closeModal()
+    }
+
+    public closeModal(){
+        this.modalService.close('modal-add-agente');
     }
 
 }

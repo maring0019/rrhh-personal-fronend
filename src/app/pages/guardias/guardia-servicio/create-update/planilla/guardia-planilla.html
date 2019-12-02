@@ -17,13 +17,14 @@
     </div>
     
     <!-- Table Body -->
-    <div *ngFor="let item of guardia.planilla; let iplanilla=index" class="dl guardia d-flex flex-row justify-content-start">
+    <div *ngFor="let item of guardia.planilla; let idxPlanilla=index" class="dl guardia d-flex flex-row justify-content-start">
         <div>
             <plex-label titulo="{{ item.agente.apellido }}, {{ item.agente.nombre }}" subtitulo="Nro: {{ item.agente.numero }}"></plex-label>
         </div>
         <div class="guardia-content"
             *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia; let irange=index"
-            (click)="onClick(diaGuardia, iplanilla, irange)">
+            (click)="onClick(diaGuardia, idxPlanilla, irange)"
+            title="{{ diaGuardia | fecha:'diasmall' | title }} - {{ diaGuardia | fecha:'diames' }}">
             <ng-container *ngIf="item.diasGuardia[irange]">
                 <plex-icon *ngIf="item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle"></plex-icon>
                 <plex-icon *ngIf="!item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle-outline"></plex-icon>
@@ -38,7 +39,7 @@
                 type="danger"
                 name="mdi mdi-trash-can-outline"
                 size="sm"
-                (click)="onRemoveAgente()">
+                (click)="onRemoveAgente(item, idxPlanilla)">
             </plex-icon>
         </div>
     </div>

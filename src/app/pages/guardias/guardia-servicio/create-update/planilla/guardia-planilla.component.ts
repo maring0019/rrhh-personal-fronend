@@ -35,7 +35,11 @@ export class GuardiaPlanillaComponent implements OnInit {
         }
     }
 
-    onRemoveAgente(){
-        
+    onRemoveAgente(item, index){
+        this.guardia.planilla.splice(index, 1);
+    }
+
+    onAddAgente(){
+        this.guardia.planilla.push()
     }
 }
