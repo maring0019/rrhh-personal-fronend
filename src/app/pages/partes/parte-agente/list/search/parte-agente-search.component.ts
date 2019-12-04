@@ -8,6 +8,7 @@ import { UbicacionService } from 'src/app/services/ubicacion.service';
 
 import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
 import { Parte } from '../../../../../models/Parte';
+import { Auth } from '@andes/auth';
 
 
 @Component({
@@ -24,12 +25,13 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     constructor(
         formBuilder: FormBuilder,
         private objectService: ParteService,
-        private ubicacionService: UbicacionService) {
+        private ubicacionService: UbicacionService,
+        private authService: Auth) {
             super(formBuilder);
     }
 
     ngOnInit() {
-        // Aqui hacemos un override completo del evento ngOnInit
+        // Aqui hacemos un override completo del evento ngOnInit de la superclase
         this.initFormSelectOptions();
     }
 
@@ -65,7 +67,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     private getServiciosUserLogged(){
-        return this.ubicacionService.getByUserID({});
+        return this.ubicacionService.getByUserID({ userID: this.authService.usuario.id });
     }
 
     prepareSearchParams(){

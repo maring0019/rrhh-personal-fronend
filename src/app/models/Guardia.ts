@@ -8,7 +8,7 @@ interface IDiaGuardia {
     diaCompleto?: Boolean
 }
 
-export class GuardiaPlanilla {
+export class ItemGuardiaPlanilla {
     agente: {
         id: String,
         nombre: String,
@@ -40,7 +40,7 @@ export class Guardia {
     servicio: Ubicacion;
     tipoGuardia: String;
     categoria: Agrupamiento;
-    planilla: GuardiaPlanilla[];
+    planilla: ItemGuardiaPlanilla[];
     estado: String;
     fechaEntrega: Date;
     responsableEntrega: {    // Agente Jefe de Servicio
@@ -72,7 +72,7 @@ export class Guardia {
         this.planilla = [];
         if (guardia.planilla && guardia.planilla.length){
             guardia.planilla.forEach(e => {
-                this.planilla.push(new GuardiaPlanilla(e));
+                this.planilla.push(new ItemGuardiaPlanilla(e));
             });
         }
         

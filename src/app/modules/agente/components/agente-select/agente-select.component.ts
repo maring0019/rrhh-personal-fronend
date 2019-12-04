@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Agente } from 'src/app/models/Agente';
 
 
@@ -10,6 +10,8 @@ import { Agente } from 'src/app/models/Agente';
  * Componente generico de busqueda y seleccion de agentes
  */
 export class AgenteSelectComponent implements OnInit {
+
+    @Input() searchParams: any = {};
 
     @Output() selected: EventEmitter<Agente> = new EventEmitter<Agente>();
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();

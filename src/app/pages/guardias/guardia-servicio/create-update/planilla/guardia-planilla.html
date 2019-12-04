@@ -24,7 +24,8 @@
         <div class="guardia-content"
             *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia; let irange=index"
             (click)="onClick(diaGuardia, idxPlanilla, irange)"
-            title="{{ diaGuardia | fecha:'diasmall' | title }} - {{ diaGuardia | fecha:'diames' }}">
+            title="{{ diaGuardia | fecha:'diasmall' | title }} - {{ diaGuardia | fecha:'diames' }}"
+            [ngStyle]="{'cursor': diaGuardia? 'pointer': 'default'}">
             <ng-container *ngIf="item.diasGuardia[irange]">
                 <plex-icon *ngIf="item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle"></plex-icon>
                 <plex-icon *ngIf="!item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle-outline"></plex-icon>

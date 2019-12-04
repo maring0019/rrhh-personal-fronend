@@ -16,7 +16,7 @@ import { Parte } from 'src/app/models/Parte';
  * Idem ParteAgenteListComponent, excepto que muestra un listado de solo
  * lectura sin posibilidad de realizar nuevas busquedas o filtrados. El 
  * parte a mostrar se obtiene a partir del id especificado por parametro
- * en la url, y no delos filtros de busqueda como el otro componente.
+ * en la url, y no de los filtros de busqueda como el otro componente.
  */
 export class ParteAgenteListViewComponent implements OnInit {
     

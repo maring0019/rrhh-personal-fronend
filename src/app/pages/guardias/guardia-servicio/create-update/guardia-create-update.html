@@ -25,7 +25,9 @@
         </header>
 
         <app-guardia-form
-            [guardia]="guardia">
+            #guardiaForm
+            [guardia]="guardia"
+            (changed)="onChangedGuardiaForm($event)">
         </app-guardia-form>
         <br>
         
@@ -40,7 +42,7 @@
                     label="Agregar Agente"
                     type="info"
                     icon="mdi mdi-plus"
-                    (click)="onAddAgenteSearch()">
+                    (click)="onAddAgente()">
                 </plex-button>
             </div> 
         </div>
@@ -48,6 +50,8 @@
         
         <jw-modal id="modal-add-agente">
             <app-agente-select
+                *ngIf="agenteSearchParams"
+                [searchParams]="agenteSearchParams"
                 (cancel)="onAddAgenteCancel()"
                 (selected)="onAddAgenteSelected($event)">
             </app-agente-select>

@@ -8,6 +8,7 @@
 </header>
 
 <app-agente-select-search-form
+    [searchParams]="searchParams"
     (searchStart)="waitingResultados($event)"
     (searchEnd)="showResultados($event)"
     (searchClear)="clearResultados($event)">

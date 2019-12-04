@@ -1,29 +1,26 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-
-import { AgenteService } from 'src/app/services/agente.service';
-import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
-import { Agente } from 'src/app/models/Agente';
-import { TipoSituacion } from 'src/app/models/TipoSituacion';
+import { Component, Output, EventEmitter, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { isEmpty } from 'src/app/utils/formUtils';
+
+import { AgenteService } from 'src/app/services/agente.service';
+import { Agente } from 'src/app/models/Agente';
 
 
 @Component({
     selector: 'app-agente-select-search-form',
     templateUrl: 'agente-select-search-form.html'
 })
-export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy {
+export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy, OnChanges {
     public searchForm: FormGroup;
-    private timeoutHandle: number;
     public textoLibre: string = null;
     public autoFocus = 0;
-    public mostrarMasOpciones = false;
+    
+    private timeoutHandle: number;
 
-    // Advanced search form inputs
-    public tiposSituacion: TipoSituacion[];
-    public tiposEstados; 
+    // Se pueden indicar parametros extras de búsqueda
+    @Input() searchParams: any = {}; 
 
-    // Eventos
+    // Eventos Salida
     @Output() searchStart: EventEmitter<any> = new EventEmitter<any>();
     @Output() searchEnd: EventEmitter<Agente[]> = new EventEmitter<Agente[]>();
     @Output() searchClear: EventEmitter<any> = new EventEmitter<any>();
@@ -31,31 +28,23 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy {
 
     constructor(
         private formBuilder: FormBuilder,
-        private agenteService: AgenteService,
-        private tipoSituacionService: TipoSituacionService) {
+        private agenteService: AgenteService) {
     }
 
     public ngOnInit() {
         this.autoFocus = this.autoFocus + 1;
-        this.initFormSelectOptions();
         this.searchForm = this.initSearchForm();
+        this.buscar({});
     }
 
-    initFormSelectOptions(){
-        // Init Tipos Situacion
-        this.tipoSituacionService.get({})
-        .subscribe(data => {
-            this.tiposSituacion = data;
-        });
-        // Init Tipos de Estado
-        this.tiposEstados =[{id:'activo', nombre:'Activo'}, {id:'baja', nombre:'Baja'}];
+    public ngOnChanges(changes:any){
+        if (!changes['searchParams'].isFirstChange()) this.buscar({});
     }
 
+  
     initSearchForm(){
         return this.formBuilder.group({
-            textoLibre  : [],
-            situacion   : [],
-            estado      : [],
+            textoLibre  : []
         });
     }
 
@@ -75,18 +64,7 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy {
                     {"documento":{"$regex": exp, "$options":"i"}},
                 ]}) 
         }
-        if (form.estado){
-            if (form.estado.id == 'activo'){
-                params['activo'] = true;
-            }
-            else{
-                params['activo!'] = true;
-            }
-        }
-        if (form.situacion){
-            params['situacionLaboral.situacion.nombre'] = form.situacion.nombre;
-        }
-        return params;
+        return {...params,...this.searchParams};
     }
 
     /**
@@ -105,7 +83,7 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy {
         }
         // Inicia búsqueda
         let searchParams = this.prepareSearchParams();
-        if (!isEmpty(searchParams)) {
+        // if (!isEmpty(searchParams)) {
             this.timeoutHandle = window.setTimeout(() => {
                 this.searchStart.emit();
                 this.timeoutHandle = null;
@@ -121,8 +99,8 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy {
                     }
                 );
             }, 1000);
-        } else {
-            this.searchClear.emit();
-        }
+        // } else {
+        //     this.searchClear.emit();
+        // }
     }
 }

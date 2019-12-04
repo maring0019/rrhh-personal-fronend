@@ -2,11 +2,13 @@ import { Output, EventEmitter, OnInit, ViewChild, Component, Input } from '@angu
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import  *  as formUtils from 'src/app/utils/formUtils';
+import { pairwise } from 'rxjs/operators';
 
+import { Auth } from '@andes/auth';
+import  *  as formUtils from 'src/app/utils/formUtils';
 import * as enumerados from 'src/app/models/enumerados';
 import { Guardia } from 'src/app/models/Guardia';
-import { ServicioService } from 'src/app/services/servicio.service';
+
 import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 
@@ -22,6 +24,7 @@ export class GuardiaFormComponent implements OnInit {
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
+    @Output() changed: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(FormGroupDirective) _form;
 
@@ -30,19 +33,21 @@ export class GuardiaFormComponent implements OnInit {
     // Form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
     public periodoOpciones$ = this.categoriaService.get({});
-    public servicioOpciones$ = this.servicioService.getByUserID({});
+    public servicioOpciones$ = this.servicioService.getByUserID({ userID : this.authService.usuario.id });
     public categoriaOpciones$ = this.categoriaService.get({});
 
     
     constructor(
         public formBuilder: FormBuilder,
+        private authService: Auth,
         private servicioService: UbicacionService,
         private categoriaService: AgrupamientoService   
     ){}
 
     ngOnInit() {
         this.initFormSelectOptions();
-        this.form = this.initForm(); 
+        this.form = this.initForm();
+        this.subscribeFormValueChanges();            
     }
 
 
@@ -50,7 +55,21 @@ export class GuardiaFormComponent implements OnInit {
 
     }
 
-    
+    /**
+     * Nos subscribimos a cada cambio que se realice en cada uno
+     * de los elementos del form, pero solo notificamos cuando el
+     * valor previo es diferente de nulo.
+     */
+    private subscribeFormValueChanges(){
+        Object.keys(this.form.controls).forEach( key => {
+            this.form.get(key).valueChanges
+                .pipe(pairwise())
+                .subscribe(([prev, next]: [any, any]) => {
+                    if (prev) this.changed.emit({ [key] : prev });
+            });
+        });
+    }
+
     private initForm(){
         return this.formBuilder.group({
             id              : [this.guardia.id],
