@@ -13,7 +13,7 @@ export class AgenteSelectComponent implements OnInit {
 
     @Input() searchParams: any = {};
 
-    @Output() selected: EventEmitter<Agente> = new EventEmitter<Agente>();
+    @Output() selected: EventEmitter<Agente[]> = new EventEmitter<Agente[]>();
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
 
     public agentes:Agente[];
@@ -32,7 +32,11 @@ export class AgenteSelectComponent implements OnInit {
     }
 
     public onSelected(obj:any){
-        this.selected.emit(obj);
+        this.selected.emit([obj]);
+    }
+
+    public onSelectAll(){
+        this.selected.emit(this.agentes)
     }
 
     public onCancel(){

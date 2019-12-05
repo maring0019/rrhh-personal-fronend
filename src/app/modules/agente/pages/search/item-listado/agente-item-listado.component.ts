@@ -124,11 +124,15 @@ export class AgenteItemListadoComponent {
     }
 
     public seleccionarAgente(agente: Agente, index?) {
-        if (this.agenteSeleccionado !== agente) {
-            this.agenteSeleccionado = agente;
-            this.idxAgenteSeleccionado = index;
-            this.selected.emit(this.agenteSeleccionado);
-        }
+        // if (this.agenteSeleccionado !== agente) {
+        //     this.agenteSeleccionado = agente;
+        //     this.idxAgenteSeleccionado = index;
+        //     this.selected.emit(this.agenteSeleccionado);
+        // }
+
+        this.agenteSeleccionado = agente;
+        this.idxAgenteSeleccionado = index;
+        this.selected.emit(this.agenteSeleccionado);
     }
 
     public hoverAgente(agente: Agente) {

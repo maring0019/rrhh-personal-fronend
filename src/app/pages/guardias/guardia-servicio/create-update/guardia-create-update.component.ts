@@ -115,27 +115,30 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     }
 
     /**
-     * Una vez seleccionado un agente se crea una instancia de
-     * ItemGuardiaPlanilla  para agregar al listado general de
-     * guardias. La instancia es importante porque contiene la
-     * logica para contabilizar los dias de guardia del agente.
+     * Una vez seleccionado el/los agentes se crea una/s instancia/s de
+     * ItemGuardiaPlanilla para agregar al listado general de guardias.
+     * La instancia es importante porque contiene la logica necesaria que
+     * contabiliza los dias de guardia del agente.
      */
-    public onAddAgenteSelected(agente:Agente){
-        if (!this.guardia.planilla.some(e => e.agente.id === agente.id)){
-            // Si el agente seleccionado aun no pertenece a la planilla
-            // lo incorporamos
-            this.guardia.planilla.push( new ItemGuardiaPlanilla({
-                agente: 
-                    {
-                        id: agente.id,
-                        nombre: agente.nombre,
-                        apellido: agente.apellido,
-                        numero: agente.numero
-                    },
-                diasGuardia: [],
-                totalDias: 0
-            }));
-        }   
+    public onAddAgenteSelected(agentes:Agente[]){
+        agentes.forEach(agente => {
+            if (!this.guardia.planilla.some(e => e.agente.id === agente.id)){
+                // Si el agente seleccionado aun no pertenece a la planilla
+                // lo incorporamos
+                this.guardia.planilla.push( new ItemGuardiaPlanilla({
+                    agente: 
+                        {
+                            id: agente.id,
+                            nombre: agente.nombre,
+                            apellido: agente.apellido,
+                            numero: agente.numero
+                        },
+                    diasGuardia: [],
+                    totalDias: 0
+                }));
+            }      
+        });
+         
         this.closeModal();
     }
 

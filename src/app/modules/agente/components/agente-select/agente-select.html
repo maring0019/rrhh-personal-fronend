@@ -14,6 +14,9 @@
     (searchClear)="clearResultados($event)">
 </app-agente-select-search-form>
 <br>
+<div class="d-flex flex-row justify-content-end mb-2" *ngIf="agentes && agentes.length > 0">
+    <plex-button type="info" size="sm" (click)="onSelectAll()">Seleccionar Todos</plex-button>
+</div>
 <ng-container *ngIf="searching; then mostrarSearchingActivity; else mostrarResultados"></ng-container>
 <ng-template #mostrarSearchingActivity>
     <plex-loader 
