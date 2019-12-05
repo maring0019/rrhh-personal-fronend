@@ -2,7 +2,7 @@ import { Output, EventEmitter, OnInit, ViewChild, Component, Input } from '@angu
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import { pairwise } from 'rxjs/operators';
+import { pairwise, startWith } from 'rxjs/operators';
 
 import { Auth } from '@andes/auth';
 import  *  as formUtils from 'src/app/utils/formUtils';
@@ -11,6 +11,7 @@ import { Guardia } from 'src/app/models/Guardia';
 
 import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
+import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class GuardiaFormComponent implements OnInit {
 
     // Form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
-    public periodoOpciones$ = this.categoriaService.get({});
+    public periodoOpciones$ = this.guardiaPeriodoService.get({});
     public servicioOpciones$ = this.servicioService.getByUserID({ userID : this.authService.usuario.id });
     public categoriaOpciones$ = this.categoriaService.get({});
 
@@ -41,7 +42,8 @@ export class GuardiaFormComponent implements OnInit {
         public formBuilder: FormBuilder,
         private authService: Auth,
         private servicioService: UbicacionService,
-        private categoriaService: AgrupamientoService   
+        private categoriaService: AgrupamientoService,
+        private guardiaPeriodoService: GuardiaPeriodoService
     ){}
 
     ngOnInit() {
@@ -63,9 +65,9 @@ export class GuardiaFormComponent implements OnInit {
     private subscribeFormValueChanges(){
         Object.keys(this.form.controls).forEach( key => {
             this.form.get(key).valueChanges
-                .pipe(pairwise())
+                .pipe(startWith(null), pairwise())
                 .subscribe(([prev, next]: [any, any]) => {
-                    if (prev) this.changed.emit({ [key] : prev });
+                    this.changed.emit({ [key] : next });
             });
         });
     }

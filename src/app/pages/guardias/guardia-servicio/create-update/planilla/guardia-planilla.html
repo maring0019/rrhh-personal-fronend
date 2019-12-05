@@ -1,10 +1,10 @@
-<div class="striped">
+<div *ngIf="guardia.periodo" class="striped">
     <!-- Table Heading -->
     <div class="dl guardia d-flex flex-row justify-content-start">
         <div>
             <plex-label titulo="Agente"></plex-label>
         </div>  
-        <div *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia">
+        <div *ngFor="let diaGuardia of guardia.periodo.range">
             <plex-label
                 titulo="{{ diaGuardia | fecha:'diasmall' | title}}"
                 subtitulo="{{ diaGuardia | fecha:'diames' }}">
@@ -21,8 +21,8 @@
         <div>
             <plex-label titulo="{{ item.agente.apellido }}, {{ item.agente.nombre }}" subtitulo="Nro: {{ item.agente.numero }}"></plex-label>
         </div>
-        <div class="guardia-content"
-            *dateRange="[guardia.periodo.fechaDesde, guardia.periodo.fechaHasta]; let diaGuardia; let irange=index"
+        <div *ngFor="let diaGuardia of guardia.periodo.range; let irange=index" 
+            class="guardia-content"
             (click)="onClick(diaGuardia, idxPlanilla, irange)"
             title="{{ diaGuardia | fecha:'diasmall' | title }} - {{ diaGuardia | fecha:'diames' }}"
             [ngStyle]="{'cursor': diaGuardia? 'pointer': 'default'}">

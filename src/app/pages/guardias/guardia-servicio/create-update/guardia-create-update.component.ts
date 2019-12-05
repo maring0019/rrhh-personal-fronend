@@ -20,6 +20,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     public isEditable = true;
     public guardia: Guardia;
+    public generandoPlanilla: Boolean; // Bandera
 
     public get agenteSearchParams() {
         return this._extraSearchParams;
@@ -74,12 +75,13 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * 
      * @param previousValue 
      */
-    public onChangedGuardiaForm(previousValue:any){
+    public onChangedGuardiaForm(newValue:any){
         if (this.guardia.planilla.length > 0 ){
             this.plex.confirm('Se van perder los datos ingresados en la planilla. ¿Desea Continuar?')
                 .then( confirm => {
                     if (confirm){
                         this.guardia.planilla = [];
+                        if (newValue.periodo) this.regenerarPlanillaGuardia(newValue.periodo);
                     }
                     else{
                         // Hacemos un rollback de los cambios realizados al form
@@ -87,6 +89,18 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                     }
             });
         }
+        else{
+            if (newValue.periodo) this.regenerarPlanillaGuardia(newValue.periodo);
+        }
+    }
+
+    private regenerarPlanillaGuardia( periodo? ){
+        this.generandoPlanilla = true;
+        this.guardia = new Guardia({ periodo: periodo })
+        window.setTimeout(() => {
+            this.generandoPlanilla = false;
+        }, 1000);
+        
     }
 
     /**
@@ -175,44 +189,45 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     
     private prepareDataForCreate(){
-        let mock = {
-            periodo :
-                {
-                    fechaDesde: new Date('2019-02-16'),
-                    fechaHasta: new Date('2019-03-15'),
-                },
-            planilla : 
-                [
-                    {
-                        agente: { nombre: "Mariana", apellido: "Vazquez Diaz", numero: "15345"},
-                        diasGuardia: [
-                            { 
-                                fecha: new Date('2019-02-16'),
-                                diaCompleto: false
-                            },
-                            { 
-                                fecha: new Date('2019-02-17'),
-                                diaCompleto: true
-                            },
-                            null, null, null, null, null, null,
-                            {
-                                fecha: new Date('2019-03-01'),
-                                diaCompleto: true
-                            } 
-                        ]
-                    },
+        this.guardia = new Guardia();
+        // let mock = {
+        //     periodo :
+        //         {
+        //             fechaDesde: new Date('2019-02-16'),
+        //             fechaHasta: new Date('2019-03-15'),
+        //         },
+        //     planilla : 
+        //         [
+        //             {
+        //                 agente: { nombre: "Mariana", apellido: "Vazquez Diaz", numero: "15345"},
+        //                 diasGuardia: [
+        //                     { 
+        //                         fecha: new Date('2019-02-16'),
+        //                         diaCompleto: false
+        //                     },
+        //                     { 
+        //                         fecha: new Date('2019-02-17'),
+        //                         diaCompleto: true
+        //                     },
+        //                     null, null, null, null, null, null,
+        //                     {
+        //                         fecha: new Date('2019-03-01'),
+        //                         diaCompleto: true
+        //                     } 
+        //                 ]
+        //             },
                     
-                    {
-                        agente: { nombre: "Ana Paula Luisa", apellido: "Reva", numero: "32455"},
-                        diasGuardia: []
-                    },
-                    {
-                        agente: { nombre: "Marcela Adriana", apellido: "Jara", numero: "55343"},
-                        diasGuardia: []
-                    }
-                ]
-        }
-        this.guardia = new Guardia(mock);
+        //             {
+        //                 agente: { nombre: "Ana Paula Luisa", apellido: "Reva", numero: "32455"},
+        //                 diasGuardia: []
+        //             },
+        //             {
+        //                 agente: { nombre: "Marcela Adriana", apellido: "Jara", numero: "55343"},
+        //                 diasGuardia: []
+        //             }
+        //         ]
+        // }
+        // this.guardia = new Guardia(mock);
     }
     
     

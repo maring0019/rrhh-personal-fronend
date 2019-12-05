@@ -44,6 +44,7 @@ import { ParteEstadoService } from './services/parte-estado.service';
 import { ParteAgenteService } from './services/parte-agente.service';
 import { ParteJustificacionService } from './services/parte-justificacion.service';
 import { UbicacionService } from './services/ubicacion.service';
+import { GuardiaPeriodoService } from './services/guardia-periodo.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -353,6 +354,7 @@ const ADMIN_COMPONENTS = [
         ParteEstadoService,
         ParteJustificacionService,
         UbicacionService,
+        GuardiaPeriodoService,
 
         ParteAgenteService
         

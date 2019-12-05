@@ -31,8 +31,14 @@
         </app-guardia-form>
         <br>
         
+        <plex-loader 
+            *ngIf="generandoPlanilla"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
         <app-guardia-planilla
-            *ngIf="guardia"
+            *ngIf="!generandoPlanilla && guardia"
             [guardia]="guardia">
         </app-guardia-planilla>
         <br>
