@@ -1,6 +1,6 @@
 import { Agrupamiento } from './Agrupamiento';
-import { Ubicacion } from './Ubicacion';
 import { GuardiaPeriodo } from './GuardiaPeriodos';
+import { Servicio } from './Servicio';
 
 
 interface IDiaGuardia {
@@ -37,7 +37,7 @@ export class ItemGuardiaPlanilla {
 export class Guardia {
     id?: String;
     periodo: GuardiaPeriodo;
-    servicio: Ubicacion;
+    servicio: Servicio;
     tipoGuardia: String;
     categoria: Agrupamiento;
     planilla: ItemGuardiaPlanilla[];
@@ -75,7 +75,7 @@ export class Guardia {
         guardia = guardia || {};
         this.id = guardia.id || null;
         this.periodo = guardia.periodo? new GuardiaPeriodo(guardia.periodo): null;
-        this.servicio = guardia.servicio? new Ubicacion(guardia.servicio): null;
+        this.servicio = guardia.servicio? new Servicio(guardia.servicio): null;
         this.tipoGuardia = guardia.tipoGuardia?
             ((typeof guardia.tipoGuardia === 'string') ? guardia.tipoGuardia : guardia.tipoGuardia.id) : null;
         this.categoria = guardia.categoria? new Agrupamiento(guardia.categoria): null;

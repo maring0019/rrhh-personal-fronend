@@ -2,10 +2,10 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!guardia.id">
+                <h5 class="align-self-center" *ngIf="!guardia?.id">
                     <strong>Guardia |</strong> Alta nueva planilla
                 </h5>
-                <h5 class="align-self-center" *ngIf="guardia.id">
+                <h5 class="align-self-center" *ngIf="guardia?.id">
                         <strong>Guardia |</strong>
                         {{ (isEditable)? 'Edición de planilla' : 'Detalle de planilla' }}
                     </h5>
@@ -16,8 +16,9 @@
                         <plex-button type="danger"  icon="mdi mdi-close"  (click)="onCancelar()" title="Cerrar"></plex-button>
                     </div> -->
                     <div *ngIf="isEditable">
-                        <plex-button label="Guardar" type="success" (click)="onGuardar()"></plex-button>
-                        <plex-button label="Cancelar" type="danger" (click)="onCancelar()" class="mx-2"></plex-button>
+                        <plex-button label="Guardar" type="success" (click)="onGuardar()" class="mx-2" title="Guardar y Continuar Editando"></plex-button>
+                        <plex-button label="Confirmar Guardia" type="warning" (click)="onConfirmar()" title="Guardar y Confirmar"></plex-button>
+                        <plex-button icon="mdi mdi-close" type="danger" (click)="onCancelar()" class="mx-2" title="Cerrar"></plex-button>
                     </div> 
                     
                 </div>
@@ -25,6 +26,7 @@
         </header>
 
         <app-guardia-form
+            *ngIf="guardia"
             #guardiaForm
             [guardia]="guardia"
             (changed)="onChangedGuardiaForm($event)">
@@ -37,22 +39,28 @@
             type="ball-beat">
         </plex-loader>
 
-        <app-guardia-planilla
-            *ngIf="!generandoPlanilla && guardia"
-            [guardia]="guardia">
-        </app-guardia-planilla>
-        <br>
-        <div class="d-flex flex-row justify-content-end">
-            <div *ngIf="isEditable">
-                <plex-button
-                    label="Agregar Agente"
-                    type="info"
-                    icon="mdi mdi-plus"
-                    (click)="onAddAgente()">
-                </plex-button>
-            </div> 
-        </div>
+        <app-search-leyenda
+            *ngIf="!guardia?.periodo"
+            [header]="'Seleccione un periodo para comenzar a trabajar!'"
+            [subHeader]="' - '">
+        </app-search-leyenda>
 
+        <ng-container *ngIf="!generandoPlanilla && guardia?.periodo">
+            <app-guardia-planilla
+                [guardia]="guardia">
+            </app-guardia-planilla>
+            <br>
+            <div class="d-flex flex-row justify-content-end">
+                <div *ngIf="isEditable">
+                    <plex-button
+                        label="Agregar Agente"
+                        type="info"
+                        icon="mdi mdi-plus"
+                        (click)="onAddAgente()">
+                    </plex-button>
+                </div> 
+            </div>
+        </ng-container>
         
         <jw-modal id="modal-add-agente">
             <app-agente-select

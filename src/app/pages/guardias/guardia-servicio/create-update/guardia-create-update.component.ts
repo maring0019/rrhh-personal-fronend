@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
 
@@ -8,7 +8,9 @@ import  *  as formUtils from 'src/app/utils/formUtils';
 import { Agente } from 'src/app/models/Agente';
 import { Guardia, ItemGuardiaPlanilla } from 'src/app/models/Guardia';
 import { GuardiaFormComponent } from './form/guardia-form.component';
+
 import { ModalService } from 'src/app/services/modal.service';
+import { GuardiaService } from 'src/app/services/guardia.service';
 
 
 @Component({
@@ -48,8 +50,10 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private plex: Plex,
         private authService: Auth,
+        private guardiaService: GuardiaService,
         private modalService: ModalService)
         {}
 
@@ -66,22 +70,37 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     }
 
+    private prepareDataForCreate(){
+        this.guardia = new Guardia();
+    }
+
     private prepareDataForUpdate(){
         this.isEditable = false;
+        this.guardiaService.getByID(this._objectID)
+            .subscribe(data => {
+                console.log('Estamos volviendo de buscar por id');
+                console.log(data);
+                this.guardia = new Guardia(data);
+            })
     }
 
     
     /**
-     * 
-     * @param previousValue 
+     * Metodo que se ejecuta ante los cambios realizados en el form del encabezado.
+     * Si los cambios afectan los agentes seleccionados se solicita confirmacion 
+     * para continuar. Si se modifica el periodo la planilla siempre se debe volver
+     * a generar
+     * @param previousValue unicamente tiene informacion del ultimo campo modificado
      */
     public onChangedGuardiaForm(newValue:any){
         if (this.guardia.planilla.length > 0 ){
-            this.plex.confirm('Se van perder los datos ingresados en la planilla. ¿Desea Continuar?')
+            this.plex.confirm(
+                `Se van perder los datos ingresados en la planilla.
+                ¿Desea Continuar?`)
                 .then( confirm => {
                     if (confirm){
                         this.guardia.planilla = [];
-                        if (newValue.periodo) this.regenerarPlanillaGuardia(newValue.periodo);
+                        if ('periodo' in newValue) this.regenerarPlanillaGuardia(newValue.periodo);
                     }
                     else{
                         // Hacemos un rollback de los cambios realizados al form
@@ -90,7 +109,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
             });
         }
         else{
-            if (newValue.periodo) this.regenerarPlanillaGuardia(newValue.periodo);
+            if ('periodo' in newValue) this.regenerarPlanillaGuardia(newValue.periodo);
         }
     }
 
@@ -103,6 +122,16 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         
     }
 
+    private isGuardiaFormValid(){
+        const form = this.guardiaForm.form;
+        if (form.invalid){
+            formUtils.markFormAsInvalid(form);
+            this.plex.info('danger', 'Debe completar todos los datos obligatorios del encabezado');
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Abre un modal con el componente de seleccion de agentes.El agente
      * que se selecciona se incorporara luego a la planilla de guardias.
@@ -113,11 +142,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      */
     public onAddAgente(){
         const form = this.guardiaForm.form;
-        if (form.invalid){
-            formUtils.markFormAsInvalid(form);
-            this.plex.info('info', 'Debe completar todos los datos obligatorios del encabezado');
-        }
-        else {
+        if (this.isGuardiaFormValid()) {
             this._formFreezeValues = {...form.value};
             this._extraSearchParams = {
                 'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
@@ -166,6 +191,60 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     public closeModal(){
         this.modalService.close('modal-add-agente');
     }
+
+
+    public onGuardar(){
+        this.save('guardar');
+    }
+
+    public onConfirmar(){
+        if (this.isGuardiaFormValid()){
+            this.plex.confirm(`Al confirmar se habilita al Dpto. de Gestión de Personal
+                a realizar las validaciones correspondientes para su aprobación final.
+                Durante esta etapa no podrá volver a editar la información ingresada.`)
+            .then( confirm => {
+                if (confirm){
+                    this.save('confirm');
+                }
+            });
+        }
+    }
+
+    private save(type:String){
+        if (this.isGuardiaFormValid()){
+            // Cargamos los datos del formulario al objeto Guardia
+            // para finalmente guardar los cambios realizados
+            const form = this.guardiaForm.form;
+            this.guardia.servicio = form.value.servicio;
+            this.guardia.categoria = form.value.categoria;
+            this.guardia.tipoGuardia = form.value.tipoGuardia.id; //
+            // TODO Como asignamos el agente?
+            // this.guardia.responsableEntrega = this.authService.usuario;
+            this.guardiaService.post(this.guardia)
+                .subscribe( newGuardia => {
+                    if (type == 'guardar') this.infoGuardarOk(newGuardia);
+                })
+        }
+    }
+
+    private infoGuardarOk(guardia){
+        this.plex
+            .info('success', `Guardia guardada correctamente. 
+                    Puede continuar editando la información ingresada hasta
+                    confirmar definitivamente los datos para ser evaluados 
+                    por el Dpto. de Gestión de Personal.`)
+            .then( confirm => { 
+                this.router.navigate(['/guardias' , { id: guardia.id }]);
+                console.log('Estamos en el then!!!!!!!!')
+            });
+    }
+
+    private infoConfirmarOk(){
+
+    }
+
+
+
     
     //TODO: 
     //   OK. Ver como identificar en el html un dia completo o medio dia
@@ -183,55 +262,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     //   Analizar si no es conveniente agregar info sobre el tipo de guardia en cada item de la planilla
     //   Ver como calcular los dias de un agente en otraaaas planillas para el mismo periodo?
     //  Incluir info de las ausencias!!!!
-
-
-    
-
-    
-    private prepareDataForCreate(){
-        this.guardia = new Guardia();
-        // let mock = {
-        //     periodo :
-        //         {
-        //             fechaDesde: new Date('2019-02-16'),
-        //             fechaHasta: new Date('2019-03-15'),
-        //         },
-        //     planilla : 
-        //         [
-        //             {
-        //                 agente: { nombre: "Mariana", apellido: "Vazquez Diaz", numero: "15345"},
-        //                 diasGuardia: [
-        //                     { 
-        //                         fecha: new Date('2019-02-16'),
-        //                         diaCompleto: false
-        //                     },
-        //                     { 
-        //                         fecha: new Date('2019-02-17'),
-        //                         diaCompleto: true
-        //                     },
-        //                     null, null, null, null, null, null,
-        //                     {
-        //                         fecha: new Date('2019-03-01'),
-        //                         diaCompleto: true
-        //                     } 
-        //                 ]
-        //             },
-                    
-        //             {
-        //                 agente: { nombre: "Ana Paula Luisa", apellido: "Reva", numero: "32455"},
-        //                 diasGuardia: []
-        //             },
-        //             {
-        //                 agente: { nombre: "Marcela Adriana", apellido: "Jara", numero: "55343"},
-        //                 diasGuardia: []
-        //             }
-        //         ]
-        // }
-        // this.guardia = new Guardia(mock);
-    }
-    
-    
-
     
 
 }
