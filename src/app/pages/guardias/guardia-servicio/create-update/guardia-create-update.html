@@ -3,11 +3,11 @@
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
                 <h5 class="align-self-center" *ngIf="!guardia?.id">
-                    <strong>Guardia |</strong> Alta nueva planilla
+                    <strong>Guardias |</strong> Alta nueva planilla
                 </h5>
                 <h5 class="align-self-center" *ngIf="guardia?.id">
-                        <strong>Guardia |</strong>
-                        {{ (isEditable)? 'Edición de planilla' : 'Detalle de planilla' }}
+                        <strong>Guardias |</strong>
+                        {{ (isEditable)? 'Edición de planilla (Guardia sin Confirmar)' : 'Detalle de planilla (Guardia Confirmada)' }}
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <!-- <div *ngIf="!isEditable">
@@ -24,7 +24,8 @@
                 </div>
             </section>
         </header>
-
+        
+        <!-- Formulario Encabezado de la Guardia -->
         <app-guardia-form
             *ngIf="guardia"
             #guardiaForm
@@ -33,6 +34,7 @@
         </app-guardia-form>
         <br>
         
+        <!-- Feedback para el usuario. Indica que se generando la planilla -->
         <plex-loader 
             *ngIf="generandoPlanilla"
             class="d-flex flex-column align-items-center justify-content-center h-75"
@@ -45,9 +47,11 @@
             [subHeader]="' - '">
         </app-search-leyenda>
 
+        
         <ng-container *ngIf="!generandoPlanilla && guardia?.periodo">
             <app-guardia-planilla
-                [guardia]="guardia">
+                [guardia]="guardia"
+                [editable]="isEditable">
             </app-guardia-planilla>
             <br>
             <div class="d-flex flex-row justify-content-end">

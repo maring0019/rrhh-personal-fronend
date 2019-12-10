@@ -16,19 +16,20 @@ export class GuardiaPeriodo {
     }
 
     private generateDateRange() {
+        let _fechaDesde = new Date(this.fechaDesde);
         let range = [];
-        if (this.fechaDesde && this.fechaHasta){
-            while (this.fechaDesde.getTime() <= this.fechaHasta.getTime()) {
-                const tomorrow = this.addOneDay(this.fechaDesde);
-                if ( tomorrow.getMonth() != this.fechaDesde.getMonth()){
-                    let dayNumber = this.fechaDesde.getDate();
+        if (_fechaDesde && this.fechaHasta){
+            while (_fechaDesde.getTime() <= this.fechaHasta.getTime()) {
+                const tomorrow = this.addOneDay(_fechaDesde);
+                if ( tomorrow.getMonth() != _fechaDesde.getMonth()){
+                    let dayNumber = _fechaDesde.getDate();
                     while (dayNumber < 31){
                         range.push(null);
                         dayNumber +=1;
                     }
                 }
-                range.push(this.fechaDesde);
-                this.fechaDesde = tomorrow;
+                range.push(_fechaDesde);
+                _fechaDesde = tomorrow;
             }
         }
         return range;

@@ -21,6 +21,7 @@ import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service'
 export class GuardiaFormComponent implements OnInit {
     
     @Input() guardia: Guardia;
+    @Input() editable: Boolean = true;
     
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();

@@ -25,7 +25,7 @@
             class="guardia-content"
             (click)="onClick(diaGuardia, idxPlanilla, irange)"
             title="{{ diaGuardia | fecha:'diasmall' | title }} - {{ diaGuardia | fecha:'diames' }}"
-            [ngStyle]="{'cursor': diaGuardia? 'pointer': 'default'}">
+            [ngStyle]="{'cursor': (editable && diaGuardia)? 'pointer': 'default'}">
             <ng-container *ngIf="item.diasGuardia[irange]">
                 <plex-icon *ngIf="item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle"></plex-icon>
                 <plex-icon *ngIf="!item.diasGuardia[irange].diaCompleto" name="mdi mdi-checkbox-blank-circle-outline"></plex-icon>
@@ -36,6 +36,7 @@
         </div>
         <div class="guardia-content">
             <plex-icon
+                *ngIf="editable"
                 title="Quitar Agente"
                 type="danger"
                 name="mdi mdi-trash-can-outline"

@@ -10,6 +10,7 @@ import { Guardia } from 'src/app/models/Guardia';
 export class GuardiaPlanillaComponent implements OnInit {
 
     @Input() guardia: Guardia;
+    @Input() editable: Boolean = true;
 
     ngOnInit(){
 
@@ -18,7 +19,7 @@ export class GuardiaPlanillaComponent implements OnInit {
     public onClick(dia, planillaIndex, diaIndex){
         // Habilitamos el click unicamente en las celdas de
         // la planilla que tengan dias validos
-        if (dia){ 
+        if (this.editable && dia){ 
             let diaGuardia = this.guardia.planilla[planillaIndex].diasGuardia[diaIndex];
             if (!diaGuardia){
                 diaGuardia = { fecha: dia, diaCompleto: true } 
@@ -36,10 +37,7 @@ export class GuardiaPlanillaComponent implements OnInit {
     }
 
     onRemoveAgente(item, index){
-        this.guardia.planilla.splice(index, 1);
+        if (this.editable) this.guardia.planilla.splice(index, 1);
     }
 
-    onAddAgente(){
-        this.guardia.planilla.push()
-    }
 }

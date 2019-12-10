@@ -24,8 +24,18 @@ export class GuardiaService {
         return this.server.post(this.url, object);
     }
 
+    postAndConfirmar(object: Guardia): Observable<Guardia> {
+        let url = `${this.url}/confirmar`;
+        return this.server.post(url, object);
+    }
+
     put(object: Guardia): Observable<Guardia> {
         const url = `${this.url}/${object.id}`;
+        return this.server.put(url, object);
+    }
+
+    putAndConfirmar(object: Guardia): Observable<Guardia> {
+        const url = `${this.url}/${object.id}/confirmar`;
         return this.server.put(url, object);
     }
 

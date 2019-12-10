@@ -35,17 +35,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      */
     private _extraSearchParams:any; 
     
-    /**
-     * Almacena una copia de los valores del formulario del encabezado
-     * de la guardia. La copia se realiza unicamente cuando estan todos
-     * los datos completos del form, y en el momento en que el usuario
-     * comienza a cargar agentes a la planilla. Esta copia es utilizada
-     * cuando es necesario restaurar los valores previos cargados, por
-     * ejemplo ante la modificacion de un valor y posterior cancelacion
-     * de la modificacion.
-     */
-    private _formFreezeValues: any;
-
     private _objectID:any; // To keep track of object on update
 
     constructor(
@@ -78,18 +67,20 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.isEditable = false;
         this.guardiaService.getByID(this._objectID)
             .subscribe(data => {
-                console.log('Estamos volviendo de buscar por id');
-                console.log(data);
                 this.guardia = new Guardia(data);
+                if (this.guardia.estado == '0') this.isEditable = true;
             })
     }
 
     
     /**
-     * Metodo que se ejecuta ante los cambios realizados en el form del encabezado.
-     * Si los cambios afectan los agentes seleccionados se solicita confirmacion 
-     * para continuar. Si se modifica el periodo la planilla siempre se debe volver
-     * a generar
+     * Metodo que se ejecuta ante los cambios realizados en el formulario del
+     * encabezado. Todos los cambios impactan sobre el modelo guardia (this.guardia)
+     * La modificacion del campo periodo del formulario tiene un tratamiento
+     * especial ya que si el usuario confirma el cambio entonces se vuelva a
+     * generar la planilla y se pierde la información de los agentes previamente
+     * cargados.
+     *  
      * @param previousValue unicamente tiene informacion del ultimo campo modificado
      */
     public onChangedGuardiaForm(newValue:any){
@@ -100,26 +91,42 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                 .then( confirm => {
                     if (confirm){
                         this.guardia.planilla = [];
-                        if ('periodo' in newValue) this.regenerarPlanillaGuardia(newValue.periodo);
+                        this.regenerarGuardia(newValue);
                     }
                     else{
                         // Hacemos un rollback de los cambios realizados al form
-                        this.guardiaForm.form.patchValue(this._formFreezeValues, { emitEvent: false }); // Prevent infinite loop
+                        this.guardiaForm.form.patchValue(
+                            {
+                                periodo : this.guardia.periodo,
+                                servicio : this.guardia.servicio,
+                                categoria : this.guardia.categoria,
+                                tipoGuardia : this.guardia.tipoGuardia
+                            },
+                            { emitEvent: false }); // Prevent infinite loop
                     }
             });
         }
         else{
-            if ('periodo' in newValue) this.regenerarPlanillaGuardia(newValue.periodo);
+            this.regenerarGuardia(newValue);
         }
     }
 
-    private regenerarPlanillaGuardia( periodo? ){
-        this.generandoPlanilla = true;
-        this.guardia = new Guardia({ periodo: periodo })
+    
+    private regenerarGuardia( newValue:any ){
+        if ('periodo' in newValue) {
+            this.generandoPlanilla = true;
+            this.guardia = new Guardia({ periodo: newValue.periodo });
+        }
+        // Actualizamos la guardia con el valor ingresado
+        Object.keys(newValue).forEach( key => {
+            // Horrible
+            if (key == 'servicio') this.guardia.servicio = newValue[key];
+            if (key == 'categoria') this.guardia.categoria = newValue[key];
+            if (key == 'tipoGuardia') this.guardia.tipoGuardia = newValue[key].id;
+        });
         window.setTimeout(() => {
             this.generandoPlanilla = false;
         }, 1000);
-        
     }
 
     private isGuardiaFormValid(){
@@ -143,7 +150,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     public onAddAgente(){
         const form = this.guardiaForm.form;
         if (this.isGuardiaFormValid()) {
-            this._formFreezeValues = {...form.value};
             this._extraSearchParams = {
                 'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
                 'situacionLaboral.cargo.agrupamiento._id': form.value.categoria.id,
@@ -193,37 +199,75 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     }
 
 
+    /**
+     * Al momento de guardar verificamos si corresponde guardar una nueva 
+     * guardia, o guardar una guardia existente que ha sido modificada.
+     */
     public onGuardar(){
-        this.save('guardar');
+        return this._objectID? this.updateGuardia('guardar'): this.addGuardia('guardar');
     }
 
+    /**
+     * Idem que guardar pero con la accion 'Confirmar'
+     */
     public onConfirmar(){
         if (this.isGuardiaFormValid()){
             this.plex.confirm(`Al confirmar se habilita al Dpto. de Gestión de Personal
                 a realizar las validaciones correspondientes para su aprobación final.
                 Durante esta etapa no podrá volver a editar la información ingresada.`)
             .then( confirm => {
-                if (confirm){
-                    this.save('confirm');
-                }
+                if (confirm) return this._objectID? this.updateGuardia('confirmar'): this.addGuardia('confirmar');
             });
         }
     }
 
-    private save(type:String){
+    /**
+     * Al momento de crear una guardia se puede simplemente 'guardar' para
+     * continuar posteriormente su edicion o se puede 'confirmar' para asi
+     * dar un cierre a la misma y permitir los controles que deben realizar
+     * otros sectores.
+     * 
+     * @param actionType  'guardar', 'confirmar'
+     */
+    private addGuardia(actionType:String){
         if (this.isGuardiaFormValid()){
-            // Cargamos los datos del formulario al objeto Guardia
-            // para finalmente guardar los cambios realizados
-            const form = this.guardiaForm.form;
-            this.guardia.servicio = form.value.servicio;
-            this.guardia.categoria = form.value.categoria;
-            this.guardia.tipoGuardia = form.value.tipoGuardia.id; //
-            // TODO Como asignamos el agente?
-            // this.guardia.responsableEntrega = this.authService.usuario;
-            this.guardiaService.post(this.guardia)
-                .subscribe( newGuardia => {
-                    if (type == 'guardar') this.infoGuardarOk(newGuardia);
-                })
+            // TODO Como asignamos el agente.  this.guardia.responsableEntrega = this.authService.usuario;
+            if (actionType == 'guardar'){
+                this.guardiaService.post(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoGuardarOk(guardia);
+                    })
+            }
+            else { // type == 'confirmar'
+                this.guardiaService.postAndConfirmar(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoConfirmarOk(guardia);
+                    })
+            }
+        }
+    }
+
+    
+     /**
+     * Idem addGuardia
+     * 
+     * @param actionType  'guardar', 'confirmar'
+     */
+    private updateGuardia(actionType:String){
+        if (this.isGuardiaFormValid()){
+            if (actionType == 'guardar'){
+                this.guardiaService.put(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoGuardarOk(guardia);
+                    })
+            }
+            else { // type == 'confirmar'
+                this.guardiaService.putAndConfirmar(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoConfirmarOk(guardia);
+                    })
+
+            }
         }
     }
 
@@ -233,14 +277,20 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                     Puede continuar editando la información ingresada hasta
                     confirmar definitivamente los datos para ser evaluados 
                     por el Dpto. de Gestión de Personal.`)
-            .then( confirm => { 
-                this.router.navigate(['/guardias' , { id: guardia.id }]);
-                console.log('Estamos en el then!!!!!!!!')
+            .then( confirm => {
+                this.router.navigate(['/guardias' , { id: guardia.id? guardia.id : guardia._id }]);
+                this.ngOnInit();
+                // this.prepareDataForUpdate();
             });
     }
 
-    private infoConfirmarOk(){
-
+    private infoConfirmarOk(guardia){
+        this.plex
+            .info('success', `Guardia guardada y confirmada correctamente.`)
+            .then( confirm => { 
+                this.router.navigate(['/guardias' , { id: guardia.id? guardia.id : guardia._id }]);
+                this.ngOnInit();
+            });
     }
 
 
