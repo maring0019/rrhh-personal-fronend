@@ -20,6 +20,13 @@ import { GuardiaService } from 'src/app/services/guardia.service';
 export class GuardiaCreateUpdateComponent implements OnInit {
     @ViewChild("guardiaForm") guardiaForm: GuardiaFormComponent;
 
+    // Permisos
+    public puedeGuardar: Boolean;
+    public puedeConfirmar: Boolean;
+    public puedeValidar: Boolean;
+    public puedeEditarPlanilla: Boolean;
+    public puedeAgregarAgente: Boolean;
+
     public isEditable = true;
     public guardia: Guardia;
     public generandoPlanilla: Boolean; // Bandera
@@ -61,6 +68,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     private prepareDataForCreate(){
         this.guardia = new Guardia();
+        this.preparePermisos();
     }
 
     private prepareDataForUpdate(){
@@ -68,8 +76,24 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.guardiaService.getByID(this._objectID)
             .subscribe(data => {
                 this.guardia = new Guardia(data);
+                this.preparePermisos();
                 if (this.guardia.estado == '0') this.isEditable = true;
             })
+    }
+
+    private hasPerm(permiso:string){
+        return true;
+    }
+
+    /**
+     * Metodo temporal para determinar las acciones disponibles
+     */
+    private preparePermisos(){
+        this.puedeValidar = this.guardia.estado == '1' && this.hasPerm('puedeValidar');
+        this.puedeGuardar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeGuardar');
+        this.puedeConfirmar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeConfirmar');
+        this.puedeEditarPlanilla =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
+        this.puedeAgregarAgente =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
     }
 
     
@@ -221,6 +245,16 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
     }
 
+    public onValidar(){
+        if (this.isGuardiaFormValid()){
+            return this.updateGuardia('validar');
+        }
+    }
+
+    public onCerrar(){
+        this.router.navigate(['/guardias']);
+    }
+
     /**
      * Al momento de crear una guardia se puede simplemente 'guardar' para
      * continuar posteriormente su edicion o se puede 'confirmar' para asi
@@ -251,22 +285,29 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      /**
      * Idem addGuardia
      * 
-     * @param actionType  'guardar', 'confirmar'
+     * @param actionType  'guardar', 'confirmar', 'validar'
      */
     private updateGuardia(actionType:String){
         if (this.isGuardiaFormValid()){
-            if (actionType == 'guardar'){
-                this.guardiaService.put(this.guardia)
-                    .subscribe( guardia => {
-                        this.infoGuardarOk(guardia);
-                    })
-            }
-            else { // type == 'confirmar'
-                this.guardiaService.putAndConfirmar(this.guardia)
-                    .subscribe( guardia => {
-                        this.infoConfirmarOk(guardia);
-                    })
-
+            switch (actionType){
+                case 'guardar':
+                    this.guardiaService.put(this.guardia)
+                        .subscribe( guardia => {
+                            this.infoGuardarOk(guardia);
+                        });
+                    break;
+                case 'confirmar':
+                    this.guardiaService.putAndConfirmar(this.guardia)
+                        .subscribe( guardia => {
+                            this.infoConfirmarOk(guardia);
+                        });
+                    break;
+                case 'validar':
+                    this.guardiaService.putAndValidar(this.guardia)
+                        .subscribe( guardia => {
+                            this.infoValidarOk(guardia);
+                        });
+                    break;
             }
         }
     }
@@ -278,9 +319,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                     confirmar definitivamente los datos para ser evaluados 
                     por el Dpto. de Gestión de Personal.`)
             .then( confirm => {
-                this.router.navigate(['/guardias' , { id: guardia.id? guardia.id : guardia._id }]);
+                this.router.navigate(['/guardias/editar/' + guardia._id]);
                 this.ngOnInit();
-                // this.prepareDataForUpdate();
             });
     }
 
@@ -288,8 +328,15 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.plex
             .info('success', `Guardia guardada y confirmada correctamente.`)
             .then( confirm => { 
-                this.router.navigate(['/guardias' , { id: guardia.id? guardia.id : guardia._id }]);
-                this.ngOnInit();
+                this.router.navigate(['/guardias']);
+            });
+    }
+
+    private infoValidarOk(guardia){
+        this.plex
+            .info('success', `Guardia guardada y validada correctamente.`)
+            .then( confirm => { 
+                this.router.navigate(['/guardias']);
             });
     }
 
@@ -297,21 +344,9 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     
     //TODO: 
-    //   OK. Ver como identificar en el html un dia completo o medio dia
-    //   Ok. Ver al hacer click de agregar medio dia o dia completo 
-    //   OK. Ver de No permitir hacer click en las celdas en donde no hay dias validos
-    //   Ok. Ver de contabilizar correctamente la cantidad de dias de guardia por agente
-    //   Ok. Ver de contabilizar las guardias por dia
-    //   Ok. Remover un agente de la planilla de guardias
-    //   Ok. Ver si es posible agregar info de contexto al pasar el mouse por arriba de una celda
-    //   Ok. Ver de agregar un pointer al realizar un hover sobre las celdas
-    //   Ok. Ver como agregar agentes a la plantilla. (Parametrizar filtros al buscador de agentes)
-
-    //   Ver como armar la estructura necesaria para el html una vez consultado el servicio
     //   Ver de realizar validaciones segun alguna configuracion a definiar 
-    //   Analizar si no es conveniente agregar info sobre el tipo de guardia en cada item de la planilla
     //   Ver como calcular los dias de un agente en otraaaas planillas para el mismo periodo?
-    //  Incluir info de las ausencias!!!!
+    //   Incluir info de las ausencias!!!!
     
 
 }

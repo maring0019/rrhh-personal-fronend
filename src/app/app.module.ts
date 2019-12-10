@@ -177,6 +177,9 @@ import { FichadaReporteListComponent } from './pages/partes/reportes/fichadas/re
 import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
 import { GuardiaFormComponent } from './pages/guardias/guardia-servicio/create-update/form/guardia-form.component';
 import { GuardiaPlanillaComponent } from './pages/guardias/guardia-servicio/create-update/planilla/guardia-planilla.component';
+import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/list/guardia-list.component';
+import { GuardiaItemListComponent } from 'src/app/pages/guardias/guardia-servicio/list/item/guardia-item-list.component';
+import { GuardiaSearchFormComponent } from 'src/app/pages/guardias/guardia-servicio/list/search/guardia-search-form.component';
 import { RangeDirective } from './directives/range';
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
@@ -270,6 +273,9 @@ const ADMIN_COMPONENTS = [
         GuardiaCreateUpdateComponent,
         GuardiaFormComponent,
         GuardiaPlanillaComponent,
+        GuardiaListComponent,
+        GuardiaItemListComponent,
+        GuardiaSearchFormComponent,
 
         SearchLeyendaComponent,
         ListadoComponent,
@@ -372,6 +378,8 @@ const ADMIN_COMPONENTS = [
         ParteReporteSearchFormComponent,
         FichadaReporteSearchFormComponent,
         FichadaReporteItemListComponent,
+        GuardiaItemListComponent,
+        GuardiaSearchFormComponent,
         ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

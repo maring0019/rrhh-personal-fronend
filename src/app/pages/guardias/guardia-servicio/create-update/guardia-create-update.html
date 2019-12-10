@@ -10,16 +10,11 @@
                         {{ (isEditable)? 'Edición de planilla (Guardia sin Confirmar)' : 'Detalle de planilla (Guardia Confirmada)' }}
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
-                    <!-- <div *ngIf="!isEditable">
-                        <plex-button class="mx-2" label="Editar Agente" type="info" (click)="onEditar()"></plex-button>
-                        <plex-button class="mx-2" label="Nueva Historia Laboral" type="info" (click)="onCancelar()"></plex-button>
-                        <plex-button type="danger"  icon="mdi mdi-close"  (click)="onCancelar()" title="Cerrar"></plex-button>
-                    </div> -->
-                    <div *ngIf="isEditable">
-                        <plex-button label="Guardar" type="success" (click)="onGuardar()" class="mx-2" title="Guardar y Continuar Editando"></plex-button>
-                        <plex-button label="Confirmar Guardia" type="warning" (click)="onConfirmar()" title="Guardar y Confirmar"></plex-button>
-                        <plex-button icon="mdi mdi-close" type="danger" (click)="onCancelar()" class="mx-2" title="Cerrar"></plex-button>
-                    </div> 
+                    
+                    <plex-button *ngIf="puedeGuardar" label="Guardar" type="success" (click)="onGuardar()" class="mx-2" title="Guardar y Continuar Editando"></plex-button>
+                    <plex-button *ngIf="puedeConfirmar" label="Confirmar Guardia" type="warning" (click)="onConfirmar()" title="Guardar y Confirmar"></plex-button>
+                    <plex-button *ngIf="puedeValidar" label="Validar" type="success" (click)="onValidar()" class="mx-2" title="Guardar y Validar"></plex-button>
+                    <plex-button icon="mdi mdi-close" type="danger" (click)="onCerrar()" class="mx-2" title="Cerrar"></plex-button>
                     
                 </div>
             </section>
@@ -51,11 +46,11 @@
         <ng-container *ngIf="!generandoPlanilla && guardia?.periodo">
             <app-guardia-planilla
                 [guardia]="guardia"
-                [editable]="isEditable">
-            </app-guardia-planilla>
+                [editable]="puedeEditarPlanilla">
+            </app-guardia-planilla>  
             <br>
             <div class="d-flex flex-row justify-content-end">
-                <div *ngIf="isEditable">
+                <div *ngIf="puedeAgregarAgente">
                     <plex-button
                         label="Agregar Agente"
                         type="info"

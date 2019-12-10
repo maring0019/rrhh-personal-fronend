@@ -39,4 +39,14 @@ export class GuardiaService {
         return this.server.put(url, object);
     }
 
+    putAndValidar(object: Guardia): Observable<Guardia> {
+        const url = `${this.url}/${object.id}/validar`;
+        return this.server.put(url, object);
+    }
+
+    generarCsv(object: Guardia): Observable<Guardia> {
+        const url = `${this.url}/${object.id}/generar-csv`;
+        return this.server.get(url);
+    }
+
 }

@@ -1,0 +1,57 @@
+<plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
+    <plex-heading [layout]="layout">
+        <label>Lote</label>
+        <label>Periodo</label>
+        <label>Servicio</label>
+        <label>Categoría</label>
+        <label>Tipo de Guardia</label>
+        <label>Estado</label>
+        <label></label>
+    </plex-heading>
+    <ng-container *ngFor="let object of objects; let i=index">
+        <plex-item [layout]="layout">
+            <plex-label titulo="'Lote Nro X'" [tituloBold]="true"></plex-label>
+            <!-- <plex-label titulo="{{object.periodo.fechaDesde | fecha:'utc' }} - {{object.periodo.fechaHasta | fecha:'utc' }}" [tituloBold]="false"></plex-label> -->
+            <plex-label titulo="{{object.periodo.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.servicio.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.categoria.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.tipoGuardia | title }}" [tituloBold]="false"></plex-label>
+            <div [ngSwitch]="object.estado">
+                <plex-badge *ngSwitchCase="0" type="danger" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchCase="1" type="warning" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Confirmado"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchDefault type="success" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Validado"></plex-icon>
+                </plex-badge>
+            </div>
+            <div>
+                <plex-button
+                    title="Exportar a CSV"
+                    type="success"
+                    size="sm"
+                    icon="mdi mdi-file-excel"
+                    (click)="onExportar(object)">
+                </plex-button>
+                <plex-button
+                    *ngIf="object.estado == 1 && canValidarGuardia"
+                    title="Validar Guardia"
+                    type="info"
+                    size="sm"
+                    icon="mdi mdi-eye"
+                    (click)="onValidar(object)">
+                </plex-button>
+                <plex-button
+                    title="Editar Guardia"
+                    type="warning"
+                    size="sm"
+                    icon="mdi mdi-pencil"
+                    (click)="onNavigate(object)">
+                </plex-button>
+            </div>
+                
+        </plex-item>
+    </ng-container>
+</plex-list>

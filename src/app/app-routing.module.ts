@@ -31,6 +31,7 @@ import { ParteReporteListComponent } from './pages/partes/reportes/partes/report
 import { FichadaReporteListComponent } from 'src/app/pages/partes/reportes/fichadas/reporte-fichada-list.component';
 
 import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
+import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/list/guardia-list.component';
 
 
 const routes: Routes = [
@@ -58,8 +59,10 @@ const routes: Routes = [
     { path: 'partes/reportes/fichadas', component: FichadaReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
      // Guardias
-     { path: 'guardias', component: GuardiaCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-     { path: 'guardias/:id', component: GuardiaCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+     { path: 'guardias', component: GuardiaListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+     { path: 'guardias/crear', component: GuardiaCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+     { path: 'guardias/editar/:id', component: GuardiaCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+     { path: 'guardias/validar/:id', component: GuardiaCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
 
     // Agentes Busqueda y Registro

@@ -2,7 +2,6 @@ import { Agrupamiento } from './Agrupamiento';
 import { GuardiaPeriodo } from './GuardiaPeriodos';
 import { Servicio } from './Servicio';
 
-
 interface IDiaGuardia {
     fecha?: Date,
     diaCompleto?: Boolean
@@ -87,7 +86,7 @@ export class Guardia {
             });
         }
         
-        this.estado = guardia.estado;
+        this.estado = guardia.estado ;
         this.fechaEntrega = guardia.fechaEntrega;
         this.responsableEntrega = guardia.responsableEntrega;
         this.validado = guardia.validado;
