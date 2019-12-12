@@ -70,6 +70,5 @@ export class AgenteSearchComponent implements OnInit {
     openModal(id: string) {
         this.modalService.open(id);
     }
-
     
 }

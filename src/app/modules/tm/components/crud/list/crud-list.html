@@ -5,20 +5,24 @@
             <div>
                 <h5><strong>{{ titulo }}</strong></h5>
             </div>
-            <div class="d-flex flex-row justify-content-end">
-                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+            <div class="d-flex flex-row justify-content-end">    
+                <plex-button
+                    *ngIf="canCreateObject"
+                    label="Nuevo"
+                    type="info"
+                    (click)="altaObject()">
+                </plex-button>
+                <plex-button
+                    class="mx-2"
+                    type="danger"
+                    icon="mdi mdi-close"
+                    title="Cerrar"
+                    (click)="cancelar()">
+                </plex-button>
             </div>
         </header>
         <ng-template #searchForm></ng-template>
         <br>
-
-        <div *ngIf="canCreateObject" class="d-flex justify-content-end mb-4">
-            <plex-button
-                label="Nuevo"
-                type="info"
-                (click)="altaObject()">
-            </plex-button>
-        </div>
         
         <plex-loader 
             *ngIf="searching"

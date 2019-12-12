@@ -12,12 +12,22 @@
                 <div class="d-flex flex-row justify-content-end">
                     <div *ngIf="!isEditable">
                         <plex-button label="Editar Agente" type="info" (click)="onEditar()" class="mx-2"></plex-button>
-                        <plex-button label="Nueva Historia Laboral" type="info" (click)="onCancelar()" class="mx-2"></plex-button>
-                        <plex-button type="danger"  icon="mdi mdi-close"  (click)="onCancelar()" title="Cerrar"></plex-button>
+                        <plex-button label="Nueva Historia Laboral" type="info" class="mx-2"></plex-button>
+                        <plex-button
+                            type="danger" 
+                            icon="mdi mdi-close" 
+                            title="Cerrar"
+                            routerLink="/agentes"
+                        ></plex-button>
                     </div>
                     <div *ngIf="isEditable">
                         <plex-button label="Guardar" type="success" (click)="saveAgente()"></plex-button>
-                        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="onCancelar()"></plex-button>
+                        <plex-button
+                            class="mx-2"
+                            label="Cancelar"
+                            type="danger"
+                            routerLink="/agentes">
+                        </plex-button>
                     </div>
                     
                 </div>

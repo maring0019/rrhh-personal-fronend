@@ -54,6 +54,11 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         {}
 
     ngOnInit(){
+        console.log('Vamos a probar la seguridad')
+        console.log('Usuario');
+        console.log(this.authService.usuario)
+        console.log('Permisos');
+        console.log(this.authService.getPermissions('guardia:guardia:?'));
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._objectID = params.get('id');
             if (this._objectID){

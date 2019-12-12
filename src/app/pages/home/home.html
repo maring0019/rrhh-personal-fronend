@@ -1,11 +1,126 @@
-<plex-layout main="8">
+<plex-layout main="12">
     <plex-layout-main>
-            <app-buscador>
-                
-            </app-buscador>
+        <section>
+            <plex-box>
+                <div class="text-center">
+                    <section class="contenedor-marca-h">
+                        <div svgLogo></div>
+                        <div class="bloque-texto">
+                            <div svgAcronimo></div>
+                            <h5 class="suffix-provincia">{{ provincia }} </h5>
+                        </div>
+                    </section>
+                    <div *ngIf="!denied" class="andes-inicio row">
+                        <div *ngIf="mpi" class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-celeste" routerLink="/agentes">
+                                <i class="icono mdi mdi-account-multiple-outline"></i>
+                                <div class="titulo">Agentes</div>
+                                <div class="subtitulo">Índice Maestro
+                                    <br>de Pacientes</div>
+                                <div class="detalle">Optimiza el proceso de
+                                    <br>identificación del paciente</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-violeta" routerLink="/citas/gestor_agendas">
+                                <i class="icono mdi mdi-calendar"></i>
+                                <div class="titulo">Partes</div>
+                                <div class="subtitulo">Centro Inteligente
+                                    <br>de Agendas &amp; Turnos</div>
+                                <div class="detalle">Mejora la accesibilidad de
+                                    <br>pacientes a las prestaciones</div>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-violeta" routerLink="/citas/punto-inicio">
+                                <i class="icono mdi mdi-calendar"></i>
+                                <div class="titulo">Guardias</div>
+                                <div class="subtitulo">Centro Inteligente
+                                    <br>de Agendas &amp; Turnos</div>
+                                <div class="detalle">Mejora la accesibilidad de
+                                    <br>pacientes a las prestaciones</div>
+                            </div>
+                        </div> -->
+                        
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-rosa" routerLink="/guardias">
+                                <i class="icono mdi mdi-contacts"></i>
+                                <div class="titulo">Guardias</div>
+                                <div class="subtitulo">Historia Digital
+                                    <br>de Salud</div>
+                                <div class="detalle">Registro universal
+                                    <br>de prestaciones de pacientes</div>
+                            </div>
+                        </div>
+        
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-amarillo" routerLink="/prestamosHC">
+                                <i class="icono mdi mdi-folder"></i>
+                                <div class="titulo">Reportes</div>
+                                <div class="subtitulo">SOLICITUDES MANUALES</div>
+                                <div class="detalle">Mejora la administración
+                                    de las carpetas</div>
+                            </div>
+                        </div>
+        
+                        <div  class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-salmon" routerLink="/internacion/camas">
+                                <i class="icono mdi mdi-hotel"></i>
+                                <div class="titulo">Novedades</div>
+                                <div class="subtitulo">Mapa de camas</div>
+                                <div class="detalle">Vea el estado del mapa de camas
+                                    <br />de los distintos servicios de la organización</div>
+                            </div>
+                        </div>
+        
+                        <div  class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-verde" routerLink="/internacion/inicio">
+                                <i class="icono mdi mdi-hotel"></i>
+                                <div class="titulo">Configuración</div>
+                                <div class="subtitulo">Punto de inicio</div>
+                                <div class="detalle">Registrar epicrisis de una internación<br>&nbsp;</div>
+                            </div>
+                        </div>
+        
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton color-verde-oscuro" routerLink="/gestor-usuarios/usuarios">
+                                <i class="icono mdi mdi-account-key"></i>
+                                <div class="titulo">Usuarios</div>
+                                <div class="subtitulo">Asignacion de permisos</div>
+                                <div class="detalle">Permite asignar permisos a organizaciones y/o módulos<br>&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="boton andes-naranja-claro" routerLink="/dashboard">
+                                <i class="icono mdi mdi-chart-line"></i>
+                                <div class="titulo">Dashboard</div>
+                                <div class="subtitulo">Panel de Estadísticas<br>&nbsp;</div>
+                                <div class="detalle">Visualice datos estadísticos<br>en gráficos y tablas</div>
+                            </div>
+                        </div>
+        
+        
+                    </div>
+        
+                    <div *ngIf="denied" class="row">
+                        <div class="col">
+                            <div class="boton color-amarillo">
+                                <i class="icono mdi mdi-alert"></i>
+                                <div class="titulo">ATENCIÓN</div>
+                                <div class="subtitulo">PERMISOS DE APLICACIONES</div>
+                                <div class="detalle">Ud. no posee permisos para ningún módulo de ANDES</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+            </plex-box>
+        </section>
+         
     </plex-layout-main>
-    <plex-layout-sidebar type="invert">
+    <!-- <plex-layout-sidebar type="invert">
         <router-outlet>  
         </router-outlet>
-    </plex-layout-sidebar>
+    </plex-layout-sidebar> -->
 </plex-layout>

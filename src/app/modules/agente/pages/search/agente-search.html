@@ -1,6 +1,26 @@
 <plex-layout main="8">
-
     <plex-layout-main>
+        <header>
+            <section class="d-flex flex-row justify-content-between mb-2">
+                <h5 class="align-self-center">
+                    <strong>Agentes |</strong> Listado de agentes
+                </h5>
+                <div class="d-flex flex-row justify-content-end">
+                    <plex-button
+                        label="Nuevo Agente"
+                        type="info"
+                        routerLink="/agentes/registro">
+                    </plex-button>
+                    <plex-button
+                        icon="mdi mdi-close"
+                        type="danger"
+                        class="mx-2"
+                        title="Cerrar"
+                        routerLink="/inicio">
+                    </plex-button>
+                </div>
+            </section>
+        </header>
         <app-agente-search-form
             (searchStart)="waitingResultados($event)"
             (searchEnd)="showResultados($event)"

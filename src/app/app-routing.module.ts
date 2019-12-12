@@ -32,9 +32,13 @@ import { FichadaReporteListComponent } from 'src/app/pages/partes/reportes/ficha
 
 import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
 import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/list/guardia-list.component';
+import { HomePageComponent } from 'src/app/pages/home/home.page';
 
 
 const routes: Routes = [
+    // Inicio
+    { path: 'inicio', component: HomePageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
     // Tablas maestras
     { path: 'tm/articulos', component: ArticuloListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'tm/articulos/crear', component: ArticuloCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
@@ -66,7 +70,7 @@ const routes: Routes = [
 
 
     // Agentes Busqueda y Registro
-    { path: 'agentes/busqueda', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'agentes', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { 
@@ -116,7 +120,7 @@ const routes: Routes = [
     // },
     
         // dejar siempre al último porque no encuentra las url después de esta
-    { path: '**', redirectTo: 'agentes/busqueda' }
+    { path: '**', redirectTo: 'inicio' }
 ];
 
 @NgModule({

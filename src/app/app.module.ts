@@ -51,8 +51,8 @@ import { GuardiaPeriodoService } from './services/guardia-periodo.service';
 import { CalendarStoreService } from './stores/calendar.store.service';
 
 // Pages
-import { HomePage } from './pages/home/home.page';
 import { LoginPage } from './pages/login/login.page';
+import { HomePageComponent } from 'src/app/pages/home/home.page';
 
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
@@ -183,6 +183,9 @@ import { GuardiaSearchFormComponent } from 'src/app/pages/guardias/guardia-servi
 import { RangeDirective } from './directives/range';
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
+import { LogoSvgComponent } from './styles/logo.svg';
+import { AcronimoSvgComponent } from './styles/acronimo.svg';
+
 
 
 const ADMIN_COMPONENTS = [
@@ -216,7 +219,7 @@ const ADMIN_COMPONENTS = [
     declarations: [
         AppComponent,
         LoginPage,
-        HomePage,
+        HomePageComponent,
 
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
@@ -311,6 +314,9 @@ const ADMIN_COMPONENTS = [
 
         // Directives
         RangeDirective,
+
+        LogoSvgComponent,
+        AcronimoSvgComponent
     ],
     imports: [
         BrowserModule,

@@ -267,10 +267,6 @@ export class AgenteRegistroComponent implements OnInit {
         this.isEditable = true;
     }
 
-    public onCancelar(){
-        this.volverInicio();
-    }
-
     public onNextTab(){
         const maxTabs = this.agenteTabs.tabs.length;
         const idxTab = this.agenteTabs.activeIndex

@@ -27,4 +27,8 @@ export class GuardiaListComponent extends CRUDListComponent implements OnInit {
         super.ngOnInit();
     }
 
+    public cancelar(){
+        this.router.navigate(['/inicio'])
+    }
+
 }
