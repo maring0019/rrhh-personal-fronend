@@ -70,5 +70,9 @@ export class AgenteSearchComponent implements OnInit {
     openModal(id: string) {
         this.modalService.open(id);
     }
+
+    public onCerrarDetalle(){
+        this.agenteSeleccionado = null;
+    }
     
 }

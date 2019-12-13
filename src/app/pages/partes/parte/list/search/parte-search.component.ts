@@ -92,7 +92,6 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
         // if (this.searchForm.valid){
             this.objectService.get(searchParams).subscribe(
                 objects => {
-                    console.log(objects)
                     this.searchEnd.emit(objects);
                 },
                 (err) => {

@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { Router} from '@angular/router';
 
 import { Agente } from 'src/app/models/Agente';
@@ -26,6 +26,8 @@ export class AgenteDetalleComponent{
     @Input() cargo: Cargo;
     @Input() regimen: Regimen;
 
+    @Output() onClose:EventEmitter<any> = new EventEmitter<any>();
+
 
     constructor(private router: Router)
                 { }
@@ -40,8 +42,9 @@ export class AgenteDetalleComponent{
         }
     }
 
-    onClose(event){
+    onCerrar(event){
         this.agente = null;
+        this.onClose.emit();
     }
 
     verAusencias(){

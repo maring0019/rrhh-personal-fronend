@@ -1,4 +1,4 @@
-<plex-layout main="8">
+<plex-layout main="{{ agenteSeleccionado? 8: 12 }}">
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
@@ -64,8 +64,8 @@
 
     </plex-layout-main>
 
-    <plex-layout-sidebar type="invert">
-        <app-agente-detalle *ngIf="agenteSeleccionado"
+    <plex-layout-sidebar type="invert"  *ngIf="agenteSeleccionado">
+        <app-agente-detalle
             [showActions]="true"
             [agente]="agenteSeleccionado"
             [foto]="agenteSeleccionado.foto"
@@ -73,7 +73,8 @@
             [contactos]="agenteSeleccionado.contactos"
             [educacion]="agenteSeleccionado.educacion"
             [situacion]="agenteSeleccionado.situacionLaboral?.situacion"
-            [regimen]="agenteSeleccionado.situacionLaboral?.regimen">
+            [regimen]="agenteSeleccionado.situacionLaboral?.regimen"
+            (onClose)="onCerrarDetalle()">
         </app-agente-detalle>
     </plex-layout-sidebar>
     

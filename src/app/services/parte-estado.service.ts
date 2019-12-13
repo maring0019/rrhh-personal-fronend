@@ -11,7 +11,8 @@ export class ParteEstadoService {
     constructor(private server: Server) { }
 
     get(params?: any): Observable<ParteEstado[]> {
-        return this.server.get(this.url, { params: params, showError: true });
+
+        return this.server.get(this.url, { params: params, showError: true, showLoader: false });
     }
 
     getByID(objectId?: any): Observable<ParteEstado> {

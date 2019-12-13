@@ -160,6 +160,8 @@ export abstract class CRUDListComponent implements OnInit {
         this.router.navigate([this.router.url+'/crear']);
     }
 
-    public cancelar(){}
+    public onCerrar(){
+        this.router.navigate(['/inicio']);
+    }
 
 }

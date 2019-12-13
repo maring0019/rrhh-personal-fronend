@@ -62,9 +62,6 @@ export class ReporteSearchComponent implements OnInit {
         this.modalService.close('modal-show-results');
     }
 
-    public onCancel(){
-
-    }
 
     private getTipoReporte(){
         const form = this.tipoReporteComponent.form.value;
