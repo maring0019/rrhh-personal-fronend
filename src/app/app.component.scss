@@ -59,49 +59,67 @@ body.jw-modal-open {
 
 $gap: 5px;
 
-::ng-deep dl {
-  background-color: #eee;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px $gap/2;
-  dt, dd {
-    margin: $gap/2;
-    text-indent: 10px;}
-  dt {
-    background-color: gold;
-    flex: 0 0 calc(100% - #{$gap});
-  }
-  dd {
-    background-color: lightblue;
-    flex: 0 0 calc(25% - #{$gap});
-  }
-  .half {
-    flex: 0 0 calc(75% - #{$gap});
-   }
-}
+// ::ng-deep dl {
+//   background-color: #eee;
+//   display: flex;
+//   flex-wrap: wrap;
+//   padding: 20px $gap/2;
+//   dt, dd {
+//     margin: $gap/2;
+//     text-indent: 10px;}
+//   dt {
+//     background-color: gold;
+//     flex: 0 0 calc(100% - #{$gap});
+//   }
+//   dd {
+//     background-color: lightblue;
+//     flex: 0 0 calc(30% - #{$gap});
+//   }
+//   .half {
+//     flex: 0 0 calc(70% - #{$gap});
+//    }
+// }
 
 
 
-::ng-deep div.dl { 
-    // background-color: #eee;
-    border: 1px solid #eee;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px $gap/2;
-    div.dt, div.dd {
+::ng-deep { 
+    .item-row {
+      border: 1px solid #eee;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px $gap/2;
+      cursor: pointer;
+    }
+
+    .item-row-selected {
+      background-color: #00a1dfb0;
+      // opacity: 0.2;
+      outline: none;
+      border: 2px solid;
+      box-shadow: 0 0 10px #00a1df;
+      
+      .badge-info {
+        color: #fff;
+      }
+    }
+
+    .item.row, .item-column {
       margin: $gap/2;
-      text-indent: 10px;}
-    div.dt {
-      background-color: gold;
+      text-indent: 10px;
+    }
+
+    .item-column {
+      // background-color: gold;
       flex: 0 0 calc(100% - #{$gap});
     }
-    div.dd {
+
+    .item-column {
       
-      flex: 0 0 calc(75% - #{$gap});
+      flex: 0 0 calc(60% - #{$gap});
       height: 30px;
     }
-    div.botonera {
-      flex: 0 0 calc(25% - #{$gap});
+    .item-botonera {
+      flex: 0 0 calc(40% - #{$gap});
      }
   }
 
@@ -109,3 +127,6 @@ $gap: 5px;
   ::ng-deep div.item-list plex-label {
     min-height: 45px !important;
 }
+
+// inset 0px 0px 5px 1px rgba(240,173,78,1);
+// 0px 0px 12px 6px rgba(240,173,78,1)

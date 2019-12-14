@@ -42,10 +42,12 @@ export class CalendarStoreService {
     //   create a new BehaviorSubject for it, as well as the observable$, and getters/setters
     private readonly _eventos = new BehaviorSubject<IEventoCalendar[]>([]);
     private readonly _selectionRange = new BehaviorSubject<IDateRangeSelection>({ fechaDesde: new Date(), fechaHasta: new Date() });
+    private readonly _ausentismoSelected = new BehaviorSubject<any>(null);
 
     // Expose the observable$ part of the _eventos subject (read only stream)
     readonly eventos$ = this._eventos.asObservable();
     readonly selectionRange$ = this._selectionRange.asObservable();
+    readonly ausentismoSelected$ = this._ausentismoSelected.asObservable(); 
 
     private _feriados: IEventoCalendar[]; // Contiene todos los feriados 
     feriados: IEventoCalendar[] =[];  // Puede o no contener los feriados dependiendo de si se visualizan o no en el listado de eventos
@@ -68,6 +70,14 @@ export class CalendarStoreService {
                 this._selectionRange.next(val);
             }
         }
+    }
+
+    get ausentismoSelected(){
+        return this._ausentismoSelected.getValue();
+    }
+
+    set ausentismoSelected(val:any){
+        this._ausentismoSelected.next(val);
     }
 
     // the getter will return the last value emitted in _eventos subject

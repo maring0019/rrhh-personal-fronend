@@ -17,12 +17,26 @@
 }
 
 
+// ::ng-deep .fc-highlight {
+//     background-color: $andes-cyan;
+//     opacity: 0.2;
+//     outline: none;
+//     border: 2px solid;
+//     box-shadow: 0 0 10px $andes-cyan;
+// }
+
+
+
 ::ng-deep .fc-highlight {
-    background-color: $andes-cyan;
-    opacity: 0.2;
     outline: none;
     border: 2px solid;
-    box-shadow: 0 0 10px $andes-cyan;
+    box-shadow: inset 0px 0px 5px 2px rgba(0,168,224,1);
+    opacity: 0.5;
+    background-color: transparent;
+}
+
+::ng-deep .fc-title {
+    font-weight: bold;
 }
 
 ::ng-deep .plex-box ::-webkit-scrollbar, plex-box > DIV ::-webkit-scrollbar {

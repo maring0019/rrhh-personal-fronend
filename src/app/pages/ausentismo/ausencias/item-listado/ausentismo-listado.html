@@ -1,4 +1,4 @@
-<li class="d-flex flex-row justify-content-between align-items-center py-2"
+<!-- <li class="d-flex flex-row justify-content-between align-items-center py-2"
     *ngFor="let item of listado">
     <div class="d-flex flex-row list-content" (click)="seleccionarItem(item)">
         <article class="d-flex flex-column text-left align-self-center"> 
@@ -8,7 +8,6 @@
             <p><small>{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}</small></p>
         </article>
     </div>
-    <!-- Botonera -->
     <div class="d-flex flex-row list-actions">
         <plex-button
             *ngIf="tieneAdjuntos"
@@ -20,14 +19,6 @@
         <plex-badge type="info">
             {{ item.cantidadDias }} DÍAS
         </plex-badge>
-
-        <!-- <plex-button
-            size="sm"
-            type="primary"
-            icon="mdi mdi-eye"
-            (click)="viewItem(item)">Ver Periodo
-        </plex-button> -->
-        
         <plex-button
             size="sm"
             type="primary"
@@ -35,4 +26,34 @@
             (click)="editItem(item)">Editar Periodo
         </plex-button>
     </div>
-</li>
+</li> -->
+
+<ng-container *ngFor="let item of listado">
+    <div class="item-row" (click)="seleccionarItem(item)"
+        [ngClass]="{'item-row-selected': itemSelected?.id == item.id}">
+        <div class="item-column">
+            <div class="d-flex flex-row justify-content-start">
+                <plex-label
+                    
+                    titulo="Art. {{ item.articulo?.codigo }} {{ (item.articulo?.descripcion.length > 20)? (item.articulo?.descripcion | slice:0:18 ) + '...' : item.articulo?.descripcion }}"
+                    subtitulo="{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}">
+                </plex-label>
+            </div>    
+        </div>
+        <div class="item-column item-botonera">
+            <div class="d-flex flex-row justify-content-end">
+                <plex-badge type="info">
+                        {{ item.cantidadDias }} DÍAS
+                </plex-badge>
+    
+                <plex-button
+                    title="Editar Ausentismo"
+                    size="sm"
+                    type="warning"
+                    icon="mdi mdi-pencil"
+                    (click)="editItem(item)">
+                </plex-button>
+            </div>
+        </div>
+    </div>
+</ng-container>

@@ -97,9 +97,9 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(){
         this.calendarApi = this.calendarComponent.getApi();
-        this.calendarComponent.getApi().setOption('eventRender', (info) => {
-            return this.customEventRenderWithReturnValue(info);
-          });
+        // this.calendarComponent.getApi().setOption('eventRender', (info) => {
+        //     return this.customEventRenderWithReturnValue(info);
+        //   });
     }
 
     ngOnChanges(){
@@ -142,8 +142,9 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             console.log('EVENTO#############CLICKED');
             console.log(e)
             const props = e.event.extendedProps;
+            console.log(props)
 
-            this.calendarStoreService.selectionRange = { fechaDesde:props.ausentismoFechaDesde, fechaHasta:getTomorrow(props.ausentismoFechaHasta) };
+            this.calendarStoreService.selectionRange = { fechaDesde:new Date(props.ausentismoFechaDesde), fechaHasta:getTomorrow(new Date(props.ausentismoFechaHasta)) };
             this.enableContextMenu(e);
         }
     }

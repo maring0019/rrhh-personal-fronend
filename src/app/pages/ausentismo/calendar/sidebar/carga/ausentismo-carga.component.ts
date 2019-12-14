@@ -116,7 +116,7 @@ export class AusentismoCargaComponent implements OnInit {
             // this.plex.info('info', error);
         }
         else{
-            this.plex.info('info', 'Debe completar todos los datos obligatorios');
+            this.plex.info('danger', 'Debe completar todos los datos obligatorios');
         }
         
     }

@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Ausentismo as Item } from 'src/app/models/Ausentismo';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { Ausentismo as Item } from 'src/app/models/Ausentismo';
 })
 export class AusentismoListadoComponent {
     private _items: Item[];
-    private itemSelected: Item;
+    public itemSelected: Item;
 
     public listado: Item[]; // Contiene un listado plano de items
 
@@ -51,12 +53,27 @@ export class AusentismoListadoComponent {
      */
     @Output() hover: EventEmitter<Item> = new EventEmitter<Item>();
 
-
-    constructor() {}
+    storeSubscription: Subscription;
+    
+    constructor(private calendarStoreService: CalendarStoreService) {
+        this.storeSubscription = this.calendarStoreService.ausentismoSelected$
+            .subscribe( ausentismo => {
+                this.itemSelected = ausentismo;
+                console.log('Item Seleccionado')
+                console.log(this.itemSelected)
+                this.selected.emit(this.itemSelected);
+                // if (rangeSelection) {
+                //     this.updateSelectedMonthView(rangeSelection.fechaDesde);
+                // }
+                // this._rangeSelection = rangeSelection;
+                // this.marcarPeriodoSeleccionado();
+            });
+    }
 
     public seleccionarItem(item: Item) {
-        this.itemSelected = item;
-        this.selected.emit(this.itemSelected);
+        this.calendarStoreService.ausentismoSelected = item;
+        // this.itemSelected = item;
+        // this.selected.emit(this.itemSelected);
     }
 
     public hoverItem(item: Item) {
