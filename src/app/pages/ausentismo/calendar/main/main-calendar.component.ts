@@ -7,6 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 import { getTomorrow } from 'src/app/utils/dates';
 import { CalendarStoreService, IDateRangeSelection } from 'src/app/stores/calendar.store.service';
+import { Ausentismo } from 'src/app/models/Ausentismo';
 
 
 @Component({
@@ -15,35 +16,41 @@ import { CalendarStoreService, IDateRangeSelection } from 'src/app/stores/calend
 })
 
 export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
-    @Input() eventos;
-    @Input() options;
-    @Input() mesSeleccionado:Date;
-    @Input() weekends:Boolean;
+    @Input() customEventRender: Boolean = false;
+    @Input() eventos; // Listado de eventos a mostrar en el calendario
+    @Input() options; // Opciones/configuracion del calendario
+    @Input() mesSeleccionado: Date; // Indica el mes a visualizar. Puede ir variando
+    @Input() weekends: Boolean; // Flag para indicar si se muestran o no los sab/dom
 
     @Output() changedDate: EventEmitter<Date> = new EventEmitter<Date>();
-   
+
     @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
 
     storeSubscription: Subscription;
     private _rangeSelection: IDateRangeSelection;
-    
-    
-    constructor(private calendarStoreService: CalendarStoreService,
-        private renderer: Renderer2){
-            this.storeSubscription = this.calendarStoreService.selectionRange$
-                .subscribe(rangeSelection => {
-                    if (rangeSelection) {
-                        this.updateSelectedMonthView(rangeSelection.fechaDesde);
-                    }
-                    this._rangeSelection = rangeSelection;
-                    this.marcarPeriodoSeleccionado();
-                });
-        }
 
+
+    constructor(private calendarStoreService: CalendarStoreService,
+        private renderer: Renderer2) {
+            this.subscribeRangeSelectionChanges();
+        
+    }
+
+    /**
+     * Referencia a la API de fullCalendar. Se utiliza para la mayoria de
+     * las interacciones con el calendario (por ej. para 'navegar' a una
+     * fecha en particular del calendario)
+     */
+    calendarApi: any;
     
-    calendarApi:any;
-    mesVisualizado:Date = new Date(2013, 1, 1);
-    
+    mesVisualizado: Date = new Date(2013, 1, 1);
+
+    /**
+     * Listado de plugins que utiliza fullCalendar para proveer diferentes
+     * funcionalidades.
+     * dayGridPlugin provee principalmente la vista mensual del calendario 
+     * interactionPlugin permite principalmente seleccionar periodos
+     */
     calendarPlugins = [dayGridPlugin, interactionPlugin];
 
     header = {
@@ -51,10 +58,42 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         center: 'title',
         right: ''
     };
-    columnHeaderText = (date: Date) : string => {
+
+    /**
+     * Metodo para personalizar el encabezado del calendario
+     */
+    columnHeaderText = (date: Date): string => {
         var days = ['DOMINGO', 'LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO'];
         var shortDayName = days[date.getDay()];
         return shortDayName;
+    }
+
+
+    ngOnInit() {    }
+
+    ngAfterViewInit() {
+        this.calendarApi = this.calendarComponent.getApi();
+        if (this.customEventRender) return this.enableCustomEventRender();
+
+    }
+
+    ngOnChanges() {
+        if (this.mesSeleccionado != this.mesVisualizado) {
+            this.mesVisualizado = this.mesSeleccionado;
+            if (this.calendarApi) {
+                this.calendarApi.gotoDate(this.mesVisualizado);
+            }
+        }
+    }
+
+    ngOnDestroy() {
+        this.storeSubscription.unsubscribe();
+    }
+
+    private enableCustomEventRender() {
+        this.calendarComponent.getApi().setOption('eventRender', (info) => {
+            return this.customEventRenderWithReturnValue(info);
+        });
     }
 
     /**
@@ -63,11 +102,12 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
      *    con el color indicado en el evento
      *  - Si existe mas de un evento en un dia se utiliza el render por default
      *    el cual 'apila' los eventos de la celda del dia.
-     * @param info object provisto por fullcalendar. Contiene el evento interno 
+     * @param info object provisto por fullcalendar. Contiene el evento interno
+     * @deprecated 
      */
-    customEventRenderWithReturnValue(info){
+    private customEventRenderWithReturnValue(info) {
         let colEvent: HTMLDivElement;
-        if (!this.otherEventOnSameDay(info.event)){
+        if (!this.otherEventOnSameDay(info.event)) {
             colEvent = this.renderer.createElement('div');
             let linkEvent: HTMLAnchorElement = this.renderer.createElement('a');
             colEvent.className = "fc-custom-event"
@@ -75,125 +115,129 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             linkEvent.className = "fc-event"
             linkEvent.innerText = info.event.title;
             colEvent.appendChild(linkEvent);
-        }        
+        }
         return colEvent;
     }
 
-    otherEventOnSameDay(eventB){
+    private otherEventOnSameDay(eventB) {
         const evento = this.eventos.find(
             eventA => (eventA.startString == eventB.extendedProps.startString
-                    && eventA.id != eventB.id)
+                && eventA.id != eventB.id)
         );
-        return evento;       
+        return evento;
     }
 
-    // compareEvent(eventA, eventB):boolean{
-    //     return ()
-    // }
-    
-    public ngOnInit() {
-
-    }
-
-    ngAfterViewInit(){
-        this.calendarApi = this.calendarComponent.getApi();
-        // this.calendarComponent.getApi().setOption('eventRender', (info) => {
-        //     return this.customEventRenderWithReturnValue(info);
-        //   });
-    }
-
-    ngOnChanges(){
-        if (this.mesSeleccionado != this.mesVisualizado){
-            this.mesVisualizado = this.mesSeleccionado;
-            if (this.calendarApi){
-                this.calendarApi.gotoDate(this.mesVisualizado);
-            }
-        }
-    }
-    
-
-
-    ngOnDestroy() {
-        this.storeSubscription.unsubscribe();
-      }
-
-    public gotoNextMonth(){
+    public gotoNextMonth() {
         this.updateSelectedMonthView(this._getNextMonth(this.mesVisualizado));
         this.marcarPeriodoSeleccionado();
     }
 
-    public gotoPreviousMonth(){
+    public gotoPreviousMonth() {
         this.updateSelectedMonthView(this._getPrevMonth(this.mesVisualizado));
         this.marcarPeriodoSeleccionado();
     }
 
-    public onDateClick(e){
-        console.log('DATE CLICK')
-        console.log(e);
-        // if (jsEvent.target.classList.contains('fc-bgevent')) {
-        //     alert('Click Background Event Area');
-        // }
-
-        this.calendarStoreService.selectionRange = { fechaDesde:e.date, fechaHasta:getTomorrow(e.date) };
+    /**
+     * Metodo que se invoca cuando se hace click sobre algun dia del calendario.
+     * Se deben realizar las siguientes acciones sobre el store:
+     *   - Actualizar periodo seleccionado (es el dia seleccionado)
+     *   - Actualizar ausentismo seleccionado. Se debe dejar vacio
+     * Obs: Var aparte como interactuan los metodos
+     *   - onEventClick()
+     *   - onDateRangeSelection()   
+     * @param e day event from calendar
+     */
+    public onDateClick(e) {
+        this.calendarStoreService.selectionRange = { fechaDesde: e.date, fechaHasta: getTomorrow(e.date) };
+        this.calendarStoreService.ausentismoSelected = null;
     }
 
-    public onEventClick(e){
-        if (e && e.event){
-            console.log('EVENTO#############CLICKED');
-            console.log(e)
+    /**
+     * Metodo que se invoca cuando se hace click sobre algun evento del calendario.
+     * Se deben realizar las siguientes acciones sobre el store:
+     *   - Actualizar periodo seleccionado. Se utilizan las fechas indicadas en el 
+     *     evento
+     *   - Actualizar ausentismo seleccionado. Si el evento es una ausencia se debe
+     *     utilizar el id provisto por el mismo, sino se debe dejar en vacio.
+     * Obs: Var aparte como interactuan los metodos
+     *   - onDateClick()
+     *   - onDateRangeSelection()   
+     * @param e event from calendar
+     */
+    public onEventClick(e) {
+        if (e && e.event) {
             const props = e.event.extendedProps;
-            console.log(props)
-
-            this.calendarStoreService.selectionRange = { fechaDesde:new Date(props.ausentismoFechaDesde), fechaHasta:getTomorrow(new Date(props.ausentismoFechaHasta)) };
-            this.enableContextMenu(e);
+            this.calendarStoreService.selectionRange = { fechaDesde: new Date(props.ausentismoFechaDesde), fechaHasta: getTomorrow(new Date(props.ausentismoFechaHasta)) };
+            this.calendarStoreService.ausentismoSelected = new Ausentismo({ id: props._id })
         }
     }
 
-
-    public onDateRangeSelection(e){
-        this.calendarStoreService.selectionRange = { fechaDesde:e.start, fechaHasta:e.end };
+    /**
+     * Metodo que invoca cuado se selecciona un conjunto de dias del calendario.
+     * Se deben realizar las siguientes acciones sobre el store:
+     *   - Actualizar periodo seleccionado. Se utiliza las fechas de la seleccion
+     *     realizada.
+     *   - Actualizar ausentismo seleccionado. Se debe dejar vacio 
+     * Obs: Var aparte como interactuan los metodos
+     *   - onDateClick()   
+     *   - onEventClick()
+     * @param e range event from calendar
+     */
+    public onDateRangeSelection(e) {
+        this.calendarStoreService.selectionRange = { fechaDesde: e.start, fechaHasta: e.end };
+        this.calendarStoreService.ausentismoSelected = null;
     }
 
-    private updateSelectedMonthView(newMonth:Date){
+
+
+    private updateSelectedMonthView(newMonth: Date) {
         this.mesVisualizado = newMonth;
         this.mesSeleccionado = newMonth;
         if (this.calendarApi) this.calendarApi.gotoDate(this.mesVisualizado);
-        
         this.changedDate.emit(this.mesVisualizado);
     }
 
-    private marcarPeriodoSeleccionado(){
-        console.log('MARCAR PERIODO SELECCIONADO###########')
-        if (this.calendarApi){
-            if (this._rangeSelection){
-                this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta );
+    
+    /**
+     * Subscripcion a cualquier cambio realizado sobre el periodo de fechas
+     * seleccionados. Una vez que hemos sido notificados del cambio se debe
+     * indicar visualmente este periodo en el calendario.
+     * La seleccion del periodo puede realizarse en diferentes componentes
+     * (por ej. desde el listado de ausencias), pero todos los componentes
+     * actualizan el store para indicar el mismo.
+     */
+    private subscribeRangeSelectionChanges(){
+        this.storeSubscription = this.calendarStoreService.selectionRange$
+            .subscribe(rangeSelection => {
+                if (rangeSelection) {
+                    this.updateSelectedMonthView(rangeSelection.fechaDesde);
+                }
+                this._rangeSelection = rangeSelection;
+                this.marcarPeriodoSeleccionado();
+            });
+    }
+
+
+    private marcarPeriodoSeleccionado() {
+        if (this.calendarApi) {
+            if (this._rangeSelection) {
+                this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta);
             }
-            else{
+            else {
                 this.calendarApi.unselect();
-            }    
+            }
+        }
+        else{
+            console.log('No anda el calendarAPI')
         }
     }
 
-    contextmenu = true;
-    contextmenuX = 0;
-    contextmenuY = 0;
 
-    //activates the menu with the coordinates
-    enableContextMenu(e){
-        this.contextmenuX=e.jsEvent.clientX
-        this.contextmenuY=e.jsEvent.clientY
-        this.contextmenu=true;
-    }
-    //disables the menu
-    disableContextMenu(){
-        this.contextmenu= false;
+    private _getNextMonth(currentMonth: Date): Date {
+        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth() + 1));
     }
 
-    private _getNextMonth(currentMonth:Date):Date{
-        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth()+1));
-    }
-
-    private _getPrevMonth(currentMonth:Date):Date{
-        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth()-1));
+    private _getPrevMonth(currentMonth: Date): Date {
+        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth() - 1));
     }
 }

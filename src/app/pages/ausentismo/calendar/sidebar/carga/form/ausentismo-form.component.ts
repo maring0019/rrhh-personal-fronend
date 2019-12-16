@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AusentismoService } from 'src/app/services/ausentismo.service';
@@ -7,6 +7,7 @@ import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
 import { getTomorrow } from 'src/app/utils/dates';
+import { Subscription } from 'rxjs/Rx';
 
 
 
@@ -14,7 +15,7 @@ import { getTomorrow } from 'src/app/utils/dates';
     selector: 'app-ausentismo-form',
     templateUrl: 'ausentismo-form.html'
 })
-export class AusentismoCargaFormComponent implements OnInit, AfterViewInit {
+export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() form: FormGroup;
     @Input() articulos: Articulo[];
 
@@ -24,6 +25,8 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit {
     @Output() warnings: EventEmitter<any> = new EventEmitter<any>();
     
     public ausentismoFiles: any = [];
+
+    private storeSubscription: Subscription;
 
     constructor(
         private ausentismoService: AusentismoService,
@@ -36,11 +39,22 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit {
         this.form.valueChanges.subscribe(() => {
             this.changedValue.emit(this.form.value);
         });
+
+        this.storeSubscription =  this.calendarStoreService.selectionRange$
+            .subscribe(rangeSelection => {
+                if (rangeSelection) {
+                    // TODO Terminar interacciones con formulario
+                }
+            });
     }
 
     public ngAfterViewInit(){
         this.form.patchValue({ fechaDesde: this.form.value.fechaDesde });
         this.form.patchValue({ fechaHasta: this.form.value.fechaHasta });
+    }
+
+    ngOnDestroy() {
+        this.storeSubscription.unsubscribe();
     }
 
     public onChangedArticulo(articulo){

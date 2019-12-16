@@ -77,6 +77,8 @@ export class CalendarStoreService {
     }
 
     set ausentismoSelected(val:any){
+        console.log('Vamos a cargar el ausentismo')
+        console.log(val);
         this._ausentismoSelected.next(val);
     }
 

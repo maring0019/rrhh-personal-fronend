@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AusentismoListadoComponent {
     private _items: Item[];
-    public itemSelected: Item;
+    public itemSelected: any;
 
     public listado: Item[]; // Contiene un listado plano de items
 
@@ -26,13 +26,13 @@ export class AusentismoListadoComponent {
     }
 
     set items(value: Item[]) {
-        console.log(value);
         this._items = value;
         if (value && value.length) {
             this.listado = value;
         } else {
             this.listado = [];
         }
+        this.seleccionarItem();
     }
 
     /**
@@ -56,24 +56,45 @@ export class AusentismoListadoComponent {
     storeSubscription: Subscription;
     
     constructor(private calendarStoreService: CalendarStoreService) {
+        this.subscribeAusentismoSelectionChanges();
+    }
+
+    /**
+     * Subscripcion a cualquier cambio realizado sobre el ausentismo seleccionado.
+     * Una vez que hemos sido notificados del cambio guardamos una referencia local
+     * para indicar visualmente en el listado esta seleccion.
+     * La seleccion del ausentismo puede realizarse en diferentes componentes (por ej.
+     * desde el calendario principal), pero todos los componentes actualizan el store
+     * para indicar el mismo.
+     */
+    private subscribeAusentismoSelectionChanges(){
         this.storeSubscription = this.calendarStoreService.ausentismoSelected$
             .subscribe( ausentismo => {
                 this.itemSelected = ausentismo;
-                console.log('Item Seleccionado')
-                console.log(this.itemSelected)
-                this.selected.emit(this.itemSelected);
-                // if (rangeSelection) {
-                //     this.updateSelectedMonthView(rangeSelection.fechaDesde);
-                // }
-                // this._rangeSelection = rangeSelection;
-                // this.marcarPeriodoSeleccionado();
             });
     }
 
-    public seleccionarItem(item: Item) {
+    
+    /**
+     * Metodo que se invoca al seleccionar un item/ausentismo del listado.
+     * Se deben realizar las siguientes acciones sobre el store:
+     *   - Actualizar ausentismo seleccionado
+     *   - Actualizar periodo seleccionado utilizando las fechas del ausentismo
+     * @param item 
+     */
+    public seleccionarItem(item?: Item) {
+        let dateRangeSelection:any;
+        if (item){
+            dateRangeSelection = {
+                fechaDesde: item.fechaDesde,
+                fechaHasta: item.fechaHasta
+            }
+        }
+        else{
+            dateRangeSelection = null;
+        }
+        this.calendarStoreService.selectionRange = dateRangeSelection;
         this.calendarStoreService.ausentismoSelected = item;
-        // this.itemSelected = item;
-        // this.selected.emit(this.itemSelected);
     }
 
     public hoverItem(item: Item) {

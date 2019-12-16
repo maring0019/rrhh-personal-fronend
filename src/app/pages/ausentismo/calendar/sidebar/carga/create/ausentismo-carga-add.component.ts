@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
@@ -26,7 +26,6 @@ export class AusentismoCargaAddComponent implements OnInit, OnChanges {
 
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
 
-    
     public ausentismoForm: FormGroup;
     public articulos: Articulo[] = [];
     
@@ -41,8 +40,7 @@ export class AusentismoCargaAddComponent implements OnInit, OnChanges {
 
     public ngOnInit() {
         this.initFormSelectOptions();
-        this.patchFormRangeSelection();
-        
+        this.patchFormRangeSelection();  
     }
 
     /**

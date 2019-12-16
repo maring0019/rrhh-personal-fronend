@@ -2,12 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AgenteService } from 'src/app/services/agente.service';
-import { CalendarStoreService } from '../../../stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
-
-import { getTomorrow } from 'src/app/utils/dates';
 
 
 @Component({
@@ -27,7 +24,6 @@ export class AusentismoSearchComponent implements OnInit {
 
     constructor(
         private agenteService:AgenteService,
-        private calendarStoreService: CalendarStoreService,
         private router:Router,
         private route: ActivatedRoute){}
     
@@ -53,29 +49,6 @@ export class AusentismoSearchComponent implements OnInit {
         console.log(obj);
     }
 
-    public seleccionarAusentismo(obj?:any){
-        let dateRangeSelection:any;
-        if (obj){
-            if (this.ausentismoSeleccionado == obj){
-                this.ausentismoSeleccionado = null;
-                dateRangeSelection = null;
-            }
-            else{
-                this.ausentismoSeleccionado = obj;
-                dateRangeSelection = {
-                    fechaDesde: this.ausentismoSeleccionado.fechaDesde,
-                    fechaHasta: getTomorrow(this.ausentismoSeleccionado.fechaHasta)
-                }
-            }
-        }
-        else{
-            dateRangeSelection = null;
-        }
-        console.log('Vamos a editar el range')        
-        console.log(dateRangeSelection)
-        this.calendarStoreService.selectionRange = dateRangeSelection;
-    }
-
     public editarAusentismo(ausentismo){
         this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/${ausentismo.id}/editar`);
     }
@@ -84,18 +57,15 @@ export class AusentismoSearchComponent implements OnInit {
         this.searching = false;
         this.data.emit(objs);
         this.ausentismos = objs;
-        this.seleccionarAusentismo();
     }
 
     public clearResultados(event:any){
         this.searching = false;
         this.data.emit(null);
         this.ausentismos = null;
-        this.seleccionarAusentismo();
     }
 
     waitingResultados(event:any){
         this.searching = true;
-        this.seleccionarAusentismo();
     }
 }
