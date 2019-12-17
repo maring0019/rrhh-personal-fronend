@@ -55,7 +55,7 @@
 
 <ng-template #mostrarResultados>
     <app-ausentismo-listado
-        *ngIf="ausentismos?.length"
+        *ngIf="ausentismos"
         [items]="ausentismos"
         (selected)="seleccionarAusentismo($event)"
         (edit)="editarAusentismo($event)">

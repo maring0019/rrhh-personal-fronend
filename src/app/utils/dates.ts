@@ -4,6 +4,21 @@ export function  getTomorrow(date){
     return tomorrow;
 }
 
+export function getYesterday(date){
+    let yesterday = new Date(date);
+    yesterday.setDate(date.getDate() - 1);
+    return yesterday;
+}
+
+
+export function getNextMonth(date:Date){
+    return new Date(moment(date).add(1,'M')); 
+}
+
+export function getPrevMonth(date:Date){
+    return new Date(moment(date).add(-1,'M')); 
+}
+
 export function getWeekdays(month:number, year:number){
     let date = new Date(year, month + 1, 0);
     let days = date.getDate();

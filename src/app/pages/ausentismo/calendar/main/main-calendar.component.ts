@@ -5,7 +5,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
-import { getTomorrow } from 'src/app/utils/dates';
+import { getTomorrow, getYesterday, getNextMonth, getPrevMonth } from 'src/app/utils/dates';
 import { CalendarStoreService, IDateRangeSelection } from 'src/app/stores/calendar.store.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 
@@ -128,13 +128,11 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public gotoNextMonth() {
-        this.updateSelectedMonthView(this._getNextMonth(this.mesVisualizado));
-        this.marcarPeriodoSeleccionado();
+        this.updateSelectedMonthView(getNextMonth(this.mesVisualizado));
     }
 
     public gotoPreviousMonth() {
-        this.updateSelectedMonthView(this._getPrevMonth(this.mesVisualizado));
-        this.marcarPeriodoSeleccionado();
+        this.updateSelectedMonthView(getPrevMonth(this.mesVisualizado));
     }
 
     /**
@@ -146,9 +144,10 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
      *   - onEventClick()
      *   - onDateRangeSelection()   
      * @param e day event from calendar
+     * @deprecated reemplazado por onDateRangeSelection()
      */
     public onDateClick(e) {
-        this.calendarStoreService.selectionRange = { fechaDesde: e.date, fechaHasta: getTomorrow(e.date) };
+        this.calendarStoreService.selectionRange = { fechaDesde: e.date, fechaHasta: e.date };
         this.calendarStoreService.ausentismoSelected = null;
     }
 
@@ -167,13 +166,13 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     public onEventClick(e) {
         if (e && e.event) {
             const props = e.event.extendedProps;
-            this.calendarStoreService.selectionRange = { fechaDesde: new Date(props.ausentismoFechaDesde), fechaHasta: getTomorrow(new Date(props.ausentismoFechaHasta)) };
+            this.calendarStoreService.selectionRange = { fechaDesde: new Date(props.ausentismoFechaDesde), fechaHasta: new Date(props.ausentismoFechaHasta) };
             this.calendarStoreService.ausentismoSelected = new Ausentismo({ id: props._id })
         }
     }
 
     /**
-     * Metodo que invoca cuado se selecciona un conjunto de dias del calendario.
+     * Metodo que se invoca cuando se selecciona un conjunto de dias del calendario.
      * Se deben realizar las siguientes acciones sobre el store:
      *   - Actualizar periodo seleccionado. Se utiliza las fechas de la seleccion
      *     realizada.
@@ -184,7 +183,11 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
      * @param e range event from calendar
      */
     public onDateRangeSelection(e) {
-        this.calendarStoreService.selectionRange = { fechaDesde: e.start, fechaHasta: e.end };
+        this.calendarStoreService.selectionRange = { 
+                fechaDesde: e.start,
+                fechaHasta: getYesterday(e.end),
+                source: 'jsEvent' // Indicamos el origen para evitar ciclos infinitos llamando a la API
+            };
         this.calendarStoreService.ausentismoSelected = null;
     }
 
@@ -195,6 +198,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mesSeleccionado = newMonth;
         if (this.calendarApi) this.calendarApi.gotoDate(this.mesVisualizado);
         this.changedDate.emit(this.mesVisualizado);
+        this.calendarStoreService.ausentismoSelected = null;
     }
 
     
@@ -209,35 +213,31 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     private subscribeRangeSelectionChanges(){
         this.storeSubscription = this.calendarStoreService.selectionRange$
             .subscribe(rangeSelection => {
-                if (rangeSelection) {
-                    this.updateSelectedMonthView(rangeSelection.fechaDesde);
-                }
                 this._rangeSelection = rangeSelection;
-                this.marcarPeriodoSeleccionado();
+                if (rangeSelection) {
+                    if (!rangeSelection.source || rangeSelection.source != 'jsEvent'){
+                        // Control para prevenir loops infinitos
+                        this.updateSelectedMonthView(rangeSelection.fechaDesde);
+                        this.marcarPeriodoSeleccionado();
+                    } 
+                }
+                else{
+                    this.marcarPeriodoSeleccionado();
+                }
             });
     }
-
 
     private marcarPeriodoSeleccionado() {
         if (this.calendarApi) {
             if (this._rangeSelection) {
-                this.calendarApi.select(this._rangeSelection.fechaDesde, this._rangeSelection.fechaHasta);
+                this.calendarApi.select(
+                    this._rangeSelection.fechaDesde,
+                    this._rangeSelection.fechaHasta
+                    );
             }
             else {
                 this.calendarApi.unselect();
             }
         }
-        else{
-            console.log('No anda el calendarAPI')
-        }
-    }
-
-
-    private _getNextMonth(currentMonth: Date): Date {
-        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth() + 1));
-    }
-
-    private _getPrevMonth(currentMonth: Date): Date {
-        return new Date(new Date(currentMonth).setMonth(currentMonth.getMonth() - 1));
     }
 }

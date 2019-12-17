@@ -35,7 +35,7 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
         }
 
     public ngOnInit() {
-        this.updateRangeSelection(); 
+        // this.updateRangeSelection(); 
         this.form.valueChanges.subscribe(() => {
             this.changedValue.emit(this.form.value);
         });

@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs'
-import {shareReplay, map} from 'rxjs/operators'
-// import { uuid } from './uuid';
+import { BehaviorSubject } from 'rxjs'
+import { map } from 'rxjs/operators'
 
-import { combineLatest, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { EventosCalendarService } from 'src/app/services/eventos.calendar.service';
 
 import { FrancoService } from 'src/app/services/franco.service';
@@ -13,13 +12,12 @@ import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { IEventoCalendar } from 'src/app/models/IEventoCalendar';
 import { Franco } from 'src/app/models/Franco';
 import { Ausentismo } from 'src/app/models/Ausentismo';
-
-
-
+import { getTomorrow } from '../utils/dates';
 
 export interface IDateRangeSelection {
     fechaDesde: Date,
-    fechaHasta: Date
+    fechaHasta: Date,
+    source?: String // Indica el origen o quien realizo la seleccion
 }
 
 @Injectable()
@@ -59,16 +57,16 @@ export class CalendarStoreService {
     }
 
     set selectionRange(val: IDateRangeSelection) {
+        if (val && val.fechaHasta) val.fechaHasta = getTomorrow(val.fechaHasta);
         if (this.selectionRange && val){
             if (this.selectionRange.fechaDesde.getTime() != val.fechaDesde.getTime()
             || this.selectionRange.fechaHasta.getTime() != val.fechaHasta.getTime()){
                 this._selectionRange.next(val);
             }            
         }
+
         else{
-            if ((this.selectionRange && !val) || (!this.selectionRange && val)){
-                this._selectionRange.next(val);
-            }
+            this._selectionRange.next(val);
         }
     }
 
@@ -77,8 +75,6 @@ export class CalendarStoreService {
     }
 
     set ausentismoSelected(val:any){
-        console.log('Vamos a cargar el ausentismo')
-        console.log(val);
         this._ausentismoSelected.next(val);
     }
 
