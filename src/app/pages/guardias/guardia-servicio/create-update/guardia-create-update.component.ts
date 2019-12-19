@@ -3,14 +3,17 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Auth } from '@andes/auth';
 import { Plex } from '@andes/plex';
 
+import 'rxjs/add/operator/toPromise';
 import  *  as formUtils from 'src/app/utils/formUtils';
+
+import { ModalService } from 'src/app/services/modal.service';
+import { GuardiaService } from 'src/app/services/guardia.service';
+import { GuardiaLoteService } from 'src/app/services/guardia-lote.service';
 
 import { Agente } from 'src/app/models/Agente';
 import { Guardia, ItemGuardiaPlanilla } from 'src/app/models/Guardia';
 import { GuardiaFormComponent } from './form/guardia-form.component';
-
-import { ModalService } from 'src/app/services/modal.service';
-import { GuardiaService } from 'src/app/services/guardia.service';
+import { GuardiaPeriodo } from 'src/app/models/GuardiaPeriodos';
 
 
 @Component({
@@ -50,6 +53,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         private plex: Plex,
         private authService: Auth,
         private guardiaService: GuardiaService,
+        private guardiaLoteService: GuardiaLoteService,
         private modalService: ModalService)
         {}
 
@@ -105,12 +109,11 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     /**
      * Metodo que se ejecuta ante los cambios realizados en el formulario del
      * encabezado. Todos los cambios impactan sobre el modelo guardia (this.guardia)
-     * La modificacion del campo periodo del formulario tiene un tratamiento
-     * especial ya que si el usuario confirma el cambio entonces se vuelva a
-     * generar la planilla y se pierde la información de los agentes previamente
-     * cargados.
+     * Si la planilla ya tenia informacion cargada sobre algun agente entonces
+     * la misma se pierde ya que hay que regenerar la planilla si el usuario 
+     * confirma los cambios.
      *  
-     * @param previousValue unicamente tiene informacion del ultimo campo modificado
+     * @param newValue unicamente tiene informacion del ultimo campo modificado
      */
     public onChangedGuardiaForm(newValue:any){
         if (this.guardia.planilla.length > 0 ){
@@ -119,53 +122,96 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                 ¿Desea Continuar?`)
                 .then( confirm => {
                     if (confirm){
-                        this.guardia.planilla = [];
-                        this.regenerarGuardia(newValue);
+                        this.actualizarGuardia(newValue);
                     }
                     else{
                         // Hacemos un rollback de los cambios realizados al form
                         this.guardiaForm.form.patchValue(
                             {
                                 periodo : this.guardia.periodo,
-                                servicio : this.guardia.servicio,
-                                categoria : this.guardia.categoria,
-                                tipoGuardia : this.guardia.tipoGuardia
+                                servicio : this.guardia.lote.servicio,
+                                categoria : this.guardia.lote.categoria,
+                                tipoGuardia : this.guardia.lote.tipoGuardia
                             },
                             { emitEvent: false }); // Prevent infinite loop
                     }
             });
         }
         else{
-            this.regenerarGuardia(newValue);
+            this.actualizarGuardia(newValue);
         }
     }
 
     
-    private regenerarGuardia( newValue:any ){
-        if ('periodo' in newValue) {
+    private async actualizarGuardia( changedValue:any ){
+        this.guardia.planilla = [];
+        if ('periodo' in changedValue) {
             this.generandoPlanilla = true;
-            this.guardia = new Guardia({ periodo: newValue.periodo });
+            // Creamos una nueva instancia del periodo para regenerar el 
+            // rango de fechas nuevamente.
+            this.guardia.periodo = new GuardiaPeriodo(changedValue.periodo); 
         }
-        // Actualizamos la guardia con el valor ingresado
-        Object.keys(newValue).forEach( key => {
-            // Horrible
-            if (key == 'servicio') this.guardia.servicio = newValue[key];
-            if (key == 'categoria') this.guardia.categoria = newValue[key];
-            if (key == 'tipoGuardia') this.guardia.tipoGuardia = newValue[key].id;
-        });
+        else{
+            // Actualizamos los datos del lote de la guardia con el valor ingresado
+            Object.keys(changedValue).forEach( key => {
+                // Horrible
+                if (key == 'servicio') this.guardia.lote.servicio = changedValue[key];
+                if (key == 'categoria') this.guardia.lote.categoria = changedValue[key];
+                if (key == 'tipoGuardia') this.guardia.lote.tipoGuardia = changedValue[key]? changedValue[key].id: null;
+            });
+        }
+        // Si estan todos los datos presentes del lote entonces validamos que
+        // realmente existe un lote con esos datos
+        if (this.guardia.lote.servicio && this.guardia.lote.categoria && this.guardia.lote.tipoGuardia){
+            const lote = await this.findLoteGuardia();
+            if (lote){
+                this.guardia.lote = lote;
+            }
+            else{
+                this.infoLoteInvalido();
+            }
+        }
         window.setTimeout(() => {
-            this.generandoPlanilla = false;
-        }, 1000);
+             this.generandoPlanilla = false;
+        }, 500);
     }
 
-    private isGuardiaFormValid(){
+    /**
+     * Valida que esten presentes todos los datos del formulario.
+     * Ademas valida que el servicio, categoria y tipo de guardia
+     * corresponda con un lote existente. Si el lote no existe no
+     * se puede crear la guardia.
+     */
+    private async isGuardiaFormValid(){
         const form = this.guardiaForm.form;
         if (form.invalid){
             formUtils.markFormAsInvalid(form);
             this.plex.info('danger', 'Debe completar todos los datos obligatorios del encabezado');
             return false;
         }
+        // Validamos tambien la existencia del lote
+        const loteSearchParams = {
+            'servicio.id': form.value.servicio.id,
+            'categoria.id': form.value.categoria.id,
+            'tipoGuardia': form.value.tipoGuardia.id
+        }
+        const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
+        if (!response.length){
+            this.infoLoteInvalido();
+            return false;
+        }
         return true;
+    }
+
+
+    private async findLoteGuardia(){
+        const loteSearchParams = {
+            'servicio.id': this.guardia.lote.servicio.id,
+            'categoria.id': this.guardia.lote.categoria.id,
+            'tipoGuardia': this.guardia.lote.tipoGuardia
+        }      
+        const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
+        return (response.length)? response[0]:null;
     }
 
     /**
@@ -176,9 +222,9 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * servicio y categoria)por esta razon antes de permitir seleccionar
      * agentes se valida que este presente la información necesaria.
      */
-    public onAddAgente(){
+    public async onAddAgente(){
         const form = this.guardiaForm.form;
-        if (this.isGuardiaFormValid()) {
+        if ( await this.isGuardiaFormValid()) {
             this._extraSearchParams = {
                 'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
                 'situacionLaboral.cargo.agrupamiento._id': form.value.categoria.id,
@@ -232,15 +278,18 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * Al momento de guardar verificamos si corresponde guardar una nueva 
      * guardia, o guardar una guardia existente que ha sido modificada.
      */
-    public onGuardar(){
-        return this._objectID? this.updateGuardia('guardar'): this.addGuardia('guardar');
+    public async onGuardar(){
+        if (await this.isGuardiaFormValid()){
+            return this._objectID? this.updateGuardia('guardar'): this.addGuardia('guardar');
+        }
+        
     }
 
     /**
      * Idem que guardar pero con la accion 'Confirmar'
      */
-    public onConfirmar(){
-        if (this.isGuardiaFormValid()){
+    public async onConfirmar(){
+        if (await this.isGuardiaFormValid()){
             this.plex.confirm(`Al confirmar se habilita al Dpto. de Gestión de Personal
                 a realizar las validaciones correspondientes para su aprobación final.
                 Durante esta etapa no podrá volver a editar la información ingresada.`)
@@ -250,8 +299,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
     }
 
-    public onValidar(){
-        if (this.isGuardiaFormValid()){
+    public async onValidar(){
+        if (await this.isGuardiaFormValid()){
             return this.updateGuardia('validar');
         }
     }
@@ -269,20 +318,18 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * @param actionType  'guardar', 'confirmar'
      */
     private addGuardia(actionType:String){
-        if (this.isGuardiaFormValid()){
-            // TODO Como asignamos el agente.  this.guardia.responsableEntrega = this.authService.usuario;
-            if (actionType == 'guardar'){
-                this.guardiaService.post(this.guardia)
-                    .subscribe( guardia => {
-                        this.infoGuardarOk(guardia);
-                    })
-            }
-            else { // type == 'confirmar'
-                this.guardiaService.postAndConfirmar(this.guardia)
-                    .subscribe( guardia => {
-                        this.infoConfirmarOk(guardia);
-                    })
-            }
+        // TODO Como asignamos el agente.  this.guardia.responsableEntrega = this.authService.usuario;
+        if (actionType == 'guardar'){
+            this.guardiaService.post(this.guardia)
+                .subscribe( guardia => {
+                    this.infoGuardarOk(guardia);
+                })
+        }
+        else { // type == 'confirmar'
+            this.guardiaService.postAndConfirmar(this.guardia)
+                .subscribe( guardia => {
+                    this.infoConfirmarOk(guardia);
+                })
         }
     }
 
@@ -293,27 +340,25 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * @param actionType  'guardar', 'confirmar', 'validar'
      */
     private updateGuardia(actionType:String){
-        if (this.isGuardiaFormValid()){
-            switch (actionType){
-                case 'guardar':
-                    this.guardiaService.put(this.guardia)
-                        .subscribe( guardia => {
-                            this.infoGuardarOk(guardia);
-                        });
-                    break;
-                case 'confirmar':
-                    this.guardiaService.putAndConfirmar(this.guardia)
-                        .subscribe( guardia => {
-                            this.infoConfirmarOk(guardia);
-                        });
-                    break;
-                case 'validar':
-                    this.guardiaService.putAndValidar(this.guardia)
-                        .subscribe( guardia => {
-                            this.infoValidarOk(guardia);
-                        });
-                    break;
-            }
+        switch (actionType){
+            case 'guardar':
+                this.guardiaService.put(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoGuardarOk(guardia);
+                    });
+                break;
+            case 'confirmar':
+                this.guardiaService.putAndConfirmar(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoConfirmarOk(guardia);
+                    });
+                break;
+            case 'validar':
+                this.guardiaService.putAndValidar(this.guardia)
+                    .subscribe( guardia => {
+                        this.infoValidarOk(guardia);
+                    });
+                break;
         }
     }
 
@@ -343,6 +388,12 @@ export class GuardiaCreateUpdateComponent implements OnInit {
             .then( confirm => { 
                 this.router.navigate(['/guardias']);
             });
+    }
+
+    private infoLoteInvalido(){
+        this.plex.info('danger', `Lote Inválido. Verifique que el Servicio, 
+                                    Categoría y Tipo de Guardia pertenezcan
+                                    a un Lote existente.`);
     }
 
 

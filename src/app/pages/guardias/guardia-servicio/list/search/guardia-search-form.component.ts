@@ -73,16 +73,16 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
             //     }
             // }
             if (form.periodo){
-                params['periodo.id'] = form.periodo.id;
+                params['periodo._id'] = form.periodo.id;
             }
             if (form.servicio){
-                params['servicio.id'] = form.servicio.id;
+                params['lote.servicio.id'] = form.servicio.id;
             }
             if (form.categoria){
-                params['categoria.id'] = form.categoria.id;
+                params['lote.categoria.id'] = form.categoria.id;
             }
             if (form.tipoGuardia){
-                params['tipoGuardia'] = form.tipoGuardia.id;
+                params['lote.tipoGuardia'] = form.tipoGuardia.id;
             }
             // Sorting
             params['sort'] = '-fechaEntrega';
@@ -91,17 +91,14 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
     }
 
     search(searchParams){
-        // if (this.searchForm.valid){
-            this.objectService.get(searchParams).subscribe(
-                objects => {
-                    console.log(objects)
-                    this.searchEnd.emit(objects);
-                },
-                (err) => {
-                    this.searchEnd.emit([])
-                }
-            );
-        // }
+        this.objectService.get(searchParams).subscribe(
+            objects => {
+                this.searchEnd.emit(objects);
+            },
+            (err) => {
+                this.searchEnd.emit([])
+            }
+        );
     }
 
 }

@@ -46,6 +46,7 @@ import { ParteJustificacionService } from './services/parte-justificacion.servic
 import { UbicacionService } from './services/ubicacion.service';
 import { GuardiaService } from './services/guardia.service';
 import { GuardiaPeriodoService } from './services/guardia-periodo.service';
+import { GuardiaLoteService } from './services/guardia-lote.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -183,8 +184,10 @@ import { GuardiaSearchFormComponent } from 'src/app/pages/guardias/guardia-servi
 import { RangeDirective } from './directives/range';
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
+
 import { LogoSvgComponent } from './styles/logo.svg';
 import { AcronimoSvgComponent } from './styles/acronimo.svg';
+
 
 
 
@@ -369,6 +372,7 @@ const ADMIN_COMPONENTS = [
         UbicacionService,
         GuardiaService,
         GuardiaPeriodoService,
+        GuardiaLoteService,
 
         ParteAgenteService
         

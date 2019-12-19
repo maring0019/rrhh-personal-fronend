@@ -75,12 +75,13 @@ export class GuardiaFormComponent implements OnInit {
     }
 
     private initForm(){
+        const lote = this.guardia.lote;
         return this.formBuilder.group({
             id              : [this.guardia.id],
             periodo         : [this.guardia.periodo],
-            servicio        : [this.guardia.servicio],
-            categoria       : [this.guardia.categoria],
-            tipoGuardia     : [this.guardia.tipoGuardia]
+            servicio        : [lote? lote.servicio:null],
+            categoria       : [lote? lote.categoria:null],
+            tipoGuardia     : [lote? lote.tipoGuardia:null]
         });
     }
     

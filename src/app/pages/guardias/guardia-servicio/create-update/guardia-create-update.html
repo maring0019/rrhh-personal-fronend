@@ -9,8 +9,7 @@
                         <strong>Guardias |</strong>
                         {{ (isEditable)? 'Edición de planilla (Guardia sin Confirmar)' : 'Detalle de planilla (Guardia Confirmada)' }}
                     </h5>
-                <div class="d-flex flex-row justify-content-end">
-                    
+                <div class="d-flex flex-row justify-content-end"> 
                     <plex-button *ngIf="puedeGuardar" label="Guardar" type="success" (click)="onGuardar()" class="mx-2" title="Guardar y Continuar Editando"></plex-button>
                     <plex-button *ngIf="puedeConfirmar" label="Confirmar Guardia" type="warning" (click)="onConfirmar()" title="Guardar y Confirmar"></plex-button>
                     <plex-button *ngIf="puedeValidar" label="Validar" type="success" (click)="onValidar()" class="mx-2" title="Guardar y Validar"></plex-button>
@@ -42,7 +41,7 @@
             [subHeader]="' - '">
         </app-search-leyenda>
 
-        
+        <!-- Planilla de guardias por agente -->
         <ng-container *ngIf="!generandoPlanilla && guardia?.periodo">
             <app-guardia-planilla
                 [guardia]="guardia"
@@ -61,6 +60,7 @@
             </div>
         </ng-container>
         
+        <!-- Modal para la seleccion/carga de agentes a la planilla -->
         <jw-modal id="modal-add-agente">
             <app-agente-select
                 *ngIf="agenteSearchParams"
