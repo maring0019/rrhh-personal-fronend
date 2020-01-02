@@ -1,0 +1,9 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5><strong>AUSENTISMO |</strong> Indicadores</h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
+    </div>
+</header>
+<app-indicador-licencias *ngIf="agente?.id" [agente]="agente"></app-indicador-licencias>

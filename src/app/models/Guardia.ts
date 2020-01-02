@@ -1,6 +1,4 @@
-import { Agrupamiento } from './Agrupamiento';
 import { GuardiaPeriodo } from './GuardiaPeriodos';
-import { Servicio } from './Servicio';
 import { GuardiaLote } from './GuardiaLote';
 
 interface IDiaGuardia {
@@ -38,9 +36,6 @@ export class Guardia {
     id?: String;
     periodo: GuardiaPeriodo;
     lote: GuardiaLote;
-    servicio: Servicio;
-    tipoGuardia: String;
-    categoria: Agrupamiento;
     planilla: ItemGuardiaPlanilla[];
     estado: String;
     fechaEntrega: Date;
@@ -77,11 +72,6 @@ export class Guardia {
         this.id = guardia.id || null;
         this.periodo = guardia.periodo? new GuardiaPeriodo(guardia.periodo): null;
         this.lote = new GuardiaLote(guardia.lote);
-        this.servicio = guardia.servicio? new Servicio(guardia.servicio): null;
-        this.tipoGuardia = guardia.tipoGuardia?
-            ((typeof guardia.tipoGuardia === 'string') ? guardia.tipoGuardia : guardia.tipoGuardia.id) : null;
-        this.categoria = guardia.categoria? new Agrupamiento(guardia.categoria): null;
-        
         this.planilla = [];
         if (guardia.planilla && guardia.planilla.length){
             guardia.planilla.forEach(e => {

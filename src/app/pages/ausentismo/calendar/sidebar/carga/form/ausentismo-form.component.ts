@@ -13,7 +13,8 @@ import { Subscription } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-ausentismo-form',
-    templateUrl: 'ausentismo-form.html'
+    templateUrl: 'ausentismo-form.html',
+    styleUrls: ['ausentismo-form.scss']
 })
 export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() form: FormGroup;
@@ -25,6 +26,10 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
     @Output() warnings: EventEmitter<any> = new EventEmitter<any>();
     
     public ausentismoFiles: any = [];
+
+    public get articuloSeleccionado(){
+        return this.form.get('articulo').value;
+    }
 
     private storeSubscription: Subscription;
 
@@ -127,15 +132,15 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
             return;
         }
         if (fd && fh) {
-            this.calendarStoreService.selectionRange = {fechaDesde:fd, fechaHasta: getTomorrow(fh)};
+            this.calendarStoreService.selectionRange = { fechaDesde:fd, fechaHasta: fh };
             return;
         }
         if (fd && !fh) {
-            this.calendarStoreService.selectionRange = {fechaDesde:fd, fechaHasta: getTomorrow(fd)};
+            this.calendarStoreService.selectionRange = { fechaDesde:fd, fechaHasta: fd };
             return;
         }
         if (!fd && fh) {
-            this.calendarStoreService.selectionRange = {fechaDesde:fh, fechaHasta: getTomorrow(fh)};
+            this.calendarStoreService.selectionRange = { fechaDesde:fh, fechaHasta: fh };
             return;
         }
     }

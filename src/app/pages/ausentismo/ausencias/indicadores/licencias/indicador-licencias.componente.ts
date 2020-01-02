@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { Agente } from 'src/app/models/Agente';
 import { AgenteService } from 'src/app/services/agente.service';
 
-
 @Component({
     selector: 'app-indicador-licencias',
     templateUrl: 'indicador-licencias.html',
@@ -15,10 +14,11 @@ export class IndicadorLicenciasComponent {
     set agente(value: Agente) {
         this.initIndicadores(value);
     }
-
+    
     public indicadores = [];
 
     constructor(private agenteService:AgenteService){}
+
     
     initIndicadores(agente){
         this.agenteService.getLicenciasTotales(agente.id).subscribe((data) => {

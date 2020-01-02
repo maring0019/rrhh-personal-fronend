@@ -10,6 +10,7 @@ import { AgenteSearchComponent } from './modules/agente/pages/search/agente-sear
 import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
 import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
+import { AusentismoIndicadoresComponent } from './pages/ausentismo/ausencias/indicadores/ausentismo-indicadores.component';
 
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
@@ -33,7 +34,6 @@ import { FichadaReporteListComponent } from 'src/app/pages/partes/reportes/ficha
 import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
 import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/list/guardia-list.component';
 import { HomePageComponent } from 'src/app/pages/home/home.page';
-
 
 const routes: Routes = [
     // Inicio
@@ -90,6 +90,11 @@ const routes: Routes = [
             {
                 path: 'agregar',
                 component: AusentismoCargaComponent,
+                canActivate: [RoutingNavBar , RoutingGuard],
+            },
+            {
+                path: 'indicadores',
+                component: AusentismoIndicadoresComponent,
                 canActivate: [RoutingNavBar , RoutingGuard],
             },
             {

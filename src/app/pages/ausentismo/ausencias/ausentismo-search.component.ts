@@ -53,6 +53,10 @@ export class AusentismoSearchComponent implements OnInit {
         this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/${ausentismo.id}/editar`);
     }
 
+    public verIndicadores(){
+        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/indicadores`);
+    }
+
     public showResultados(objs:any){
         this.searching = false;
         this.data.emit(objs);

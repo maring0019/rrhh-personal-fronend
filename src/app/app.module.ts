@@ -101,6 +101,8 @@ import { AusentismoCargaFormComponent } from './pages/ausentismo/calendar/sideba
 import { AusentismoListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausentismo-listado.component';
 import { AusentismoSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausentismo-search-form.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
+import { IndicadorLicenciasComponent } from 'src/app/pages/ausentismo/ausencias/indicadores/licencias/indicador-licencias.componente';
+import { AusentismoIndicadoresComponent } from './pages/ausentismo/ausencias/indicadores/ausentismo-indicadores.component';
 
 // Componentes Generales
 import { ListadoComponent } from './componentes/listado/listado.component';
@@ -158,7 +160,7 @@ import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/cr
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
 import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-seleccion-tipo.component';
-import { IndicadorLicenciasComponent } from './pages/ausentismo/ausencias/indicadores/indicador-licencias.component';
+
 
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
 import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
@@ -187,8 +189,6 @@ import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/componen
 
 import { LogoSvgComponent } from './styles/logo.svg';
 import { AcronimoSvgComponent } from './styles/acronimo.svg';
-
-
 
 
 const ADMIN_COMPONENTS = [
@@ -258,6 +258,7 @@ const ADMIN_COMPONENTS = [
         AusentismoListadoComponent,
         AusentismoSearchFormComponent,
         AusentismoSearchComponent,
+        AusentismoIndicadoresComponent,
         IndicadorLicenciasComponent,
         
         // Partes

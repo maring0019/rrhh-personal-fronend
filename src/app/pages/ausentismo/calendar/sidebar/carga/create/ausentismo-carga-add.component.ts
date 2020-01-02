@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
+import { getYesterday } from 'src/app/utils/dates';
 
 import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
 
@@ -11,7 +12,6 @@ import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 import { Articulo } from 'src/app/models/Articulo';
-
 
 @Component({
     selector: 'app-ausentismo-carga-add',
@@ -82,7 +82,7 @@ export class AusentismoCargaAddComponent implements OnInit, OnChanges {
         const rangeSelection = this.calendarStoreService.selectionRange;
         if (rangeSelection){
             this.ausentismoForm.patchValue({ fechaDesde:rangeSelection.fechaDesde});
-            this.ausentismoForm.patchValue({ fechaHasta:rangeSelection.fechaHasta});
+            this.ausentismoForm.patchValue({ fechaHasta: getYesterday(rangeSelection.fechaHasta)  });
         }
     }
 

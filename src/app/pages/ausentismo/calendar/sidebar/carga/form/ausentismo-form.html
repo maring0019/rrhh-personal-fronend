@@ -1,4 +1,4 @@
-<form name="form" [formGroup]="form">
+<form name="form" [formGroup]="form" #ausentismoForm>
     <div class="row">
         <div class="col-md-12">
             <plex-select 
@@ -29,8 +29,8 @@
                 name="cantidadDias"
                 formControlName="cantidadDias"
                 label="Días"
+                [required]="true"
                 min="1"
-                [required]="false"
                 (change)="onChangedCantidadDias($event)">
             </plex-float>
         </div>
@@ -40,9 +40,16 @@
                 label="Hasta"
                 name="fechaHasta"
                 formControlName="fechaHasta"
-                [required]="false"
                 (change)="onChangedFechaHasta($event)">
             </plex-datetime>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <plex-badge *ngIf="articuloSeleccionado" [size]="xs" class="block">
+                El artículo seleccionado se corresponde con días 
+                {{ (articuloSeleccionado.diasHabiles)? 'hábiles' : 'corridos' }}
+            </plex-badge>
         </div>
     </div>
     <div class="row">

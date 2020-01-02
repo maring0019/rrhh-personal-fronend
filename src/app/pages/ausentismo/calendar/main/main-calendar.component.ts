@@ -52,6 +52,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
      * interactionPlugin permite principalmente seleccionar periodos
      */
     calendarPlugins = [dayGridPlugin, interactionPlugin];
+    // Ver si es posible desactivar el interactionPlugin al editar o cargar
 
     header = {
         left: '',
@@ -198,7 +199,8 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mesSeleccionado = newMonth;
         if (this.calendarApi) this.calendarApi.gotoDate(this.mesVisualizado);
         this.changedDate.emit(this.mesVisualizado);
-        this.calendarStoreService.ausentismoSelected = null;
+        // this.calendarStoreService.ausentismoSelected = null;
+        this.marcarPeriodoSeleccionado();
     }
 
     
