@@ -35,7 +35,7 @@
             <div class="d-flex flex-row justify-content-start">
                 <plex-label
                     
-                    titulo="Art. {{ item.articulo?.codigo }} {{ (item.articulo?.descripcion.length > 20)? (item.articulo?.descripcion | slice:0:18 ) + '...' : item.articulo?.descripcion }}"
+                    titulo="Art. {{ item.articulo?.codigo }} {{ (item.articulo?.descripcion.length > 18)? (item.articulo?.descripcion | slice:0:15 ) + '...' : item.articulo?.descripcion }}"
                     subtitulo="{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}">
                 </plex-label>
             </div>    
@@ -45,7 +45,15 @@
                 <plex-badge type="info">
                         {{ item.cantidadDias }} DÍAS
                 </plex-badge>
-    
+
+                <plex-button
+                    title="Eliminar Ausentismo"
+                    size="sm"
+                    type="danger"
+                    icon="mdi mdi-trash-can-outline"
+                    (click)="editItem(item)">
+                </plex-button>
+
                 <plex-button
                     title="Editar Ausentismo"
                     size="sm"

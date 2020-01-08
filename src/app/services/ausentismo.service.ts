@@ -72,4 +72,11 @@ export class AusentismoService {
     }
 
 
+    getLicenciasByAgente(agenteId):Observable<any[]> {
+        console.log('Buscando licencias detalle')
+        const url = `${this.url}/periodo/indicadores/agentes/${agenteId}`;
+        return this.server.get(url);
+    }
+
+
 }

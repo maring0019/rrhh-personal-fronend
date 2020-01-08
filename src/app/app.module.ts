@@ -101,8 +101,9 @@ import { AusentismoCargaFormComponent } from './pages/ausentismo/calendar/sideba
 import { AusentismoListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausentismo-listado.component';
 import { AusentismoSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausentismo-search-form.component';
 import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
-import { IndicadorLicenciasComponent } from 'src/app/pages/ausentismo/ausencias/indicadores/licencias/indicador-licencias.componente';
 import { AusentismoIndicadoresComponent } from './pages/ausentismo/ausencias/indicadores/ausentismo-indicadores.component';
+import { IndicadorLicenciasComponent } from 'src/app/pages/ausentismo/ausencias/indicadores/licencias/indicador-licencias.componente';
+import { IndicadorLicenciasDetalleComponent } from './pages/ausentismo/ausencias/indicadores/licencias-detalle/indicador-licencias-detalle.component';
 
 // Componentes Generales
 import { ListadoComponent } from './componentes/listado/listado.component';
@@ -190,7 +191,6 @@ import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/componen
 import { LogoSvgComponent } from './styles/logo.svg';
 import { AcronimoSvgComponent } from './styles/acronimo.svg';
 
-
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
@@ -260,6 +260,7 @@ const ADMIN_COMPONENTS = [
         AusentismoSearchComponent,
         AusentismoIndicadoresComponent,
         IndicadorLicenciasComponent,
+        IndicadorLicenciasDetalleComponent,
         
         // Partes
         ParteListComponent,

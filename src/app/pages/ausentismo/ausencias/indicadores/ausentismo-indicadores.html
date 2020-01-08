@@ -6,4 +6,12 @@
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
     </div>
 </header>
-<app-indicador-licencias *ngIf="agente?.id" [agente]="agente"></app-indicador-licencias>
+<app-indicador-licencias
+    *ngIf="agente?.id"
+    [agente]="agente">
+</app-indicador-licencias>
+<br>
+<app-indicador-licencias-detalle
+    *ngIf="agente?.id"
+    [agente]="agente">
+</app-indicador-licencias-detalle>

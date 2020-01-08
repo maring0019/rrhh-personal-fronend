@@ -1,0 +1,21 @@
+<ng-container *ngFor="let item of indicadores">
+    <div class="item-row">
+        <div class="item-column">
+            <div class="d-flex flex-row justify-content-start">
+                <plex-label
+                    titulo="Periodo {{ item.vigencia }}">
+                </plex-label>
+            </div>    
+        </div>
+        <div class="item-column item-botonera">
+            <div class="d-flex flex-row justify-content-end">
+                <plex-badge type="info">
+                    {{ item.intervalos[0]?.totales}} Asig.
+                </plex-badge>
+                <plex-badge type="success">
+                    {{ item.intervalos[0]?.ejecutadas}} Toma.
+                </plex-badge>
+            </div>
+        </div>
+    </div>
+</ng-container>
