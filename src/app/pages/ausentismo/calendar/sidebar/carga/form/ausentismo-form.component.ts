@@ -92,8 +92,8 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
         if ( form.articulo && form.fechaDesde){
             this.ausentismoService.postCalcularAusentismo(ausentismo)
             .subscribe(data => {
-                this.form.patchValue({cantidadDias:data.dias});
-                this.form.patchValue({fechaHasta:data.hasta})
+                this.form.patchValue({cantidadDias:data.cantidadDias});
+                this.form.patchValue({fechaHasta:data.fechaHasta})
                 this.updateRangeSelection();
             },
             error=> this.errors.emit(error));            

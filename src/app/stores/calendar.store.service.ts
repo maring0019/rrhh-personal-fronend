@@ -115,6 +115,25 @@ export class CalendarStoreService {
         );
     }
 
+    removeAusentismo(ausentismo: Ausentismo): Observable<any>{
+        return this.ausentismoService.delete(ausentismo.id).pipe(
+            map( data => {
+                this.ausencias = this.filterAB(this.ausencias, ausentismo.ausencias);
+                this.refreshEventos();
+                return data
+            })
+        )
+    }
+
+    // removeAusentismo(ausentismo: Ausentismo): Observable<any>{
+    //     console.log(ausentismo);
+    //     return this.eventosService.removeAusentismo(ausentismo);
+
+    //     // removeTodo(id: number) {
+    //     //     this.todos = this.todos.filter(todo => todo.id !== id);
+    //     //   }
+    // }
+
     updateAusentismo(ausentismoToUpdate:Ausentismo, ausentismoActual:Ausentismo){
         let ausenciasToRemove = ausentismoActual.ausencias;
         return this.eventosService.updateAusentismo(ausentismoToUpdate).pipe(

@@ -46,6 +46,7 @@ export class AusentismoListadoComponent {
      */
     @Output() selected: EventEmitter<Item> = new EventEmitter<Item>();
     @Output() edit: EventEmitter<Item> = new EventEmitter<Item>();
+    @Output() delete: EventEmitter<Item> = new EventEmitter<Item>();
     
     /**
      * Evento que se emite cuando el mouse está sobre un item
@@ -105,5 +106,8 @@ export class AusentismoListadoComponent {
         this.edit.emit(item);
     }
 
+    public deleteItem(item: Item){
+        this.delete.emit(item);
+    }
 }
 

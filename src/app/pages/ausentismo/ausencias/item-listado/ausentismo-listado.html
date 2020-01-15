@@ -1,33 +1,3 @@
-<!-- <li class="d-flex flex-row justify-content-between align-items-center py-2"
-    *ngFor="let item of listado">
-    <div class="d-flex flex-row list-content" (click)="seleccionarItem(item)">
-        <article class="d-flex flex-column text-left align-self-center"> 
-            <h6 class="d-flex flex-row mt-2">
-                {{ item.articulo?.codigo }} {{ item.articulo?.descripcion }}
-            </h6>
-            <p><small>{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}</small></p>
-        </article>
-    </div>
-    <div class="d-flex flex-row list-actions">
-        <plex-button
-            *ngIf="tieneAdjuntos"
-            type="success"
-            type="sm"
-            icon="mdi mdi-pencil">Descargar Archivo
-        </plex-button>
-
-        <plex-badge type="info">
-            {{ item.cantidadDias }} DÍAS
-        </plex-badge>
-        <plex-button
-            size="sm"
-            type="primary"
-            icon="mdi mdi-pencil"
-            (click)="editItem(item)">Editar Periodo
-        </plex-button>
-    </div>
-</li> -->
-
 <ng-container *ngFor="let item of listado">
     <div class="item-row" (click)="seleccionarItem(item)"
         [ngClass]="{'item-row-selected': itemSelected?.id == item.id}">
@@ -51,7 +21,7 @@
                     size="sm"
                     type="danger"
                     icon="mdi mdi-trash-can-outline"
-                    (click)="editItem(item)">
+                    (click)="deleteItem(item)">
                 </plex-button>
 
                 <plex-button

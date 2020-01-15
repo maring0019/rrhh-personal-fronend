@@ -56,6 +56,21 @@ export class EventosCalendarService {
         )
     }
 
+    removeAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
+        return this.ausentismoService.postAusentismo(object).pipe(
+            map(ausentismo => {
+                let ausencias:IEventoCalendar[] = [];
+                if (!ausentismo.warnings){
+                    ausencias = ausentismo.ausencias
+                        .map( aus => { return this.mapAusencia(aus, ausentismo)
+                    });
+                }
+                let output:[any, IEventoCalendar[]] = [ausentismo, ausencias];
+                return output;
+            })
+        )
+    }
+
 
     updateAusentismo(object:Ausentismo):Observable<[any,IEventoCalendar[]]>{
         return this.ausentismoService.putAusentismo(object).pipe(

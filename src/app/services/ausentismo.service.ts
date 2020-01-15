@@ -16,7 +16,7 @@ export class AusentismoService {
     }
 
     getByID(ausentismoId: any): Observable<Ausentismo> {
-        const url = `${this.url}/periodo/${ausentismoId}`;
+        const url = `${this.url}/${ausentismoId}`;
         return this.server.get(url);
     }
 
@@ -28,8 +28,13 @@ export class AusentismoService {
         return this.server.put(this.url + '/' + object.id, object);
     }
 
+    delete(ausentismoId: any): Observable<any> {
+        const url = `${this.url}/${ausentismoId}`;
+        return this.server.delete(url);
+    }
+
     postAusentismo(object: Ausentismo): Observable<any> {
-        const url = `${this.url}/periodo`;
+        const url = `${this.url}`;
         return this.server.post(url, object);
             // .pipe(
             //     map(data =>
@@ -43,17 +48,17 @@ export class AusentismoService {
     }
 
     postSugerirAusentismo(object: Ausentismo): Observable<any> {
-        const url = `${this.url}/periodo/sugerir`;
+        const url = `${this.url}/sugerir`;
         return this.server.post(url, object);
     }
 
     postCalcularAusentismo(object: Ausentismo): Observable<any> {
-        const url = `${this.url}/periodo/calcular`;
+        const url = `${this.url}/calcular`;
         return this.server.post(url, object);
     }
 
     putAusentismo(object: Ausentismo): Observable<any> {
-        const url = `${this.url}/periodo/${object.id}`;
+        const url = `${this.url}/${object.id}`;
         return this.server.put(url, object);
         // .pipe(
         //     map(data =>
@@ -67,14 +72,13 @@ export class AusentismoService {
     }
 
     searchAusentismo(params?: any): Observable<Ausentismo[]> {
-        const url = `${this.url}/periodo`;
+        const url = `${this.url}`;
         return this.server.get(url, { params: params, showError: true });
     }
 
 
     getLicenciasByAgente(agenteId):Observable<any[]> {
-        console.log('Buscando licencias detalle')
-        const url = `${this.url}/periodo/indicadores/agentes/${agenteId}`;
+        const url = `${this.url}/indicadores/agentes/${agenteId}`;
         return this.server.get(url);
     }
 

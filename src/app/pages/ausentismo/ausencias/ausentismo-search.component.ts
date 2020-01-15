@@ -1,8 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
+import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
+import { AusentismoSearchFormComponent } from './search-form/ausentismo-search-form.component';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
 
@@ -17,6 +20,8 @@ export class AusentismoSearchComponent implements OnInit {
     @Output() data: EventEmitter<Ausentismo[]> = new EventEmitter<Ausentismo[]>();
     @Output() ausentismoSelected: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
 
+    @ViewChild(AusentismoSearchFormComponent) searchForm: AusentismoSearchFormComponent;
+
     agente:Agente;
     ausentismoSeleccionado: Ausentismo;
     ausentismos:Ausentismo[];
@@ -24,8 +29,10 @@ export class AusentismoSearchComponent implements OnInit {
 
     constructor(
         private agenteService:AgenteService,
+        private calendarStoreService: CalendarStoreService,
         private router:Router,
-        private route: ActivatedRoute){}
+        private route: ActivatedRoute,
+        protected plex: Plex){}
     
     public ngOnInit() {
         this.route.parent.params.subscribe(
@@ -51,6 +58,20 @@ export class AusentismoSearchComponent implements OnInit {
 
     public editarAusentismo(ausentismo){
         this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/${ausentismo.id}/editar`);
+    }
+
+    public eliminarAusentismo(ausentismo){
+        this.plex.confirm('¿Esta seguro que desea eliminar este ausentismo?')
+            .then( confirm => {
+                if (confirm){
+                    this.calendarStoreService.removeAusentismo(ausentismo)
+                        .subscribe( data => {
+                            // Refresh search (actualiza el listado)
+                            this.searchForm.buscar();
+                    })
+                }
+        });
+        
     }
 
     public verIndicadores(){
