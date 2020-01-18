@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { RegimenHorarioService } from 'src/app/services/regimen-horario.service';
 
@@ -16,6 +17,8 @@ export class AgenteDatosRegimenComponent implements OnInit {
     @Input() regimen: Regimen;
     @Input() editable: boolean = false;
     @Output() outputRegimen: EventEmitter<Regimen> = new EventEmitter<Regimen>();
+
+    @ViewChild(FormGroupDirective) _form;
 
     datosRegimenForm: FormGroup;
     regimenHorarios: RegimenHorario[] = [];
@@ -49,6 +52,10 @@ export class AgenteDatosRegimenComponent implements OnInit {
             guardiasActivas        : [this.regimen.guardiasActivas]
             
         });
+    }
+
+    resetForm(){
+        formUtils.resetForm(this.datosRegimenForm, this._form);
     }
 
 }

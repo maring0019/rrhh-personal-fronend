@@ -87,18 +87,19 @@ export class AgenteItemListadoComponent {
         public plex: Plex) {}
 
     prepareAgenteDropdownActions(agente, index):DropdownItem[]{
-        let accion:any;
+        let acciones:DropdownItem[]= [];
         if (agente.activo){
-            accion = this.bajaDropdownAction(agente, index);
+            acciones.push(this.bajaDropdownAction(agente, index));
+            acciones.push(this.historiaLaboralDropdownAction(agente, index));
         }
         else{
-            accion = this.reactivarDropdownAction(agente, index);
+            acciones.push(this.reactivarDropdownAction(agente, index));
         }
-        return [
-            accion,
+        return acciones;
+        // [
             // { label: 'Ir a ruta inexistente', icon: 'pencil', route: '/ruta-rota' },
             // { label: 'Item con handler', icon: 'eye     ', handler: (() => { alert('Este es un handler'); }) }
-        ];
+        // ];
     }
 
     private reactivarDropdownAction(agente, index){
@@ -119,6 +120,17 @@ export class AgenteItemListadoComponent {
             handler: (() => {
                 this.seleccionarAgente(agente, index);
                 this.modalService.open('modal-baja-agente');
+            }) }
+        return accion;
+    }
+
+    private historiaLaboralDropdownAction(agente, index){
+        let accion = { 
+            label: 'Nueva Historia Laboral',
+            icon: 'plus',
+            handler: (() => {
+                this.seleccionarAgente(agente, index);
+                this.modalService.open('modal-historia-laboral-create');
             }) }
         return accion;
     }

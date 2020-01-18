@@ -1,37 +1,5 @@
+<br>
 <form name="datosCargoForm" [formGroup]="datosCargoForm">
-    <!-- <h5 class="subheader">Norma Legal</h5> -->
-    <div class="row">
-        <div class="col-md-4">
-            <plex-select 
-                [data]="tiposNormaLegal"
-                name="tipoNormaLegal"
-                formControlName="tipoNormaLegal"
-                label="Tipo Norma Legal"
-                placeholder="Seleccione..."
-                [required]="true"
-                [readonly]="!editable">
-            </plex-select>
-        </div>
-        <div class="col-md-4">
-            <plex-text
-                name="numeroNormaLegal"
-                formControlName="numeroNormaLegal"
-                label="Nro. Norma Legal"
-                placeholder="Ingrese Nro..."
-                [readonly]="!editable">
-            </plex-text>
-        </div>
-        <div class="col-md-4">
-            <plex-datetime
-                type="date"
-                label="Fecha de la Norma"
-                name="fechaNormaLegal"
-                formControlName="fechaNormaLegal"
-                [readonly]="!editable">
-            </plex-datetime>
-        </div>
-    </div>
-    <h5 class="subheader">Datos Cargo</h5>
     <div class="row">
         <div class="col-md-4">
             <plex-select 

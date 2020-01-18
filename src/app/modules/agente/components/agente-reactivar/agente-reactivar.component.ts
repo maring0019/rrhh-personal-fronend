@@ -7,7 +7,6 @@ import { TipoNormaLegal } from 'src/app/models/TipoNormaLegal';
 
 import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
 import { AgenteService } from 'src/app/services/agente.service';
-import { BajaAgente } from '../../../../models/BajaAgente';
 
 
 @Component({

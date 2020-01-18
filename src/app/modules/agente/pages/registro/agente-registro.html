@@ -1,4 +1,4 @@
-<plex-layout main="8">
+<plex-layout main="12">
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
@@ -70,6 +70,32 @@
                     </agente-datos-educacion>
                 </div>
             </plex-tab>
+            <plex-tab label="DATOS LABORALES">
+                <div *ngIf="situacion">
+                    <agente-datos-generales
+                        [situacion]="situacion"
+                        [editable]="isEditable"
+                        (change)='onValueChangeSituacion($event)'>
+                    </agente-datos-generales>
+                </div>
+                <h5 class="subheader mt-4">Norma Legal</h5>
+                <div *ngIf="cargo">
+                    <agente-datos-norma-legal
+                        [cargo]="cargo"
+                        [editable]="isEditable"
+                        (change)='onValueChangeCargo($event)'>
+                    </agente-datos-norma-legal>
+                </div>
+            </plex-tab>
+            <!-- <plex-tab label="NORMA LEGAL">
+                    <div *ngIf="situacion">
+                        <agente-datos-situacion
+                            [situacion]="situacion"
+                            [editable]="isEditable"
+                            (outputSituacion)='onValueChangeSituacion($event)'>
+                        </agente-datos-situacion>
+                    </div>
+                </plex-tab> -->
             <plex-tab label="SITUACIÓN">
                 <div *ngIf="situacion">
                     <agente-datos-situacion
@@ -121,7 +147,7 @@
             </div> -->
         </plex-tabs>
     </plex-layout-main>
-    <plex-layout-sidebar type="invert">
+    <!-- <plex-layout-sidebar type="invert">
         <app-agente-detalle *ngIf="agenteDetalle"
             [agente]="agenteDetalle"
             [foto]="agenteDetalle.foto"
@@ -131,5 +157,5 @@
             [situacion]="agenteDetalle.situacionLaboral?.situacion"
             [regimen]="agenteDetalle.situacionLaboral?.regimen">
         </app-agente-detalle>
-    </plex-layout-sidebar>
+    </plex-layout-sidebar> -->
 </plex-layout>

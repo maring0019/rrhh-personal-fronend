@@ -1,0 +1,46 @@
+<br>
+<form name="datosNormaLegalForm" [formGroup]="datosNormaLegalForm">
+    <div class="row">
+        <div class="col-md-3">
+            <plex-select 
+                [data]="tiposNormaLegal$ | async"
+                name="tipoNormaLegal"
+                formControlName="tipoNormaLegal"
+                label="Tipo Norma Legal"
+                placeholder="Seleccione..."
+                [required]="true"
+                [readonly]="!editable">
+            </plex-select>
+        </div>
+        <div class="col-md-3">
+            <plex-text
+                name="numeroNormaLegal"
+                formControlName="numeroNormaLegal"
+                label="Nro. Norma Legal"
+                placeholder="Ingrese Nro..."
+                [readonly]="!editable">
+            </plex-text>
+        </div>
+        <div class="col-md-3">
+            <plex-datetime
+                type="date"
+                label="Fecha de la Norma"
+                name="fechaNormaLegal"
+                formControlName="fechaNormaLegal"
+                [readonly]="!editable">
+            </plex-datetime>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mh-25">
+            <plex-text
+                name="observaciones"
+                formControlName="observaciones"
+                label="Observaciones"
+                placeholder="Ingrese observaciones..."
+                [readonly]="!editable"
+                multiline="true">
+            </plex-text>
+        </div>
+    </div>
+</form>

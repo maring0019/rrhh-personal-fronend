@@ -81,3 +81,12 @@
         </app-agente-reactivar>
     </div>
 </jw-modal>
+
+<jw-modal id="modal-historia-laboral-create">
+    <div *ngIf="agenteSeleccionado">
+        <app-historia-laboral-create
+            [agente]="agenteSeleccionado"
+            (cancel)="onCancelModal('modal-historia-laboral-create')">
+        </app-historia-laboral-create>
+    </div>
+</jw-modal>

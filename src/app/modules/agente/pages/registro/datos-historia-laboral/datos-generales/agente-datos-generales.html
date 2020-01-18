@@ -1,0 +1,42 @@
+<br>
+<form name="datosGeneralesForm" [formGroup]="datosGeneralesForm">
+    <!-- <h5 class="subheader">Datos Generales</h5> -->
+    <div class="row">
+        <div class="col-md-3">
+            <plex-datetime
+                type="date"
+                label="Ingreso al Estado"
+                name="fechaIngresoEstado"
+                formControlName="fechaIngresoEstado"
+                [readonly]="!editable">
+            </plex-datetime>
+        </div>
+        <div class="col-md-3">
+            <plex-datetime
+                type="date"
+                label="Ingreso al Hospital"
+                name="fechaIngresoHospital"
+                formControlName="fechaIngresoHospital"
+                [readonly]="!editable">
+            </plex-datetime>
+        </div>
+        <div class="col-md-3">
+            <plex-datetime
+                type="date"
+                label="Antigüedad p/Art.53"
+                name="antiguedadVacaciones"
+                formControlName="antiguedadVacaciones"
+                [readonly]="!editable">
+            </plex-datetime>
+        </div>
+        <div class="col-md-3">
+            <plex-datetime
+                type="date"
+                label="Antigüedad p/sueldo"
+                name="antiguedadPago"
+                formControlName="antiguedadPago"
+                [readonly]="!editable">
+            </plex-datetime>
+        </div>
+    </div>
+</form>

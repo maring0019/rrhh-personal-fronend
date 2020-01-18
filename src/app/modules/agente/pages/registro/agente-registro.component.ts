@@ -187,7 +187,7 @@ export class AgenteRegistroComponent implements OnInit {
             }
         }
         else{
-            this.plex.info('info', 'Debe completar todos los datos obligatorios');
+            this.plex.info('danger', 'Debe completar todos los datos obligatorios');
         }
     }
 

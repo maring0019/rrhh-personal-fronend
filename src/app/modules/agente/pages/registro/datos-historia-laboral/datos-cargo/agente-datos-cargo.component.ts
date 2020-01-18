@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
 import { ServicioService } from 'src/app/services/servicio.service';
@@ -26,6 +27,8 @@ export class AgenteDatosCargoComponent implements OnInit {
     @Input() cargo: Cargo;
     @Input() editable: boolean = false;
     @Output() outputCargo: EventEmitter<Cargo> = new EventEmitter<Cargo>();
+    
+    @ViewChild(FormGroupDirective) _form;
 
     datosCargoForm: FormGroup;
     tiposNormaLegal: TipoNormaLegal[] = [];
@@ -96,6 +99,10 @@ export class AgenteDatosCargoComponent implements OnInit {
             sector              : [this.cargo.sector],
             servicio            : [this.cargo.servicio]
         });
+    }
+
+    resetForm(){
+        formUtils.resetForm(this.datosCargoForm, this._form);
     }
 
 }

@@ -9,7 +9,7 @@
 
 <form name="form" [formGroup]="form">
     <div class="row">
-        <div class="col-md-3 col-xs-12 d-flex justify-content-center flex-column">
+        <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
             <app-agente-foto
                 [agente]="agente"
                 [editable]="false"
@@ -67,5 +67,5 @@
 <br>
 <div class="d-flex flex-row justify-content-end">
     <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
-    <plex-button label="Aceptar Reactivar" type="success" (click)="guardar()"></plex-button>
+    <plex-button label="Reactivar" type="success" (click)="guardar()"></plex-button>
 </div>

@@ -67,6 +67,9 @@ import { AgenteDatosHistoriaLaboralComponent } from './modules/agente/pages/regi
 import { AgenteDatosCargoComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosSituacionComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
 import { AgenteDatosRegimenComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
+import { AgenteDatosGeneralesComponent } from './modules/agente/pages/registro/datos-historia-laboral/datos-generales/agente-datos-generales.component';
+import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
+
 
 // Busqueda Agente
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
@@ -81,6 +84,9 @@ import { AgenteDetalleComponent } from './modules/agente/components/agente-detal
 // Agente Baja/Reactivar
 import { AgenteBajaComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja.component';
 import { AgenteReactivarComponent } from './modules/agente/components/agente-reactivar/agente-reactivar.component';
+
+// Agente Historia Laboral
+import { HistoriaLaboralCreateComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-create.component';
 
 // Otros
 import { AgenteFormSelectComponent } from './modules/agente/components/agente-form-select/agente-form-select.component';
@@ -230,9 +236,13 @@ const ADMIN_COMPONENTS = [
         AgenteDatosContactoComponent,
         AgenteDatosEducacionComponent,
         AgenteDatosHistoriaLaboralComponent,
+        AgenteDatosGeneralesComponent,
         AgenteDatosCargoComponent,
         AgenteDatosSituacionComponent,
         AgenteDatosRegimenComponent,
+        AgenteDatosNormaLegalComponent,
+
+        HistoriaLaboralCreateComponent,
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,

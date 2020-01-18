@@ -1,0 +1,69 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5><strong>Agente | </strong> Nueva Historia Laboral</h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+    </div>
+</header>
+<div class="row">
+    <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+        <app-agente-foto
+            [agente]="agente"
+            [editable]="false"
+            [size]="'md'">
+        </app-agente-foto>
+        <article class="d-flex flex-column">
+            <h5 class="mt-2 mb-4">
+                {{ agente.nombre }}
+                <strong>{{ agente.apellido }}</strong>
+            </h5>
+        </article>
+    </div>
+    <div class="col-md-9 col-xs-12">
+        <plex-tabs #tabs>
+            <plex-tab label="NORMA LEGAL">
+                <div *ngIf="cargo">
+                    <agente-datos-norma-legal
+                        [cargo]="cargo"
+                        [editable]="isEditable"
+                        (change)='onValueChangeCargo($event)'>
+                    </agente-datos-norma-legal>
+                </div>
+            </plex-tab>
+            <plex-tab label="SITUACIÓN">
+                <div *ngIf="situacion">
+                    <agente-datos-situacion
+                        [situacion]="situacion"
+                        [editable]="isEditable"
+                        (outputSituacion)='onValueChangeSituacion($event)'>
+                    </agente-datos-situacion>
+                </div>
+            </plex-tab>
+            <plex-tab label="CARGO">
+                <div *ngIf="cargo">
+                    <agente-datos-cargo
+                        [cargo]="cargo"
+                        [editable]="isEditable"
+                        (outputCargo)='onValueChangeCargo($event)'>
+                    </agente-datos-cargo>
+                </div>
+            </plex-tab>
+            <plex-tab label="REGÍMENES">
+                <div *ngIf="regimen">
+                    <agente-datos-regimen
+                        [regimen]="regimen"
+                        [editable]="isEditable"
+                        (outputRegimen)='onValueChangeRegimen($event)'>
+                    </agente-datos-regimen>
+                </div>
+            </plex-tab>
+        </plex-tabs>
+    </div>
+</div>
+
+<br>
+<div class="d-flex flex-row justify-content-end">
+    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
+    <plex-button label="Aceptar" type="success" (click)="save()"></plex-button>
+</div>
