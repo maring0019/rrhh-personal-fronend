@@ -200,5 +200,12 @@ export class AgenteItemListadoComponent {
         console.log(e);
         // this.modalService.close('modal-baja-agente');
     }
+
+    public onSuccessHistoriaLaboralCreate(agente){
+        this.modalService.close('modal-historia-laboral-create');
+        this.plex.info('success', 'Se actualizó correctamente la Historia Laboral del Agente');
+        // TODO Refresh correctamente!!!
+        this.agenteSeleccionado = agente;
+    }
 }
 

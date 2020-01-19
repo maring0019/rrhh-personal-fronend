@@ -2,14 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
-import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
 import { ServicioService } from 'src/app/services/servicio.service';
 import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
 import { PuestoService } from 'src/app/services/puesto.service';
 import { SubPuestoService } from 'src/app/services/subpuesto.service';
 import { SectorService } from 'src/app/services/sector.service';
 
-import { TipoNormaLegal } from 'src/app/models/TipoNormaLegal';
 import { Servicio } from 'src/app/models/Servicio';
 import { Cargo } from 'src/app/models/Cargo';
 import { Agrupamiento } from 'src/app/models/Agrupamiento';
@@ -31,7 +29,6 @@ export class AgenteDatosCargoComponent implements OnInit {
     @ViewChild(FormGroupDirective) _form;
 
     datosCargoForm: FormGroup;
-    tiposNormaLegal: TipoNormaLegal[] = [];
     servicios: Servicio[] = [];
     agrupamientos: Agrupamiento[] = [];
     puestos: Puesto[] = [];
@@ -40,7 +37,6 @@ export class AgenteDatosCargoComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private tipoNormaLegalService: TipoNormaLegalService,
         private servicioService: ServicioService,
         private agrupamientoService: AgrupamientoService,
         private puestoService: PuestoService,
@@ -48,11 +44,6 @@ export class AgenteDatosCargoComponent implements OnInit {
         private sectorService: SectorService){}
     
     ngOnInit() {
-        // Init Tipos Normas
-        this.tipoNormaLegalService.get({})
-            .subscribe(data => {
-                this.tiposNormaLegal = data;
-        });
         // Init Servicios
         this.servicioService.get({})
         .subscribe(data => {
@@ -89,15 +80,12 @@ export class AgenteDatosCargoComponent implements OnInit {
     createDatosCargoForm()
     {
         return this.formBuilder.group({
-            tipoNormaLegal      : [this.cargo.tipoNormaLegal],
-            numeroNormaLegal    : [this.cargo.numeroNormaLegal],
-            fechaNormaLegal     : [this.cargo.fechaNormaLegal],
-            observaciones       : [this.cargo.observaciones],
             agrupamiento        : [this.cargo.agrupamiento],
             puesto              : [this.cargo.puesto],
             subpuesto           : [this.cargo.subpuesto],
             sector              : [this.cargo.sector],
-            servicio            : [this.cargo.servicio]
+            servicio            : [this.cargo.servicio],
+            observaciones       : [this.cargo.observaciones]
         });
     }
 

@@ -3,17 +3,17 @@ import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
+import { NormaLegal } from 'src/app/models/NormaLegal';
 
-import { Cargo } from 'src/app/models/Cargo';
 
 @Component({
     selector: 'agente-datos-norma-legal',
     templateUrl: './agente-datos-norma-legal.html'
 })
 export class AgenteDatosNormaLegalComponent implements OnInit {
-    @Input() cargo: Cargo;
+    @Input() normaLegal: NormaLegal;
     @Input() editable: boolean = false;
-    @Output() change: EventEmitter<Cargo> = new EventEmitter<Cargo>();
+    @Output() change: EventEmitter<NormaLegal> = new EventEmitter<NormaLegal>();
 
     @ViewChild(FormGroupDirective) _form;
 
@@ -35,10 +35,10 @@ export class AgenteDatosNormaLegalComponent implements OnInit {
     createDatosNormaLegalForm()
     {
         return this.formBuilder.group({
-            tipoNormaLegal      : [this.cargo.tipoNormaLegal],
-            numeroNormaLegal    : [this.cargo.numeroNormaLegal],
-            fechaNormaLegal     : [this.cargo.fechaNormaLegal],
-            observaciones       : [this.cargo.observaciones]
+            tipoNormaLegal      : [this.normaLegal.tipoNormaLegal],
+            numeroNormaLegal    : [this.normaLegal.numeroNormaLegal],
+            fechaNormaLegal     : [this.normaLegal.fechaNormaLegal],
+            observaciones       : [this.normaLegal.observaciones]
         });
     }
 

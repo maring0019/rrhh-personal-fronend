@@ -2,10 +2,10 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!agente.id">
+                <h5 class="align-self-center" *ngIf="!agente?.id">
                     <strong>Agente |</strong> Alta de agente
                 </h5>
-                <h5 class="align-self-center" *ngIf="agente.id">
+                <h5 class="align-self-center" *ngIf="agente?.id">
                         <strong>Agente |</strong>
                         {{ (isEditable)? 'Edición de agente' : 'Detalle de agente' }}
                     </h5>
@@ -79,11 +79,11 @@
                     </agente-datos-generales>
                 </div>
                 <h5 class="subheader mt-4">Norma Legal</h5>
-                <div *ngIf="cargo">
+                <div *ngIf="normaLegal">
                     <agente-datos-norma-legal
-                        [cargo]="cargo"
+                        [normaLegal]="normaLegal"
                         [editable]="isEditable"
-                        (change)='onValueChangeCargo($event)'>
+                        (change)='onValueChangeNormaLegal($event)'>
                     </agente-datos-norma-legal>
                 </div>
             </plex-tab>

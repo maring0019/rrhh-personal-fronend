@@ -1,4 +1,3 @@
-import { TipoNormaLegal } from './TipoNormaLegal';
 import { Servicio } from './Servicio';
 import { Agrupamiento } from './Agrupamiento';
 import { Puesto } from './Puesto';
@@ -7,9 +6,6 @@ import { Sector } from './Sector';
 
 export class Cargo {
     id: String;
-    tipoNormaLegal: TipoNormaLegal;
-    numeroNormaLegal: String;
-    fechaNormaLegal: Date;
     agrupamiento: Agrupamiento;
     puesto: Puesto;              // Alias Agrupamiento (otro agrupamiento)
     subpuesto: SubPuesto;        // Alias Funcion
@@ -22,9 +18,6 @@ export class Cargo {
     {
         cargo = cargo || {};
         this.id = cargo.id || null;
-        this.tipoNormaLegal = cargo.tipoNormaLegal || null;
-        this.numeroNormaLegal = cargo.numeroNormaLegal || '';
-        this.fechaNormaLegal = cargo.fechaNormaLegal;
         this.agrupamiento = cargo.agrupamiento || null;
         this.puesto = cargo.puesto || null;
         this.subpuesto = cargo.subpuesto || null;

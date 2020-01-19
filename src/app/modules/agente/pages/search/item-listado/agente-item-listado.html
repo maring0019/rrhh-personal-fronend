@@ -86,6 +86,7 @@
     <div *ngIf="agenteSeleccionado">
         <app-historia-laboral-create
             [agente]="agenteSeleccionado"
+            (success)="onSuccessHistoriaLaboralCreate($event)"
             (cancel)="onCancelModal('modal-historia-laboral-create')">
         </app-historia-laboral-create>
     </div>

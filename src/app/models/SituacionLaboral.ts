@@ -1,6 +1,7 @@
 import { Cargo } from './Cargo';
 import { Regimen } from './Regimen';
 import { TipoSituacion } from './TipoSituacion';
+import { NormaLegal } from './NormaLegal';
 
 
 export class SituacionLaboral {
@@ -13,6 +14,7 @@ export class SituacionLaboral {
     trabajaEnHospital: Boolean;
     trasladoDesde: String;
     lugarPago: String;
+    normaLegal: NormaLegal;
     situacion: TipoSituacion;
     cargo: Cargo;
     regimen: Regimen;
@@ -28,9 +30,9 @@ export class SituacionLaboral {
         this.trabajaEnHospital = sl.trabajaEnHospital;
         this.trasladoDesde = sl.trasladoDesde || '';
         this.lugarPago = sl.lugarPago || '';
+        this.normaLegal = new NormaLegal(sl.normaLegal);
         this.situacion = new TipoSituacion(sl.situacion);
         this.cargo = new Cargo(sl.cargo);
         this.regimen = new Regimen(sl.regimen);
-
     }
 }

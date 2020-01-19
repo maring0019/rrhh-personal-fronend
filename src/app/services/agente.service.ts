@@ -7,6 +7,7 @@ import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
 import { BajaAgente } from '../models/BajaAgente';
+import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 
 @Injectable()
 export class AgenteService {
@@ -67,6 +68,11 @@ export class AgenteService {
     reactivar(agente: Agente): Observable<Agente> {
         const url = `${this.agenteUrl}/${agente.id}/reactivar`;
         return this.server.put(url, {});
+    }
+
+    addHistoriaLaboral(agente:Agente, situacion:SituacionLaboral):Observable<Agente>{
+        const url = `${this.agenteUrl}/${agente.id}/nuevaHistoriaLaboral`;
+        return this.server.put(url, situacion);
     }
 
     getFoto(agenteId: any): Observable<any> {

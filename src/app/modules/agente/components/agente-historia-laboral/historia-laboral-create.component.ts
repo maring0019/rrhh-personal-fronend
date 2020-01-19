@@ -14,9 +14,11 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
 import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
 
 import { Agente } from 'src/app/models/Agente';
+import { NormaLegal } from 'src/app/models/NormaLegal';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Regimen } from 'src/app/models/Regimen';
+
 import { PlexTabsComponent } from '@andes/plex/src/lib/tabs/tabs.component';
 
 @Component({
@@ -29,11 +31,13 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
+    @Output() success: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
     @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
+    @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
     @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
+    
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
     @ViewChild("tabs") agenteTabs: PlexTabsComponent;
     
@@ -41,6 +45,7 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     @HostBinding('class.plex-layout') layout = true;
     // Datos para los formularios
     
+    public normaLegal: NormaLegal;
     public situacion: SituacionLaboral;
     public cargo: Cargo;
     public regimen: Regimen;
@@ -66,11 +71,14 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
 
     private initValueForms(){
         if (this._updating){
+
             this.situacion = this.agente.situacionLaboral;
+            this.normaLegal = this.agente.situacionLaboral.normaLegal;
             this.cargo = this.agente.situacionLaboral.cargo;
             this.regimen = this.agente.situacionLaboral.regimen;
         }
         else{
+            this.normaLegal = new NormaLegal();
             this.situacion = new SituacionLaboral();
             this.cargo = new Cargo();
             this.regimen = new Regimen();
@@ -98,11 +106,12 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
 
     save(){
         if (this.allFormsValid()){
+            const situacion = this.parseHistoriaLaboral();
             if (this._updating){
                 this.updateHistoriaLaboral();
             }
             else{
-                this.addHistoriaLaboral();
+                this.addHistoriaLaboral(situacion);
             }
         }
         else{
@@ -110,29 +119,20 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
         }
     }
 
-    parseAgente():Agente{
-        // Situacion Laboral (Situacion, Cargo, Regimen)
-        const cargo = new Cargo(this.datosCargo.datosCargoForm.value);
-        const regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
-        const situacion = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value);
-        situacion.cargo = cargo;
-        situacion.regimen = regimen;
-        // agente.situacionLaboral = situacion;
-        // agente.direccion = direccion;
-        // agente.contactos = contactos;
-        // agente.educacion = estudios;
-        return this.agente;
+    parseHistoriaLaboral():SituacionLaboral{
+        let situacion = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value);
+        situacion.normaLegal = new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value);
+        situacion.cargo = new Cargo(this.datosCargo.datosCargoForm.value);
+        situacion.regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
+        return situacion;
     }
 
-    addHistoriaLaboral(){
-        // this.agenteService.post(agente)
-        //     .subscribe(data=> {
-        //         this.saveFiles(data);
-        //         this.plex.info('success', 'El agente se ingresó correctamente')
-        //             .then( e => {
-        //                 this.volverInicio();
-        //         });
-        // })
+    addHistoriaLaboral(situacion:SituacionLaboral){
+        this.agenteService.addHistoriaLaboral(this.agente, situacion)
+            .subscribe( agente => {
+                this.resetForms();
+                this.success.emit(agente);
+        })
     }
 
     updateHistoriaLaboral(){}
@@ -143,8 +143,9 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     }
 
     private resetForms(){
-        this.datosCargo.resetForm();
         this.datosNormaLegal.resetForm();
+        this.datosSituacion.resetForm();
+        this.datosCargo.resetForm();
         this.datosRegimen.resetForm();
     }
 

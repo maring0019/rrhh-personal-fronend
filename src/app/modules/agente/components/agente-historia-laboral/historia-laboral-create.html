@@ -23,11 +23,10 @@
     <div class="col-md-9 col-xs-12">
         <plex-tabs #tabs>
             <plex-tab label="NORMA LEGAL">
-                <div *ngIf="cargo">
+                <div *ngIf="normaLegal">
                     <agente-datos-norma-legal
-                        [cargo]="cargo"
-                        [editable]="isEditable"
-                        (change)='onValueChangeCargo($event)'>
+                        [normaLegal]="normaLegal"
+                        [editable]="isEditable">
                     </agente-datos-norma-legal>
                 </div>
             </plex-tab>
@@ -35,8 +34,7 @@
                 <div *ngIf="situacion">
                     <agente-datos-situacion
                         [situacion]="situacion"
-                        [editable]="isEditable"
-                        (outputSituacion)='onValueChangeSituacion($event)'>
+                        [editable]="isEditable">
                     </agente-datos-situacion>
                 </div>
             </plex-tab>
@@ -44,8 +42,7 @@
                 <div *ngIf="cargo">
                     <agente-datos-cargo
                         [cargo]="cargo"
-                        [editable]="isEditable"
-                        (outputCargo)='onValueChangeCargo($event)'>
+                        [editable]="isEditable">
                     </agente-datos-cargo>
                 </div>
             </plex-tab>
@@ -53,8 +50,7 @@
                 <div *ngIf="regimen">
                     <agente-datos-regimen
                         [regimen]="regimen"
-                        [editable]="isEditable"
-                        (outputRegimen)='onValueChangeRegimen($event)'>
+                        [editable]="isEditable">
                     </agente-datos-regimen>
                 </div>
             </plex-tab>

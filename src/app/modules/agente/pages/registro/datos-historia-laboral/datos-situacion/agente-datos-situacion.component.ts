@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
+import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
@@ -13,6 +14,8 @@ export class AgenteDatosSituacionComponent implements OnInit {
     @Input() situacion: SituacionLaboral;
     @Input() editable: boolean = false;
     @Output() outputSituacion: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
+
+    @ViewChild(FormGroupDirective) _form;
 
     datosSituacionForm: FormGroup;
     tiposSituacion: TipoSituacion[] = [];
@@ -50,6 +53,10 @@ export class AgenteDatosSituacionComponent implements OnInit {
             trasladado             : [this.situacion.trasladoDesde? true : false],
             trasladoDesde          : [this.situacion.trasladoDesde]
         });
+    }
+
+    resetForm(){
+        formUtils.resetForm(this.datosSituacionForm, this._form);
     }
 
 }
