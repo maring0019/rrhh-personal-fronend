@@ -20,7 +20,7 @@
             </plex-label>
             
             <plex-badge type="info">
-                {{ agente.situacionLaboral? (agente.situacionLaboral.situacion | title:'nombre') : 'Sin Situacion'}}
+                {{ agente.situacionLaboral.situacion? (agente.situacionLaboral.situacion.tipoSituacion | title:'nombre') : 'Sin Situacion'}}
             </plex-badge>
             <plex-badge [type]="agente.activo? 'success': 'danger'">
                     {{ agente.activo? 'Activo' : 'Baja' }}

@@ -8,7 +8,7 @@ import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
     templateUrl: './agente-datos-generales.html',
 })
 export class AgenteDatosGeneralesComponent implements OnInit {
-    @Input() situacion: SituacionLaboral;
+    @Input() situacionLaboral: SituacionLaboral;
     @Input() editable: boolean = false;
     @Output() change: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
 
@@ -27,10 +27,10 @@ export class AgenteDatosGeneralesComponent implements OnInit {
     {
         return this.formBuilder.group({
             // Datos Generales
-            fechaIngresoEstado     : [this.situacion.fechaIngresoEstado],
-            fechaIngresoHospital   : [this.situacion.fechaIngresoHospital],
-            antiguedadVacaciones   : [this.situacion.antiguedadVacaciones],
-            antiguedadPago         : [this.situacion.antiguedadPago],
+            fechaIngresoEstado     : [this.situacionLaboral.fechaIngresoEstado],
+            fechaIngresoHospital   : [this.situacionLaboral.fechaIngresoHospital],
+            antiguedadVacaciones   : [this.situacionLaboral.antiguedadVacaciones],
+            antiguedadPago         : [this.situacionLaboral.antiguedadPago],
         });
     }
 

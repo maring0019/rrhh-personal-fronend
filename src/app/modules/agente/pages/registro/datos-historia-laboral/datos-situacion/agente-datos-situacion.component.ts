@@ -4,16 +4,16 @@ import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
-import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
+import { Situacion } from 'src/app/models/Situacion';
 
 @Component({
     selector: 'agente-datos-situacion',
     templateUrl: './agente-datos-situacion.html',
 })
 export class AgenteDatosSituacionComponent implements OnInit {
-    @Input() situacion: SituacionLaboral;
+    @Input() situacion: Situacion;
     @Input() editable: boolean = false;
-    @Output() outputSituacion: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
+    @Output() outputSituacion: EventEmitter<Situacion> = new EventEmitter<Situacion>();
 
     @ViewChild(FormGroupDirective) _form;
 
@@ -40,13 +40,7 @@ export class AgenteDatosSituacionComponent implements OnInit {
     createDatosSituacionForm()
     {
         return this.formBuilder.group({
-            // Datos Generales
-            fechaIngresoEstado     : [this.situacion.fechaIngresoEstado],
-            fechaIngresoHospital   : [this.situacion.fechaIngresoHospital],
-            antiguedadVacaciones   : [this.situacion.antiguedadVacaciones],
-            antiguedadPago         : [this.situacion.antiguedadPago],
-            // Situacion
-            situacion              : [this.situacion.situacion],
+            tipoSituacion          : [this.situacion.tipoSituacion],
             lugarPago              : [this.situacion.lugarPago],
             exceptuadoFichado      : [this.situacion.exceptuadoFichado],
             trabajaEnHospital      : [this.situacion.trabajaEnHospital],

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-header-calendar',
@@ -20,8 +20,7 @@ export class HeadCalendarComponent implements OnInit {
     agenteID:String;
 
     constructor(
-        private route: ActivatedRoute,
-        private router:Router){}
+        private route: ActivatedRoute){}
 
     public ngOnInit() {
         this.route.params.subscribe(
@@ -55,7 +54,4 @@ export class HeadCalendarComponent implements OnInit {
         }
     }
 
-    onCargarAusentismo(){
-        this.router.navigateByUrl(`/agentes/${this.agenteID}/ausencias/agregar`);
-    }
 }

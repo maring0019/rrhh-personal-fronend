@@ -1,51 +1,11 @@
 <br>
 <form name="datosSituacionForm" [formGroup]="datosSituacionForm">
-    <!-- <h5 class="subheader">Datos Generales</h5>
-    <div class="row">
-        <div class="col-md-3">
-            <plex-datetime
-                type="date"
-                label="Ingreso al Estado"
-                name="fechaIngresoEstado"
-                formControlName="fechaIngresoEstado"
-                [readonly]="!editable">
-            </plex-datetime>
-        </div>
-        <div class="col-md-3">
-            <plex-datetime
-                type="date"
-                label="Ingreso al Hospital"
-                name="fechaIngresoHospital"
-                formControlName="fechaIngresoHospital"
-                [readonly]="!editable">
-            </plex-datetime>
-        </div>
-        <div class="col-md-3">
-            <plex-datetime
-                type="date"
-                label="Antigüedad p/Art.53"
-                name="antiguedadVacaciones"
-                formControlName="antiguedadVacaciones"
-                [readonly]="!editable">
-            </plex-datetime>
-        </div>
-        <div class="col-md-3">
-            <plex-datetime
-                type="date"
-                label="Antigüedad p/sueldo"
-                name="antiguedadPago"
-                formControlName="antiguedadPago"
-                [readonly]="!editable">
-            </plex-datetime>
-        </div>
-    </div>
-    <h5 class="subheader">Situación en Planta</h5> -->
     <div class="row">
         <div class="col-md-6">
             <plex-select 
                 [data]="tiposSituacion"
-                name="situacion"
-                formControlName="situacion"
+                name="tipoSituacion"
+                formControlName="tipoSituacion"
                 label="Situación en Planta"
                 placeholder="Seleccione..."
                 [required]="true"
@@ -93,14 +53,4 @@
             </plex-bool>
         </div>
     </div>
-    <!-- <div class="row" *ngIf="trasladado">
-        <div class="col-md-12">
-            <plex-text
-                name="trasladadoDesde"
-                formControlName="trasladadoDesde"
-                label="Lugar de Traslado"
-                placeholder="Ingrese lugar de traslado...">
-            </plex-text>
-        </div>
-    </div> -->
 </form>

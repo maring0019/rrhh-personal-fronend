@@ -1,6 +1,6 @@
 <form #formulario="ngForm">
-    <div class="row cal-header">
-        <div class="col-2">
+    <div class="d-flex flex-row justify-content-between cal-header">
+        <div>
             <plex-label [titulo]="'Ver Sab/Dom'"></plex-label>
             <plex-bool
                 type="slide"
@@ -9,7 +9,7 @@
                 (change)="onChangedShowWeekends($event)">
             </plex-bool>
         </div>
-        <div class="col-2">
+        <div>
             <plex-label [titulo]="'Ver Feriados'"></plex-label>
             <plex-bool
                 type="slide"
@@ -18,7 +18,7 @@
                 (change)="onChangedShowFeriados($event)">
             </plex-bool>
         </div>
-        <div class="col-2">
+        <div>
             <plex-label [titulo]="'Saltar Francos'"></plex-label>
             <plex-bool
                 type="slide"
@@ -27,7 +27,7 @@
                 (change)="onChangedSaltarFrancos($event)">
             </plex-bool>
         </div>
-        <div class="col-3">
+        <div>
             <plex-datetime
                 type="date"
                 placeholder="Seleccione fecha"
@@ -35,13 +35,6 @@
                 [(ngModel)]="fechaSeleccion"
                 (change)="onChangedDate($event)">
             </plex-datetime>
-        </div>
-        <div class="col-2">
-            <plex-button 
-                type="info"
-                label="Cargar Ausentismo"
-                (click)="onCargarAusentismo()">
-            </plex-button>
         </div>
     </div>
 </form>

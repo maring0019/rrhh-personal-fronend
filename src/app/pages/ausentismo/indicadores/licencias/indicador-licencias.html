@@ -4,3 +4,8 @@
         <p>{{ indicador.detalle }}</p>
     </article>
 </section>
+<app-leyenda
+    *ngIf="!indicadores?.length"
+    [header]="'No se encontraron indicadores!'"
+    [subHeader]="'El agente no tiene licencias cargadas'">
+</app-leyenda>

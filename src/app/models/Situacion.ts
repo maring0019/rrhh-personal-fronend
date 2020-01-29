@@ -3,11 +3,7 @@ import { TipoSituacion } from './TipoSituacion';
 
 export class Situacion {
     tipoSituacion: TipoSituacion;
-    situacionLugarPago: String;
-    situacionFechaIngresoEstado: Date;
-    situacionFechaIngresoHospital: Date;
-    antiguedadVacaciones: Date;
-    antiguedadPago: Date;
+    lugarPago: String;
     exceptuadoFichado: Boolean;
     trabajaEnHospital: Boolean;
     trasladoDesde: String;
@@ -15,12 +11,8 @@ export class Situacion {
     constructor(situacion?)
     {
         situacion = situacion || {};
-        this.tipoSituacion = situacion.tipoSituacion || null;
-        this.situacionLugarPago= situacion.situacionLugarPago || '';
-        this.situacionFechaIngresoEstado = situacion.situacionFechaIngresoEstado;
-        this.situacionFechaIngresoHospital = situacion.situacionFechaIngresoHospital;
-        this.antiguedadVacaciones = situacion.antiguedadVacaciones;
-        this.antiguedadPago = situacion.antiguedadPago;
+        this.tipoSituacion = situacion.tipoSituacion? new TipoSituacion(situacion.tipoSituacion):null;
+        this.lugarPago= situacion.lugarPago || '';
         this.exceptuadoFichado = situacion.exceptuadoFichado || false;
         this.trabajaEnHospital = situacion.trabajaEnHospital || false;
         this.trasladoDesde = situacion.trasladoDesde || '';

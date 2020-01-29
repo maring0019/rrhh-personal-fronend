@@ -1,6 +1,40 @@
-<!-- <app-agente-calendar
-    *ngIf="agente"
-    [agente]="agente">
-</app-agente-calendar> -->
-<p>Hola</p>
+<plex-layout main="8">
+    <plex-layout-main>
+        <div class="row">
+            <div class="col-9">
+                <app-header-calendar
+                    (changedDate)="onChangeHeaderDate($event)"
+                    (showHideWeekends)="onToggleWeekends($event)"
+                    (showHideFeriados)="onToggleFeriados($event)"
+                    (saltarFrancos)="onToggleFrancos($event)">
+                </app-header-calendar>
+            </div>
+            <div class="col-3">
+                <plex-button
+                    *ngIf="agente?.activo"
+                    type="info"
+                    label="Cargar Ausentismo"
+                    (click)="onCargarAusentismo()">
+                </plex-button>
+            </div>
+        </div>
+        
+        <app-main-calendar
+            [eventos]="eventos"
+            [weekends]="weekends"
+            [mesSeleccionado]="mesMainDefault"
+            (changedDate)="onChangeMainDate($event)">
+        </app-main-calendar>
 
+        <app-nav-calendar
+            *ngIf="eventos"
+            [eventos]="eventos"
+            [mesSeleccionado]="mesNavDefault"
+            (changedDate)="onChangeNavDate($event)">
+        </app-nav-calendar>
+    
+    </plex-layout-main>
+    <plex-layout-sidebar type="invert">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

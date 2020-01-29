@@ -7,10 +7,10 @@ import { RoutingGuard, RoutingNavBar} from './app-guard';
 import { AgenteRegistroComponent } from '../app/modules/agente/pages/registro/agente-registro.component';
 import { AgenteSearchComponent } from './modules/agente/pages/search/agente-search.component';
 
-import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-calendar.component';
-import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
-import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
-import { AusentismoIndicadoresComponent } from './pages/ausentismo/ausencias/indicadores/ausentismo-indicadores.component';
+import { AusentismoSearchComponent } from './pages/ausentismo/search/ausentismo-search.component';
+import { AusentismoCargaComponent } from './pages/ausentismo/create-update/ausentismo-carga.component';
+import { AusentismoIndicadoresComponent } from './pages/ausentismo/indicadores/ausentismo-indicadores.component';
+
 
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
@@ -34,6 +34,7 @@ import { FichadaReporteListComponent } from 'src/app/pages/partes/reportes/ficha
 import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
 import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/list/guardia-list.component';
 import { HomePageComponent } from 'src/app/pages/home/home.page';
+import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
 
 const routes: Routes = [
     // Inicio
@@ -75,7 +76,7 @@ const routes: Routes = [
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { 
         path: 'agentes/:agenteId/ausencias',
-        component: AgenteCalendarComponent,
+        component: AgenteAusentismoComponent,
         children: [
             {
                 path: '',
@@ -106,10 +107,6 @@ const routes: Routes = [
 
 
         ]
-        // http://localhost:4200/agentes/5cfea77d02890c22fcae4c9e/ausencias
-        // component: AgenteAusentismoComponent,
-        // canActivate: [RoutingNavBar , RoutingGuard],
-        // runGuardsAndResolvers: 'always' 
     },
 
     { path: 'login', component: LoginPage, canActivate: [RoutingNavBar] },

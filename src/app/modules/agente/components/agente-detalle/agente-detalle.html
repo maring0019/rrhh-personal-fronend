@@ -143,7 +143,7 @@
                  <plex-panel icon="mdi icon-estudiante" tituloPrincipal="Educacion" tituloSecundario="">
                     <ng-container *ngFor="let estudio of educacion">
                         <article *ngIf="estudio" class="d-inline-block mr-4">
-                            <strong>Nivel obtenido</strong>
+                            <strong>Nivel</strong>
                             <p>{{ estudio.tipoEducacion | title }}</p>
                         </article>
                         <article *ngIf="estudio" class="d-inline-block mr-4">
@@ -162,7 +162,13 @@
                     <div *ngIf="situacion">
                         <article class="d-inline-block mr-4">
                             <strong>Situación Laboral</strong>
-                            <p>{{ situacion | title:'nombre' }}</p>
+                            <p>{{ situacion.tipoSituacion | title:'nombre' }}</p>
+                        </article>
+                    </div>
+                    <div *ngIf="cargo">
+                        <article class="d-inline-block mr-4">
+                            <strong>Cargo</strong>
+                            <p>{{ cargo.subpuesto | title:'nombre' }}</p>
                         </article>
                     </div>
                 </plex-panel>

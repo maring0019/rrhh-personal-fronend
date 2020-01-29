@@ -73,6 +73,7 @@
             [contactos]="agenteSeleccionado.contactos"
             [educacion]="agenteSeleccionado.educacion"
             [situacion]="agenteSeleccionado.situacionLaboral?.situacion"
+            [cargo]="agenteSeleccionado.situacionLaboral?.cargo"
             [regimen]="agenteSeleccionado.situacionLaboral?.regimen"
             (onClose)="onCerrarDetalle()">
         </app-agente-detalle>

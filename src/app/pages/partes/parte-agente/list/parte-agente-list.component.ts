@@ -26,7 +26,7 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
     public editionEnabled = false;
     public estadoPresentacionConfirmada;
 
-    private parteToUpdate:Parte; 
+    public parteToUpdate:Parte; 
 
     constructor(
         public router: Router,

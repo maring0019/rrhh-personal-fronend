@@ -71,11 +71,11 @@
                 </div>
             </plex-tab>
             <plex-tab label="DATOS LABORALES">
-                <div *ngIf="situacion">
+                <div *ngIf="situacionLaboral">
                     <agente-datos-generales
-                        [situacion]="situacion"
+                        [situacionLaboral]="situacionLaboral"
                         [editable]="isEditable"
-                        (change)='onValueChangeSituacion($event)'>
+                        (change)='onValueChangeSituacionLaboral($event)'>
                     </agente-datos-generales>
                 </div>
                 <h5 class="subheader mt-4">Norma Legal</h5>
@@ -87,15 +87,6 @@
                     </agente-datos-norma-legal>
                 </div>
             </plex-tab>
-            <!-- <plex-tab label="NORMA LEGAL">
-                    <div *ngIf="situacion">
-                        <agente-datos-situacion
-                            [situacion]="situacion"
-                            [editable]="isEditable"
-                            (outputSituacion)='onValueChangeSituacion($event)'>
-                        </agente-datos-situacion>
-                    </div>
-                </plex-tab> -->
             <plex-tab label="SITUACIÓN">
                 <div *ngIf="situacion">
                     <agente-datos-situacion

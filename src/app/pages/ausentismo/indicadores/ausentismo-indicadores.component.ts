@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,  OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Agente } from 'src/app/models/Agente';
@@ -10,7 +10,8 @@ import { AgenteService } from 'src/app/services/agente.service';
 })
 export class AusentismoIndicadoresComponent implements OnInit {
 
-    public agente:Agente;
+    @Input() agente:Agente;
+
     public indicadores = [];
 
     constructor(

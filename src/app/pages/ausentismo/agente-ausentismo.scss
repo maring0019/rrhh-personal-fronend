@@ -36,3 +36,31 @@
 ::ng-deep .flex-2 {
     flex: 2
 }
+
+
+// Calendar styles
+::ng-deep .fc-dayGrid-view .fc-body .fc-row{
+    min-height: 2.2em !important;
+}
+
+::ng-deep .cal-arrow > button {
+    font-size: 30px;
+    line-height: 1;
+    padding: 0px;
+    border-radius: 25px;
+}
+
+::ng-deep .cal-nav-calendars {
+    height: 300px;
+}
+
+::ng-deep .cal-nav {
+    margin-top: 70px;
+}
+
+::ng-deep .cal-nav-selected {
+    padding: 0 8px 8px 8px;
+    padding: -8px;
+    border: 1px solid #5bc0de;
+    background: #8bc0d2 ;
+}

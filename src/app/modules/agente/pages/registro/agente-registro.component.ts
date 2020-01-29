@@ -10,6 +10,7 @@ import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basico
 import { AgenteDatosDireccionComponent } from './datos-contacto/agente-datos-direccion.component';
 import { AgenteDatosContactoComponent } from './datos-contacto/agente-datos-contacto.component';
 import { AgenteDatosEducacionComponent } from './datos-educacion/agente-datos-educacion.component';
+import { AgenteDatosGeneralesComponent } from './datos-historia-laboral/datos-generales/agente-datos-generales.component';
 import { AgenteDatosSituacionComponent } from './datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
 import { AgenteDatosNormaLegalComponent } from './datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
 import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
@@ -22,6 +23,7 @@ import { Direccion } from 'src/app/models/Direccion';
 import { Ubicacion } from 'src/app/models/Ubicacion';
 import { Educacion } from 'src/app/models/Educacion';
 import { NormaLegal } from 'src/app/models/NormaLegal';
+import { Situacion } from 'src/app/models/Situacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Regimen } from 'src/app/models/Regimen';
@@ -38,8 +40,9 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosDireccionComponent) datosDireccion: AgenteDatosDireccionComponent;
     @ViewChild(AgenteDatosContactoComponent) datosContacto: AgenteDatosContactoComponent;
     @ViewChild(AgenteDatosEducacionComponent) datosEducacion: AgenteDatosEducacionComponent;
-    @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
+    @ViewChild(AgenteDatosGeneralesComponent) datosSituacionLaboral: AgenteDatosGeneralesComponent;
     @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
+    @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
     @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
@@ -52,8 +55,9 @@ export class AgenteRegistroComponent implements OnInit {
     public direccion: Direccion;
     public contactos: Contacto[];
     public educacion: Educacion[];
-    public situacion: SituacionLaboral;
+    public situacionLaboral: SituacionLaboral;
     public normaLegal: NormaLegal;
+    public situacion: Situacion;
     public cargo: Cargo;
     public regimen: Regimen;
 
@@ -112,8 +116,9 @@ export class AgenteRegistroComponent implements OnInit {
         this.direccion = this.agente.direccion;
         this.contactos = this.agente.contactos;
         this.educacion = this.agente.educacion;
-        this.situacion = this.agente.situacionLaboral;
+        this.situacionLaboral = this.agente.situacionLaboral;
         this.normaLegal = this.agente.situacionLaboral.normaLegal;
+        this.situacion = this.agente.situacionLaboral.situacion;
         this.cargo = this.agente.situacionLaboral.cargo;
         this.regimen = this.agente.situacionLaboral.regimen;
     }
@@ -144,8 +149,12 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteDetalle.educacion = educacion;
     }
 
-    onValueChangeSituacion(obj: SituacionLaboral){
+    onValueChangeSituacionLaboral(obj: SituacionLaboral){
         this.agenteDetalle.situacionLaboral = obj;
+    }
+
+    onValueChangeSituacion(obj: Situacion){
+        this.agenteDetalle.situacionLaboral.situacion = obj;
     }
 
     onValueChangeNormaLegal(obj: NormaLegal){
@@ -164,8 +173,9 @@ export class AgenteRegistroComponent implements OnInit {
         const forms:any = [
             this.datosBasicos.datosBasicosForm,
             this.datosDireccion.direccionForm,
-            this.datosSituacion.datosSituacionForm,
+            this.datosSituacionLaboral.datosGeneralesForm,
             this.datosNormaLegal.datosNormaLegalForm,
+            this.datosSituacion.datosSituacionForm,
             this.datosCargo.datosCargoForm,
             this.datosRegimen.datosRegimenForm
             ]
@@ -221,12 +231,13 @@ export class AgenteRegistroComponent implements OnInit {
             }
         });
         
-        // Situacion Laboral (NormaLgal, Situacion, Cargo, Regimen)
-        const situacion = new SituacionLaboral(this.datosSituacion.datosSituacionForm.value);
-        situacion.normaLegal = new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value);
-        situacion.cargo = new Cargo(this.datosCargo.datosCargoForm.value);
-        situacion.regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
-        agente.situacionLaboral = situacion;
+        // Situacion Laboral (NormaLegal, Situacion, Cargo, Regimen)
+        let situacionLaboral = new SituacionLaboral(this.datosSituacionLaboral.datosGeneralesForm.value);
+        situacionLaboral.normaLegal = new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value);
+        situacionLaboral.situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
+        situacionLaboral.cargo = new Cargo(this.datosCargo.datosCargoForm.value);
+        situacionLaboral.regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
+        agente.situacionLaboral = situacionLaboral;
         agente.direccion = direccion;
         agente.contactos = contactos;
         agente.educacion = estudios;

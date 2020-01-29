@@ -98,18 +98,18 @@ import { AgenteCalendarComponent } from './pages/ausentismo/calendar/agente-cale
 import { MainCalendarComponent } from './pages/ausentismo/calendar/main/main-calendar.component';
 import { NavCalendarComponent } from './pages/ausentismo/calendar/nav/nav-calendar.component';
 import { HeadCalendarComponent } from './pages/ausentismo/calendar/header/header-calendar.component';
-import { SidebarCalendarComponent } from './pages/ausentismo/calendar/sidebar/sidebar-calendar.component';
 
-import { AusentismoCargaComponent } from './pages/ausentismo/calendar/sidebar/carga/ausentismo-carga.component';
-import { AusentismoCargaAddComponent } from './pages/ausentismo/calendar/sidebar/carga/create/ausentismo-carga-add.component';
-import { AusentismoCargaUpdateComponent } from './pages/ausentismo/calendar/sidebar/carga/update/ausentismo-carga-update.component';
-import { AusentismoCargaFormComponent } from './pages/ausentismo/calendar/sidebar/carga/form/ausentismo-form.component';
-import { AusentismoListadoComponent } from './pages/ausentismo/ausencias/item-listado/ausentismo-listado.component';
-import { AusentismoSearchFormComponent } from './pages/ausentismo/ausencias/search-form/ausentismo-search-form.component';
-import { AusentismoSearchComponent } from './pages/ausentismo/ausencias/ausentismo-search.component';
-import { AusentismoIndicadoresComponent } from './pages/ausentismo/ausencias/indicadores/ausentismo-indicadores.component';
-import { IndicadorLicenciasComponent } from 'src/app/pages/ausentismo/ausencias/indicadores/licencias/indicador-licencias.componente';
-import { IndicadorLicenciasDetalleComponent } from './pages/ausentismo/ausencias/indicadores/licencias-detalle/indicador-licencias-detalle.component';
+import { AusentismoCargaComponent } from './pages/ausentismo/create-update/ausentismo-carga.component';
+import { AusentismoCargaAddComponent } from './pages/ausentismo/create-update/create/ausentismo-carga-add.component';
+import { AusentismoCargaUpdateComponent } from './pages/ausentismo/create-update/update/ausentismo-carga-update.component';
+import { AusentismoCargaFormComponent } from './pages/ausentismo/create-update/form/ausentismo-form.component';
+import { AusentismoSearchComponent } from './pages/ausentismo/search/ausentismo-search.component';
+import { AusentismoListadoComponent } from './pages/ausentismo/search/item-listado/ausentismo-listado.component';
+import { AusentismoSearchFormComponent } from './pages/ausentismo/search/search-form/ausentismo-search-form.component';
+import { AusentismoIndicadoresComponent } from './pages/ausentismo/indicadores/ausentismo-indicadores.component';
+import { IndicadorLicenciasDetalleComponent } from './pages/ausentismo/indicadores/licencias-detalle/indicador-licencias-detalle.component';
+import { IndicadorLicenciasComponent } from './pages/ausentismo/indicadores/licencias/indicador-licencias.componente';
+
 
 // Componentes Generales
 import { ListadoComponent } from './componentes/listado/listado.component';
@@ -132,6 +132,7 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 
 import { AgenteMockService } from './hardcodeo/agente.service'
 import { ModalComponent } from './components/modal/modal.component';
+import { LeyendaComponent } from './components/leyenda/leyenda.component';
 
 // Plex
 import { DPlexItemComponent } from 'src/app/components/item-list/item.component';
@@ -260,7 +261,6 @@ const ADMIN_COMPONENTS = [
         MainCalendarComponent,
         NavCalendarComponent,
         HeadCalendarComponent,
-        SidebarCalendarComponent,
         AusentismoCargaComponent,
         AusentismoCargaAddComponent,
         AusentismoCargaUpdateComponent,
@@ -308,6 +308,7 @@ const ADMIN_COMPONENTS = [
         ModalComponent,
         ContextMenuComponent,
         UbicaciónFormSelectComponent,
+        LeyendaComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 
