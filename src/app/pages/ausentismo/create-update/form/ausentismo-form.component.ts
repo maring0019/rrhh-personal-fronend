@@ -6,7 +6,6 @@ import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
-import { getTomorrow } from 'src/app/utils/dates';
 import { Subscription } from 'rxjs/Rx';
 
 

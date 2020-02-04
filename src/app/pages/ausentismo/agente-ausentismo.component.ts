@@ -52,17 +52,20 @@ export class AgenteAusentismoComponent implements OnInit {
             params => {
                 this.agenteID = params['agenteId'];
                 if (this.agenteID){
-                    this.agenteService.getByID(this.agenteID).subscribe((data) => {
-                        if (data){
-                            this.agente = new Agente(data);
-                            this.refreshEventos();
-                        }
-                    });
+                    this.agenteService.getByID(this.agenteID).subscribe(
+                        (data) => {
+                            if (data){
+                                this.agente = new Agente(data);
+                                this.refreshEventos();
+                            }
+                        },
+                        error => this.goBack()
+                    );
                 }
                 else{
-                    this.plex.info('danger', 'No se pudo recuperar el agente indicado')
+                    this.plex.info('danger', 'No se pudo recuperar información del agente indicado')
                         .then( e => {
-                            // this.onClose();
+                            this.goBack();
                         });        
                 }
             }
@@ -117,7 +120,11 @@ export class AgenteAusentismoComponent implements OnInit {
     }
 
     public onCargarAusentismo(){
-        this.router.navigateByUrl(`/agentes/${this.agenteID}/ausencias/agregar`);
+        this.router.navigateByUrl(`/agentes/${this.agenteID}/ausentismo/agregar`);
+    }
+
+    public goBack(){
+        this.router.navigateByUrl(`/agentes`);
     }
     
 }

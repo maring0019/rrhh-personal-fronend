@@ -5,7 +5,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
-import { getTomorrow, getYesterday, getNextMonth, getPrevMonth } from 'src/app/utils/dates';
+import { getYesterday, getNextMonth, getPrevMonth } from 'src/app/utils/dates';
 import { CalendarStoreService, IDateRangeSelection } from 'src/app/stores/calendar.store.service';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 

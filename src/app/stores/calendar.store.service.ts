@@ -118,7 +118,7 @@ export class CalendarStoreService {
     removeAusentismo(ausentismo: Ausentismo): Observable<any>{
         return this.ausentismoService.delete(ausentismo._id).pipe(
             map( data => {
-                this.ausencias = this.filterAB(this.ausencias, ausentismo.ausencias);
+                this.ausencias = this.filterAB(this.ausencias, [ausentismo]);
                 this.refreshEventos();
                 return data
             })

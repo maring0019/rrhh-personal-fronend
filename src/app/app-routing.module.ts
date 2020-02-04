@@ -75,7 +75,7 @@ const routes: Routes = [
     { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { 
-        path: 'agentes/:agenteId/ausencias',
+        path: 'agentes/:agenteId/ausentismo',
         component: AgenteAusentismoComponent,
         children: [
             {

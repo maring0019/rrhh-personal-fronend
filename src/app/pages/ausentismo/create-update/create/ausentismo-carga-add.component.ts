@@ -67,8 +67,8 @@ export class AusentismoCargaAddComponent implements OnInit, OnChanges {
     initAusentismoForm(){
         const ausentismo = new Ausentismo();
         this.ausentismoForm = this.formBuilder.group({
-            agente            : [this.agente],
             _id               : [ausentismo._id],
+            agente            : [this.agente],
             articulo          : [ausentismo.articulo],
             fechaDesde        : [ausentismo.fechaDesde],
             fechaHasta        : [ausentismo.fechaHasta],

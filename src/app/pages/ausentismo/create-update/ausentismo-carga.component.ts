@@ -133,7 +133,7 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onClose(){
-        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/listado`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausentismo/listado`);
     }
 
     public onPrint(){

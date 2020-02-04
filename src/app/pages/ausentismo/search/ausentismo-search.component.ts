@@ -39,14 +39,16 @@ export class AusentismoSearchComponent implements OnInit {
             params =>{
                 const agenteID = params['agenteId'];
                 if (agenteID){
-                    this.agenteService.getByID(agenteID).subscribe((data) => {
-                        if (data){
-                            this.agente = new Agente(data);
-                        }
-                    });
+                    this.agenteService.getByID(agenteID).subscribe(
+                        (data) => {
+                            if (data){
+                                this.agente = new Agente(data);
+                            }
+                        });
                 }
                 else{
-                    console.log('No se pudo recuperar el agenteID de los parametros')
+                    this.plex.info('danger', 'No se pudo recuperar información del agente. Verifique los datos ingresados')
+                        .then(e=>this.router.navigateByUrl(`/agentes`));
                 }
             }
         );
@@ -57,7 +59,7 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public editarAusentismo(ausentismo){
-        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/${ausentismo._id}/editar`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausentismo/${ausentismo._id}/editar`);
     }
 
     public eliminarAusentismo(ausentismo){
@@ -75,7 +77,7 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public verIndicadores(){
-        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/indicadores`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausentismo/indicadores`);
     }
 
     public showResultados(objs:any){

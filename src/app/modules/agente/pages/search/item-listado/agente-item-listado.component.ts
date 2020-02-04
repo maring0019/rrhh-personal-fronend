@@ -162,7 +162,7 @@ export class AgenteItemListadoComponent {
 
     public gotoAusenciasAgente(agente){
         if (agente._id){
-            this.router.navigateByUrl(`/agentes/${agente._id}/ausencias/listado`);
+            this.router.navigateByUrl(`/agentes/${agente._id}/ausentismo/listado`);
         }
     }
   
