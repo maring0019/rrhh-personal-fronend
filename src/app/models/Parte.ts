@@ -5,7 +5,7 @@ import { ParteAgente } from './ParteAgente';
 
 export class Parte {
 
-    id: String;
+    _id: String;
     fecha: Date;
     procesado: Boolean;
     estado: ParteEstado;
@@ -16,7 +16,7 @@ export class Parte {
     constructor(parte?)
     {
         parte = parte || {};
-        this.id = parte.id || null;
+        this._id = parte._id || null;
         this.fecha = parte.fecha;
         this.procesado = parte.procesado;
         this.estado = parte.estado || null;

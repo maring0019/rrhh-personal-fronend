@@ -133,11 +133,11 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onClose(){
-        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/listado`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/listado`);
     }
 
     public onPrint(){
-        this.descargasService.download(this.ausentismo.id)
+        this.descargasService.download(this.ausentismo._id)
             .subscribe(data => {                
                 this.descargarArchivo(data);
             }, error => {

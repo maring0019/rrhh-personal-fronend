@@ -7,11 +7,11 @@
     </div>
 </header>
 <app-indicador-licencias
-    *ngIf="agente?.id"
+    *ngIf="agente?._id"
     [agente]="agente">
 </app-indicador-licencias>
 <br>
 <app-indicador-licencias-detalle
-    *ngIf="agente?.id"
+    *ngIf="agente?._id"
     [agente]="agente">
 </app-indicador-licencias-detalle>

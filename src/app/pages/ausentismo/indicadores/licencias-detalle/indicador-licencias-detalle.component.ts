@@ -19,8 +19,8 @@ export class IndicadorLicenciasDetalleComponent {
 
     constructor(private ausentismoService:AusentismoService){}
 
-    initIndicadores(agente){
-        this.ausentismoService.getLicenciasByAgente(agente.id)
+    initIndicadores(agente:Agente){
+        this.ausentismoService.getLicenciasByAgente(agente._id)
             .subscribe( data => this.indicadores = data);
     }
 }

@@ -24,7 +24,7 @@ export class FrancoService {
     }
 
     put(object: Franco): Observable<Franco> {
-        const url = `${this.baseUrl}/${object.id}`;
+        const url = `${this.baseUrl}/${object._id}`;
         return this.server.put(url, object);
     }
 

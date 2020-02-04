@@ -24,7 +24,7 @@ export class ArticuloService {
     }
 
     put(object: Articulo): Observable<Articulo> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     }
 

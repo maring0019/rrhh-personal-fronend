@@ -18,7 +18,7 @@ export class SubPuestoService {
     }
 
     put(object: SubPuesto): Observable<SubPuesto> {
-        return this.server.put(this.url + '/' + object.id, object);
+        return this.server.put(this.url + '/' + object._id, object);
     }
 
 }

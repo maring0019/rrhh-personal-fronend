@@ -48,11 +48,11 @@ export class AgenteFotoComponent implements OnChanges{
             return;
         }
         
-        if (!this.agente.id) {
+        if (!this.agente._id) {
             this.imagen = this.imagenDefault;
         }
         else {
-            this.agenteService.getFoto(this.agente.id).subscribe(data => {
+            this.agenteService.getFoto(this.agente._id).subscribe(data => {
                 if (data){
                     this.imagen = this.sanitize('data:image/jpeg;base64,' + this.cleanFoto(data));
                 }

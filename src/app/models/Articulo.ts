@@ -1,5 +1,5 @@
 export class Articulo {
-    id: String;
+    _id: String;
     codigo: String;
     nombre: String;
     descripcion: String;

@@ -20,8 +20,8 @@ export class IndicadorLicenciasComponent {
     constructor(private agenteService:AgenteService){}
 
     
-    initIndicadores(agente){
-        this.agenteService.getLicenciasTotales(agente.id).subscribe((data) => {
+    initIndicadores(agente:Agente){
+        this.agenteService.getLicenciasTotales(agente._id).subscribe((data) => {
             if (data && data.length){
                 let ind = data[0];
                 this.indicadores = [

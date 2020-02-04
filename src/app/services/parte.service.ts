@@ -48,27 +48,27 @@ export class ParteService {
     }
 
     procesar(object: Parte): Observable<Parte> {
-        const url = `${this.url}/${object.id}/procesar`;
+        const url = `${this.url}/${object._id}/procesar`;
         return this.server.post(url, object);
     }
 
     guardar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
-        const url = `${this.url}/${object.id}/guardar`;
+        const url = `${this.url}/${object._id}/guardar`;
         return this.server.post(url, partesAgentes);
     }
 
     confirmar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
-        const url = `${this.url}/${object.id}/confirmar`;
+        const url = `${this.url}/${object._id}/confirmar`;
         return this.server.post(url, partesAgentes);
     }
 
     editar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
-        const url = `${this.url}/${object.id}/editar`;
+        const url = `${this.url}/${object._id}/editar`;
         return this.server.post(url, partesAgentes);
     }
 
     put(object: Parte): Observable<Parte> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     }
 

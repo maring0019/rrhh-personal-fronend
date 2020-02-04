@@ -69,7 +69,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
                 params['fecha<'] = form.fechaHasta;
             }
             if (form.estado){   // Filtro por estado del parte
-                params['estado.id'] = form.estado.id;
+                params['estado._id'] = form.estado._id;
             }
             if (form.procesado){
                 if (form.procesado.id == 'si'){
@@ -80,7 +80,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
                 }
             }
             if (form.ubicacion){
-                params['ubicacion.id'] = form.ubicacion.id;
+                params['ubicacion._id'] = form.ubicacion._id;
             }
             // Sorting
             params['sort'] = '-fecha';

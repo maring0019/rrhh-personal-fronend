@@ -25,14 +25,14 @@ export class GuardiaItemListComponent extends CRUDItemListComponent{
 
 
     public onNavigate(objeto) {
-        if (objeto.id){
-            this.router.navigate([this.router.url+'/editar/' + objeto.id]);
+        if (objeto._id){
+            this.router.navigate([this.router.url+'/editar/' + objeto._id]);
         }
     }
 
     public onValidar(objeto) {
-        if (objeto.id){
-            this.router.navigate([this.router.url+'/validar/' + objeto.id]);
+        if (objeto._id){
+            this.router.navigate([this.router.url+'/validar/' + objeto._id]);
         }
     }
 

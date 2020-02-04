@@ -2,7 +2,8 @@
 <form name="datosSituacionForm" [formGroup]="datosSituacionForm">
     <div class="row">
         <div class="col-md-6">
-            <plex-select 
+            <plex-select
+                [idField]="'_id'"
                 [data]="tiposSituacion"
                 name="tipoSituacion"
                 formControlName="tipoSituacion"

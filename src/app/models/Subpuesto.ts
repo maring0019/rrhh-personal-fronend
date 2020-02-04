@@ -1,11 +1,11 @@
 export class SubPuesto {
-    id: String;
+    _id: String;
     nombre: string;
 
     constructor(subpuesto?)
     {
         subpuesto = subpuesto || {};
-        this.id = subpuesto.id || null;
+        this._id = subpuesto._id || null;
         this.nombre = subpuesto.nombre || '';
     }
 }

@@ -13,10 +13,11 @@ import { UploaderStatusComponent } from './uploader.status.component';
 export class FileManagerComponent implements OnInit {
     @Input() filesOwner:any;            // Objeto propietario de los archivos.
     @Input() autoSave:Boolean = false;  // Flag para indicar si los cambios impactan directamente sobre el obj propietario
-    @Input() filesAttached = [];        // Almacena unicamente info sobre los archivos uploaded
+    @Input() filesAttached = [];        // Archivos previos almacenados. Mantiene unicamente info sobre los archivos uploaded
     @Input() maxFiles;
-    @Input() size = 'lg';
+    @Input() size: 'lg' | 'sm'  = 'lg';
     @Input() title = 'Archivos adjuntos';
+    @Input() subtitle = '';
 
     @Output() filesChanged:EventEmitter<any> = new EventEmitter<any>(); // Notifica 
 
@@ -37,16 +38,13 @@ export class FileManagerComponent implements OnInit {
         private resolver: ComponentFactoryResolver){}
 
     public ngOnInit() {
-        this.initAusentismoFiles();
+        this.loadExistingFiles();
     }
 
-    private initAusentismoFiles(){
-        console.log('Searching files');
-        console.log(this.filesOwner)
-        if (this.filesOwner && this.filesOwner.id){
-            this.filesService.getObjectFiles(this.filesOwner.id)
+    private loadExistingFiles(){
+        if (this.filesOwner && this.filesOwner._id){
+            this.filesService.getObjectFiles(this.filesOwner._id)
                 .subscribe(data => {
-                    console.log('Volcimos de la busqueda');
                     this.filesAttached = data;
             });
         }
@@ -124,8 +122,8 @@ export class FileManagerComponent implements OnInit {
     }
 
     /**
-     * Remueve visualmente el archivo indicado del listado de archivos
-     * que ya han sido asociados a un objeto. No realiza un borrado fisico
+     * Remueve el archivo indicado del listado de archivos que ya han
+     * sido asociados a un objeto. No realiza un borrado fisico
      * @param file 
      */
     removeFileAttached(file){
@@ -173,12 +171,9 @@ export class FileManagerComponent implements OnInit {
      * @param file 
      */
     private attachFilesToObj(obj?){
-        console.log('Guardado Fisico')
         if (this.filesToAttach.length){
-            console.log(this.filesToAttach);
-            console.log(obj)
             let filesIDs = this.filesToAttach.map(f=>f._id);
-            let objID = obj? obj.id : this.filesOwner.id;
+            let objID = obj? obj._id : this.filesOwner._id;
             return this.filesService.attachFiles(objID, filesIDs).subscribe();
         }
     }
@@ -191,7 +186,7 @@ export class FileManagerComponent implements OnInit {
     private dettachFilesFromObj(obj?){
         if (this.filesToDettach.length){
             let filesIDs = this.filesToDettach.map(f=>f._id);
-            let objID = obj? obj.id : this.filesOwner.id;
+            let objID = obj? obj._id : this.filesOwner._id;
             return this.filesService.dettachFiles(objID, filesIDs).subscribe();
         }
     }

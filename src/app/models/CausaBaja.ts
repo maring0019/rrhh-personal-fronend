@@ -1,11 +1,11 @@
 export class CausaBaja {
-    id: string;
+    _id: string;
     nombre: string;
 
     constructor(causa?)
     {
         causa = causa || {};
-        this.id = causa.id || null;
+        this._id = causa._id || null;
         this.nombre = causa.nombre || '';
     }
 }

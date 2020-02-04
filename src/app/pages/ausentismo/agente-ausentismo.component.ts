@@ -98,7 +98,7 @@ export class AgenteAusentismoComponent implements OnInit {
     onToggleFrancos(value){
         let weekends = getWeekdays(this.mesNavDefault.getMonth(), this.mesNavDefault.getFullYear());
         if (value){
-            let francos:Franco[] = weekends.map(f => f = {fecha:f, agente:{id:this.agenteID}});
+            let francos:Franco[] = weekends.map(f => f = {fecha:f, agente:{_id:this.agenteID}});
             this.calendarStoreService.addFrancos(francos);
         }
         else{

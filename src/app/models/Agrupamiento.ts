@@ -1,11 +1,11 @@
 export class Agrupamiento {
-    id: String;
+    _id: String;
     nombre: string;
 
     constructor(agrupamiento?)
     {
         agrupamiento = agrupamiento || {};
-        this.id = agrupamiento.id || null;
+        this._id = agrupamiento._id || null;
         this.nombre = agrupamiento.nombre || '';
     }
 }

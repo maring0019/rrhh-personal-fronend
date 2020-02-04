@@ -15,6 +15,6 @@
     <div class="d-flex flex-row">
         <plex-button *ngIf="agente.estado == 'baja'" type="success" type="sm" icon="star">Alta</plex-button>
         <plex-button type="success" type="sm" icon="mdi mdi-pencil" [routerLink]="['/agentes/registro/']">Editar</plex-button>
-        <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente.id]">Ver</plex-button>
+        <plex-button type="warning" type="sm" icon="mdi mdi-eye" [routerLink]="['/inicio/detalle/', agente._id]">Ver</plex-button>
     </div>
 </li>

@@ -2,12 +2,12 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!agente?.id">
-                    <strong>Agente |</strong> Alta de agente
+                <h5 class="align-self-center" *ngIf="!agente?._id">
+                    <strong>Agente </strong> | Alta de agente
                 </h5>
-                <h5 class="align-self-center" *ngIf="agente?.id">
-                        <strong>Agente |</strong>
-                        {{ (isEditable)? 'Edición de agente' : 'Detalle de agente' }}
+                <h5 class="align-self-center" *ngIf="agente?._id">
+                        <strong>Agente </strong>|
+                        {{ (isEditable)? ' Edición de agente' : ' Detalle de agente' }}
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <div *ngIf="!isEditable">

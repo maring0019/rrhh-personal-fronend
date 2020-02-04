@@ -79,7 +79,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
                 ]}) 
         }
         if (form.estado){
-            if (form.estado.id == 'activo'){
+            if (form.estado._id == 'activo'){
                 params['activo'] = true;
             }
             else{

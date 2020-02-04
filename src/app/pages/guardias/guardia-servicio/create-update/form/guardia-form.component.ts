@@ -35,7 +35,7 @@ export class GuardiaFormComponent implements OnInit {
     // Form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
     public periodoOpciones$ = this.guardiaPeriodoService.get({});
-    public servicioOpciones$ = this.servicioService.getByUserID({ userID : this.authService.usuario.id });
+    public servicioOpciones$ = this.servicioService.getByUserID({ userID : this.authService.usuario._id });
     public categoriaOpciones$ = this.categoriaService.get({});
 
     
@@ -77,7 +77,7 @@ export class GuardiaFormComponent implements OnInit {
     private initForm(){
         const lote = this.guardia.lote;
         return this.formBuilder.group({
-            id              : [this.guardia.id],
+            _id             : [this.guardia._id],
             periodo         : [this.guardia.periodo],
             servicio        : [lote? lote.servicio:null],
             categoria       : [lote? lote.categoria:null],

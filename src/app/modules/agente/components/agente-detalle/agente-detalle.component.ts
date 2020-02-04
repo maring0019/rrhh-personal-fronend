@@ -34,8 +34,8 @@ export class AgenteDetalleComponent{
     
 
     gotoAgente() {
-        if (this.agente.id){
-            this.router.navigate(['/agentes/registro' , { id: this.agente.id }]);
+        if (this.agente._id){
+            this.router.navigate(['/agentes/registro' , { id: this.agente._id }]);
         }
         else{
             this.router.navigate(['/agentes/registro']);
@@ -48,8 +48,8 @@ export class AgenteDetalleComponent{
     }
 
     verAusencias(){
-        if (this.agente.id){
-            this.router.navigate(['/agentes/ausencias' , { id: this.agente.id }]);
+        if (this.agente._id){
+            this.router.navigate(['/agentes/ausencias' , { id: this.agente._id }]);
         }
     }
 

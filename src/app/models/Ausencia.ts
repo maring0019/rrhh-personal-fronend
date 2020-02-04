@@ -1,11 +1,11 @@
 export class Ausencia {
-    id: String;
+    _id: String;
     agente: {
-        id: String;
+        _id: String;
     };
     fecha: Date;
     articulo: {
-        id: String,
+        _id: String,
         codigo: String
     };
     observacion: String;

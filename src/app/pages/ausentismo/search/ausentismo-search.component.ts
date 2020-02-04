@@ -57,7 +57,7 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public editarAusentismo(ausentismo){
-        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/${ausentismo.id}/editar`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/${ausentismo._id}/editar`);
     }
 
     public eliminarAusentismo(ausentismo){
@@ -75,7 +75,7 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public verIndicadores(){
-        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/indicadores`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/indicadores`);
     }
 
     public showResultados(objs:any){

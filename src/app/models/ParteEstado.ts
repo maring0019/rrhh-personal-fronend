@@ -1,11 +1,11 @@
 export class ParteEstado {
-    id: string;
+    _id: string;
     nombre: string;
 
     constructor(estado?)
     {
         estado = estado || {};
-        this.id = estado.id || null;
+        this._id = estado._id || null;
         this.nombre = estado.nombre || '';
     }
 }

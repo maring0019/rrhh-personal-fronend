@@ -191,8 +191,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
         // Validamos tambien la existencia del lote
         const loteSearchParams = {
-            'servicio.id': form.value.servicio.id,
-            'categoria.id': form.value.categoria.id,
+            'servicio._id': form.value.servicio._id,
+            'categoria._id': form.value.categoria._id,
             'tipoGuardia': form.value.tipoGuardia.id
         }
         const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
@@ -206,8 +206,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     private async findLoteGuardia(){
         const loteSearchParams = {
-            'servicio.id': this.guardia.lote.servicio.id,
-            'categoria.id': this.guardia.lote.categoria.id,
+            'servicio._id': this.guardia.lote.servicio._id,
+            'categoria._id': this.guardia.lote.categoria._id,
             'tipoGuardia': this.guardia.lote.tipoGuardia
         }      
         const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
@@ -227,7 +227,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         if ( await this.isGuardiaFormValid()) {
             this._extraSearchParams = {
                 'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
-                'situacionLaboral.cargo.agrupamiento._id': form.value.categoria.id,
+                'situacionLaboral.cargo.agrupamiento._id': form.value.categoria._id,
                 'activo': true
             }
             this.modalService.open('modal-add-agente');
@@ -242,13 +242,13 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      */
     public onAddAgenteSelected(agentes:Agente[]){
         agentes.forEach(agente => {
-            if (!this.guardia.planilla.some(e => e.agente.id === agente.id)){
+            if (!this.guardia.planilla.some(e => e.agente._id === agente._id)){
                 // Si el agente seleccionado aun no pertenece a la planilla
                 // lo incorporamos
                 this.guardia.planilla.push( new ItemGuardiaPlanilla({
                     agente: 
                         {
-                            id: agente.id,
+                            _id: agente._id,
                             nombre: agente.nombre,
                             apellido: agente.apellido,
                             numero: agente.numero

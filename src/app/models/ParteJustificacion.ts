@@ -1,11 +1,11 @@
 export class ParteJustificacion {
-    id: string;
+    _id: string;
     nombre: string;
 
     constructor(justificacion?)
     {
         justificacion = justificacion || {};
-        this.id = justificacion.id || null;
+        this._id = justificacion._id || null;
         this.nombre = justificacion.nombre || '';
     }
 }

@@ -1,5 +1,5 @@
 export class Sector {
-    id: String;
+    _id: String;
     nombre: string;
     jefe: String;
     servicio: String;
@@ -9,7 +9,7 @@ export class Sector {
     constructor(sector?)
     {
         sector = sector || {};
-        this.id = sector.id || null;
+        this._id = sector._id || null;
         this.nombre = sector.nombre || '';
         this.jefe = sector.jefe || null;
         this.servicio = sector.servicio || '';

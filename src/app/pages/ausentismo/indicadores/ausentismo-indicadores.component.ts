@@ -38,7 +38,7 @@ export class AusentismoIndicadoresComponent implements OnInit {
         }
     
     initIndicadores(agente){
-        this.agenteService.getLicenciasTotales(agente.id).subscribe((data) => {
+        this.agenteService.getLicenciasTotales(agente._id).subscribe((data) => {
             if (data && data.length){
                 let ind = data[0];
                 this.indicadores = [
@@ -60,7 +60,7 @@ export class AusentismoIndicadoresComponent implements OnInit {
     }
 
     public onClose(){
-        this.router.navigateByUrl(`/agentes/${this.agente.id}/ausencias/listado`);
+        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausencias/listado`);
     }
 
 }

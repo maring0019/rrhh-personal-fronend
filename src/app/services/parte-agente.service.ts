@@ -24,7 +24,7 @@ export class ParteAgenteService {
     }
 
     put(object: ParteAgente): Observable<ParteAgente> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     } 
 

@@ -31,7 +31,7 @@ export class ArticuloUpdateFormComponent extends CrudUpdateFormComponent impleme
 
     initForm(){
         return this.formBuilder.group({
-            id                    : [this.object.id],
+            _id                   : [this.object._id],
             codigo                : [this.object.codigo],
             nombre                : [this.object.nombre],
             descripcion           : [this.object.descripcion],

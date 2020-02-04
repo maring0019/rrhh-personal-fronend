@@ -88,8 +88,8 @@ export abstract class CRUDItemListComponent {
 
     public onNavigate(objeto) {
         
-        if (objeto.id){
-            this.router.navigate(['/objetos/registro' , { id: objeto.id }]);
+        if (objeto._id){
+            this.router.navigate(['/objetos/registro' , { id: objeto._id }]);
         }
         else{
             this.router.navigate(['/objetos/registro']);

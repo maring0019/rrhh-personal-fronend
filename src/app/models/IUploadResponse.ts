@@ -3,7 +3,7 @@ export interface IUploadResponse {
     originalname: String;
     encoding: String;
     mimetype: String;
-    id: String;
+    _id: String;
     adapter: String;
     downloadURL: String;
     progress:Number;

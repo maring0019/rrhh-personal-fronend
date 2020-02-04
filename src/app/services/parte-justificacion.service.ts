@@ -24,7 +24,7 @@ export class ParteJustificacionService {
     }
 
     put(object: ParteJustificacion): Observable<ParteJustificacion> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     }
 

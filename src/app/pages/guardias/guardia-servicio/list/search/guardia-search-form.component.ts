@@ -73,13 +73,13 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
             //     }
             // }
             if (form.periodo){
-                params['periodo._id'] = form.periodo.id;
+                params['periodo._id'] = form.periodo._id;
             }
             if (form.servicio){
-                params['lote.servicio.id'] = form.servicio.id;
+                params['lote.servicio._id'] = form.servicio._id;
             }
             if (form.categoria){
-                params['lote.categoria.id'] = form.categoria.id;
+                params['lote.categoria._id'] = form.categoria._id;
             }
             if (form.tipoGuardia){
                 params['lote.tipoGuardia'] = form.tipoGuardia.id;

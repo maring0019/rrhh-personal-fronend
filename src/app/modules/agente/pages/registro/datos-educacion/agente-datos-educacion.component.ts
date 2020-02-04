@@ -18,7 +18,7 @@ export class AgenteDatosEducacionComponent implements OnInit {
     
     datosEducacionForm: FormGroup;
     public titulos: Array<Educacion[]> = [];
-    tiposEducacion = enumerados.getObjTipos(enumerados.TipoEducacion);
+    public tiposEducacion = enumerados.getObjTipos(enumerados.TipoEducacion);
     
     constructor(
         private formBuilder: FormBuilder,

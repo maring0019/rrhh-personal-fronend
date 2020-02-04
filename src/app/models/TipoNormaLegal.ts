@@ -1,11 +1,11 @@
 export class TipoNormaLegal {
-    id: String;
+    _id: String;
     nombre: String;
 
     constructor(tipoNormaLegal?)
     {
         tipoNormaLegal = tipoNormaLegal || {};
-        this.id = tipoNormaLegal.id || null;
+        this._id = tipoNormaLegal._id || null;
         this.nombre = tipoNormaLegal.nombre || '';
     }
 }

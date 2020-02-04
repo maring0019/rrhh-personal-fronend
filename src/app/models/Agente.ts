@@ -9,7 +9,7 @@ import { BajaAgente } from './BajaAgente';
 
 export class Agente {
 
-    id: String;
+    _id: String;
     numero: String; // En el alta aun no esta disponible este dato
     tipoDocumento: String; // No deberia utilizarse mas. Solo DU
     documento: String;
@@ -36,7 +36,7 @@ export class Agente {
     {
         agente = agente || {};
         this.activo = agente.activo;
-        this.id = agente.id || null;
+        this._id = agente._id || null;
         this.numero = agente.numero || '';
         this.documento = agente.documento || '';
         this.cuil = agente.cuil || '';

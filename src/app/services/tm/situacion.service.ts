@@ -30,7 +30,7 @@ export class TipoSituacionService {
     }
 
     put(situacion: TipoSituacion): Observable<TipoSituacion> {
-        return this.server.put(this.situacionUrl + '/' + situacion.id, situacion);
+        return this.server.put(this.situacionUrl + '/' + situacion._id, situacion);
     }
 
 }

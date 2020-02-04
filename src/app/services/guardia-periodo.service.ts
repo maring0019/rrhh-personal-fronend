@@ -25,7 +25,7 @@ export class GuardiaPeriodoService {
     }
 
     put(object: GuardiaPeriodo): Observable<GuardiaPeriodo> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     }
 

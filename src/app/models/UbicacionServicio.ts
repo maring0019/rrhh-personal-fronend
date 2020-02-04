@@ -1,5 +1,5 @@
 export class UbicacionServicio {
-    id: String;
+    _id: String;
     codigo: Number;
     nombre: String;
     nombreCorto: String;
@@ -12,7 +12,7 @@ export class UbicacionServicio {
     constructor(ubicacion?)
     {
         ubicacion = ubicacion || {};
-        this.id = ubicacion.id || null;
+        this._id = ubicacion._id || null;
         this.codigo = ubicacion.codigo || null;
         this.nombre = ubicacion.nombre || '';
         this.nombreCorto = ubicacion.nombreCorto || '';

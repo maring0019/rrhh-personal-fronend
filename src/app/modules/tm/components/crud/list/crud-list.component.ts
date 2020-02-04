@@ -91,12 +91,11 @@ export abstract class CRUDListComponent implements OnInit {
 
     public onItemListSelection(obj:any){
         this.objSelected = obj;
-        this.router.navigate([this.router.url+'/editar/'+obj.id]);
+        this.router.navigate([this.router.url+'/editar/'+obj._id]);
     }
 
     public onItemListDelete(obj:any){
         this.objSelected = obj;
-        // this.router.navigate([this.router.url+'/editar/'+obj.id]);
     }
 
 

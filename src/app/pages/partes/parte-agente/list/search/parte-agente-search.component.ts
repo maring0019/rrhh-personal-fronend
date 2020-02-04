@@ -67,7 +67,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     private getServiciosUserLogged(){
-        return this.ubicacionService.getByUserID({ userID: this.authService.usuario.id });
+        return this.ubicacionService.getByUserID({ userID: this.authService.usuario._id });
     }
 
     prepareSearchParams(){
@@ -78,7 +78,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
                 params['fecha'] = form.fecha;
             }
             if (form.servicio){ // Filtro por servicio del parte
-                params['ubicacion.id'] = form.servicio.id;
+                params['ubicacion._id'] = form.servicio._id;
             }
         }
         return params;
@@ -92,7 +92,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
                     // asociados al parte encontrado y notificamos
                     const parte = objects[0];
                     this.searchEndParte.emit(parte);
-                    this.searchPartesAgentes(parte.id);
+                    this.searchPartesAgentes(parte._id);
                 }
                 else {
                     // Si el parte no existe lo creamos junto a los
@@ -125,7 +125,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
                 object => {
                     if (object) {
                         this.searchEndParte.emit(object);
-                        return this.searchPartesAgentes(object.id)
+                        return this.searchPartesAgentes(object._id)
                     }
                     else{
                         this.searchEndParte.emit(null);

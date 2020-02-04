@@ -31,7 +31,7 @@ export class FilesService {
                     let response = event.body;
                     response.status = 'uploaded';
                     response.progress = 100;
-                    response.downloadURL = this.getDownloadURL(response.id);
+                    response.downloadURL = this.getDownloadURL(response._id);
                     return event.body;
                 default:
                     return {}
@@ -59,7 +59,7 @@ export class FilesService {
         return this.server.get(url).pipe(
             map(files =>
                 files.map(file => {
-                    file.downloadURL = `${this.serverUrl}${this.baseUrl}/objects/${objectId}/files/${file.id}/download`;
+                    file.downloadURL = `${this.serverUrl}${this.baseUrl}/objects/${objectId}/files/${file._id}/download`;
                     return file;
                 })
             )

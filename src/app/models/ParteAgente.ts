@@ -1,12 +1,12 @@
 import { ParteJustificacion } from './ParteJustificacion';
 
 export class ParteAgente {
-    id: String;
+    _id: String;
     parte: { 
-        id: String
+        _id: String
     };
     agente: { 
-        id: String,
+        _id: String,
         nombre: String,
         apellido: String
     };
@@ -18,7 +18,7 @@ export class ParteAgente {
     };
     ausencia: {
         articulo: { 
-            id: String,
+            _id: String,
             codigo: String,
             descripcion: String
         }
@@ -30,7 +30,7 @@ export class ParteAgente {
     constructor(parteAgente?)
     {
         parteAgente = parteAgente || {};
-        this.id = parteAgente.id || null;
+        this._id = parteAgente._id || null;
         this.parte = parteAgente.parte || null;
         this.agente = parteAgente.agente || null;
         this.fichadas = parteAgente.fichadas || null;

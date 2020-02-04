@@ -19,7 +19,7 @@ export class EducacionService {
     }
 
     put(educacion: Educacion): Observable<Educacion> {
-        return this.server.put(this.educacionUrl + '/' + educacion.id, educacion);
+        return this.server.put(this.educacionUrl + '/' + educacion._id, educacion);
     }
 
 }

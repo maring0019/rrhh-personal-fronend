@@ -1,12 +1,12 @@
 import { Ausencia } from './Ausencia';
 
 export class Ausentismo {
-    id: String;
+    _id: String;
     agente: {
-        id: String;
+        _id: String;
     };
     articulo: {
-        id: String,
+        _id: String,
         codigo: String,
         color: String
     };
@@ -23,7 +23,7 @@ export class Ausentismo {
     constructor(ausentismo?)
     {
         ausentismo = ausentismo || {};
-        this.id = ausentismo.id || null;
+        this._id = ausentismo._id || null;
         this.agente = ausentismo.agente || null;
         this.articulo = ausentismo.articulo || null;
         this.fechaDesde = ausentismo.fechaDesde;

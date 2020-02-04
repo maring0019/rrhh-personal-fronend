@@ -123,7 +123,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     private otherEventOnSameDay(eventB) {
         const evento = this.eventos.find(
             eventA => (eventA.startString == eventB.extendedProps.startString
-                && eventA.id != eventB.id)
+                && eventA._id != eventB._id)
         );
         return evento;
     }
@@ -168,7 +168,7 @@ export class MainCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (e && e.event) {
             const props = e.event.extendedProps;
             this.calendarStoreService.selectionRange = { fechaDesde: new Date(props.ausentismoFechaDesde), fechaHasta: new Date(props.ausentismoFechaHasta) };
-            this.calendarStoreService.ausentismoSelected = new Ausentismo({ id: props._id })
+            this.calendarStoreService.ausentismoSelected = new Ausentismo({ _id: props._id })
         }
     }
 

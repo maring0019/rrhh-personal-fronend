@@ -33,7 +33,7 @@ export class FeriadoUpdateFormComponent extends CrudUpdateFormComponent implemen
 
     initForm(){
         return this.formBuilder.group({
-            id                 : [this.object.id],
+            _id                : [this.object._id],
             fecha              : [this.object.fecha],
             descripcion        : [this.object.descripcion],
         });

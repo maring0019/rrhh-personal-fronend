@@ -53,7 +53,7 @@ export class AusentismoCargaUpdateComponent implements OnInit {
     initAusentismoForm(){
         this.ausentismoForm = this.formBuilder.group({
             agente            : [this.ausentismo.agente],
-            id                : [this.ausentismo.id],
+            _id               : [this.ausentismo._id],
             articulo          : [this.ausentismo.articulo],
             fechaDesde        : [this.ausentismo.fechaDesde],
             fechaHasta        : [this.ausentismo.fechaHasta],

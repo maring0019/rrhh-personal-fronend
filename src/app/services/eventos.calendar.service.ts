@@ -100,12 +100,12 @@ export class EventosCalendarService {
     }
 
     removeFrancos(francosToRemove){
-        return this.francoService.deleteFrancos(francosToRemove.map(f=>f.id));
+        return this.francoService.deleteFrancos(francosToRemove.map(f=>f._id));
     }
 
     mapFranco(franco){
         return {
-            'id': franco.id,
+            '_id': franco._id,
             'title': franco.descripcion? franco.descripcion: 'Franco',
             'start': franco.fecha,
             'allDay': true,
@@ -120,7 +120,7 @@ export class EventosCalendarService {
 
     mapAusencia(ausencia, ausentismo){
         return {
-            'id': ausencia.id? ausencia.id:ausencia._id,
+            '_id': ausencia._id,
             'title':  `ART. ${ausentismo.articulo.codigo}`,
             'start': ausencia.fecha,
             'allDay': true,

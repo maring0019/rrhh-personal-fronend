@@ -1,12 +1,12 @@
 export class TipoSituacion {
-    id: string;
+    _id: string;
     nombre: string;
     requiereVencimiento: Boolean;
 
     constructor(situacion?)
     {
         situacion = situacion || {};
-        this.id = situacion.id || null;
+        this._id = situacion._id || null;
         this.nombre = situacion.nombre || '';
         this.requiereVencimiento = this.requiereVencimiento;
     }

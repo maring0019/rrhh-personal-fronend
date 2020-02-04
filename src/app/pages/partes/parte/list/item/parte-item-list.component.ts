@@ -34,8 +34,8 @@ export class ParteItemListComponent extends CRUDItemListComponent{
     }
 
     public onNavigate(objeto) {
-        if (objeto.id){
-            this.router.navigate(['/partes/:id/agentes' , { id: objeto.id }]);
+        if (objeto._id){
+            this.router.navigate(['/partes/:/agentes' , { id: objeto._id }]);
         }
         else{
             this.router.navigate(['/objetos/registro']);

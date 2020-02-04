@@ -2,10 +2,10 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!guardia?.id">
+                <h5 class="align-self-center" *ngIf="!guardia?._id">
                     <strong>Guardias |</strong> Alta nueva planilla
                 </h5>
-                <h5 class="align-self-center" *ngIf="guardia?.id">
+                <h5 class="align-self-center" *ngIf="guardia?._id">
                         <strong>Guardias |</strong>
                         {{ (isEditable)? 'Edición de planilla (Guardia sin Confirmar)' : 'Detalle de planilla (Guardia Confirmada)' }}
                     </h5>

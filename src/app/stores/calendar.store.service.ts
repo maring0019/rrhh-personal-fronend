@@ -116,7 +116,7 @@ export class CalendarStoreService {
     }
 
     removeAusentismo(ausentismo: Ausentismo): Observable<any>{
-        return this.ausentismoService.delete(ausentismo.id).pipe(
+        return this.ausentismoService.delete(ausentismo._id).pipe(
             map( data => {
                 this.ausencias = this.filterAB(this.ausencias, ausentismo.ausencias);
                 this.refreshEventos();
@@ -187,7 +187,7 @@ export class CalendarStoreService {
      * @param listB elementos a filtrar en listA
      */
     private filterAB(listA, listB){
-        return listA.filter( x => !listB.filter( y => y.id === x.id).length);
+        return listA.filter( x => !listB.filter( y => y._id === x._id).length);
     }
     
 

@@ -18,7 +18,7 @@ export class RegimenHorarioService {
     }
 
     put(object: RegimenHorario): Observable<RegimenHorario> {
-        return this.server.put(this.url + '/' + object.id, object);
+        return this.server.put(this.url + '/' + object._id, object);
     }
 
 }

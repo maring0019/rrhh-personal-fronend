@@ -49,6 +49,7 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
 
     public onSearchParte(parte){
         this.parteToUpdate = parte;
+        // this.estadoPresentacionConfirmada = (parte.estado && parte.estado.nombre == "Presentación total");
         if (parte.estado && parte.estado.nombre == "Presentación total") {
             this.estadoPresentacionConfirmada = true;
         }

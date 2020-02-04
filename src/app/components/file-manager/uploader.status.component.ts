@@ -51,7 +51,7 @@ export class UploaderStatusComponent implements OnInit {
 
 
     attachFileToObj(fileToAttach){
-        this.filesService.attachFiles(this.objectRef.id, [fileToAttach.id])
+        this.filesService.attachFiles(this.objectRef._id, [fileToAttach._id])
         .subscribe( files => {
             this.notifySuccess(files);
         },

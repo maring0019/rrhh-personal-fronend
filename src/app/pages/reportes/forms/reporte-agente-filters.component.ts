@@ -80,10 +80,10 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
         let form = this.form.value;
         // Filters
         if (form.optionAgenteLugarTrabajo){
-            params['situacionLaboral.cargo.sector._id'] = form.lugarTrabajo.id;
+            params['situacionLaboral.cargo.sector._id'] = form.lugarTrabajo._id;
         }
         if (form.optionAgente){
-            params['_id'] = form.agente.id;
+            params['_id'] = form.agente._id;
         }
         if (form.activo){
             if (form.activo.id == 'activo') params['activo'] = true;

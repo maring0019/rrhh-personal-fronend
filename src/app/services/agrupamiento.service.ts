@@ -18,7 +18,7 @@ export class AgrupamientoService {
     }
 
     put(object: Agrupamiento): Observable<Agrupamiento> {
-        return this.server.put(this.url + '/' + object.id, object);
+        return this.server.put(this.url + '/' + object._id, object);
     }
 
 }

@@ -33,7 +33,7 @@ export class SituacionUpdateFormComponent extends CrudUpdateFormComponent implem
 
     initForm(){
         return this.formBuilder.group({
-            id                  : [this.object.id],
+            _id                 : [this.object._id],
             nombre              : [this.object.nombre],
             requiereVencimiento : [this.object.requiereVencimiento]
         });

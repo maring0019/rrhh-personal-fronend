@@ -1,6 +1,6 @@
 <ng-container *ngFor="let item of listado">
     <div class="item-row" (click)="seleccionarItem(item)"
-        [ngClass]="{'item-row-selected': itemSelected?.id == item.id}">
+        [ngClass]="{'item-row-selected': itemSelected?._id == item._id}">
         <div class="item-column">
             <div class="d-flex flex-row justify-content-start">
                 <plex-label

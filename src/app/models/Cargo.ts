@@ -5,7 +5,7 @@ import { SubPuesto } from './Subpuesto';
 import { Sector } from './Sector';
 
 export class Cargo {
-    id: String;
+    _id: String;
     agrupamiento: Agrupamiento;
     puesto: Puesto;              // Alias Agrupamiento (otro agrupamiento)
     subpuesto: SubPuesto;        // Alias Funcion
@@ -17,7 +17,7 @@ export class Cargo {
     constructor(cargo?)
     {
         cargo = cargo || {};
-        this.id = cargo.id || null;
+        this._id = cargo._id || null;
         this.agrupamiento = cargo.agrupamiento || null;
         this.puesto = cargo.puesto || null;
         this.subpuesto = cargo.subpuesto || null;

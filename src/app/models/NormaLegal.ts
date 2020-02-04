@@ -1,7 +1,7 @@
 import { TipoNormaLegal } from './TipoNormaLegal';
 
 export class NormaLegal {
-    id: String;
+    _id: String;
     tipoNormaLegal: TipoNormaLegal;
     numeroNormaLegal: String;
     fechaNormaLegal: Date;
@@ -10,7 +10,7 @@ export class NormaLegal {
     constructor(normaLegal?)
     {
         normaLegal = normaLegal || {};
-        this.id = normaLegal.id || null;
+        this._id = normaLegal._id || undefined;
         this.tipoNormaLegal = normaLegal.tipoNormaLegal || null;
         this.numeroNormaLegal = normaLegal.numeroNormaLegal || '';
         this.fechaNormaLegal = normaLegal.fechaNormaLegal;

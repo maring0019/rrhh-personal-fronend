@@ -152,8 +152,8 @@ export class AgenteItemListadoComponent {
     }
 
     public gotoAgente(agente) {
-        if (agente.id){
-            this.router.navigate(['/agentes/registro' , { id: agente.id }]);
+        if (agente._id){
+            this.router.navigate(['/agentes/registro' , { id: agente._id }]);
         }
         else{
             this.router.navigate(['/agentes/registro']);
@@ -161,8 +161,8 @@ export class AgenteItemListadoComponent {
     }
 
     public gotoAusenciasAgente(agente){
-        if (agente.id){
-            this.router.navigateByUrl(`/agentes/${agente.id}/ausencias/listado`);
+        if (agente._id){
+            this.router.navigateByUrl(`/agentes/${agente._id}/ausencias/listado`);
         }
     }
   

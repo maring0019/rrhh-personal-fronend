@@ -20,7 +20,7 @@ export class CausaBajaService {
     }
 
     put(situacion: CausaBaja): Observable<CausaBaja> {
-        return this.server.put(this.baseUrl + '/' + situacion.id, situacion);
+        return this.server.put(this.baseUrl + '/' + situacion._id, situacion);
     }
 
 }

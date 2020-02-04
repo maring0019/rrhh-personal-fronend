@@ -70,7 +70,7 @@ export class AgenteDatosDireccionComponent implements OnInit {
             this.localidades = [];
         }
         else{
-            this.localidadService.get({provincia:provincia.id})
+            this.localidadService.get({provincia:provincia._id})
                 .subscribe(data => {
                     this.localidades = data;
             });

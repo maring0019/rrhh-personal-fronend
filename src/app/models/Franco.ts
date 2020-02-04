@@ -1,6 +1,6 @@
 export class Franco {
-    id?: String;
+    _id?: String;
     fecha: Date;
-    agente: { id: String }
+    agente: { _id: String }
     descripcion?: String;
 }

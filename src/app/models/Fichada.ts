@@ -1,7 +1,7 @@
 export class Fichada {
-    id: String;
+    _id: String;
     agente: { 
-        id: String,
+        _id: String,
         nombre: String,
         apellido: String
     };
@@ -13,7 +13,7 @@ export class Fichada {
     constructor(fichada?)
     {
         fichada = fichada || {};
-        this.id = fichada.id || null;
+        this._id = fichada._id || null;
         this.agente = fichada.agente || null;
         this.entrada = fichada.entrada;
         this.salida = fichada.salida;

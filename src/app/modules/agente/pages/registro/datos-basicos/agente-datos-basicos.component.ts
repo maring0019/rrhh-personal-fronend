@@ -62,7 +62,7 @@ export class AgenteDatosBasicosComponent implements OnInit, AfterViewInit {
     createDatosBasicosForm()
     {
         return this.formBuilder.group({
-            id              : [this.agente.id],
+            _id             : [this.agente._id],
             nombre          : [this.agente.nombre],
             apellido        : [this.agente.apellido],
             documento       : [this.agente.documento],

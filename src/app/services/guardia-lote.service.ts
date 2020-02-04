@@ -25,7 +25,7 @@ export class GuardiaLoteService {
     }
 
     put(object: GuardiaLote): Observable<GuardiaLote> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     }
 

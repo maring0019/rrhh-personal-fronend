@@ -34,7 +34,7 @@ export class FeriadoService {
     }
 
     put(object: Feriado): Observable<Feriado> {
-        const url = `${this.baseUrl}/${object.id}`;
+        const url = `${this.baseUrl}/${object._id}`;
         return this.server.put(url, object);
     }
 

@@ -195,7 +195,7 @@ export class ReporteSeleccionTipoComponent implements OnInit {
             params['fechaHasta'] = this.parseDate(form.fechaHasta);
         }
         if (form.articulos){
-            params['articulos'] =  (form.articulos.map(e=>e.id)).join();
+            params['articulos'] =  (form.articulos.map(e=>e._id)).join();
         }
         // Agrupamiento
         if (form.agrupamiento){

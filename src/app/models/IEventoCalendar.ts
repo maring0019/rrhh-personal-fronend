@@ -1,5 +1,5 @@
 export interface IEventoCalendar {
-    id:String,
+    _id:String,
     title: String,
     start: Date,
     allDay: Boolean,

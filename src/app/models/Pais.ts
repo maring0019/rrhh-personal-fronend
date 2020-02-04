@@ -1,11 +1,11 @@
 export class Pais {
-    id: String;
+    _id: String;
     nombre: String;
     gentilicio: String;
 
     constructor(pais?){
         pais = pais || {};
-        this.id = pais.id || null;
+        this._id = pais._id || null;
         this.nombre = pais.nombre || '';
         this.gentilicio = pais.gentilicio || '';
     }

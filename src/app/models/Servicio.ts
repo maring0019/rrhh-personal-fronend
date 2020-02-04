@@ -1,5 +1,5 @@
 export class Servicio {
-    id: String;
+    _id: String;
     nombre: String;
     jefe: String; // ID de un Agente
     // departamento: DepartamentoSchema,
@@ -10,7 +10,7 @@ export class Servicio {
     constructor(servicio?)
     {
         servicio = servicio || {};
-        this.id = servicio.id || null;
+        this._id = servicio._id || null;
         this.nombre = servicio.nombre || '';
         this.jefe = servicio.jefe || '';
         this.ubicacion = servicio.ubicacion || null;

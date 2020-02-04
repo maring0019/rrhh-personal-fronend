@@ -18,7 +18,7 @@ export class PuestoService {
     }
 
     put(object: Puesto): Observable<Puesto> {
-        return this.server.put(this.url + '/' + object.id, object);
+        return this.server.put(this.url + '/' + object._id, object);
     }
 
 }

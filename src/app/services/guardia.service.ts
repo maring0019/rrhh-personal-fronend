@@ -30,22 +30,22 @@ export class GuardiaService {
     }
 
     put(object: Guardia): Observable<Guardia> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
     }
 
     putAndConfirmar(object: Guardia): Observable<Guardia> {
-        const url = `${this.url}/${object.id}/confirmar`;
+        const url = `${this.url}/${object._id}/confirmar`;
         return this.server.put(url, object);
     }
 
     putAndValidar(object: Guardia): Observable<Guardia> {
-        const url = `${this.url}/${object.id}/validar`;
+        const url = `${this.url}/${object._id}/validar`;
         return this.server.put(url, object);
     }
 
     generarCsv(object: Guardia): Observable<Guardia> {
-        const url = `${this.url}/${object.id}/generar-csv`;
+        const url = `${this.url}/${object._id}/generar-csv`;
         return this.server.get(url);
     }
 

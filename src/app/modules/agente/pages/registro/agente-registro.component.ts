@@ -279,6 +279,7 @@ export class AgenteRegistroComponent implements OnInit {
 
     private saveFiles(agente){
         this.fileManager.saveFileChanges(agente);
+        this.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
     }
 
     // Button Actions

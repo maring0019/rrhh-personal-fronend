@@ -8,7 +8,7 @@ interface IDiaGuardia {
 
 export class ItemGuardiaPlanilla {
     agente: {
-        id: String,
+        _id: String,
         nombre: String,
         apellido: String,
         numero: String
@@ -33,20 +33,20 @@ export class ItemGuardiaPlanilla {
 }
 
 export class Guardia {
-    id?: String;
+    _id?: String;
     periodo: GuardiaPeriodo;
     lote: GuardiaLote;
     planilla: ItemGuardiaPlanilla[];
     estado: String;
     fechaEntrega: Date;
     responsableEntrega: {    // Agente Jefe de Servicio
-        id: String,
+        _id: String,
         nombre: String,
         apellido: String
     };
     validado: Boolean;
     responsableValidacion: { // Agente de Gestion de Personal
-        id: String,
+        _id: String,
         nombre: String,
         apellido: String
     }; 
@@ -69,7 +69,7 @@ export class Guardia {
     constructor(guardia?)
     {
         guardia = guardia || {};
-        this.id = guardia.id || null;
+        this._id = guardia._id || null;
         this.periodo = guardia.periodo? new GuardiaPeriodo(guardia.periodo): null;
         this.lote = new GuardiaLote(guardia.lote);
         this.planilla = [];

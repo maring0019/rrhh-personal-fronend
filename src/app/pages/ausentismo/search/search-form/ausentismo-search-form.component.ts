@@ -96,8 +96,8 @@ export class AusentismoSearchFormComponent implements OnInit, OnDestroy {
 
     prepareSearchParams(searchValues){
         let _sv = {};
-        if (searchValues.agente) _sv = {..._sv, agenteId: searchValues.agente.id}
-        if (searchValues.articulo) _sv = {..._sv, articuloId: searchValues.articulo.id}
+        if (searchValues.agente) _sv = {..._sv, agenteId: searchValues.agente._id}
+        if (searchValues.articulo) _sv = {..._sv, articuloId: searchValues.articulo._id}
         if (searchValues.fechaDesde) _sv = {..._sv, fechaDesde: searchValues.fechaDesde}
         if (searchValues.fechaHasta) _sv = {..._sv, fechaHasta: searchValues.fechaHasta}
         return _sv;

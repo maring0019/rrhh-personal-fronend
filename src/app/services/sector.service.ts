@@ -18,7 +18,7 @@ export class SectorService {
     }
 
     put(object: Sector): Observable<Sector> {
-        return this.server.put(this.url + '/' + object.id, object);
+        return this.server.put(this.url + '/' + object._id, object);
     }
 
 }

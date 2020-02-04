@@ -42,4 +42,11 @@
             </plex-text>
         </div>
     </div>
+    <div class="mt-4 mb-4"></div>
+    <app-file-manager
+        *ngIf="normaLegal"
+        [title]="'Adjuntos Norma Legal'"
+        [size]="'sm'"
+        [filesOwner]="normaLegal">
+    </app-file-manager>
 </form>

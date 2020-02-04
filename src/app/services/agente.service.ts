@@ -56,22 +56,22 @@ export class AgenteService {
 
 
     put(agente: Agente): Observable<Agente> {
-        const url = `${this.agenteUrl}/${agente.id}`;
+        const url = `${this.agenteUrl}/${agente._id}`;
         return this.server.put(url, agente);
     }
 
     baja(agente: Agente, baja:BajaAgente): Observable<Agente> {
-        const url = `${this.agenteUrl}/${agente.id}/baja`;
+        const url = `${this.agenteUrl}/${agente._id}/baja`;
         return this.server.put(url, baja);
     }
 
     reactivar(agente: Agente): Observable<Agente> {
-        const url = `${this.agenteUrl}/${agente.id}/reactivar`;
+        const url = `${this.agenteUrl}/${agente._id}/reactivar`;
         return this.server.put(url, {});
     }
 
     addHistoriaLaboral(agente:Agente, situacion:SituacionLaboral):Observable<Agente>{
-        const url = `${this.agenteUrl}/${agente.id}/nuevaHistoriaLaboral`;
+        const url = `${this.agenteUrl}/${agente._id}/nuevaHistoriaLaboral`;
         return this.server.put(url, situacion);
     }
 

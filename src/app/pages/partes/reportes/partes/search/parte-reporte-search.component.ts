@@ -72,7 +72,7 @@ export class ParteReporteSearchFormComponent extends CRUDSearchFormComponent imp
                 params['fecha<'] = form.fechaHasta;
             }
             if (form.agente){
-                params['agente.id'] = form.agente.id;
+                params['agente._id'] = form.agente._id;
             }
         }
         return params;

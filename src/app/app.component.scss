@@ -60,28 +60,6 @@ body.jw-modal-open {
 
 $gap: 5px;
 
-// ::ng-deep dl {
-//   background-color: #eee;
-//   display: flex;
-//   flex-wrap: wrap;
-//   padding: 20px $gap/2;
-//   dt, dd {
-//     margin: $gap/2;
-//     text-indent: 10px;}
-//   dt {
-//     background-color: gold;
-//     flex: 0 0 calc(100% - #{$gap});
-//   }
-//   dd {
-//     background-color: lightblue;
-//     flex: 0 0 calc(30% - #{$gap});
-//   }
-//   .half {
-//     flex: 0 0 calc(70% - #{$gap});
-//    }
-// }
-
-
 
 ::ng-deep { 
     .item-row {

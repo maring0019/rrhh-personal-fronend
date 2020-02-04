@@ -25,7 +25,7 @@ export class AusentismoService {
     }
 
     put(object: Ausencia): Observable<Ausencia> {
-        return this.server.put(this.url + '/' + object.id, object);
+        return this.server.put(this.url + '/' + object._id, object);
     }
 
     delete(ausentismoId: any): Observable<any> {
@@ -58,7 +58,7 @@ export class AusentismoService {
     }
 
     putAusentismo(object: Ausentismo): Observable<any> {
-        const url = `${this.url}/${object.id}`;
+        const url = `${this.url}/${object._id}`;
         return this.server.put(url, object);
         // .pipe(
         //     map(data =>

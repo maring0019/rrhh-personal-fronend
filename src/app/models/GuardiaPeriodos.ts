@@ -1,5 +1,5 @@
 export class GuardiaPeriodo {
-    id?: String; _id?: String;
+    _id?: String;
     fechaDesde: Date;
     fechaHasta: Date;
     nombre: String;
@@ -8,7 +8,6 @@ export class GuardiaPeriodo {
     constructor(periodo?)
     {
         periodo = periodo || {};
-        this.id = periodo.id || null;
         this._id = periodo._id || null;
         this.fechaDesde = periodo.fechaDesde || null;
         this.fechaHasta = periodo.fechaHasta || null;
