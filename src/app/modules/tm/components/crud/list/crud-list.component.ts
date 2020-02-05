@@ -160,7 +160,7 @@ export abstract class CRUDListComponent implements OnInit {
     }
 
     public onCerrar(){
-        this.router.navigate(['/inicio']);
+        this.router.navigate(['/configuracion']);
     }
 
 }

@@ -1,0 +1,23 @@
+<plex-layout main="12">
+        <plex-layout-main>
+            <section>
+                <plex-box>
+                    <div class="text-center">
+                        <div *ngIf="menu" class="andes-inicio row">
+                            <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let item of menu">
+                                <app-block-menu
+                                    [icon]="item.icono"
+                                    [titulo]="item.titulo"
+                                    [subtitulo]="item.subtitulo"
+                                    [detalle]="item.detalle"
+                                    [url]="item.url"
+                                    [color]="item.color"
+                                    [style]="item.style">
+                                </app-block-menu>
+                            </div>
+                        </div>
+                    </div>
+                </plex-box>
+            </section>
+        </plex-layout-main>
+    </plex-layout>

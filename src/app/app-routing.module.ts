@@ -33,25 +33,28 @@ import { FichadaReporteListComponent } from 'src/app/pages/partes/reportes/ficha
 
 import { GuardiaCreateUpdateComponent } from './pages/guardias/guardia-servicio/create-update/guardia-create-update.component';
 import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/list/guardia-list.component';
-import { HomePageComponent } from 'src/app/pages/home/home.page';
+
 import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
+import { HomeMenuPageComponent } from 'src/app/pages/home/home-menu.page';
+import { ConfiguracionMenuPageComponent } from 'src/app/pages/home/configuracion-menu.page';
 
 const routes: Routes = [
     // Inicio
-    { path: 'inicio', component: HomePageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-
-    // Tablas maestras
-    { path: 'tm/articulos', component: ArticuloListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'tm/articulos/crear', component: ArticuloCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'tm/articulos/editar/:id', component: ArticuloUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-
-    { path: 'tm/situaciones', component: SituacionListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'tm/situaciones/crear', component: SituacionCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'tm/situaciones/editar/:id', component: SituacionUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'inicio', component: HomeMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
-    { path: 'tm/feriados', component: FeriadoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'tm/feriados/crear', component: FeriadoCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'tm/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    // Tablas maestras
+    { path: 'configuracion', component: ConfiguracionMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/articulos', component: ArticuloListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/articulos/crear', component: ArticuloCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/articulos/editar/:id', component: ArticuloUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
+    { path: 'configuracion/situaciones', component: SituacionListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/situaciones/crear', component: SituacionCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/situaciones/editar/:id', component: SituacionUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    
+    { path: 'configuracion/feriados', component: FeriadoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/feriados/crear', component: FeriadoCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },

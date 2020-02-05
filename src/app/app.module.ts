@@ -47,13 +47,15 @@ import { UbicacionService } from './services/ubicacion.service';
 import { GuardiaService } from './services/guardia.service';
 import { GuardiaPeriodoService } from './services/guardia-periodo.service';
 import { GuardiaLoteService } from './services/guardia-lote.service';
+import { MenuService } from './services/menu.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
 
 // Pages
 import { LoginPage } from './pages/login/login.page';
-import { HomePageComponent } from 'src/app/pages/home/home.page';
+import { ConfiguracionMenuPageComponent } from './pages/home/configuracion-menu.page';
+import { HomeMenuPageComponent } from './pages/home/home-menu.page';
 
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
@@ -121,6 +123,10 @@ import { TabContactoComponent } from './componentes/tabs/tab-contacto/tab-contac
 import { EdicionComponent } from './componentes/edicion/edicion.component';
 import { UploaderStatusComponent } from './components/file-manager/uploader.status.component';
 import { FileManagerComponent } from './components/file-manager/file.manager.component';
+import { LogoSvgComponent } from './styles/logo.svg';
+import { AcronimoSvgComponent } from './styles/acronimo.svg';
+import { BlockMenuComponent } from 'src/app/components/menu/block-menu.component';
+
 
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
@@ -195,8 +201,6 @@ import { RangeDirective } from './directives/range';
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
 
-import { LogoSvgComponent } from './styles/logo.svg';
-import { AcronimoSvgComponent } from './styles/acronimo.svg';
 
 const ADMIN_COMPONENTS = [
 
@@ -229,7 +233,8 @@ const ADMIN_COMPONENTS = [
     declarations: [
         AppComponent,
         LoginPage,
-        HomePageComponent,
+        HomeMenuPageComponent,
+        ConfiguracionMenuPageComponent,
 
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
@@ -309,6 +314,7 @@ const ADMIN_COMPONENTS = [
         ContextMenuComponent,
         UbicaciónFormSelectComponent,
         LeyendaComponent,
+        BlockMenuComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 
@@ -386,8 +392,8 @@ const ADMIN_COMPONENTS = [
         GuardiaService,
         GuardiaPeriodoService,
         GuardiaLoteService,
-
-        ParteAgenteService
+        ParteAgenteService,
+        MenuService
         
     ],
     bootstrap: [AppComponent],

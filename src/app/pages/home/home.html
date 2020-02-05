@@ -10,7 +10,19 @@
                             <h5 class="suffix-provincia">{{ provincia }} </h5>
                         </div>
                     </section> -->
-                    <div *ngIf="!denied" class="andes-inicio row">
+                    <div *ngIf="menu" class="andes-inicio row">
+                        <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let item of menu">
+                            <app-block-menu
+                                [icon]="item.icono"
+                                [titulo]="item.titulo"
+                                [subtitulo]="item.subtitulo"
+                                [detalle]="item.detalle"
+                                [url]="item.url"
+                                [color]="item.color">
+                            </app-block-menu>
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="!denied" class="andes-inicio row">
                         <div *ngIf="mpi" class="col-xs-12 col-sm-6 col-md-4">
                             <div class="boton color-celeste" routerLink="/agentes">
                                 <i class="icono mdi mdi-account-multiple-outline"></i>
@@ -47,15 +59,6 @@
                             </div>
                         </div>
         
-                        <!-- <div  class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="boton color-salmon" routerLink="/internacion/camas">
-                                <i class="icono mdi mdi-bell"></i>
-                                <div class="titulo">Novedades</div>
-                                <div class="subtitulo"></div>
-                                <div class="detalle"></div>
-                            </div>
-                        </div> -->
-        
                         <div  class="col-xs-12 col-sm-6 col-md-4">
                             <div class="boton color-verde" routerLink="/internacion/inicio">
                                 <i class="icono mdi mdi-settings"></i>
@@ -72,16 +75,7 @@
                                 <div class="subtitulo"></div>
                                 <div class="detalle"></div>
                             </div>
-                        </div>
-
-                        <!-- <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="boton andes-naranja-claro" routerLink="/dashboard">
-                                <i class="icono mdi mdi-chart-line"></i>
-                                <div class="titulo">Dashboard</div>
-                                <div class="subtitulo"></div>
-                                <div class="detalle"></div>
-                            </div>
-                        </div> -->
+                        </div>>
 
                     </div>
         
@@ -94,7 +88,7 @@
                                 <div class="detalle">Ud. no posee permisos para ningún módulo de ANDES</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
         
                 </div>
             </plex-box>
