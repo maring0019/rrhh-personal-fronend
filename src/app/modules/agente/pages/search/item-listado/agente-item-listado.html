@@ -25,13 +25,13 @@
             <plex-badge [type]="agente.activo? 'success': 'danger'">
                     {{ agente.activo? 'Activo' : 'Baja' }}
             </plex-badge>
-            <plex-button 
+            <!-- <plex-button 
                 title="Seleccionar Agente"
                 type="warning"
                 size="sm"
                 icon="mdi mdi-cursor-default"
                 (click)="seleccionarAgente(agente, i)">
-            </plex-button>
+            </plex-button> -->
             <plex-button
                 *ngIf="editable"
                 title="Ver Agente Detalle"

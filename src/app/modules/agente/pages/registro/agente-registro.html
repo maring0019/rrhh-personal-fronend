@@ -11,8 +11,20 @@
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <div *ngIf="!isEditable">
-                        <plex-button label="Editar Agente" type="info" (click)="onEditar()" class="mx-2"></plex-button>
-                        <plex-button label="Nueva Historia Laboral" type="info" class="mx-2"></plex-button>
+                        <plex-button
+                            *ngIf="agente?.activo"
+                            label="Editar Agente"
+                            type="info"
+                            (click)="onEditar()"
+                            class="mx-2">
+                        </plex-button>
+                        <plex-button
+                            *ngIf="agente?.activo"
+                            label="Nueva Historia Laboral"
+                            type="info"
+                            class="mx-2"
+                            (click)="onNuevaHistoriaLaboral()">
+                        </plex-button>
                         <plex-button
                             type="danger" 
                             icon="mdi mdi-close" 
@@ -116,7 +128,10 @@
             </plex-tab>
             <plex-tab label="ADJUNTOS">
                 <br>
-                <app-file-manager *ngIf="agente" [filesOwner]="agente">
+                <app-file-manager
+                    *ngIf="agente"
+                    [filesOwner]="agente"
+                    [editable]="editable">
                 </app-file-manager>
             </plex-tab>
 
@@ -150,3 +165,13 @@
         </app-agente-detalle>
     </plex-layout-sidebar> -->
 </plex-layout>
+
+<jw-modal id="modal-historia-laboral-create">
+    <div *ngIf="agente">
+        <app-historia-laboral-create
+            [agente]="agente"
+            (success)="onSuccessHistoriaLaboralCreate($event)"
+            (cancel)="onCancelModal('modal-historia-laboral-create')">
+        </app-historia-laboral-create>
+    </div>
+</jw-modal>

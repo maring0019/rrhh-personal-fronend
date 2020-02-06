@@ -79,7 +79,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
                 ]}) 
         }
         if (form.estado){
-            if (form.estado._id == 'activo'){
+            if (form.estado.id == 'activo'){
                 params['activo'] = true;
             }
             else{
@@ -87,7 +87,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
             }
         }
         if (form.situacion){
-            params['situacionLaboral.situacion.nombre'] = form.situacion.nombre;
+            params['situacionLaboral.situacion.tipoSituacion.nombre'] = form.situacion.nombre;
         }
         return params;
     }

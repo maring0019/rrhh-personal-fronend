@@ -3,7 +3,9 @@
         <h5><strong>Agente | </strong> Nueva Historia Laboral</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+        <!-- <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button> -->
+        <plex-button label="Aceptar" type="success" (click)="save()"></plex-button>
+        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
     </div>
 </header>
 <div class="row">
@@ -56,10 +58,4 @@
             </plex-tab>
         </plex-tabs>
     </div>
-</div>
-
-<br>
-<div class="d-flex flex-row justify-content-end">
-    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
-    <plex-button label="Aceptar" type="success" (click)="save()"></plex-button>
 </div>

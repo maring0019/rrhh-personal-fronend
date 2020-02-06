@@ -17,7 +17,6 @@ export class MenuService {
             subtitulo:'Configuración',
             url:'/configuracion/feriados',
             icono:'mdi-account-multiple-outline',
-            color:'color-celeste'
         }, 
         {
             titulo: 'Artículos',

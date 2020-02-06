@@ -3,7 +3,9 @@
         <h5><strong>Agente | </strong> Reactivar</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+        <!-- <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button> -->    
+        <plex-button label="Reactivar" type="success" (click)="guardar()"></plex-button>
+        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
     </div>
 </header>
 
@@ -64,8 +66,3 @@
         </div>
     </div>
 </form>
-<br>
-<div class="d-flex flex-row justify-content-end">
-    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
-    <plex-button label="Reactivar" type="success" (click)="guardar()"></plex-button>
-</div>

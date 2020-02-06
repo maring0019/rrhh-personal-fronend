@@ -90,12 +90,6 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
                 formUtils.markFormAsInvalid(f);
             }
         }
-        // forms.forEach(f => {
-        //     if (f.invalid){
-        //         existInvalidForms = true;
-        //         formUtils.markFormAsInvalid(f);
-        //     }
-        // });
         return !existInvalidForms;
     }
 

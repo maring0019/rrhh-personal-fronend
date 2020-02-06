@@ -24,7 +24,7 @@
 </header>
 
     <section class="d-flex flex-row mt-2">
-        <div class="d-flex flex-column align-items-center mt-2">
+        <div class="d-flex flex-column align-items-center mt-2 mr-4">
             <app-agente-foto
                 [foto]="foto"
                 [agente]="agente">
@@ -32,8 +32,12 @@
         </div>
         <article class="d-flex flex-column">
             <div class="d-flex flex-row">
-                <plex-badge type="info">{{ agente.situacion }}</plex-badge>
-                <plex-badge type="{{ agente.estado }}">{{ agente.estado }}</plex-badge>
+                <plex-badge type="info">
+                    {{ agente.situacionLaboral.situacion? (agente.situacionLaboral.situacion.tipoSituacion | title:'nombre') : 'Sin Situacion'}}
+                </plex-badge>
+                <plex-badge [type]="agente.activo? 'success': 'danger'">
+                        {{ agente.activo? 'Activo' : 'Baja' }}
+                </plex-badge>
             </div>
             <h3 class="mt-2 mb-4">
                 {{ agente.nombre }}<br>
@@ -192,13 +196,15 @@
                 </plex-panel>
             </plex-accordion>
         </li>
-        <li (click)="verAusencias()">
+        <li>
             <plex-accordion >
                 <plex-panel 
                     icon="mdi icon-nodos"
                     tituloPrincipal="Ausentismo">
-                    <app-indicador-licencias *ngIf="agente?._id" [agente]="agente">
+                    <app-indicador-licencias *ngIf="agente" [agente]="agente">
                     </app-indicador-licencias>
+                    <app-indicador-licencias-detalle *ngIf="agente" [agente]="agente">
+                    </app-indicador-licencias-detalle>
                 </plex-panel>
             </plex-accordion>
         </li>

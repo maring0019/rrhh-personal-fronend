@@ -9,7 +9,8 @@
             titlePosition="left"
             type="primary btn-sm"
             icon="plus"
-            (click)="uploader.click()">
+            (click)="uploader.click()"
+            [disabled]="!editable">
         </plex-button>
     </div>
     <input #uploader hidden type="file" (change)="onClickToUpload(uploader.files)" />
@@ -42,7 +43,8 @@
                     type="danger"
                     icon="mdi mdi-close"
                     size="sm"
-                    (click)="removeFile(idx)">
+                    (click)="removeFile(idx)"
+                    [disabled]="!editable">
                 </plex-button>
             </div>
         </div>

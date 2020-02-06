@@ -14,10 +14,11 @@ export class FileManagerComponent implements OnInit {
     @Input() filesOwner:any;            // Objeto propietario de los archivos.
     @Input() autoSave:Boolean = false;  // Flag para indicar si los cambios impactan directamente sobre el obj propietario
     @Input() filesAttached = [];        // Archivos previos almacenados. Mantiene unicamente info sobre los archivos uploaded
-    @Input() maxFiles;
+    @Input() maxFiles:Number;
     @Input() size: 'lg' | 'sm'  = 'lg';
-    @Input() title = 'Archivos adjuntos';
-    @Input() subtitle = '';
+    @Input() title:String = 'Archivos adjuntos';
+    @Input() subtitle:String = '';
+    @Input() editable:Boolean = true;
 
     @Output() filesChanged:EventEmitter<any> = new EventEmitter<any>(); // Notifica 
 

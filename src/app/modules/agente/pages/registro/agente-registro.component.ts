@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
+import { ModalService } from 'src/app/services/modal.service';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basicos.component';
@@ -75,7 +76,8 @@ export class AgenteRegistroComponent implements OnInit {
         private agenteService:AgenteService,
         private route: ActivatedRoute,
         private router: Router,
-        public plex: Plex
+        public plex: Plex,
+        private modalService: ModalService
         ){}
 
     ngOnInit() {
@@ -122,15 +124,6 @@ export class AgenteRegistroComponent implements OnInit {
         this.cargo = this.agente.situacionLaboral.cargo;
         this.regimen = this.agente.situacionLaboral.regimen;
     }
-
-    // initAusentismoFiles(){
-        // if (this._agenteID){
-        //     this.filesService.getObjectFiles(this.ausentismoID)
-        //         .subscribe(data => {
-        //             this.ausentismoFiles = data;
-        //     });
-        // }
-    // }
 
     onValueChangeAgente(obj: Agente){
         Object.assign(this.agenteDetalle, obj);
@@ -286,6 +279,14 @@ export class AgenteRegistroComponent implements OnInit {
 
     public onEditar(){
         this.isEditable = true;
+    }
+
+    public onNuevaHistoriaLaboral(){
+        this.modalService.open('modal-historia-laboral-create');
+    }
+
+    public onCancelModal(modalId:string){
+        this.modalService.close(modalId);
     }
 
     public onNextTab(){
