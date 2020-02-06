@@ -18,13 +18,13 @@
                             (click)="onEditar()"
                             class="mx-2">
                         </plex-button>
-                        <plex-button
+                        <!-- <plex-button
                             *ngIf="agente?.activo"
                             label="Nueva Historia Laboral"
                             type="info"
                             class="mx-2"
                             (click)="onNuevaHistoriaLaboral()">
-                        </plex-button>
+                        </plex-button> -->
                         <plex-button
                             type="danger" 
                             icon="mdi mdi-close" 
@@ -41,7 +41,6 @@
                             routerLink="/agentes">
                         </plex-button>
                     </div>
-                    
                 </div>
             </section>
         </header>
@@ -131,8 +130,18 @@
                 <app-file-manager
                     *ngIf="agente"
                     [filesOwner]="agente"
-                    [editable]="editable">
+                    [editable]="isEditable">
                 </app-file-manager>
+            </plex-tab>
+
+            <plex-tab label="HISTORIA LABORAL">
+                <div class="mt-4">
+                    <app-historia-laboral-list
+                        [agente]="agente"
+                        [historiaLaboral]="agente?.historiaLaboral"
+                        [editable]="isEditable">
+                    </app-historia-laboral-list>
+                </div>
             </plex-tab>
 
             <!-- Habilitar cuando sea posible 
@@ -165,13 +174,3 @@
         </app-agente-detalle>
     </plex-layout-sidebar> -->
 </plex-layout>
-
-<jw-modal id="modal-historia-laboral-create">
-    <div *ngIf="agente">
-        <app-historia-laboral-create
-            [agente]="agente"
-            (success)="onSuccessHistoriaLaboralCreate($event)"
-            (cancel)="onCancelModal('modal-historia-laboral-create')">
-        </app-historia-laboral-create>
-    </div>
-</jw-modal>

@@ -66,7 +66,7 @@ export class Agente {
         
         if (agente.historiaLaboral){
             agente.historiaLaboral.forEach(e => {
-                this.historiaLaboral.push(new SituacionLaboral(e))
+                this.historiaLaboral.push(e)
             });
         }
         

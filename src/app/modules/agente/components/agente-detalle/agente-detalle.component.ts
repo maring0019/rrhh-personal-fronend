@@ -47,10 +47,4 @@ export class AgenteDetalleComponent{
         this.onClose.emit();
     }
 
-    verAusencias(){
-        if (this.agente._id){
-            this.router.navigate(['/agentes/ausencias' , { id: this.agente._id }]);
-        }
-    }
-
 }

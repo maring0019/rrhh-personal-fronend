@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
-import { ModalService } from 'src/app/services/modal.service';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { AgenteDatosBasicosComponent } from './datos-basicos/agente-datos-basicos.component';
@@ -17,6 +16,7 @@ import { AgenteDatosNormaLegalComponent } from './datos-historia-laboral/datos-n
 import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
 import { AgenteDatosRegimenComponent } from './datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
 import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
+import { HistoriaLaboralListComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-list.component';
 
 import { Contacto } from 'src/app/models/Contacto';
 import { Agente } from 'src/app/models/Agente';
@@ -47,6 +47,7 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
     @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
+    @ViewChild(HistoriaLaboralListComponent) datosHistoriaLaboral: HistoriaLaboralListComponent
     @ViewChild("tabs") agenteTabs: PlexTabsComponent;
     
     
@@ -71,13 +72,16 @@ export class AgenteRegistroComponent implements OnInit {
     public agenteDetalle: Agente;
 
     private _agenteID:any; // To keep track of agente on edit
+    
+    // Variable de control para confirmar que el usuario desea editar
+    //
+    private edicionConfirmada:Boolean = false;
 
     constructor(
         private agenteService:AgenteService,
         private route: ActivatedRoute,
         private router: Router,
-        public plex: Plex,
-        private modalService: ModalService
+        public plex: Plex
         ){}
 
     ngOnInit() {
@@ -148,18 +152,23 @@ export class AgenteRegistroComponent implements OnInit {
 
     onValueChangeSituacion(obj: Situacion){
         this.agenteDetalle.situacionLaboral.situacion = obj;
+        this.confirmarEdicion();
+
     }
 
     onValueChangeNormaLegal(obj: NormaLegal){
         this.agenteDetalle.situacionLaboral.normaLegal = obj;
+        this.confirmarEdicion();
     }
 
     onValueChangeCargo(obj: Cargo){
         this.agenteDetalle.situacionLaboral.cargo = obj;
+        this.confirmarEdicion();
     }
 
     onValueChangeRegimen(obj: Regimen){
         this.agenteDetalle.situacionLaboral.regimen = obj;
+        this.confirmarEdicion();
     }
 
     allFormsValid(){
@@ -275,18 +284,26 @@ export class AgenteRegistroComponent implements OnInit {
         this.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
     }
 
+    /**
+     * 
+     */
+    private confirmarEdicion(){
+        if (this._agenteID && !this.edicionConfirmada){
+            this.plex.confirm(
+                    '¿Desea continuar con la edición o crear una nueva historia laboral?',
+                    'Se están editando datos laborales del agente.',
+                    'Continuar Editando','Crear Nueva Historia')
+                    .then( confirm => {
+                        this.edicionConfirmada = true;
+                        if (!confirm) this.datosHistoriaLaboral.nuevaHistoriaLaboral();
+                });
+        }
+    }
+
     // Button Actions
 
     public onEditar(){
         this.isEditable = true;
-    }
-
-    public onNuevaHistoriaLaboral(){
-        this.modalService.open('modal-historia-laboral-create');
-    }
-
-    public onCancelModal(modalId:string){
-        this.modalService.close(modalId);
     }
 
     public onNextTab(){

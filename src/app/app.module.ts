@@ -89,6 +89,7 @@ import { AgenteReactivarComponent } from './modules/agente/components/agente-rea
 
 // Agente Historia Laboral
 import { HistoriaLaboralCreateComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-create.component';
+import { HistoriaLaboralListComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-list.component';
 
 // Otros
 import { AgenteFormSelectComponent } from './modules/agente/components/agente-form-select/agente-form-select.component';
@@ -201,7 +202,6 @@ import { RangeDirective } from './directives/range';
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
 
-
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
@@ -249,6 +249,7 @@ const ADMIN_COMPONENTS = [
         AgenteDatosNormaLegalComponent,
 
         HistoriaLaboralCreateComponent,
+        HistoriaLaboralListComponent,
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,

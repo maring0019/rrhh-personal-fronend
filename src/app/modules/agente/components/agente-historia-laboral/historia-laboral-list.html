@@ -1,0 +1,59 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5 class="align-self-center">
+            Registros Historia Laboral
+        </h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button
+            *ngIf="agente?.activo"
+            titlePosition="left"
+            type="primary btn-sm"
+            icon="plus"
+            (click)="nuevaHistoriaLaboral()"
+            [disabled]="!editable">
+        </plex-button>
+    </div>
+</header>
+
+<ng-container *ngFor="let evento of historiaLaboral; let idx=index">
+    <div class="item-row">
+        <div class="item-column">
+            <div class="d-flex flex-row justify-content-start">
+                <plex-icon name="file"></plex-icon>
+                <plex-label 
+                    titulo="{{ evento.tipo }}"
+                    subtitulo="{{ evento.fecha | fecha:'diahora' }}">
+                </plex-label>
+            </div>
+        </div>
+        <div class="item-column item-botonera">
+            <div class="d-flex flex-row justify-content-end">  
+                <plex-button
+                    title="Ver detalle"
+                    type="info"
+                    icon="mdi mdi-eye"
+                    size="sm"
+                    (click)="removeFile(idx)"
+                    [disabled]="!editable">
+                </plex-button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+<app-leyenda
+    *ngIf="!historiaLaboral?.length"
+    [header]="'No hay registros de Historia Laboral aún!'">
+</app-leyenda>
+
+<jw-modal id="modal-historia-laboral-create">
+    <div *ngIf="agente">
+        <app-historia-laboral-create
+            [agente]="agente"
+            (success)="onSuccessHistoriaLaboralCreate($event)"
+            (cancel)="onCancelModal('modal-historia-laboral-create')">
+        </app-historia-laboral-create>
+    </div>
+</jw-modal>
