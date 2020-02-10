@@ -34,6 +34,7 @@ export class ArticuloCreateFormComponent extends CrudCreateFormComponent impleme
             codigo                : [],
             nombre                : [],
             descripcion           : [],
+            color                 : [],
             diasCorridos          : [],
             diasHabiles           : [],          
             descuentaDiasLicencia : []

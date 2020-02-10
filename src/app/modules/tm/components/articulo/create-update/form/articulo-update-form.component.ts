@@ -35,6 +35,7 @@ export class ArticuloUpdateFormComponent extends CrudUpdateFormComponent impleme
             codigo                : [this.object.codigo],
             nombre                : [this.object.nombre],
             descripcion           : [this.object.descripcion],
+            color                 : [this.object.color],
             diasCorridos          : [this.object.diasCorridos],
             diasHabiles           : [this.object.diasHabiles],          
             descuentaDiasLicencia : [this.object.descuentaDiasLicencia]

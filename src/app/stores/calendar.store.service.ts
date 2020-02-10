@@ -125,17 +125,9 @@ export class CalendarStoreService {
         )
     }
 
-    // removeAusentismo(ausentismo: Ausentismo): Observable<any>{
-    //     console.log(ausentismo);
-    //     return this.eventosService.removeAusentismo(ausentismo);
-
-    //     // removeTodo(id: number) {
-    //     //     this.todos = this.todos.filter(todo => todo.id !== id);
-    //     //   }
-    // }
 
     updateAusentismo(ausentismoToUpdate:Ausentismo, ausentismoActual:Ausentismo){
-        let ausenciasToRemove = ausentismoActual.ausencias;
+        let ausenciasToRemove = [ausentismoActual];// ausentismoActual.ausencias;
         return this.eventosService.updateAusentismo(ausentismoToUpdate).pipe(
             map(data => {
                 let ausentismo = data[0];

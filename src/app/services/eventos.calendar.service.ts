@@ -45,7 +45,7 @@ export class EventosCalendarService {
         return this.ausentismoService.postAusentismo(object).pipe(
             map(ausentismo => {
                 let ausencias:IEventoCalendar[] = [];
-                if (!ausentismo.warnings){
+                if (!ausentismo.warnings){ 
                     ausencias = ausentismo.ausencias
                         .map( aus => { return this.mapAusencia(aus, ausentismo)
                     });
@@ -109,8 +109,8 @@ export class EventosCalendarService {
             'title': franco.descripcion? franco.descripcion: 'Franco',
             'start': franco.fecha,
             'allDay': true,
-            // 'rendering': 'background',
-            'color':'grey',
+            'backgroundColor': "transparent",
+            'textColor': 'grey',
             'type': 'FRANCO',
             'ausentismoFechaDesde': franco.fecha,
             'ausentismoFechaHasta': franco.fecha
@@ -120,12 +120,12 @@ export class EventosCalendarService {
 
     mapAusencia(ausencia, ausentismo){
         return {
-            '_id': ausencia._id,
+            '_id': ausentismo._id,
             'title':  `ART. ${ausentismo.articulo.codigo}`,
             'start': ausencia.fecha,
             'allDay': true,
-            'backgroundColor': ausentismo.articulo.color? ausentismo.articulo.color: '#bce8f1',
-            'color':'',
+            'backgroundColor': "transparent",
+            'textColor': ausentismo.articulo.color? ausentismo.articulo.color: '#002738',
             'type': 'AUSENCIA',
             'ausentismoFechaDesde': ausentismo.fechaDesde,
             'ausentismoFechaHasta': ausentismo.fechaHasta
