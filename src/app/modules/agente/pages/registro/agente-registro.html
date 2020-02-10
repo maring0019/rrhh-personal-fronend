@@ -134,12 +134,13 @@
                 </app-file-manager>
             </plex-tab>
 
-            <plex-tab label="HISTORIA LABORAL">
+            <plex-tab label="HISTORIA LABORAL" *ngIf="agente?._id">
                 <div class="mt-4">
                     <app-historia-laboral-list
                         [agente]="agente"
                         [historiaLaboral]="agente?.historiaLaboral"
-                        [editable]="isEditable">
+                        [editable]="isEditable"
+                        (changed)="onValueChangeHistoriaLaboral($event)">
                     </app-historia-laboral-list>
                 </div>
             </plex-tab>

@@ -90,6 +90,7 @@ import { AgenteReactivarComponent } from './modules/agente/components/agente-rea
 // Agente Historia Laboral
 import { HistoriaLaboralCreateComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-create.component';
 import { HistoriaLaboralListComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-list.component';
+import { HistoriaLaboralItemListComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-item-list.component';
 
 // Otros
 import { AgenteFormSelectComponent } from './modules/agente/components/agente-form-select/agente-form-select.component';
@@ -199,6 +200,7 @@ import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/li
 import { GuardiaItemListComponent } from 'src/app/pages/guardias/guardia-servicio/list/item/guardia-item-list.component';
 import { GuardiaSearchFormComponent } from 'src/app/pages/guardias/guardia-servicio/list/search/guardia-search-form.component';
 import { RangeDirective } from './directives/range';
+
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
 
@@ -250,6 +252,7 @@ const ADMIN_COMPONENTS = [
 
         HistoriaLaboralCreateComponent,
         HistoriaLaboralListComponent,
+        HistoriaLaboralItemListComponent,
         
         AgenteSearchComponent,
         AgenteSearchFormComponent,

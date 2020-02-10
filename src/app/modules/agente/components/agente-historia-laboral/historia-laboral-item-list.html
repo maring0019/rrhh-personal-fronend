@@ -1,0 +1,56 @@
+<div class="item-row" (click)="selectItem(item)"
+    [ngClass]="{'item-row-selected': itemSelected?._id == item._id }">
+    <div class="item-column">
+        <div class="d-flex flex-row justify-content-start">
+            <plex-icon name="file"></plex-icon>
+            <plex-label 
+                titulo="{{ item.tipo }}"
+                subtitulo="{{ item.fecha | fecha:'diahora' }}">
+            </plex-label>
+        </div>
+    </div>
+    <div class="item-column item-botonera">
+        <div class="d-flex flex-row justify-content-end"> 
+            <plex-button
+                title="Ver detalle"
+                type="info"
+                icon="mdi mdi-eye"
+                size="sm"
+                (click)="viewItem(item)">
+            </plex-button>
+            <plex-button
+                title="Editar"
+                type="warning"
+                icon="mdi mdi-pencil"
+                size="sm"
+                (click)="editItem(item)"
+                [disabled]="!editable">
+            </plex-button>
+            <plex-button
+                title="Eliminar"
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="deleteItem(item)"
+                [disabled]="!editable">
+            </plex-button>
+        </div>
+    </div>
+</div>
+
+<jw-modal id="{{ modal_id }}">
+    <div *ngIf="itemSelected">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Historia Laboral | </strong> Detalle</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancelModal(modal_id)">Cerrar</plex-button>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+            </div>
+        </div>
+    </div>
+</jw-modal>

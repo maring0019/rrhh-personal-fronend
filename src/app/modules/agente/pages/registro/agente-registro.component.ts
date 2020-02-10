@@ -171,6 +171,11 @@ export class AgenteRegistroComponent implements OnInit {
         this.confirmarEdicion();
     }
 
+    onValueChangeHistoriaLaboral(e){
+        this.volverInicio();
+        // this.prepareDataForUpdate(); // Refresh
+    }
+
     allFormsValid(){
         const forms:any = [
             this.datosBasicos.datosBasicosForm,
@@ -331,7 +336,7 @@ export class AgenteRegistroComponent implements OnInit {
 
 
     volverInicio() {
-        this.router.navigate(['/agentes/busqueda'])
+        this.router.navigate(['/agentes'])
     }
     
 }

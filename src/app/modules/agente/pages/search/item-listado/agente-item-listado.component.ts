@@ -204,8 +204,7 @@ export class AgenteItemListadoComponent {
     public onSuccessHistoriaLaboralCreate(agente){
         this.modalService.close('modal-historia-laboral-create');
         this.plex.info('success', 'Se actualizó correctamente la Historia Laboral del Agente');
-        // TODO Refresh correctamente!!!
-        this.agenteSeleccionado = agente;
+        this.agenteSeleccionado.situacionLaboral = agente.situacionLaboral;
     }
 }
 

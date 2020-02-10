@@ -120,6 +120,8 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     addHistoriaLaboral(situacionLaboral:SituacionLaboral){
         this.agenteService.addHistoriaLaboral(this.agente, situacionLaboral)
             .subscribe( agente => {
+                // Try to save files 
+                this.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
                 this.resetForms();
                 this.success.emit(agente);
         })
