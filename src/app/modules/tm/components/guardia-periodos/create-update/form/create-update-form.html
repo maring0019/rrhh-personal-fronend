@@ -1,0 +1,46 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5><strong> {{ titulo }} | </strong> {{ subtitulo }}</h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
+    </div>
+</header>
+
+<form *ngIf='form' name="form" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-4 col-xs-12">
+            <plex-datetime
+                type="date"
+                label="Periodo Fecha Desde"
+                name="fechaDesde"
+                formControlName="fechaDesde"
+                [required]="true">
+            </plex-datetime>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <plex-datetime
+                type="date"
+                label="Periodo Fecha Hasta"
+                name="fechaHasta"
+                formControlName="fechaHasta"
+                [required]="true">
+            </plex-datetime>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <plex-text 
+                name="nombre" 
+                formControlName="nombre"
+                label="Nombre"
+                placeholder="Ingrese nombre para el periodo">
+            </plex-text>
+        </div>
+    </div>
+</form>
+<br>
+<div class="d-flex flex-row justify-content-end">
+    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
+    <plex-button label="Aceptar" type="success" (click)="aceptar()"></plex-button>
+</div>

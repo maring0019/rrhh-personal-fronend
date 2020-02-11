@@ -11,18 +11,6 @@ import { AusentismoSearchComponent } from './pages/ausentismo/search/ausentismo-
 import { AusentismoCargaComponent } from './pages/ausentismo/create-update/ausentismo-carga.component';
 import { AusentismoIndicadoresComponent } from './pages/ausentismo/indicadores/ausentismo-indicadores.component';
 
-
-import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
-import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
-import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
-
-import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
-import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
-import { SituacionCreateComponent } from './modules/tm/components/situacion/create-update/situacion-create.component';
-import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
-import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
-import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
-
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
@@ -37,6 +25,22 @@ import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/li
 import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
 import { HomeMenuPageComponent } from 'src/app/pages/home/home-menu.page';
 import { ConfiguracionMenuPageComponent } from 'src/app/pages/home/configuracion-menu.page';
+ 
+// TM
+import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
+import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
+import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
+
+import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
+import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
+import { SituacionCreateComponent } from './modules/tm/components/situacion/create-update/situacion-create.component';
+
+import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
+import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
+import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
+
+import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
+import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
 
 const routes: Routes = [
     // Inicio
@@ -56,6 +60,9 @@ const routes: Routes = [
     { path: 'configuracion/feriados/crear', component: FeriadoCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
+    { path: 'configuracion/guardia-periodos', component: GuardiaPeriodoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/guardia-periodos/crear', component: GuardiaPeriodoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/guardia-periodos/editar/:id', component: GuardiaPeriodoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 

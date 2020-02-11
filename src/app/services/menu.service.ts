@@ -29,6 +29,18 @@ export class MenuService {
             subtitulo:'Configuracion',
             url:'/configuracion/situaciones',
             icono:'mdi-account-multiple-outline'
+        },
+        { 
+            titulo: 'Periodos Guardia',
+            subtitulo:'Configuracion',
+            url:'/configuracion/guardia-periodos',
+            icono:'mdi-account-multiple-outline'
+        },
+        { 
+            titulo: 'Lotes Guardias',
+            subtitulo:'Configuracion',
+            url:'/configuracion/guardia-periodos',
+            icono:'mdi-account-multiple-outline'
         }]
 
     private menuPrincipal = [

@@ -204,6 +204,13 @@ import { RangeDirective } from './directives/range';
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
 
+// TM
+import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
+import { GuardiaPeriodoItemListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/item/guardia-periodo-item-list.component';
+import { GuardiaPeriodoSearchComponent } from 'src/app/modules/tm/components/guardia-periodos/list/search/guardia-periodo-search.component';
+import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
+import { GuardiaPeriodoCreateUpdateFormComponent } from './modules/tm/components/guardia-periodos/create-update/form/create-update-form.component';
+
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
@@ -229,6 +236,12 @@ const ADMIN_COMPONENTS = [
     ArticuloCreateFormComponent,
     ArticuloUpdateComponent,
     ArticuloUpdateFormComponent,
+
+    GuardiaPeriodoListComponent,
+    GuardiaPeriodoItemListComponent,
+    GuardiaPeriodoSearchComponent,
+    GuardiaPeriodoCreateUpdateComponent,
+    GuardiaPeriodoCreateUpdateFormComponent
   ]
 
 @NgModule({

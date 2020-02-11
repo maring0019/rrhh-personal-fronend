@@ -29,4 +29,9 @@ export class GuardiaPeriodoService {
         return this.server.put(url, object);
     }
 
+    delete(objectId: any): Observable<GuardiaPeriodo> {
+        const url = `${this.url}/${objectId}`;
+        return this.server.delete(url);
+    }
+
 }

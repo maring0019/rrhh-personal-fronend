@@ -28,7 +28,7 @@ export class GuardiaListComponent extends CRUDListComponent implements OnInit {
     }
 
     public cancelar(){
-        this.router.navigate(['/inicio'])
+        this.router.navigate(['/'])
     }
 
 }
