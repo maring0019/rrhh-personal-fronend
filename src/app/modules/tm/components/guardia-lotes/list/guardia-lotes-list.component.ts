@@ -3,15 +3,16 @@ import { Router } from '@angular/router';
 import { Plex } from '@andes/plex';
 
 import { IActionEvent } from 'src/app/models/IActionEvent';
-import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
+import { GuardiaLoteService } from 'src/app/services/guardia-lote.service';
 
 @Component({
-    selector: 'app-guardia-periodo-list',
-    templateUrl: 'guardia-periodo-list.html',
+    selector: 'app-guardia-lotes-list',
+    templateUrl: 'guardia-lotes-list.html',
 })
-export class GuardiaPeriodoListComponent implements OnInit {
+export class GuardiaLotesListComponent implements OnInit {
 
-    public titulo = 'Periodos';
+    public titulo = 'Lotes';
+    public subtitulo = 'Guardias';
     public canCreateObject: boolean = true;
 
     public objects:any[] = [];         // Contenedor de objetos visibles para el listado
@@ -26,7 +27,7 @@ export class GuardiaPeriodoListComponent implements OnInit {
     constructor(
         private router: Router,
         private plex: Plex,
-        private objectService: GuardiaPeriodoService) { }
+        private objectService: GuardiaLoteService) { }
 
     public ngOnInit() {}
 

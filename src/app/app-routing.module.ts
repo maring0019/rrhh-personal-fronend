@@ -41,6 +41,7 @@ import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create
 
 import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
 import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
+import { GuardiaLotesListComponent } from 'src/app/modules/tm/components/guardia-lotes/list/guardia-lotes-list.component';
 
 const routes: Routes = [
     // Inicio
@@ -63,6 +64,8 @@ const routes: Routes = [
     { path: 'configuracion/guardia-periodos', component: GuardiaPeriodoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/guardia-periodos/crear', component: GuardiaPeriodoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/guardia-periodos/editar/:id', component: GuardiaPeriodoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
+    { path: 'configuracion/guardia-lotes', component: GuardiaLotesListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 

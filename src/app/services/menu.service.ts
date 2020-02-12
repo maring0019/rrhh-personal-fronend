@@ -39,7 +39,7 @@ export class MenuService {
         { 
             titulo: 'Lotes Guardias',
             subtitulo:'Configuracion',
-            url:'/configuracion/guardia-periodos',
+            url:'/configuracion/guardia-lotes',
             icono:'mdi-account-multiple-outline'
         }]
 

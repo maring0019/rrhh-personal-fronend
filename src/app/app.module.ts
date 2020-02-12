@@ -210,6 +210,8 @@ import { GuardiaPeriodoItemListComponent } from 'src/app/modules/tm/components/g
 import { GuardiaPeriodoSearchComponent } from 'src/app/modules/tm/components/guardia-periodos/list/search/guardia-periodo-search.component';
 import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
 import { GuardiaPeriodoCreateUpdateFormComponent } from './modules/tm/components/guardia-periodos/create-update/form/create-update-form.component';
+import { GuardiaLotesListComponent } from './modules/tm/components/guardia-lotes/list/guardia-lotes-list.component';
+import { GuardiaLotesSearchComponent } from './modules/tm/components/guardia-lotes/list/search/guardia-lotes-search.component';
 
 const ADMIN_COMPONENTS = [
 
@@ -241,7 +243,10 @@ const ADMIN_COMPONENTS = [
     GuardiaPeriodoItemListComponent,
     GuardiaPeriodoSearchComponent,
     GuardiaPeriodoCreateUpdateComponent,
-    GuardiaPeriodoCreateUpdateFormComponent
+    GuardiaPeriodoCreateUpdateFormComponent,
+
+    GuardiaLotesListComponent,
+    GuardiaLotesSearchComponent
   ]
 
 @NgModule({
@@ -316,6 +321,7 @@ const ADMIN_COMPONENTS = [
         GuardiaListComponent,
         GuardiaItemListComponent,
         GuardiaSearchFormComponent,
+
 
         SearchLeyendaComponent,
         ListadoComponent,

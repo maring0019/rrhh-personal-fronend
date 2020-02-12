@@ -1,0 +1,65 @@
+<plex-layout main="12">
+
+    <plex-layout-main>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>{{ titulo }}</strong></h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">    
+                <plex-button
+                    *ngIf="canCreateObject"
+                    label="Nuevo"
+                    type="info"
+                    title="Nuevo Item"
+                    (click)="createItem()">
+                </plex-button>
+                <plex-button
+                    class="mx-2"
+                    type="danger"
+                    icon="mdi mdi-close"
+                    title="Cerrar"
+                    (click)="onCerrar()">
+                </plex-button>
+            </div>
+        </header>
+        
+        <app-guardia-lotes-search
+            (searchStart)="onSearchStart($event)"
+            (searchEnd)="onSearchEnd($event)"
+            (searchClear)="onSearchClear($event)">
+        </app-guardia-lotes-search>
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+        <app-search-leyenda
+            *ngIf="searched && objects && !objects.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <ng-container *ngFor="let item of objects; let idx=index">
+            <app-guardia-periodo-item-list
+                [item]="item"
+                [itemSelected]="itemSelected"
+                [editable]="true"
+                (selectionChange)="onItemSelectionChanged($event)"
+                (edit)="onItemEdit($event)"
+                (delete)="onItemDelete($event)">
+            </app-guardia-periodo-item-list >
+        </ng-container>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="showMoreResultados()">
+            </plex-button>
+        </div>
+        
+    </plex-layout-main>   
+</plex-layout>
+

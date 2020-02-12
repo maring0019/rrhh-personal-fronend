@@ -1,13 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroupDirective, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
 import { GuardiaPeriodo } from 'src/app/models/GuardiaPeriodos';
-
-
 
 @Component({
     selector: 'app-guardia-periodo-create-update-form',
