@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 
@@ -20,7 +20,6 @@ export class GuardiaPeriodoCreateUpdateComponent implements OnInit {
     
     constructor
     (
-        private router: Router,
         private route: ActivatedRoute,
         private location: Location,
         private plex: Plex,
