@@ -27,4 +27,8 @@ export class ParteListComponent extends CRUDListComponent implements OnInit {
         super.ngOnInit();
     }
 
+    public onCerrar(){
+        this.router.navigate(['/']);
+    }
+
 }
