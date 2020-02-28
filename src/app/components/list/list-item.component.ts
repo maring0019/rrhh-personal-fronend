@@ -2,11 +2,11 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Plex } from '@andes/plex';
 
 @Component({
-    selector: 'app-list-item',
-    templateUrl: './item-list.html',
-    styleUrls: ['./item-list.scss']
+    selector: 'list-item',
+    templateUrl: './list-item.html',
+    // styleUrls: ['./item-list.scss'],
 })
-export class DListItemComponent implements OnInit { 
+export class ListItemComponent implements OnInit { 
 
     // @Input() layout: 'completo' | 'contenido' | 'izquierda' | 'derecha' = 'completo';
     // @Input() striped = false;

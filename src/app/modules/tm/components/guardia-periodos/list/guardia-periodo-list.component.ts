@@ -18,6 +18,20 @@ export class GuardiaPeriodoListComponent implements OnInit {
     public itemSelected: any;          // Objeto seleccionado del listado
     private hiddenObjects:any[];       // Contenedor de todos los objetos consultados
     
+    // list-head options
+    public columnDef =
+    [
+        { 
+            id: 'periodo',
+            name: 'Periodo',
+            size: '70'
+        },
+        {
+            id: 'nombre',
+            name: 'Nombre',
+            size: '30'
+        }
+    ]
     // Variable de control  
     public searching = false;      
     public searched = false;
@@ -38,13 +52,7 @@ export class GuardiaPeriodoListComponent implements OnInit {
     }
 
     public onItemDelete(item:any){
-        this.itemSelected = item;
-        this.plex.confirm(
-            `Se va a eliminar el item seleccionado.
-            ¿Desea Continuar?`)
-            .then( confirm => {
-                if (confirm) this.deleteItem(item);
-        });
+        this.deleteItem(item);
     }
 
     public onItemEdit(obj:any){

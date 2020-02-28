@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'app-list-heading',
+    selector: 'list-head',
     template: `
         <div class="item-row" *ngIf="columnDef && columnDef.length">
             <div class="item-column">
@@ -14,8 +14,9 @@ import { Component, Input } from '@angular/core';
             </div>
         </div>`
 })
-export class DListHeadingComponent {
+export class ListHeadComponent {
 
     @Input() columnDef:any;
 
 }
+

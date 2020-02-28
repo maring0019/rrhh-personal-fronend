@@ -128,7 +128,7 @@ import { FileManagerComponent } from './components/file-manager/file.manager.com
 import { LogoSvgComponent } from './styles/logo.svg';
 import { AcronimoSvgComponent } from './styles/acronimo.svg';
 import { BlockMenuComponent } from 'src/app/components/menu/block-menu.component';
-
+import { CrudHeaderComponent } from './modules/tm/components/crud/header/header.component';
 
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
@@ -142,17 +142,16 @@ import { AgenteMockService } from './hardcodeo/agente.service'
 import { ModalComponent } from './components/modal/modal.component';
 import { LeyendaComponent } from './components/leyenda/leyenda.component';
 
-// Plex
-import { DPlexItemComponent } from 'src/app/components/item-list/item.component';
-import { DPlexHeadingComponent } from 'src/app/components/item-list/heading.component';
-import { DPlexListComponent } from 'src/app/components/item-list/list.component';
+// List 
+import { ListItemComponent } from './components/list/list-item.component';
+import { ListItemColumnComponent } from './components/list/list-item-col.component';
+import { ListHeadComponent } from './components/list/list-heading.component';
 
 
 import { FeriadoSearchFormComponent } from './modules/tm/components/feriados/list/search/feriado-search.component';
 import { FeriadoItemListComponent } from './modules/tm/components/feriados/list/item/feriado-item-list.component';
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
-import { SituacionItemListComponent } from './modules/tm/components/situacion/list/item/situacion-item-list.component';
 import { SituacionSearchFormComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
 
 import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
@@ -225,7 +224,6 @@ const ADMIN_COMPONENTS = [
     
     SituacionListComponent,
     SituacionSearchFormComponent,
-    SituacionItemListComponent,
     SituacionCreateComponent,
     SituacionCreateFormComponent,
     SituacionUpdateComponent,
@@ -338,13 +336,16 @@ const ADMIN_COMPONENTS = [
         UbicaciónFormSelectComponent,
         LeyendaComponent,
         BlockMenuComponent,
+
+        CrudHeaderComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 
         // Plex
-        DPlexListComponent,
-        DPlexItemComponent,
-        DPlexHeadingComponent,
+        ListItemComponent,
+        ListItemColumnComponent,
+        ListHeadComponent,
+       
 
         // Reportes
         ReporteSearchComponent,

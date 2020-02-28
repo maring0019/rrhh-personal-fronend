@@ -3,6 +3,7 @@ import { TipoSituacion } from './TipoSituacion';
 
 export class Situacion {
     tipoSituacion: TipoSituacion;
+    fechaBajaProgramada: Date;
     lugarPago: String;
     exceptuadoFichado: Boolean;
     trabajaEnHospital: Boolean;
@@ -12,6 +13,7 @@ export class Situacion {
     {
         situacion = situacion || {};
         this.tipoSituacion = situacion.tipoSituacion? new TipoSituacion(situacion.tipoSituacion):null;
+        this.fechaBajaProgramada = situacion.fechaBajaProgramada;
         this.lugarPago= situacion.lugarPago || '';
         this.exceptuadoFichado = situacion.exceptuadoFichado || false;
         this.trabajaEnHospital = situacion.trabajaEnHospital || false;

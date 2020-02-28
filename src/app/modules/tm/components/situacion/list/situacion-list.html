@@ -1,33 +1,17 @@
 <plex-layout main="12">
 
     <plex-layout-main>
-        <header class="d-flex flex-row justify-content-between subheader">
-            <div>
-                <h5><strong>{{ titulo }}</strong></h5>
-            </div>
-            <div class="d-flex flex-row justify-content-end">    
-                <plex-button
-                    *ngIf="canCreateObject"
-                    label="Nuevo"
-                    type="info"
-                    title="Nuevo Item"
-                    (click)="createItem()">
-                </plex-button>
-                <plex-button
-                    class="mx-2"
-                    type="danger"
-                    icon="mdi mdi-close"
-                    title="Cerrar"
-                    (click)="onCerrar()">
-                </plex-button>
-            </div>
-        </header>
+        <app-crud-header 
+            [titulo]="'Situacion Laboral'"
+            (cancel)="cancel()"
+            (create)="createItem()">
+        </app-crud-header>
         
-        <app-guardia-periodo-search
+        <!-- <app-guardia-periodo-search
             (searchStart)="onSearchStart($event)"
             (searchEnd)="onSearchEnd($event)"
             (searchClear)="onSearchClear($event)">
-        </app-guardia-periodo-search>
+        </app-guardia-periodo-search> -->
         <br>
         
         <plex-loader 
@@ -35,11 +19,12 @@
             class="d-flex flex-column align-items-center justify-content-center h-75"
             type="ball-beat">
         </plex-loader>
+
         <app-search-leyenda
             *ngIf="searched && objects && !objects.length"
             [header]="'No se encontraron resultados!'">
         </app-search-leyenda>
-            
+
         <list-head [columnDef]="columnDef"></list-head>
         <list-item *ngFor="let item of objects; let i=index"
             [item]="item"
@@ -47,17 +32,26 @@
             (selectionChange)="onItemSelectionChanged($event)"
             (edit)="onItemEdit($event)"
             (delete)="onItemDelete($event)">
-            <plex-label
-                class="wp-70"
-                titulo="{{ item.nombre }}"
-                subtitulo="{{ item.fechaDesde | fecha:'utc'}} - {{ item.fechaHasta | fecha:'utc'}}">
+            <plex-label 
+                class="wp-50"
+                titulo="{{ item.nombre }}">
             </plex-label>
-            <plex-label
-                class="wp-30"
-                titulo="{{ item.fechaDesde | fecha:'utc'}} - {{ item.fechaHasta | fecha:'utc'}}">
-            </plex-label>    
-        </list-item>        
-    
+            <plex-bool
+                class="wp-25" 
+                type="slide"
+                [(ngModel)]="item.requiereVencimiento"
+                [readonly]="true"
+                label="">
+            </plex-bool>
+            <plex-bool
+                class="wp-25"  
+                type="slide"
+                [(ngModel)]="item.activo"
+                [readonly]="true"
+                label="">
+            </plex-bool>
+        </list-item>
+        
         <div class="d-flex justify-content-center mt-4">
             <plex-button
                 *ngIf="showMore"

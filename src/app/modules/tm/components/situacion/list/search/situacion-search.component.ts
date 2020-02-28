@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
@@ -9,23 +9,24 @@ import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list
     selector: 'app-situacion-search-form',
     templateUrl: 'situacion-search.html',
 })
-export class SituacionSearchFormComponent extends CRUDSearchFormComponent implements OnInit, OnDestroy {
+export class SituacionSearchFormComponent implements OnInit, OnDestroy {
 
+    public searchForm: FormGroup;
     //Search form options
     public requiereVencimientoOpciones; 
 
     constructor(
-        formBuilder: FormBuilder,
+        private formBuilder: FormBuilder,
         private objectService: TipoSituacionService) {
-            super(formBuilder);
+
     }
 
     ngOnInit() {
-        super.ngOnInit();
+     
     }
 
     ngOnDestroy(){
-        super.ngOnDestroy();
+     
     }
 
     initFormSelectOptions(){
@@ -57,17 +58,6 @@ export class SituacionSearchFormComponent extends CRUDSearchFormComponent implem
         // Sorting
         params['sort'] = 'nombre';      
         return params;
-    }
-
-    search(searchParams){
-        this.objectService.get(searchParams).subscribe(
-            objects => {
-                this.searchEnd.emit(objects);
-            },
-            (err) => {
-                this.searchEnd.emit([])
-            }
-        );
     }
 
 }

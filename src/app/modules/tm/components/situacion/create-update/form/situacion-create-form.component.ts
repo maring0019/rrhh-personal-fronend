@@ -31,7 +31,8 @@ export class SituacionCreateFormComponent extends CrudCreateFormComponent implem
     initForm(){
         return this.formBuilder.group({
             nombre              : [],
-            requiereVencimiento : []
+            requiereVencimiento : [],
+            activo              : []
         });
     }
 

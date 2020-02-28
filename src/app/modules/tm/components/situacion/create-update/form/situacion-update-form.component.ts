@@ -15,7 +15,6 @@ import { TipoSituacion } from 'src/app/models/TipoSituacion';
 
 export class SituacionUpdateFormComponent extends CrudUpdateFormComponent implements OnInit {
     
-    // public form: FormGroup;
     public titulo = 'Situacion'
     public subtitulo = 'Editar'
 
@@ -35,7 +34,8 @@ export class SituacionUpdateFormComponent extends CrudUpdateFormComponent implem
         return this.formBuilder.group({
             _id                 : [this.object._id],
             nombre              : [this.object.nombre],
-            requiereVencimiento : [this.object.requiereVencimiento]
+            requiereVencimiento : [this.object.requiereVencimiento],
+            activo              : [this.object.activo]
         });
     }
 

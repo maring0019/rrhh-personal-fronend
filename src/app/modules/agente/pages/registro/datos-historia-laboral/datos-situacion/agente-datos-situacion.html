@@ -14,6 +14,18 @@
             </plex-select>
         </div>
         <div class="col-md-6">
+            <plex-datetime
+                
+                type="date"
+                label="Fecha de Baja Programada"
+                name="fechaBajaProgramada"
+                formControlName="fechaBajaProgramada"
+                [readonly]="!editable">
+            </plex-datetime>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <plex-text
                 name="lugarPago"
                 formControlName="lugarPago"
@@ -22,7 +34,6 @@
                 [readonly]="!editable">
             </plex-text>
         </div>
-        
     </div>
     <br>
     <div class="row">

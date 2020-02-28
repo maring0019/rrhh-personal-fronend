@@ -97,9 +97,17 @@ $gap: 5px;
       flex: 0 0 calc(55% - #{$gap});
       height: 30px;
     }
+    
     .item-botonera {
       flex: 0 0 calc(45% - #{$gap});
-     }
+    }
+
+    @for $i from 1 to 100 {
+      .wp-#{$i} {
+        width: 0% + $i;
+      }
+    }
+
   }
 
   /* Listados plex-item */
