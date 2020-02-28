@@ -129,6 +129,7 @@ import { LogoSvgComponent } from './styles/logo.svg';
 import { AcronimoSvgComponent } from './styles/acronimo.svg';
 import { BlockMenuComponent } from 'src/app/components/menu/block-menu.component';
 import { CrudHeaderComponent } from './modules/tm/components/crud/header/header.component';
+import { SearchFieldComponent } from './modules/tm/components/crud/search-field/search-field.component';
 
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
@@ -336,8 +337,8 @@ const ADMIN_COMPONENTS = [
         UbicaciónFormSelectComponent,
         LeyendaComponent,
         BlockMenuComponent,
-
         CrudHeaderComponent,
+        SearchFieldComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 

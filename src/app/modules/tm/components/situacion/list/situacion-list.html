@@ -7,11 +7,10 @@
             (create)="createItem()">
         </app-crud-header>
         
-        <!-- <app-guardia-periodo-search
-            (searchStart)="onSearchStart($event)"
-            (searchEnd)="onSearchEnd($event)"
-            (searchClear)="onSearchClear($event)">
-        </app-guardia-periodo-search> -->
+        <app-situacion-search-form
+            (change)="search($event)">
+        </app-situacion-search-form>
+
         <br>
         
         <plex-loader 
@@ -25,7 +24,9 @@
             [header]="'No se encontraron resultados!'">
         </app-search-leyenda>
 
-        <list-head [columnDef]="columnDef"></list-head>
+        <list-head
+            *ngIf="searched && objects && objects.length"
+            [columnDef]="columnDef"></list-head>
         <list-item *ngFor="let item of objects; let i=index"
             [item]="item"
             [itemSelected]="itemSelected"

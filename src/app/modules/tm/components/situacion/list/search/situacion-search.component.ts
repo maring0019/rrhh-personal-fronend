@@ -1,52 +1,54 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
-import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
 
 
 @Component({
     selector: 'app-situacion-search-form',
     templateUrl: 'situacion-search.html',
 })
-export class SituacionSearchFormComponent implements OnInit, OnDestroy {
-
+export class SituacionSearchFormComponent implements OnInit {
+    
+    @Output() change: EventEmitter<any> = new EventEmitter<any>();
+    
+    public searchFieldParams:any;
+    
+    //Search form and form options
     public searchForm: FormGroup;
-    //Search form options
     public requiereVencimientoOpciones; 
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private objectService: TipoSituacionService) {
+    constructor(private formBuilder: FormBuilder) {
 
     }
 
     ngOnInit() {
-     
+        this.initFormSelectOptions();
+        this.initSearchForm();
     }
 
-    ngOnDestroy(){
-     
-    }
-
-    initFormSelectOptions(){
+    private initFormSelectOptions(){
         this.requiereVencimientoOpciones =[{id:'si', nombre:'Si'}, {id:'no', nombre:'No'}];
     }
 
-    initSearchForm(){
-        return this.formBuilder.group({
+    private initSearchForm(){
+        this.searchForm = this.formBuilder.group({
             textoLibre          : [],
             requiereVencimiento : []
         });
     }
 
-    prepareSearchParams(){
+    public onChangeSearch(){
+        const searchParams = this.prepareSearchParams();
+        this.change.emit(searchParams);
+    }
+
+    public onChangeSearchField(searchParams){
+        this.searchFieldParams = searchParams;
+        this.onChangeSearch();
+    }
+
+    public prepareSearchParams(){
         let params:any = {};
         let form = this.searchForm.value;
-        if (form.textoLibre && form.textoLibre.length >= 4){
-            const exp = form.textoLibre;
-            params['filter'] = JSON.stringify({"nombre":{"$regex": exp, "$options":"i"}}) 
-        }
         if (form.requiereVencimiento){
             if (form.requiereVencimiento.id == 'si'){
                 params['requiereVencimiento'] = true;
@@ -56,7 +58,9 @@ export class SituacionSearchFormComponent implements OnInit, OnDestroy {
             }
         }
         // Sorting
-        params['sort'] = 'nombre';      
+        params['sort'] = 'nombre';
+        // Objeto final de busqueda (searchField + searchFilters)
+        params = {...this.searchFieldParams,...params};
         return params;
     }
 

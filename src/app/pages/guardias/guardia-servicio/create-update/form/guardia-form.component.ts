@@ -60,8 +60,8 @@ export class GuardiaFormComponent implements OnInit {
 
     /**
      * Nos subscribimos a cada cambio que se realice en cada uno
-     * de los elementos del form. Notificamos solo el nuevo valor
-     * del elemento modificado (es decir no se notifica el form
+     * de los controles del form. Notificamos solo el nuevo valor
+     * del control modificado (es decir no se notifica el form
      * completo)
      */
     private subscribeFormValueChanges(){

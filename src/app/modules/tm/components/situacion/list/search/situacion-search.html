@@ -1,33 +1,19 @@
 <header>
-        <form name="searchForm" [formGroup]="searchForm">
-            <div class="row">
-                <div class="col-md-8">
-                    <plex-text
-                        formControlName="textoLibre"
-                        name="textoLibre"
-                        (change)="buscar($event)"
-                        [autoFocus]="autoFocus"
-                        placeholder="Ingrese un parámetro de búsqueda">
-                    </plex-text>
-                </div>
-                <div class="col-md-1">
-                    <plex-button
-                        type="primary"
-                        [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
-                        (click)="mostrarMasOpciones = !mostrarMasOpciones">
-                    </plex-button>
-                </div>
+    <app-search-field
+        [searchFields]="['nombre']"
+        (change)="onChangeSearchField($event)">
+    </app-search-field>
+    <form name="searchForm" [formGroup]="searchForm">
+        <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-4">
+                <plex-select
+                    [data]="requiereVencimientoOpciones"
+                    formControlName="requiereVencimiento"
+                    name="requiereVencimiento"
+                    label="Requiere Vencimiento"
+                    (change)="onChangeSearch()">
+                </plex-select>
             </div>
-            <div class="row" *ngIf="mostrarMasOpciones">
-                <div class="col-md-4">
-                    <plex-select
-                        [data]="requiereVencimientoOpciones"
-                        formControlName="requiereVencimiento"
-                        name="requiereVencimiento"
-                        label="Requiere Vencimiento"
-                        (change)="buscar($event)">
-                    </plex-select>
-                </div>
-            </div>
-        </form>
-        </header>
+        </div>
+    </form>
+</header>
