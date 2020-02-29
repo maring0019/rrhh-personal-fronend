@@ -1,0 +1,13 @@
+<plex-layout main="12">
+    <plex-layout-main>
+        <app-situacion-create-update-form
+            *ngIf="object"
+            [object]="object"
+            (cancel)="onCancel()"
+            (success)="onCancel()"
+            (error)="onCancel()">
+        </app-situacion-create-update-form>        
+    </plex-layout-main>   
+</plex-layout>
+    
+    

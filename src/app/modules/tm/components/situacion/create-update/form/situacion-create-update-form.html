@@ -1,0 +1,44 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5><strong> {{ titulo }} | </strong> {{ subtitulo }}</h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button label="Guardar" type="success" (click)="guardar()"></plex-button>
+        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
+    </div>
+</header>
+
+<form *ngIf='form' name="form" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <plex-text 
+                id="nombre" 
+                name="nombre" 
+                formControlName="nombre"
+                label="Nombre"
+                [required]="true"
+                placeholder="Ingrese el nombre de la situacion">
+            </plex-text>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12 mt-4">
+            <plex-bool 
+                type="slide"
+                label="Requiere Vencimiento"
+                name="requiereVencimiento"
+                formControlName="requiereVencimiento">
+            </plex-bool>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12 mt-4">
+            <plex-bool 
+                type="slide"
+                label="Activo"
+                name="activo"
+                formControlName="activo">
+            </plex-bool>
+        </div>
+    </div>
+</form>

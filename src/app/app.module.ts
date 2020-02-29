@@ -160,10 +160,8 @@ import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/cre
 import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
 import { FeriadoUpdateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-update-form.component';
 
-import { SituacionCreateComponent } from './modules/tm/components/situacion/create-update/situacion-create.component';
-import { SituacionCreateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-create-form.component';
-import { SituacionUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-update.component';
-import { SituacionUpdateFormComponent } from './modules/tm/components/situacion/create-update/form/situacion-update-form.component';
+import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
+import { TipoSituacionCreateUpdateFormComponent } from 'src/app/modules/tm/components/situacion/create-update/form/situacion-create-update-form.component';
 
 import { ArticuloItemListComponent } from './modules/tm/components/articulo/list/item/articulo-item-list.component';
 import { ArticuloSearchFormComponent } from './modules/tm/components/articulo/list/search/articulo-search.component';
@@ -224,10 +222,8 @@ const ADMIN_COMPONENTS = [
     
     SituacionListComponent,
     SituacionSearchFormComponent,
-    SituacionCreateComponent,
-    SituacionCreateFormComponent,
-    SituacionUpdateComponent,
-    SituacionUpdateFormComponent,
+    TipoSituacionCreateUpdateComponent,
+    TipoSituacionCreateUpdateFormComponent,
     
     ArticuloListComponent,
     ArticuloSearchFormComponent,
