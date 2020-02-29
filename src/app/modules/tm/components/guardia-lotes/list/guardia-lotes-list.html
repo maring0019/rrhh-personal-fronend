@@ -1,33 +1,16 @@
 <plex-layout main="12">
 
     <plex-layout-main>
-        <header class="d-flex flex-row justify-content-between subheader">
-            <div>
-                <h5><strong>{{ titulo }}</strong></h5>
-            </div>
-            <div class="d-flex flex-row justify-content-end">    
-                <plex-button
-                    *ngIf="canCreateObject"
-                    label="Nuevo"
-                    type="info"
-                    title="Nuevo Item"
-                    (click)="createItem()">
-                </plex-button>
-                <plex-button
-                    class="mx-2"
-                    type="danger"
-                    icon="mdi mdi-close"
-                    title="Cerrar"
-                    (click)="onCerrar()">
-                </plex-button>
-            </div>
-        </header>
+        <app-crud-header 
+            [titulo]="'Guardias Lotes'"
+            (cancel)="cancel()"
+            (create)="createItem()">
+        </app-crud-header>
         
         <app-guardia-lotes-search
-            (searchStart)="onSearchStart($event)"
-            (searchEnd)="onSearchEnd($event)"
-            (searchClear)="onSearchClear($event)">
+            (change)="search($event)">
         </app-guardia-lotes-search>
+
         <br>
         
         <plex-loader 
@@ -35,21 +18,27 @@
             class="d-flex flex-column align-items-center justify-content-center h-75"
             type="ball-beat">
         </plex-loader>
+
         <app-search-leyenda
-            *ngIf="searched && objects && !objects.length"
+            *ngIf="searched && items && !items.length"
             [header]="'No se encontraron resultados!'">
         </app-search-leyenda>
 
-        <ng-container *ngFor="let item of objects; let idx=index">
-            <app-guardia-periodo-item-list
-                [item]="item"
-                [itemSelected]="itemSelected"
-                [editable]="true"
-                (selectionChange)="onItemSelectionChanged($event)"
-                (edit)="onItemEdit($event)"
-                (delete)="onItemDelete($event)">
-            </app-guardia-periodo-item-list >
-        </ng-container>
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            (selectionChange)="onItemSelectionChanged($event)"
+            (edit)="onItemEdit($event)"
+            (delete)="onItemDelete($event)">
+            <plex-label 
+                class="wp-100"
+                titulo="{{ item.numero }}">
+            </plex-label>
+        </list-item>
         
         <div class="d-flex justify-content-center mt-4">
             <plex-button
@@ -59,7 +48,6 @@
                 (click)="showMoreResultados()">
             </plex-button>
         </div>
-        
+                
     </plex-layout-main>   
-</plex-layout>
-
+</plex-layout>    

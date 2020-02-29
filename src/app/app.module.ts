@@ -206,7 +206,6 @@ import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/componen
 
 // TM
 import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
-import { GuardiaPeriodoItemListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/item/guardia-periodo-item-list.component';
 import { GuardiaPeriodoSearchComponent } from 'src/app/modules/tm/components/guardia-periodos/list/search/guardia-periodo-search.component';
 import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
 import { GuardiaPeriodoCreateUpdateFormComponent } from './modules/tm/components/guardia-periodos/create-update/form/create-update-form.component';
@@ -239,7 +238,6 @@ const ADMIN_COMPONENTS = [
     ArticuloUpdateFormComponent,
 
     GuardiaPeriodoListComponent,
-    GuardiaPeriodoItemListComponent,
     GuardiaPeriodoSearchComponent,
     GuardiaPeriodoCreateUpdateComponent,
     GuardiaPeriodoCreateUpdateFormComponent,

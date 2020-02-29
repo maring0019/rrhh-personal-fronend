@@ -1,32 +1,15 @@
 <plex-layout main="12">
 
     <plex-layout-main>
-        <header class="d-flex flex-row justify-content-between subheader">
-            <div>
-                <h5><strong>{{ titulo }}</strong></h5>
-            </div>
-            <div class="d-flex flex-row justify-content-end">    
-                <plex-button
-                    *ngIf="canCreateObject"
-                    label="Nuevo"
-                    type="info"
-                    title="Nuevo Item"
-                    (click)="createItem()">
-                </plex-button>
-                <plex-button
-                    class="mx-2"
-                    type="danger"
-                    icon="mdi mdi-close"
-                    title="Cerrar"
-                    (click)="onCerrar()">
-                </plex-button>
-            </div>
-        </header>
+
+        <app-crud-header 
+            [titulo]="'Periodos'"
+            (cancel)="cancel()"
+            (create)="createItem()">
+        </app-crud-header>
         
         <app-guardia-periodo-search
-            (searchStart)="onSearchStart($event)"
-            (searchEnd)="onSearchEnd($event)"
-            (searchClear)="onSearchClear($event)">
+            (change)="search($event)">
         </app-guardia-periodo-search>
         <br>
         
@@ -36,12 +19,15 @@
             type="ball-beat">
         </plex-loader>
         <app-search-leyenda
-            *ngIf="searched && objects && !objects.length"
+            *ngIf="searched && items && !items.length"
             [header]="'No se encontraron resultados!'">
         </app-search-leyenda>
             
-        <list-head [columnDef]="columnDef"></list-head>
-        <list-item *ngFor="let item of objects; let i=index"
+        <list-head
+            [columnDef]="columnDef"
+            *ngIf="searched && items && items.length">
+        </list-head>
+        <list-item *ngFor="let item of items; let i=index"
             [item]="item"
             [itemSelected]="itemSelected"
             (selectionChange)="onItemSelectionChanged($event)"

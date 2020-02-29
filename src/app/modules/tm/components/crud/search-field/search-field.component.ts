@@ -12,7 +12,7 @@ export class SearchFieldComponent {
     
     @Output() change: EventEmitter<any> = new EventEmitter<any>();
 
-    public searchText:String;
+    public searchText:String;  // User input value
     
     private searchExpresion:any;
     

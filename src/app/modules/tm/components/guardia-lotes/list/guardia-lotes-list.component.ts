@@ -11,41 +11,111 @@ import { GuardiaLoteService } from 'src/app/services/guardia-lote.service';
 })
 export class GuardiaLotesListComponent implements OnInit {
 
-    public titulo = 'Lotes';
-    public subtitulo = 'Guardias';
     public canCreateObject: boolean = true;
 
-    public objects:any[] = [];         // Contenedor de objetos visibles para el listado
+    public items:any[] = [];           // Contenedor de objetos visibles para el listado
     public itemSelected: any;          // Objeto seleccionado del listado
-    private hiddenObjects:any[];       // Contenedor de todos los objetos consultados
+    private hiddenItems:any[];       // Contenedor de todos los objetos consultados
     
-    // Variable de control  
+
+    // Variable de control para el proceso de busqueda  
     public searching = false;      
     public searched = false;
     public showMore: Boolean = false;
+
+    // list-head options
+    public columnDef =
+    [
+        { 
+            id: 'numero',
+            name: 'Numero',
+            size: '100'
+        }
+    ]
 
     constructor(
         private router: Router,
         private plex: Plex,
         private objectService: GuardiaLoteService) { }
 
-    public ngOnInit() {}
+    public ngOnInit() {
+        this.search({}); // Busqueda inicial sin parametros/filtros
+    }
+    
+    search(searchParams){
+        this.searchStart();
+        this.objectService.get(searchParams).subscribe(
+            objects => {
+                this.searchEnd(objects);
+            },
+            (err) => {
+                this.searchEnd([]);
+            }
+        );
+    }
+
+    /**
+     * Al inicializar una busqueda se preparan las variables que 
+     * alojaran los resultados y se actualizan las variables de
+     * control que proveen feedback al usuario sobre lo que esta
+     * ocurriendo.
+     */
+    private searchStart(){
+        this.searching = true;
+        this.items = []
+        this.hiddenItems = [];
+        this.showMore = false;
+        this.itemSelected = null;
+    }
+
+     /**
+     * Al finalizar una busqueda se actualizan las variables de control
+     * que proveen feedback al usuario indicando esta situacion y luego
+     * se delega al metodo showMoreResultados() la responsabilidad de
+     * mostrar los items y el boton de 'paginado'.
+     * @param items 
+     */
+    private searchEnd(items:any){
+        this.searching = false;
+        this.searched = true; 
+        this.hiddenItems = items ;
+        this.itemSelected = null;
+        this.showMoreResultados();   
+    }
+
+    
+    public showMoreResultados(e?:any){
+        if (this.hiddenItems.length > 30){
+            this.showMore = true;
+            this.items = this.items.concat(this.hiddenItems.slice(0,29));
+            this.hiddenItems = this.hiddenItems.slice(30);
+        }
+        else{
+            this.showMore = false;
+            this.items = this.items.concat(this.hiddenItems);
+            this.hiddenItems = [];
+        }   
+    }
 
 
-    public onItemHover(obj:any){}
+    // ITEMS ACTIONS DEL LISTADO
+
+    public onItemHover(obj:any){
+
+    }
 
     public onItemSelectionChanged(obj:any){
         this.itemSelected = obj;
     }
 
     public onItemDelete(item:any){
-        this.itemSelected = item;
-        this.plex.confirm(
-            `Se va a eliminar el item seleccionado.
-            ¿Desea Continuar?`)
-            .then( confirm => {
-                if (confirm) this.deleteItem(item);
-        });
+        this.objectService.delete(item._id)
+            .subscribe(
+                data => {
+                    this.items = this.items.filter(x => x._id != item._id);
+                },
+                error => {}
+            )
     }
 
     public onItemEdit(obj:any){
@@ -53,81 +123,18 @@ export class GuardiaLotesListComponent implements OnInit {
         this.router.navigate([this.router.url+'/editar/'+obj._id]);
     }
 
+    public onItemAction(actionEvent:IActionEvent){
 
-    public onItemAction(actionEvent:IActionEvent){}
-
-
-     /**
-     * Listening output event
-     * Cuando somos notificados que finalizo la busqueda mostramos los
-     * resultados obtenidos. Primero se actualizan las variables de 
-     * control y finalmente el metodo showMoreResultados() es el res-
-     * ponsable de mostrar los items y el boton de 'paginado'
-     * @param items 
-     */
-    public onSearchEnd(items:any){
-        this.searching = false;
-        this.searched = true;
-        
-        this.hiddenObjects = items ;
-        this.itemSelected = null;
-        this.showMoreResultados();   
-    }
-
-    /**
-     * Listening output event
-     * Cuando somos notificados que comenzo una nueva busqueda limpiamos
-     * todas las referencias previas 
-     * @param event 
-     */
-    public onSearchStart(event?:any){
-        this.searching = true;
-        this.objects = []
-        this.hiddenObjects = [];
-        this.showMore = false;
-        this.itemSelected = null;
-    }
-
-    /**
-     * Listening output event
-     * @param event
-     */
-    public onSearchClear(event:any){
-        this.onSearchStart();
-        this.searching = false;
-        this.searched = false;    
     }
 
 
-    public showMoreResultados(e?:any){
-        if (this.hiddenObjects.length > 30){
-            this.showMore = true;
-            this.objects = this.objects.concat(this.hiddenObjects.slice(0,29));
-            this.hiddenObjects = this.hiddenObjects.slice(30);
-        }
-        else{
-            this.showMore = false;
-            this.objects = this.objects.concat(this.hiddenObjects);
-            this.hiddenObjects = [];
-        }   
-    }
-
+    // GLOBAL HEADER ACTIONS
    
     public createItem(){
         this.router.navigate([this.router.url+'/crear']);
     }
 
-    public deleteItem(item){
-        this.objectService.delete(item._id)
-            .subscribe(
-                data => {
-                    this.objects = this.objects.filter(x => x._id != item._id);
-                },
-                error => {}
-            )
-    }
-
-    public onCerrar(){
+    public cancel(){
         this.router.navigate(['/configuracion']);
     }
 

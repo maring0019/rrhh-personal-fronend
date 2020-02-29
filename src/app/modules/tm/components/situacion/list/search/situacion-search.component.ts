@@ -31,7 +31,6 @@ export class SituacionSearchFormComponent implements OnInit {
 
     private initSearchForm(){
         this.searchForm = this.formBuilder.group({
-            textoLibre          : [],
             requiereVencimiento : []
         });
     }

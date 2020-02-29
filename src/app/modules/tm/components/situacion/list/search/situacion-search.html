@@ -1,19 +1,23 @@
 <header>
-    <app-search-field
-        [searchFields]="['nombre']"
-        (change)="onChangeSearchField($event)">
-    </app-search-field>
-    <form name="searchForm" [formGroup]="searchForm">
-        <div class="row" *ngIf="mostrarMasOpciones">
-            <div class="col-md-4">
-                <plex-select
-                    [data]="requiereVencimientoOpciones"
-                    formControlName="requiereVencimiento"
-                    name="requiereVencimiento"
-                    label="Requiere Vencimiento"
-                    (change)="onChangeSearch()">
-                </plex-select>
-            </div>
-        </div>
-    </form>
+    <!-- <app-crud-search> -->
+        <app-search-field
+            [searchFields]="['nombre']"
+            (change)="onChangeSearchField($event)">
+        </app-search-field>
+        <!-- <app-search-filter> -->
+            <form name="searchForm" [formGroup]="searchForm">
+                <div class="row" *ngIf="mostrarMasOpciones">
+                    <div class="col-md-4">
+                        <plex-select
+                            [data]="requiereVencimientoOpciones"
+                            formControlName="requiereVencimiento"
+                            name="requiereVencimiento"
+                            label="Requiere Vencimiento"
+                            (change)="onChangeSearch()">
+                        </plex-select>
+                    </div>
+                </div>
+            </form>
+        <!-- </app-search-filter>
+    </app-crud-search> -->
 </header>

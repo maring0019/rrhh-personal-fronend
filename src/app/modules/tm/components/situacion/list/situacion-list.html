@@ -20,14 +20,15 @@
         </plex-loader>
 
         <app-search-leyenda
-            *ngIf="searched && objects && !objects.length"
+            *ngIf="searched && items && !items.length"
             [header]="'No se encontraron resultados!'">
         </app-search-leyenda>
 
         <list-head
-            *ngIf="searched && objects && objects.length"
-            [columnDef]="columnDef"></list-head>
-        <list-item *ngFor="let item of objects; let i=index"
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        <list-item *ngFor="let item of items; let i=index"
             [item]="item"
             [itemSelected]="itemSelected"
             (selectionChange)="onItemSelectionChanged($event)"
@@ -61,7 +62,7 @@
                 (click)="showMoreResultados()">
             </plex-button>
         </div>
-        
+               
     </plex-layout-main>   
 </plex-layout>
 

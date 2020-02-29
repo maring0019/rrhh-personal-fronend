@@ -1,23 +1,10 @@
 <header>
+    <app-search-field
+        [searchFields]="['nombre']"
+        (change)="onChangeSearchField($event)">
+    </app-search-field>
     <form name="searchForm" [formGroup]="searchForm">
-        <div class="row">
-            <div class="col-md-8">
-                <plex-text
-                    formControlName="textoLibre"
-                    name="textoLibre"
-                    (change)="buscar($event)"
-                    [autoFocus]="autoFocus"
-                    placeholder="Ingrese un parámetro de búsqueda">
-                </plex-text>
-            </div>
-            <div class="col-md-1">
-                <plex-button
-                    type="primary"
-                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
-                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
-                </plex-button>
-            </div>
-        </div>
+        
         <div class="row" *ngIf="mostrarMasOpciones">
             <div class="col-md-4">
               
