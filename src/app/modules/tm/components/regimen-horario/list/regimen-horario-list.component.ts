@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 import { ABMListComponent } from 'src/app/modules/tm/components/crud/list/abm-list.component';
 import { ObjectService } from 'src/app/services/tm/object.service';
 
+import { RegimenHorarioService } from 'src/app/services/regimen-horario.service';
+
+
 @Component({
-    selector: 'app-situacion-list',
-    templateUrl: 'situacion-list.html',
+    selector: 'app-regimen-horario-list',
+    templateUrl: 'regimen-horario-list.html',
 })
-export class SituacionListComponent extends ABMListComponent {
+export class RegimenHorarioListComponent extends ABMListComponent {
 
     // list-head options
     public columnDef =
@@ -18,11 +20,6 @@ export class SituacionListComponent extends ABMListComponent {
             id: 'nombre',
             name: 'Nombre',
             size: '50'
-        },
-        {
-            id: 'req_vencimiento',
-            name: 'Requiere Vencimiento',
-            size: '25'
         },
         {
             id: 'activo',
@@ -34,14 +31,12 @@ export class SituacionListComponent extends ABMListComponent {
     constructor(
         protected router: Router,
         protected objectService: ObjectService,
-        private tipoSituacionService:TipoSituacionService)
-    {
-        super(router, objectService);
-    }
-
+        private regimenHorarioService: RegimenHorarioService) {
+            super(router, objectService);
+         }
 
     protected get dataService(){
-        return this.tipoSituacionService;
+        return this.regimenHorarioService;
     }
 
 }

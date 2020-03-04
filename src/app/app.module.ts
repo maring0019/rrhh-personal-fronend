@@ -48,6 +48,7 @@ import { GuardiaService } from './services/guardia.service';
 import { GuardiaPeriodoService } from './services/guardia-periodo.service';
 import { GuardiaLoteService } from './services/guardia-lote.service';
 import { MenuService } from './services/menu.service';
+import { ObjectService } from './services/tm/object.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -209,6 +210,8 @@ import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/componen
 import { GuardiaPeriodoCreateUpdateFormComponent } from './modules/tm/components/guardia-periodos/create-update/form/create-update-form.component';
 import { GuardiaLotesListComponent } from './modules/tm/components/guardia-lotes/list/guardia-lotes-list.component';
 import { GuardiaLotesSearchComponent } from './modules/tm/components/guardia-lotes/list/search/guardia-lotes-search.component';
+import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
+import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
 
 const ADMIN_COMPONENTS = [
 
@@ -239,7 +242,10 @@ const ADMIN_COMPONENTS = [
     GuardiaPeriodoCreateUpdateFormComponent,
 
     GuardiaLotesListComponent,
-    GuardiaLotesSearchComponent
+    GuardiaLotesSearchComponent,
+
+    RegimenHorarioListComponent,
+    RegimenHorarioSearchComponent
   ]
 
 @NgModule({
@@ -412,7 +418,8 @@ const ADMIN_COMPONENTS = [
         GuardiaPeriodoService,
         GuardiaLoteService,
         ParteAgenteService,
-        MenuService
+        MenuService,
+        ObjectService
         
     ],
     bootstrap: [AppComponent],

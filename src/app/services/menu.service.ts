@@ -41,6 +41,12 @@ export class MenuService {
             subtitulo:'Configuracion',
             url:'/configuracion/guardia-lotes',
             icono:'mdi-account-multiple-outline'
+        },
+        { 
+            titulo: 'Regimen Horarios',
+            subtitulo:'Configuracion',
+            url:'/configuracion/regimen-horarios',
+            icono:'mdi-account-multiple-outline'
         }]
 
     private menuPrincipal = [

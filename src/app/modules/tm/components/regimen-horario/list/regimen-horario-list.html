@@ -1,0 +1,60 @@
+<plex-layout main="12">
+
+    <plex-layout-main>
+        <app-crud-header 
+            [titulo]="'Regimen Horario'"
+            (cancel)="cancel()"
+            (create)="createItem()">
+        </app-crud-header>
+        
+        <app-regimen-horario-search
+            (change)="search($event)">
+        </app-regimen-horario-search>
+
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
+        <app-search-leyenda
+            *ngIf="searched && items && !items.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            (selectionChange)="onItemSelectionChanged($event)"
+            (edit)="onItemEdit($event)"
+            (delete)="onItemDelete($event)">
+            <plex-label 
+                class="wp-50"
+                titulo="{{ item.nombre }}">
+            </plex-label>
+            <plex-bool
+                class="wp-25"  
+                type="slide"
+                [(ngModel)]="item.activo"
+                [readonly]="true"
+                label="">
+            </plex-bool>
+        </list-item>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="showMoreResultados()">
+            </plex-button>
+        </div>
+               
+    </plex-layout-main>   
+</plex-layout>
