@@ -212,6 +212,7 @@ import { GuardiaLotesListComponent } from './modules/tm/components/guardia-lotes
 import { GuardiaLotesSearchComponent } from './modules/tm/components/guardia-lotes/list/search/guardia-lotes-search.component';
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
+import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
 
 const ADMIN_COMPONENTS = [
 
@@ -245,7 +246,8 @@ const ADMIN_COMPONENTS = [
     GuardiaLotesSearchComponent,
 
     RegimenHorarioListComponent,
-    RegimenHorarioSearchComponent
+    RegimenHorarioSearchComponent,
+    RegimenHorarioCreateUpdateComponent
   ]
 
 @NgModule({

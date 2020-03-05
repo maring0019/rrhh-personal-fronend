@@ -1,0 +1,39 @@
+<plex-layout main="12">
+        <plex-layout-main>
+
+            <header class="d-flex flex-row justify-content-between subheader">
+                <div>
+                    <h5><strong> {{ titulo }} | </strong> {{ subtitulo }}</h5>
+                </div>
+                <div class="d-flex flex-row justify-content-end">
+                    <plex-button label="Guardar" type="success" (click)="onSave()"></plex-button>
+                    <plex-button class="mx-2" label="Cancelar" type="danger" (click)="onCancel()"></plex-button>
+                </div>
+            </header>
+            
+            <form *ngIf='form' name="form" [formGroup]="form">
+                <div class="row">
+                    <div class="col-md-8 col-xs-12">
+                        <plex-text 
+                            [required]="true"
+                            name="nombre" 
+                            formControlName="nombre"
+                            label="Nombre"
+                            placeholder="Ingrese nombre para el régimen">
+                        </plex-text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12 mt-4">
+                        <plex-bool 
+                            type="slide"
+                            label="Activo"
+                            name="activo"
+                            formControlName="activo">
+                        </plex-bool>
+                    </div>
+                </div>
+            </form> 
+
+        </plex-layout-main>
+</plex-layout>

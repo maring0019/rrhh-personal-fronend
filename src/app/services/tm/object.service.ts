@@ -9,18 +9,17 @@ export class ObjectService {
         return service.get(params);
     } 
 
-    // getByID(objectId?: any): Observable<TipoSituacion> {
-    //     const url = `${this.url}/${objectId}`;
-    //     return this.server.get(url);
-    // }
+    getByID(service, objectId?: any): Observable<any> {
+        return service.getByID(objectId);
+    }
 
-    // post(situacion: TipoSituacion): Observable<TipoSituacion> {
-    //     return this.server.post(this.url, situacion);
-    // }
+    post(service, object: any): Observable<any> {
+        return service.post(object);
+    }
 
-    // put(situacion: TipoSituacion): Observable<TipoSituacion> {
-    //     return this.server.put(this.url + '/' + situacion._id, situacion);
-    // }
+    put(service, object:any): Observable<any> {
+        return service.put(object);
+    }
 
     delete(service:any, objectId: any): Observable<any> {
         return service.delete(objectId);

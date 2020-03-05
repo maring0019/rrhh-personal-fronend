@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ABMListComponent } from 'src/app/modules/tm/components/crud/list/abm-list.component';
+import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
 import { ObjectService } from 'src/app/services/tm/object.service';
 
 import { RegimenHorarioService } from 'src/app/services/regimen-horario.service';
+
 
 
 @Component({

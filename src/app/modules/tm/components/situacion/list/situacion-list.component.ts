@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
 
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
-import { ABMListComponent } from 'src/app/modules/tm/components/crud/list/abm-list.component';
 import { ObjectService } from 'src/app/services/tm/object.service';
+
 
 @Component({
     selector: 'app-situacion-list',
