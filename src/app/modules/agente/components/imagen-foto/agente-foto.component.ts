@@ -44,7 +44,7 @@ export class AgenteFotoComponent implements OnChanges{
 
     searchAndDisplayFotoAgente(){
         if (this.agente.foto) {
-            this.imagen = this.agente.foto;
+            this.imagen = this.agente.foto; // Check this
             return;
         }
         
