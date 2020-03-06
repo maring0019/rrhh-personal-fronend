@@ -35,8 +35,7 @@ import { SituacionListComponent } from './modules/tm/components/situacion/list/s
 import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
 
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
-import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
-import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
+import { ArticuloCreateUpdateComponent } from 'src/app/modules/tm/components/articulo/create-update/articulo-create-update.component';
 
 import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
 import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
@@ -52,8 +51,8 @@ const routes: Routes = [
     // Tablas maestras
     { path: 'configuracion', component: ConfiguracionMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/articulos', component: ArticuloListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'configuracion/articulos/crear', component: ArticuloCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'configuracion/articulos/editar/:id', component: ArticuloUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/articulos/crear', component: ArticuloCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/articulos/editar/:id', component: ArticuloCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     { path: 'configuracion/situaciones', component: SituacionListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/situaciones/crear', component: TipoSituacionCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },

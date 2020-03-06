@@ -164,13 +164,9 @@ import { FeriadoUpdateFormComponent } from './modules/tm/components/feriados/cre
 import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
 import { TipoSituacionCreateUpdateFormComponent } from 'src/app/modules/tm/components/situacion/create-update/form/situacion-create-update-form.component';
 
-import { ArticuloItemListComponent } from './modules/tm/components/articulo/list/item/articulo-item-list.component';
-import { ArticuloSearchFormComponent } from './modules/tm/components/articulo/list/search/articulo-search.component';
+import { ArticuloSearchComponent } from './modules/tm/components/articulo/list/search/articulo-search.component';
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
-import { ArticuloCreateComponent } from './modules/tm/components/articulo/create-update/articulo-create.component';
-import { ArticuloCreateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-create-form.component';
-import { ArticuloUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-update.component';
-import { ArticuloUpdateFormComponent } from './modules/tm/components/articulo/create-update/form/articulo-update-form.component';
+import { ArticuloCreateUpdateComponent } from './modules/tm/components/articulo/create-update/articulo-create-update.component';
 
 import { ReporteSearchComponent } from './pages/reportes/reporte-search.component';
 import { ReporteAgenteFiltersComponent } from './pages/reportes/forms/reporte-agente-filters.component';
@@ -230,12 +226,8 @@ const ADMIN_COMPONENTS = [
     TipoSituacionCreateUpdateFormComponent,
     
     ArticuloListComponent,
-    ArticuloSearchFormComponent,
-    ArticuloItemListComponent,
-    ArticuloCreateComponent,
-    ArticuloCreateFormComponent,
-    ArticuloUpdateComponent,
-    ArticuloUpdateFormComponent,
+    ArticuloSearchComponent,
+    ArticuloCreateUpdateComponent,
 
     GuardiaPeriodoListComponent,
     GuardiaPeriodoSearchComponent,

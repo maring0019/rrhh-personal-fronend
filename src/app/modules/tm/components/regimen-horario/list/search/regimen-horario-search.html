@@ -1,21 +1,20 @@
-<header>
-    
-        <app-search-field
-            [searchFields]="['nombre']"
-            (change)="onChangeSearchField($event)">
-        </app-search-field>
+<header>    
+    <app-search-field
+        [searchFields]="['nombre']"
+        (change)="onChangeSearchField($event)">
+    </app-search-field>
         
-        <form name="filterForm" [formGroup]="filterForm">
-            <div class="row" *ngIf="mostrarMasOpciones">
-                <div class="col-md-4">
-                    <plex-select
-                        [data]="activoOpciones"
-                        formControlName="activo"
-                        name="activo"
-                        label="Activo"
-                        (change)="onChangeSearch()">
-                    </plex-select>
-                </div>
+    <form name="filterForm" [formGroup]="filterForm">
+        <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-4">
+                <plex-select
+                    [data]="activoOpciones"
+                    formControlName="activo"
+                    name="activo"
+                    label="Activo"
+                    (change)="search()">
+                </plex-select>
             </div>
-        </form>
+        </div>
+    </form>
 </header>

@@ -7,14 +7,7 @@ interface IdentityObject {
 export abstract class GenericService<T extends IdentityObject> {
     constructor(protected server: Server, protected url:string){}
 
-    // create():<T>{
-    //     return new object<T>
-    // }
 
-    // create<T>(C: { new(): T }): T {
-    //     return new C();
-    // }
-    
     factory<T>(type: { new (value:any): T }, value: any): T {
         return new type(value);
     }

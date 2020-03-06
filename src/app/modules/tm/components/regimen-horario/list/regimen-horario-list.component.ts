@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';

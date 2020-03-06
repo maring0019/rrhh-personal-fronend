@@ -1,4 +1,4 @@
-<header>
+<!-- <header>
         <form name="searchForm" [formGroup]="searchForm">
             <div class="row">
                 <div class="col-md-8">
@@ -30,4 +30,25 @@
                 </div>
             </div>
         </form>
-        </header>
+        </header> -->
+
+<header>    
+    <app-search-field
+        [searchFields]="['nombre', 'codigo', 'descripcion']"
+        (change)="onChangeSearchField($event)">
+    </app-search-field>
+        
+    <form name="filterForm" [formGroup]="filterForm">
+        <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-4">
+                <plex-select
+                    [data]="opcionesSiNo"
+                    formControlName="descuentaDiasLicencia"
+                    name="descuentaDiasLicencia"
+                    label="Descuenta Dias Licencia?"
+                    (change)="search()">
+                </plex-select>
+            </div>
+        </div>
+    </form>
+</header>
