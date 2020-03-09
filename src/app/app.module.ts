@@ -149,17 +149,13 @@ import { ListItemComponent } from './components/list/list-item.component';
 import { ListItemColumnComponent } from './components/list/list-item-col.component';
 import { ListHeadComponent } from './components/list/list-heading.component';
 
-
-import { FeriadoSearchFormComponent } from './modules/tm/components/feriados/list/search/feriado-search.component';
-import { FeriadoItemListComponent } from './modules/tm/components/feriados/list/item/feriado-item-list.component';
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
+import { FeriadoSearchComponent } from './modules/tm/components/feriados/list/search/feriado-search.component';
+import { FeriadoCreateUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-create-update.component';
+
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
 import { SituacionSearchFormComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
 
-import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
-import { FeriadoCreateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-create-form.component';
-import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
-import { FeriadoUpdateFormComponent } from './modules/tm/components/feriados/create-update/form/feriado-update-form.component';
 
 import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
 import { TipoSituacionCreateUpdateFormComponent } from 'src/app/modules/tm/components/situacion/create-update/form/situacion-create-update-form.component';
@@ -213,12 +209,8 @@ import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/reg
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
-    FeriadoSearchFormComponent,
-    FeriadoItemListComponent,
-    FeriadoCreateComponent,
-    FeriadoCreateFormComponent,
-    FeriadoUpdateComponent,
-    FeriadoUpdateFormComponent,
+    FeriadoSearchComponent,
+    FeriadoCreateUpdateComponent,
     
     SituacionListComponent,
     SituacionSearchFormComponent,

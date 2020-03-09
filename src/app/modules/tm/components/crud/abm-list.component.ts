@@ -19,6 +19,7 @@ export abstract class ABMListComponent implements OnInit {
 
     // list-head options
     public columnDef:any = [];
+    public sortColumn:string;
 
     protected dataService: any;          // Service with http methods
 
@@ -30,7 +31,7 @@ export abstract class ABMListComponent implements OnInit {
     
     search(searchParams){
         this.searchStart();
-        this.objectService.get(this.dataService, searchParams)
+        this.objectService.get(this.dataService, {...searchParams,...this.sortParams})
         .subscribe(
             objects => {
                 this.searchEnd(objects);
@@ -39,6 +40,13 @@ export abstract class ABMListComponent implements OnInit {
                 this.searchEnd([]);
             }
         );
+    }
+
+    protected get sortParams(){
+        if (this.sortColumn){
+            return { sort: this.sortColumn }
+        }
+        return { };
     }
 
     /**

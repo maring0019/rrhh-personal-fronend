@@ -1,4 +1,4 @@
-<header>
+<!-- <header>
     <form name="searchForm" [formGroup]="searchForm">
         <div class="row">
             <div class="col-md-8">
@@ -39,4 +39,11 @@
             </div>
         </div>
     </form>
+</header> -->
+
+<header>    
+    <app-search-field
+        [searchFields]="['descripcion']"
+        (change)="onChangeSearchField($event)">
+    </app-search-field>
 </header>

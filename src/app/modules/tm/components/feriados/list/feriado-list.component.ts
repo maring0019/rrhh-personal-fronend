@@ -1,29 +1,45 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CRUDListComponent } from 'src/app/modules/tm/components/crud/list/crud-list.component';
-import { FeriadoSearchFormComponent } from './search/feriado-search.component';
-import { FeriadoItemListComponent } from './item/feriado-item-list.component';
+import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
+import { ObjectService } from 'src/app/services/tm/object.service';
+
+import { FeriadoService } from 'src/app/services/feriado.service';
 
 
 @Component({
     selector: 'app-feriado-list',
-    templateUrl: '../../crud/list/crud-list.html',
+    templateUrl: 'feriado-list.html',
 })
-export class FeriadoListComponent extends CRUDListComponent implements OnInit {
+export class FeriadoListComponent extends ABMListComponent {
 
-    public searchFormComponent = FeriadoSearchFormComponent;
-    public itemListComponent = FeriadoItemListComponent;
-    public titulo = 'Feriados';
+    public sortColumn = '-fecha';
+
+    // list-head options
+    public columnDef =
+    [
+        {
+            id: 'fecha',
+            title: 'Fecha',
+            size: '20',
+            sort: 'desc'
+        },
+        {
+            id: 'descripcion',
+            title: 'Descripción',
+            size: '80'
+        }
+    ]
 
     constructor(
-        public router: Router,
-        public resolver: ComponentFactoryResolver) {
-        super(router, resolver);
-    }
+        protected router: Router,
+        protected objectService: ObjectService,
+        private feriadoService: FeriadoService) {
+            super(router, objectService);
+         }
 
-    public ngOnInit() {
-        super.ngOnInit();
+    protected get dataService(){
+        return this.feriadoService;
     }
 
 }

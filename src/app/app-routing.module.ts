@@ -28,8 +28,7 @@ import { ConfiguracionMenuPageComponent } from 'src/app/pages/home/configuracion
  
 // TM
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
-import { FeriadoCreateComponent } from './modules/tm/components/feriados/create-update/feriado-create.component';
-import { FeriadoUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-update.component';
+import { FeriadoCreateUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-create-update.component';
 
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
 import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
@@ -59,8 +58,8 @@ const routes: Routes = [
     { path: 'configuracion/situaciones/editar/:id', component: TipoSituacionCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
     { path: 'configuracion/feriados', component: FeriadoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'configuracion/feriados/crear', component: FeriadoCreateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'configuracion/feriados/editar/:id', component: FeriadoUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/feriados/crear', component: FeriadoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/feriados/editar/:id', component: FeriadoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
     { path: 'configuracion/guardia-periodos', component: GuardiaPeriodoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/guardia-periodos/crear', component: GuardiaPeriodoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },

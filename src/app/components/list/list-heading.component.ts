@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
                 <div class="d-flex flex-row justify-content-start align-items-center">
                     <plex-label *ngFor="let col of columnDef; let i=index"
                         [ngClass]="col?.size ? 'wp-' + col?.size : ''"
-                        titulo="{{ col.name }}">
+                        titulo="{{ col.title }}">
                     </plex-label>
                 </div>
             </div>
