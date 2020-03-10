@@ -1,0 +1,26 @@
+<div class="color-picker">
+    <div class="summary-info" (click)="toggleColors()">
+        <div class="circle  {{ size }}" [ngStyle]="{'background': color}"></div>
+        <div class="info">
+            <p class="style">{{ label }}</p>
+            <p *ngIf="editable" class="style-value">{{ color? color: 'Click para seleccionar un color' }}</p>
+        </div>  
+    </div>
+
+    <div *ngIf="editable && show" class="opened">
+        <div class="colors">
+            <div (click)="changeColor(paint)" *ngFor="let paint of defaultColors" class="circle {{ size }}"
+                [ngStyle]="{'background': paint}"></div>
+        </div>
+
+        <div class="hex-code">
+            <p>Hex Code</p>
+            <div class="g-input">
+               <input type="text" maxlength="7" [value]="color"
+                      (keyup)="changeColorManual(paintInput.value)"
+                     (keydown.enter)="toggleColors()"
+                     #paintInput/>
+            </div>
+        </div>
+    </div>
+</div>

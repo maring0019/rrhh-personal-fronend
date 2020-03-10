@@ -39,9 +39,13 @@ export class ArticuloCreateUpdateComponent extends ABMCreateUpdateComponent {
             nombre                : [this.object.nombre],
             descripcion           : [this.object.descripcion],
             color                 : [this.object.color],
-            diasCorridos          : [this.object.diasCorridos],
             diasHabiles           : [this.object.diasHabiles],          
             descuentaDiasLicencia : [this.object.descuentaDiasLicencia]
         });
+    }
+
+    public onColorChange(newColor:string){
+        this.form.patchValue({ color: newColor});
+
     }
 }

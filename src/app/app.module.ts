@@ -131,6 +131,7 @@ import { AcronimoSvgComponent } from './styles/acronimo.svg';
 import { BlockMenuComponent } from 'src/app/components/menu/block-menu.component';
 import { CrudHeaderComponent } from './modules/tm/components/crud/header/header.component';
 import { SearchFieldComponent } from './modules/tm/components/crud/search-field/search-field.component';
+import { ColorPickerComponent } from 'src/app/components/color-picker/color-picker.component';
 
 // Pipes
 import { FechaPipe } from './pipes/fecha.pipe';
@@ -205,6 +206,7 @@ import { GuardiaLotesSearchComponent } from './modules/tm/components/guardia-lot
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
 import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
+
 
 const ADMIN_COMPONENTS = [
 
@@ -325,6 +327,7 @@ const ADMIN_COMPONENTS = [
         BlockMenuComponent,
         CrudHeaderComponent,
         SearchFieldComponent,
+        ColorPickerComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 

@@ -40,13 +40,6 @@
             <plex-bool
                 class="wp-10"
                 type="slide"
-                [(ngModel)]="item.diasCorridos"
-                [readonly]="true"
-                label="">
-            </plex-bool>
-            <plex-bool
-                class="wp-10"
-                type="slide"
                 [(ngModel)]="item.diasHabiles"
                 [readonly]="true"
                 label="">
@@ -58,6 +51,11 @@
                 [readonly]="true"
                 label="">
             </plex-bool>
+            <app-color-picker
+                [color]="item.color"
+                [size]="'sm'"
+                [editable]="false">
+            </app-color-picker>
         </list-item>
         
         <div class="d-flex justify-content-center mt-4">

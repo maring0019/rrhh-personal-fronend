@@ -13,33 +13,40 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 })
 export class ArticuloListComponent extends ABMListComponent {
 
+    public sortColumn = 'codigo';
     // list-head options
     public columnDef =
     [
         {
-            name: 'Código',
+            id: 'codigo',
+            title: 'Código',
             size: '10'
         },
         {
-            name: 'Nombre',
+            id: 'nombre',
+            title: 'Nombre',
             size: '10'
         },
         {
-            name: 'Descripción',
+            id: 'descripcion',
+            title: 'Descripción',
             size: '40'
         },
         {
-            name: 'Días Corridos',
+            id: 'diasHabiles',
+            title: 'Días Hábiles',
             size: '10'
         },
         {
-            name: 'Días Hábiles',
-            size: '10'
-        },
-        {
-            name: 'Descuenta Días Licencia',
+            id: 'descuentaDiasLicencia',
+            title: 'Descuenta Días Licencia',
             size: '20'
-        }
+        },
+        {
+            id: 'color',
+            title: 'Color',
+            size: '10'
+        },
 
     ]
 

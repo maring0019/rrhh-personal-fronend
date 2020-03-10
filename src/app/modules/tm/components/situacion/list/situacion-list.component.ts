@@ -12,22 +12,23 @@ import { ObjectService } from 'src/app/services/tm/object.service';
 })
 export class SituacionListComponent extends ABMListComponent {
 
+    public sortColumn = 'nombre';
     // list-head options
     public columnDef =
     [
         { 
             id: 'nombre',
-            name: 'Nombre',
+            title: 'Nombre',
             size: '50'
         },
         {
             id: 'req_vencimiento',
-            name: 'Requiere Vencimiento',
+            title: 'Requiere Vencimiento',
             size: '25'
         },
         {
             id: 'activo',
-            name: 'Activo',
+            title: 'Activo',
             size: '25'
         }
     ]
