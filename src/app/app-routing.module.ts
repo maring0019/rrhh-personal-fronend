@@ -25,13 +25,14 @@ import { GuardiaListComponent } from 'src/app/pages/guardias/guardia-servicio/li
 import { AgenteAusentismoComponent } from './pages/ausentismo/agente-ausentismo.component';
 import { HomeMenuPageComponent } from 'src/app/pages/home/home-menu.page';
 import { ConfiguracionMenuPageComponent } from 'src/app/pages/home/configuracion-menu.page';
+import { PartesMenuPageComponent } from 'src/app/pages/home/partes-menu.page';
  
 // TM
 import { FeriadoListComponent } from './modules/tm/components/feriados/list/feriado-list.component';
 import { FeriadoCreateUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-create-update.component';
 
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
-import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
+import { SituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
 
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
 import { ArticuloCreateUpdateComponent } from 'src/app/modules/tm/components/articulo/create-update/articulo-create-update.component';
@@ -42,6 +43,7 @@ import { GuardiaLotesListComponent } from 'src/app/modules/tm/components/guardia
 
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioCreateUpdateComponent } from 'src/app/modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
+
 
 const routes: Routes = [
     // Inicio
@@ -54,8 +56,8 @@ const routes: Routes = [
     { path: 'configuracion/articulos/editar/:id', component: ArticuloCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     { path: 'configuracion/situaciones', component: SituacionListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'configuracion/situaciones/crear', component: TipoSituacionCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'configuracion/situaciones/editar/:id', component: TipoSituacionCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/situaciones/crear', component: SituacionCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/situaciones/editar/:id', component: SituacionCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
     { path: 'configuracion/feriados', component: FeriadoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/feriados/crear', component: FeriadoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
@@ -74,8 +76,9 @@ const routes: Routes = [
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     // Partes
-    { path: 'partes', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/:id/agentes', component: ParteAgenteListViewComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes', component: PartesMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes/recibidos', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'partes/recibidos/:id/agentes', component: ParteAgenteListViewComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'partes/agentes', component: ParteAgenteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'partes/reportes/partes', component: ParteReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'partes/reportes/fichadas', component: FichadaReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },

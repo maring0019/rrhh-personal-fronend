@@ -3,13 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MenuService {
 
-    getMenuPrincipal(){
-        return this.menuPrincipal;
+    getMenuItems(menuKey:string){
+        return this.menuItems[menuKey];
     }
 
-    getMenuConfiguracion(){
-        return this.menuConfiguracion;
-    }
 
     private menuConfiguracion = [
         {
@@ -48,6 +45,34 @@ export class MenuService {
             url:'/configuracion/regimen-horarios',
             icono:'mdi-account-multiple-outline'
         }]
+
+
+    private menuPartes = [
+        {
+            titulo:'Partes Recibidos',
+            subtitulo:'Partes',
+            url:'/partes/recibidos',
+            icono:'mdi-account-multiple-outline',
+        }, 
+        {
+            titulo: 'Partes Diarios',
+            subtitulo:'Partes',
+            url:'/partes/agentes',
+            icono:'mdi-account-multiple-outline'
+        }, 
+        { 
+            titulo: 'Ingresos y Egresos',
+            subtitulo:'Partes',
+            url:'/partes/reportes/fichadas',
+            icono:'mdi-account-multiple-outline'
+        },
+        { 
+            titulo: 'Partes Diarios por Agente',
+            subtitulo:'Partes',
+            url:'/partes/reportes/partes',
+            icono:'mdi-account-multiple-outline'
+        }
+    ]
 
     private menuPrincipal = [
         {
@@ -96,4 +121,11 @@ export class MenuService {
             style:'solid'
         }
     ]
+
+    private menuItems = {
+        configuracion : this.menuConfiguracion,
+        partes: this.menuPartes,
+        principal: this.menuPrincipal
+
+    }
 }

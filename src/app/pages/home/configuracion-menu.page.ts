@@ -1,20 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuService } from 'src/app/services/menu.service';
-
+import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'configuracion-page.html',
+    template: `<app-page-menu></app-page-menu>`,
 })
 
-
-export class ConfiguracionMenuPageComponent implements OnInit {
-
-    public denied: Boolean = false;
-    public menu;
-
-    constructor(private menuService:MenuService) { }
-
-    ngOnInit() {
-        this.menu = this.menuService.getMenuConfiguracion();
-    }
-}
+export class ConfiguracionMenuPageComponent {}

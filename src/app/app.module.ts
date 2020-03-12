@@ -57,6 +57,7 @@ import { CalendarStoreService } from './stores/calendar.store.service';
 import { LoginPage } from './pages/login/login.page';
 import { ConfiguracionMenuPageComponent } from './pages/home/configuracion-menu.page';
 import { HomeMenuPageComponent } from './pages/home/home-menu.page';
+import { PartesMenuPageComponent } from './pages/home/partes-menu.page';
 
 import { RoutingGuard, RoutingNavBar} from './app-guard';
 
@@ -129,6 +130,7 @@ import { FileManagerComponent } from './components/file-manager/file.manager.com
 import { LogoSvgComponent } from './styles/logo.svg';
 import { AcronimoSvgComponent } from './styles/acronimo.svg';
 import { BlockMenuComponent } from 'src/app/components/menu/block-menu.component';
+import { PageMenuComponent } from 'src/app/components/menu/page-menu.component';
 import { CrudHeaderComponent } from './modules/tm/components/crud/header/header.component';
 import { SearchFieldComponent } from './modules/tm/components/crud/search-field/search-field.component';
 import { ColorPickerComponent } from 'src/app/components/color-picker/color-picker.component';
@@ -155,11 +157,8 @@ import { FeriadoSearchComponent } from './modules/tm/components/feriados/list/se
 import { FeriadoCreateUpdateComponent } from './modules/tm/components/feriados/create-update/feriado-create-update.component';
 
 import { SituacionListComponent } from './modules/tm/components/situacion/list/situacion-list.component';
-import { SituacionSearchFormComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
-
-
-import { TipoSituacionCreateUpdateComponent } from 'src/app/modules/tm/components/situacion/create-update/situacion-create-update.component';
-import { TipoSituacionCreateUpdateFormComponent } from 'src/app/modules/tm/components/situacion/create-update/form/situacion-create-update-form.component';
+import { SituacionSearchComponent } from './modules/tm/components/situacion/list/search/situacion-search.component';
+import { SituacionCreateUpdateComponent } from './modules/tm/components/situacion/create-update/situacion-create-update.component';
 
 import { ArticuloSearchComponent } from './modules/tm/components/articulo/list/search/articulo-search.component';
 import { ArticuloListComponent } from './modules/tm/components/articulo/list/articulo-list.component';
@@ -207,7 +206,6 @@ import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regim
 import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
 import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
 
-
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
@@ -215,9 +213,8 @@ const ADMIN_COMPONENTS = [
     FeriadoCreateUpdateComponent,
     
     SituacionListComponent,
-    SituacionSearchFormComponent,
-    TipoSituacionCreateUpdateComponent,
-    TipoSituacionCreateUpdateFormComponent,
+    SituacionSearchComponent,
+    SituacionCreateUpdateComponent,
     
     ArticuloListComponent,
     ArticuloSearchComponent,
@@ -242,6 +239,7 @@ const ADMIN_COMPONENTS = [
         LoginPage,
         HomeMenuPageComponent,
         ConfiguracionMenuPageComponent,
+        PartesMenuPageComponent,
 
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
@@ -325,6 +323,7 @@ const ADMIN_COMPONENTS = [
         UbicaciónFormSelectComponent,
         LeyendaComponent,
         BlockMenuComponent,
+        PageMenuComponent,
         CrudHeaderComponent,
         SearchFieldComponent,
         ColorPickerComponent,

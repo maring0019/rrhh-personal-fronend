@@ -37,7 +37,7 @@ export abstract class CRUDListComponent implements OnInit {
     public ngOnInit() {
         this.objects = [];
         this.createSearchFormComponent();
-        // this.createItemListComponent();
+        this.createItemListComponent();
         
     }
 

@@ -15,6 +15,6 @@ export class HomeMenuPageComponent implements OnInit {
     constructor(private menuService:MenuService) { }
 
     ngOnInit() {
-        this.menu = this.menuService.getMenuPrincipal();
+        this.menu = this.menuService.getMenuItems('principal');
     }
 }
