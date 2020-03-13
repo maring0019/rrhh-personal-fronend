@@ -16,7 +16,7 @@ export class Parte {
     constructor(parte?)
     {
         parte = parte || {};
-        this._id = parte._id || null;
+        this._id = parte._id;
         this.fecha = parte.fecha;
         this.procesado = parte.procesado;
         this.estado = parte.estado || null;

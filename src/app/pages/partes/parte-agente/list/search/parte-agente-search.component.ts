@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Auth } from '@andes/auth';
 
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
 
 import { ParteService } from 'src/app/services/parte.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
+import { AgenteService } from 'src/app/services/agente.service';
+import { ParteAgenteService } from 'src/app/services/parte-agente.service';
 
+import { Parte } from 'src/app/models/Parte';
 import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
-import { Parte } from '../../../../../models/Parte';
-import { Auth } from '@andes/auth';
-
+import { ParteAgente } from '../../../../../models/ParteAgente';
 
 @Component({
     selector: 'app-parte-agente-search-form',
@@ -18,7 +20,8 @@ import { Auth } from '@andes/auth';
 export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Output() searchEndParte: EventEmitter<Parte> = new EventEmitter<Parte>();
-    
+    public parte:Parte;
+    public partesAgentes:ParteAgente[] = [];
     //Search form options
     public servicioOpciones:UbicacionServicio[] = []; 
 
@@ -26,7 +29,9 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
         formBuilder: FormBuilder,
         private objectService: ParteService,
         private ubicacionService: UbicacionService,
-        private authService: Auth) {
+        private authService: Auth,
+        private agenteService: AgenteService,
+        private parteAgenteService: ParteAgenteService) {
             super(formBuilder);
     }
 
@@ -85,14 +90,18 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     search(searchParams){
+        if (!this.searchForm.valid) {
+            this.searchEnd.emit([]);
+            return;
+        } 
         this.objectService.get(searchParams).subscribe(
             objects => {
                 if (objects && objects.length){
                     // Si el parte existe buscamos los partes de los agentes
                     // asociados al parte encontrado y notificamos
-                    const parte = objects[0];
-                    this.searchEndParte.emit(parte);
-                    this.searchPartesAgentes(parte._id);
+                    this.parte = objects[0];
+                    this.searchEndParte.emit(this.parte);
+                    this.searchPartesAgentes(this.parte._id);
                 }
                 else {
                     // Si el parte no existe lo creamos junto a los
@@ -106,9 +115,40 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
         );
     }
 
+    /**
+     * Simula un 'refresh' del listado de agentes del parte. Es de utilidad 
+     * en casos en los que ya se ha generado previamente el listado, y luego
+     * un agente o mas se hayan dado de alta o incorparado como agentes del 
+     * servicio del parte y por lo tanto no figuren en el listado original. 
+     */
+    public reloadPartesAgentes(){
+        if (!this.searchForm.valid) return ;
+        let form = this.searchForm.value;
+        this.agenteService.search({
+            'situacionLaboral.cargo.servicio.ubicacion': form.servicio.codigo,
+            'activo': true
+        }).subscribe(agentes => {
+            if (agentes.length){
+                let agentesAusentes = agentes.filter( x => !this.partesAgentes.filter( y => y.agente._id === x._id).length);
+                let partesAgentes:ParteAgente[] = []
+                for (const agente of agentesAusentes) {
+                    const parteAgente = new ParteAgente({
+                        parte: { _id: this.parte._id },
+                        agente: { _id: agente._id, nombre: agente.nombre, apellido: agente.apellido },
+                        fecha: this.parte.fecha
+                    });
+                    partesAgentes.push(parteAgente);
+                }
+                this.parteAgenteService.postMany(partesAgentes).subscribe();
+                this.buscar();
+            }
+        })
+    }
+
     searchPartesAgentes(parteID){
         this.objectService.getPartesAgentes(parteID).subscribe(
             objects => {
+                this.partesAgentes = objects;
                 this.searchEnd.emit(objects);
             },
             (err) => {

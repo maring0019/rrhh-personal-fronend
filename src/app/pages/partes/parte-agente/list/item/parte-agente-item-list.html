@@ -24,6 +24,7 @@
             <plex-select 
                 *ngIf="!readonly && editionEnabled"
                 [data]="justificaciones"
+                [idField]="'_id'"
                 name="justificacion"
                 [(ngModel)]="object.justificacion"
                 label=""
@@ -49,6 +50,7 @@
             <!-- Boton de carga de Articulos -->
             <plex-button
                 *ngIf="readonly && !object.ausencia"
+                title="Cargar Ausentismo"
                 type="info"
                 size="sm"
                 icon="mdi mdi-plus"

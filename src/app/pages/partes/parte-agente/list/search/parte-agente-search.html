@@ -4,6 +4,7 @@
             <div class="col-md-3">
                 <plex-datetime
                     formControlName="fecha"
+                    required
                     type="date"
                     name="fecha"
                     placeholder="Fecha Parte"
@@ -20,13 +21,14 @@
                     (change)="buscar($event)">
                 </plex-select>
             </div>
-            <!-- <div class="col-md-1">
+            <div class="col-md-4">
                 <plex-button
+                    title="Refrescar Búsqueda"
                     type="primary"
-                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
-                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
+                    [icon]="'mdi mdi-reload'"
+                    (click)="reloadPartesAgentes()">
                 </plex-button>
-            </div> -->
+            </div>
         </div>
     </form>
 </header>

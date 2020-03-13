@@ -49,28 +49,32 @@ export class MenuService {
 
     private menuPartes = [
         {
-            titulo:'Partes Recibidos',
-            subtitulo:'Partes',
-            url:'/partes/recibidos',
-            icono:'mdi-account-multiple-outline',
+            titulo: 'Partes Recibidos',
+            subtitulo: 'Partes',
+            url: '/partes/recibidos',
+            icono: 'mdi-account-multiple-outline',
+            color: 'color-violeta'
         }, 
         {
             titulo: 'Partes Diarios',
-            subtitulo:'Partes',
-            url:'/partes/agentes',
-            icono:'mdi-account-multiple-outline'
+            subtitulo: 'Partes',
+            url: '/partes/agentes',
+            icono: 'mdi-account-multiple-outline',
+            color: 'color-violeta'
         }, 
         { 
             titulo: 'Ingresos y Egresos',
-            subtitulo:'Partes',
-            url:'/partes/reportes/fichadas',
-            icono:'mdi-account-multiple-outline'
+            subtitulo: 'Partes',
+            url: '/partes/reportes/fichadas',
+            icono: 'mdi-account-multiple-outline',
+            color: 'color-violeta'
         },
         { 
             titulo: 'Partes Diarios por Agente',
-            subtitulo:'Partes',
-            url:'/partes/reportes/partes',
-            icono:'mdi-account-multiple-outline'
+            subtitulo: 'Partes',
+            url: '/partes/reportes/partes',
+            icono: 'mdi-account-multiple-outline',
+            color: 'color-violeta'
         }
     ]
 

@@ -28,4 +28,8 @@ export class FichadaReporteListComponent extends CRUDListComponent implements On
         super.ngOnInit();
     }
 
+    public onCerrar(){
+        this.router.navigate(['/partes']);
+    }
+
 }

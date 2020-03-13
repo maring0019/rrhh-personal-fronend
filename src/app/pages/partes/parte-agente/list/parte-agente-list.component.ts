@@ -138,7 +138,9 @@ export class ParteAgenteListComponent extends CRUDListComponent implements OnIni
         this.searchFormComponentRef.instance.buscar();
     }
 
-    public onCancel(){}
+    public onCancel(){
+        this.router.navigate(['/partes']);
+    }
 
     /**
      * Oculta/muestra los botones de guardar y cancelar al editar un parte.

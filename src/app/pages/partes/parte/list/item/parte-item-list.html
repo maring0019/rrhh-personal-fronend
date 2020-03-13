@@ -13,6 +13,7 @@
         <plex-item [layout]="layout">
             <div>
                 <plex-button
+                    title="Ver Partes Agentes"
                     type="info"
                     size="sm"
                     icon="mdi mdi-magnify"
@@ -23,14 +24,14 @@
             <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
-            <div [ngSwitch]="object.estado.nombre">
-                <plex-badge *ngSwitchCase="'Sin presentar'" type="danger" size="sm">
+            <div [ngSwitch]="object.estado.nombre"><!-- TODO cambiar por codigo -->
+                <plex-badge *ngSwitchCase="'Sin presentar'" type="danger" size="sm" title="{{ object.estado.nombre }}">
                     <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
                 </plex-badge>
-                <plex-badge *ngSwitchCase="'Presentación parcial'" type="warning" size="sm">
+                <plex-badge *ngSwitchCase="'Presentación parcial'" type="warning" size="sm" title="{{ object.estado.nombre }}">
                     <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
                 </plex-badge>
-                <plex-badge *ngSwitchDefault type="success" size="sm">
+                <plex-badge *ngSwitchDefault type="success" size="sm" title="{{ object.estado.nombre }}">
                     <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
                 </plex-badge>
             </div>

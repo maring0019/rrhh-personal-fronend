@@ -28,4 +28,8 @@ export class ParteReporteListComponent extends CRUDListComponent implements OnIn
         super.ngOnInit();
     }
 
+    public onCerrar(){
+        this.router.navigate(['/partes']);
+    }
+
 }

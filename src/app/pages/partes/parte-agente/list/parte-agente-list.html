@@ -3,45 +3,47 @@
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
                 <h5 class="align-self-center"><strong>{{ titulo }}</strong></h5>
-                <div class="d-flex flex-row justify-content-end align-items-center"
-                    *ngIf="parteToUpdate">
-                    <plex-button
-                        *ngIf="estadoPresentacionConfirmada && !editionEnabled"
-                        class="mr-2"
-                        label="Editar Parte Presentado"
-                        type="info"
-                        (click)="onEnableEdition()">
-                    </plex-button>
-                    <plex-button
-                        *ngIf="estadoPresentacionConfirmada && editionEnabled"
-                        class="mr-2"
-                        label="Cancelar"
-                        type="danger"
-                        (click)="onCancelEdition()">
-                    </plex-button>
-                    <plex-button
-                        *ngIf="estadoPresentacionConfirmada && editionEnabled"
-                        class="mr-2"
-                        label="Guardar Edición"
-                        type="success"
-                        (click)="onSaveEdition()">
-                    </plex-button>
-                    <plex-button
-                        *ngIf="!estadoPresentacionConfirmada"
-                        class="mr-2"
-                        label="Guardar"
-                        title="Guardar y Continuar Editando"
-                        type="info"
-                        (click)="onSavePartes()">
-                    </plex-button>
-                    <plex-button
-                        *ngIf="!estadoPresentacionConfirmada"
-                        class="mr-2"
-                        label="Confirmar"
-                        type="success"
-                        title="Confirmar Parte"
-                        (click)="onConfirmarPartes()">
-                    </plex-button>
+                <div class="d-flex flex-row justify-content-end align-items-center">
+                    <div class="d-flex flex-row justify-content-end align-items-center"
+                        *ngIf="parteToUpdate && objects && objects.length">
+                        <plex-button
+                            *ngIf="estadoPresentacionConfirmada && !editionEnabled"
+                            class="mr-2"
+                            label="Editar Parte Presentado"
+                            type="info"
+                            (click)="onEnableEdition()">
+                        </plex-button>
+                        <plex-button
+                            *ngIf="estadoPresentacionConfirmada && editionEnabled"
+                            class="mr-2"
+                            label="Cancelar"
+                            type="danger"
+                            (click)="onCancelEdition()">
+                        </plex-button>
+                        <plex-button
+                            *ngIf="estadoPresentacionConfirmada && editionEnabled"
+                            class="mr-2"
+                            label="Guardar Edición"
+                            type="success"
+                            (click)="onSaveEdition()">
+                        </plex-button>
+                        <plex-button
+                            *ngIf="!estadoPresentacionConfirmada"
+                            class="mr-2"
+                            label="Guardar"
+                            title="Guardar y Continuar Editando"
+                            type="info"
+                            (click)="onSavePartes()">
+                        </plex-button>
+                        <plex-button
+                            *ngIf="!estadoPresentacionConfirmada"
+                            class="mr-2"
+                            label="Confirmar"
+                            type="success"
+                            title="Confirmar Parte"
+                            (click)="onConfirmarPartes()">
+                        </plex-button>
+                    </div>
                     <plex-button 
                         type="danger"
                         icon="mdi mdi-close"
@@ -63,7 +65,8 @@
         
         <app-search-leyenda
             *ngIf="searched && objects && !objects.length"
-            [header]="'No se encontraron resultados!'">
+            [header]="'No se encontraron resultados!'"
+            [subHeader]="'Podes intentar realizando un refresh búsqueda'">
         </app-search-leyenda>
 
         <ng-template #itemList></ng-template>
