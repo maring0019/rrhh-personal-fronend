@@ -11,7 +11,8 @@ export class SearchFieldComponent {
     @Input() searchFields:string[] = ["nombre"];
     
     @Output() change: EventEmitter<any> = new EventEmitter<any>();
-
+    
+    public autoFocus = 0;
     public searchText:String;  // User input value
     
     private searchExpresion:any;

@@ -12,8 +12,8 @@ import { FormGroupDirective, FormGroup, FormBuilder } from '@angular/forms';
 
 export abstract class ABMCreateUpdateComponent implements OnInit {
 
-    protected titulo;
-    protected get subtitulo(){
+    titulo;
+    get subtitulo(){
         let value = ""
         if(this.object){
             value = (this.object._id)? 'Editar':'Alta';
@@ -130,7 +130,7 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
             );
     }
 
-    public onCancel(e:any){
+    public onCancel(){
         this.location.back();
     }
 
