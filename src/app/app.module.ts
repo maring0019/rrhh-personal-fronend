@@ -202,9 +202,11 @@ import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/componen
 import { GuardiaPeriodoCreateUpdateFormComponent } from './modules/tm/components/guardia-periodos/create-update/form/create-update-form.component';
 import { GuardiaLotesListComponent } from './modules/tm/components/guardia-lotes/list/guardia-lotes-list.component';
 import { GuardiaLotesSearchComponent } from './modules/tm/components/guardia-lotes/list/search/guardia-lotes-search.component';
+import { GuardiaLotesCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-lotes/create-update/guardia-lotes-create-update.component';
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
 import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
+
 
 const ADMIN_COMPONENTS = [
 
@@ -227,6 +229,7 @@ const ADMIN_COMPONENTS = [
 
     GuardiaLotesListComponent,
     GuardiaLotesSearchComponent,
+    GuardiaLotesCreateUpdateComponent,
 
     RegimenHorarioListComponent,
     RegimenHorarioSearchComponent,

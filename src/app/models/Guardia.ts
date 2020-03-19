@@ -69,7 +69,7 @@ export class Guardia {
     constructor(guardia?)
     {
         guardia = guardia || {};
-        this._id = guardia._id || null;
+        this._id = guardia._id;
         this.periodo = guardia.periodo? new GuardiaPeriodo(guardia.periodo): null;
         this.lote = new GuardiaLote(guardia.lote);
         this.planilla = [];

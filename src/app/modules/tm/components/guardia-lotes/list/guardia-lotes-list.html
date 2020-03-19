@@ -35,8 +35,20 @@
             (edit)="onItemEdit($event)"
             (delete)="onItemDelete($event)">
             <plex-label 
-                class="wp-100"
+                class="wp-10"
                 titulo="{{ item.numero }}">
+            </plex-label>
+            <plex-label 
+                class="wp-40"
+                titulo="{{ item.servicio?.nombre }}">
+            </plex-label>
+            <plex-label 
+                class="wp-20"
+                titulo="{{ item.tipoGuardia | title }}">
+            </plex-label>
+            <plex-label 
+                class="wp-30"
+                titulo="{{ item.categoria?.nombre }}">
             </plex-label>
         </list-item>
         

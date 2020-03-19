@@ -40,10 +40,10 @@ import { ArticuloCreateUpdateComponent } from 'src/app/modules/tm/components/art
 import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
 import { GuardiaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-periodos/create-update/guardia-periodo-create-update.component';
 import { GuardiaLotesListComponent } from 'src/app/modules/tm/components/guardia-lotes/list/guardia-lotes-list.component';
+import { GuardiaLotesCreateUpdateComponent } from 'src/app/modules/tm/components/guardia-lotes/create-update/guardia-lotes-create-update.component';
 
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioCreateUpdateComponent } from 'src/app/modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
-
 
 const routes: Routes = [
     // Inicio
@@ -72,6 +72,8 @@ const routes: Routes = [
     { path: 'configuracion/regimen-horarios/editar/:id', component: RegimenHorarioCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     { path: 'configuracion/guardia-lotes', component: GuardiaLotesListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/guardia-lotes/crear', component: GuardiaLotesCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'configuracion/guardia-lotes/editar/:id', component: GuardiaLotesCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 

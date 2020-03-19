@@ -109,7 +109,8 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
     }
     
     protected update(object){
-        this.objectService.put(this.dataService, object)
+        let objToUpdate = this.preUpdate(object);
+        this.objectService.put(this.dataService, objToUpdate)
             .subscribe(
                 data => {
                     formUtils.resetForm(this.form, this._form);
@@ -120,7 +121,8 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
     }
 
     protected add(object){
-        this.objectService.post(this.dataService, object)
+        let objToAdd = this.preAdd(object);
+        this.objectService.post(this.dataService, objToAdd)
             .subscribe(
                 data=> {
                     formUtils.resetForm(this.form, this._form);
@@ -128,6 +130,23 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
                 },
                 error => this.onError(error)
             );
+    }
+
+    /**
+     * Hook para realizar tareas extras sobre el objeto a 
+     * actualizar
+     */
+    protected preUpdate(object){
+        return object;
+    }
+
+    /**
+     * Hook para realizar tareas extras sobre el objeto a 
+     * crear
+     */
+    protected preAdd(object){
+        return object;
+
     }
 
     public onCancel(){
