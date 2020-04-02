@@ -29,7 +29,7 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
     public opcionesAgenteTodos;
     public opcionesAgenteLugarTrabajo;
     public opcionesAgente;
-    public opcionesTiposEstados;
+    public filtrosTiposEstados;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -51,10 +51,14 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 this.sectores = data;
         });
+        // Radio buttons options. Se crean individualmente para tener mayor 
+        // control en el layout del html. Esto implica luego gestionar cada
+        // evento de seleccion manualmentes ya que las opciones son excluyentes
         this.opcionesAgenteTodos = [{ id: true, label: 'Todos los Agentes' }];
-        this.opcionesAgenteLugarTrabajo = [{ id: true, label: 'Agentes con Lugar de Trabajo en:'}];
-        this.opcionesAgente = [{ id: true, label: 'Sólo el agente'}];
-        this.opcionesTiposEstados =[
+        this.opcionesAgenteLugarTrabajo = [{ id: true, label: 'Agentes con Trabajo en:'}];
+        this.opcionesAgente = [{ id: true, label: 'Sólo el agente:'}];
+        
+        this.filtrosTiposEstados =[
             {id:'activo', nombre:'Sólo agentes activos'},
             {id:'baja', nombre:'Sólo agentes inactivos'},
             {id:'todos', nombre:'Todos (activos e inactivos)'}

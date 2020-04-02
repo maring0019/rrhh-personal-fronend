@@ -1,4 +1,4 @@
-<plex-layout main="8">
+<plex-layout main="12">
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
@@ -7,6 +7,12 @@
                 </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <plex-button
+                        label="Consultar"
+                        type="success"
+                        (click)="onSearch();">
+                    </plex-button>
+                    <plex-button
+                        class="mx-2"
                         type="danger"
                         icon="mdi mdi-close"
                         title="Cerrar"
@@ -42,14 +48,7 @@
                 </div>
             </plex-tab>
         </plex-tabs>
-        <br>
-        <div class="d-flex flex-row justify-content-end">
-            <!-- <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button> -->
-            <plex-button label="Consultar" type="success" (click)="onSearch();"></plex-button>
-        </div>
     </plex-layout-main>
-    <plex-layout-sidebar type="invert">
-    </plex-layout-sidebar>
 </plex-layout>
 
 <jw-modal id="modal-show-results">

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import  *  as formUtils from 'src/app/utils/formUtils';
 import { ReporteAgenteFiltersComponent } from './forms/reporte-agente-filters.component';
 import { ReporteSeleccionTipoComponent } from './forms/reporte-seleccion-tipo.component';
 
@@ -32,6 +33,10 @@ export class ReporteSearchComponent implements OnInit {
     public ngOnInit() {}
 
     public onSearch(){
+        if (this.agenteFiltersComponent.form.invalid){
+            formUtils.markFormAsInvalid(this.agenteFiltersComponent.form);
+            return;
+        }
         this.prepareSearchParams();
         const tipoReporte = this.getTipoReporte();
         this.generandoReporte = true;
@@ -44,6 +49,12 @@ export class ReporteSearchComponent implements OnInit {
                 this.generandoReporte = false;
                 console.log('Report error:', JSON.stringify(error));
             }); 
+    }
+
+    private allFormsValid(){
+        if (this.agenteFiltersComponent.form.invalid){
+            formUtils.markFormAsInvalid(this.agenteFiltersComponent.form);
+        }
     }
 
     public onPrint(){

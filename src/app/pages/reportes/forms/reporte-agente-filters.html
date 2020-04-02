@@ -2,13 +2,10 @@
     <div>
         <h5>Paso 1. Seleccion de Agentes</h5>
     </div>
-    <!-- <div class="d-flex flex-row justify-content-end">
-        <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button>
-    </div> -->
 </header>
 <form name="form" [formGroup]="form">
-    <div class="row">
-        <div class="col-md-6 mb-2">
+    <div class="row mb-4">
+        <div class="col-md-6">
             <plex-radio 
                 *ngIf="opcionesAgenteTodos"
                 [data]="opcionesAgenteTodos"
@@ -18,9 +15,9 @@
             </plex-radio>
         </div>
     </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-6 mb-3">
+
+    <div class="row mb-3">
+        <div class="col-md-2">
             <plex-radio 
                 *ngIf="opcionesAgenteLugarTrabajo"
                 [data]="opcionesAgenteLugarTrabajo"
@@ -29,22 +26,21 @@
                 (change)="updateRadioOptionSelection('optionAgenteLugarTrabajo')">
             </plex-radio>
         </div>
-    </div>
-    <div class="row">
-        <div class="ml-4 col-md-6">
+        <div class="col-md-6">
             <plex-select 
                 [data]="sectores"
                 name="lugarTrabajo"
                 formControlName="lugarTrabajo"
                 placeholder="Buscar Lugares de trabajo"
                 (change)="onChangeLugarTrabajo($event)" 
-                [multiple]="false">
+                [multiple]="false"
+                [required]="form.controls['optionAgenteLugarTrabajo'].value == true">
             </plex-select>
         </div>
     </div>
-    <hr>
+
     <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-2 mb-3">
             <plex-radio 
                 *ngIf="opcionesAgente"
                 [data]="opcionesAgente"
@@ -53,24 +49,28 @@
                 (change)="updateRadioOptionSelection('optionAgente')">
             </plex-radio>
         </div>
-    </div>
-    <div class="row">
-        <div class="ml-4 col-md-6">
+        <div class="col-md-6">
             <plex-select 
                 (getData)="onSearchAgentes($event)" 
                 (change)="onChangeAgente($event)" 
                 name="agente"
                 formControlName="agente"
-                placeholder="Buscar Agente">
+                placeholder="Buscar Agente"
+                [required]="form.controls['optionAgente'].value == true">
             </plex-select>
         </div>
     </div>
     <hr>
     <div class="row">
-        <div class="ml-4 col-md-6">
+        <div class="col-md-2">
+            <plex-label
+                [titulo]="'Filtrar Agentes'"
+                [size]="'lg'">
+            </plex-label>
+        </div>
+        <div class="col-md-6">
             <plex-select 
-                [data]="opcionesTiposEstados" 
-                label="Filtrar"
+                [data]="filtrosTiposEstados" 
                 name="activo"
                 formControlName="activo"
                 [required]="true">
