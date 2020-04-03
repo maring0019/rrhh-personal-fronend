@@ -3,28 +3,27 @@
         <h5><strong>Agente | </strong> Baja</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <!-- <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="cancelar()">Cerrar</plex-button> -->
         <plex-button label="Guardar" type="success" (click)="guardar()"></plex-button>
         <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
     </div>
 </header>
 
-<form name="form" [formGroup]="form">
-    <div class="row">
-        <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
-            <app-agente-foto
-                [agente]="agente"
-                [editable]="false"
-                [size]="'md'">
-            </app-agente-foto>
-            <article class="d-flex flex-column">
-                <h5 class="mt-2 mb-4">
-                    {{ agente.nombre }}
-                    <strong>{{ agente.apellido }}</strong>
-                </h5>
-            </article>
-        </div>
-        <div class="col-md-9 col-xs-12">
+<div class="row">
+    <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+        <app-agente-foto
+            [agente]="agente"
+            [editable]="false"
+            [size]="'md'">
+        </app-agente-foto>
+        <article class="d-flex flex-column">
+            <h5 class="mt-2 mb-4">
+                {{ agente.nombre }}
+                <strong>{{ agente.apellido }}</strong>
+            </h5>
+        </article>
+    </div>
+    <div class="col-md-9 col-xs-12">
+        <form name="form" [formGroup]="form">
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <plex-datetime
@@ -46,37 +45,14 @@
                         placeholder="Seleccione...">
                     </plex-select>
                 </div>
-            </div>    
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <plex-select 
-                        [data]="tiposNormaLegal"
-                        name="tipoNormaLegal"
-                        formControlName="tipoNormaLegal"
-                        label="Tipo Norma"
-                        placeholder="Seleccione..."
-                        [required]="true">
-                    </plex-select>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <plex-text
-                        name="numeroNormaLegal"
-                        formControlName="numeroNormaLegal"
-                        label="Nro. Norma Legal"
-                        placeholder="Ingrese Nro...">
-                    </plex-text>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <plex-text
-                        name="observaciones"
-                        formControlName="observaciones"
-                        label="Observaciones"
-                        placeholder="Ingrese observaciones...">
-                    </plex-text>
-                </div>
-            </div>
-        </div>
+        </form>   
+        <h5 class="subheader mt-4">Norma Legal</h5>
+        <div *ngIf="normaLegal">
+            <agente-datos-norma-legal
+                [normaLegal]="normaLegal"
+                [editable]="'true'">
+            </agente-datos-norma-legal>
+        </div>                
     </div>
-</form>
+</div>

@@ -3,13 +3,12 @@ import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { Agente } from 'src/app/models/Agente';
-import { BajaAgente } from 'src/app/models/BajaAgente';
 import { CausaBaja } from 'src/app/models/CausaBaja';
-import { TipoNormaLegal } from 'src/app/models/TipoNormaLegal';
 
-import { TipoNormaLegalService } from 'src/app/services/tipo-norma-legal.service';
 import { CausaBajaService } from 'src/app/services/causa-baja.service';
 import { AgenteService } from 'src/app/services/agente.service';
+import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
+import { NormaLegal } from 'src/app/models/NormaLegal';
 
 @Component({
     selector: 'app-agente-baja',
@@ -24,16 +23,15 @@ export class AgenteBajaComponent implements OnInit {
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(FormGroupDirective) _form;
+    @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
 
-
-    public form: FormGroup;
-    public tiposNormaLegal: TipoNormaLegal[] = [];
+    public form: FormGroup;    
     public causas: CausaBaja[] = [];
 
+    public normaLegal:NormaLegal = new NormaLegal();
     
     constructor(
         private formBuilder: FormBuilder,
-        private tipoNormaLegalService: TipoNormaLegalService,
         private causaService: CausaBajaService,
         private agenteService: AgenteService){}
 
@@ -43,11 +41,6 @@ export class AgenteBajaComponent implements OnInit {
     }
 
     initFormSelectOptions(){
-        // Init Tipos Normas
-        this.tipoNormaLegalService.get({})
-            .subscribe(data => {
-                this.tiposNormaLegal = data;
-            });
         // Init Causas de Bajas
         this.causaService.get({})
             .subscribe(data => {
@@ -59,33 +52,40 @@ export class AgenteBajaComponent implements OnInit {
         {
             return this.formBuilder.group({
                 fecha              : [new Date()],
-                causa              : [],
-                tipoNormaLegal     : [],
-                numeroNormaLegal   : [],
-                observaciones      : []
+                causa              : []
             });
         }
   
 
     public cancelar(){
-        formUtils.resetForm(this.form, this._form);
+        this.resetForms();
         this.cancel.emit();
     }
 
-
     public guardar(){
-        if (this.form.invalid){
+        if (this.form.invalid || this.datosNormaLegal.datosNormaLegalForm.invalid) {
             formUtils.markFormAsInvalid(this.form);
+            formUtils.markFormAsInvalid(this.datosNormaLegal.datosNormaLegalForm)
             return;
         }
-        const baja = new BajaAgente(this.form.value);
-        this.agenteService.baja(this.agente, baja)
+
+        let datosBaja = {
+            fecha: this.form.value.fecha,
+            causa: this.form.value.causa,
+            normaLegal : new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value)
+        }
+        this.agenteService.baja(this.agente, datosBaja)
             .subscribe(
                 data=> {
                     this.success.emit(data);
-                    formUtils.resetForm(this.form, this._form);
+                    this.resetForms();
                 },
                 error => this.error.emit(error)
             )
+    }
+
+    public resetForms(){
+        formUtils.resetForm(this.form, this._form);
+        this.datosNormaLegal.resetForm();
     }
 }

@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { Server } from '@andes/shared';
 
 import { Agente } from '../models/Agente';
-import { BajaAgente } from '../models/BajaAgente';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 
 @Injectable()
@@ -60,14 +59,14 @@ export class AgenteService {
         return this.server.put(url, agente);
     }
 
-    baja(agente: Agente, baja:BajaAgente): Observable<Agente> {
+    baja(agente: Agente, baja:any): Observable<Agente> {
         const url = `${this.agenteUrl}/${agente._id}/baja`;
         return this.server.put(url, baja);
     }
 
-    reactivar(agente: Agente): Observable<Agente> {
+    reactivar(agente: Agente, reactivacion:any): Observable<Agente> {
         const url = `${this.agenteUrl}/${agente._id}/reactivar`;
-        return this.server.put(url, {});
+        return this.server.put(url, reactivacion);
     }
 
     addHistoriaLaboral(agente:Agente, situacion:SituacionLaboral):Observable<Agente>{
