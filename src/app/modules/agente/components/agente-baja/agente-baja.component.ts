@@ -51,8 +51,8 @@ export class AgenteBajaComponent implements OnInit {
     initForm()
         {
             return this.formBuilder.group({
-                fecha              : [new Date()],
-                causa              : []
+                fecha    : [new Date()],
+                motivo   : []
             });
         }
   
@@ -71,7 +71,7 @@ export class AgenteBajaComponent implements OnInit {
 
         let datosBaja = {
             fecha: this.form.value.fecha,
-            causa: this.form.value.causa,
+            motivo: this.form.value.motivo,
             normaLegal : new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value)
         }
         this.agenteService.baja(this.agente, datosBaja)

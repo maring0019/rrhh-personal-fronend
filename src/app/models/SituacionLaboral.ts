@@ -18,6 +18,8 @@ export class SituacionLaboral {
     situacion: Situacion;
     cargo: Cargo;
     regimen: Regimen;
+    fecha: Date;
+    motivo: String;
 
     constructor(sl?){
         sl = sl || {};
@@ -30,5 +32,7 @@ export class SituacionLaboral {
         this.situacion = new Situacion(sl.situacion);
         this.cargo = new Cargo(sl.cargo);
         this.regimen = new Regimen(sl.regimen);
+        this.fecha = sl.fecha;
+        this.motivo = sl.motivo || '';
     }
 }

@@ -15,12 +15,11 @@ import { NormaLegal } from 'src/app/models/NormaLegal';
 import { Situacion } from 'src/app/models/Situacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { Regimen } from 'src/app/models/Regimen';
-
+import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
 
 @Component({
     selector: 'app-historia-laboral-create',
-    templateUrl: './historia-laboral-create.html',
-    // styleUrls: ['./historia-laboral-create.scss']
+    templateUrl: './historia-laboral-create.html'
   })
 
 export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
@@ -33,10 +32,12 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
     @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
     @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
+    @ViewChild(FormGroupDirective) _form;
      
     @HostBinding('class.plex-layout') layout = true;
-    // Datos para los formularios
     
+    public formMotivo: FormGroup;
+    // Datos para los formularios
     public normaLegal: NormaLegal;
     public situacion: Situacion;
     public cargo: Cargo;
@@ -47,6 +48,7 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     private _updating:any; // To keep track actual action. If false is create
     
     constructor(
+        private formBuilder: FormBuilder,
         private agenteService:AgenteService,
         public plex: Plex
         ){}
@@ -61,12 +63,14 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
 
     private initValueForms(){
         if (this._updating){
+            this.formMotivo = this.initCausaForm(); // TODO Revisar esto
             this.situacion = this.agente.situacionLaboral.situacion;
             this.normaLegal = this.agente.situacionLaboral.normaLegal;
             this.cargo = this.agente.situacionLaboral.cargo;
             this.regimen = this.agente.situacionLaboral.regimen;
         }
         else{
+            this.formMotivo = this.initCausaForm();
             this.normaLegal = new NormaLegal();
             this.situacion = new Situacion();
             this.cargo = new Cargo();
@@ -74,9 +78,16 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
         }   
     }
 
+    private initCausaForm(){
+        return this.formBuilder.group({
+            fecha    : [new Date()],
+            motivo   : []
+        });
+    }
 
     allFormsValid(){
         const forms:any = [
+            this.formMotivo,
             this.datosNormaLegal.datosNormaLegalForm,
             this.datosSituacion.datosSituacionForm,
             this.datosCargo.datosCargoForm,
@@ -95,7 +106,7 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
 
     save(){
         if (this.allFormsValid()){
-            const situacionLaboral = this.parseHistoriaLaboral();
+            const situacionLaboral = this.parseHistoriaLaboral()
             if (this._updating){
                 this.updateHistoriaLaboral();
             }
@@ -110,6 +121,8 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
 
     parseHistoriaLaboral():SituacionLaboral{
         let situacionLaboral = new SituacionLaboral();
+        situacionLaboral.fecha = this.formMotivo.value.fecha,
+        situacionLaboral.motivo = this.formMotivo.value.motivo,
         situacionLaboral.normaLegal = new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value);
         situacionLaboral.situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
         situacionLaboral.cargo = new Cargo(this.datosCargo.datosCargoForm.value);
@@ -135,9 +148,14 @@ export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
     }
 
     private resetForms(){
+        this.resetForm();
         this.datosNormaLegal.resetForm();
         this.datosSituacion.resetForm();
         this.datosCargo.resetForm();
         this.datosRegimen.resetForm();
+    }
+
+    public resetForm(){
+        formUtils.resetForm(this.formMotivo, this._form);
     }
 }

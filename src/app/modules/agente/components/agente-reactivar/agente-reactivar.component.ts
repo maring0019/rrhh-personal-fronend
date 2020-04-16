@@ -38,8 +38,8 @@ export class AgenteReactivarComponent implements OnInit {
     initForm()
         {
             return this.formBuilder.group({
-                fecha              : [new Date()],
-                causa              : []
+                fecha      : [new Date()],
+                motivo     : []
             });
         }
   
@@ -58,7 +58,7 @@ export class AgenteReactivarComponent implements OnInit {
         }
         let datosReactivacion = {
             fecha: this.form.value.fecha,
-            causa: this.form.value.causa,
+            motivo: this.form.value.motivo,
             normaLegal : new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value)
         }
 
