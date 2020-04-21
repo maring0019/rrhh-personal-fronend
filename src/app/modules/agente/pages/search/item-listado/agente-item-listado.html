@@ -19,8 +19,9 @@
                 [style.cursor]="'pointer'">
             </plex-label>
             
-            <plex-badge type="info">
-                {{ agente.situacionLaboral.situacion? (agente.situacionLaboral.situacion.tipoSituacion | title:'nombre') : 'Sin Situacion'}}
+            <plex-badge type="info"
+                *ngIf="agente.situacionLaboral.situacion && agente.situacionLaboral.situacion.tipoSituacion">
+                {{ agente.situacionLaboral.situacion.tipoSituacion | title:'nombre' }}
             </plex-badge>
             <plex-badge [type]="agente.activo? 'success': 'danger'">
                     {{ agente.activo? 'Activo' : 'Baja' }}
