@@ -1,6 +1,7 @@
 import { Servicio } from './Servicio';
 import { ParteEstado } from './ParteEstado';
 import { ParteAgente } from './ParteAgente';
+import { localDate } from 'src/app/utils/dates';
 
 
 export class Parte {
@@ -17,7 +18,7 @@ export class Parte {
     {
         parte = parte || {};
         this._id = parte._id;
-        this.fecha = parte.fecha;
+        this.fecha = localDate(parte.fecha);
         this.procesado = parte.procesado;
         this.estado = parte.estado || null;
         this.ubicacion = parte.ubicacion? new Servicio(parte.ubicacion): null;

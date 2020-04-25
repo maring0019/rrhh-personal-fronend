@@ -6,6 +6,8 @@ import { IPais } from './IPais';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
 import { SituacionLaboral } from './SituacionLaboral';
 import { BajaAgente } from './BajaAgente';
+import { localDate } from 'src/app/utils/dates';
+
 
 export class Agente {
 
@@ -44,8 +46,8 @@ export class Agente {
         this.apellido = agente.apellido || '';
         this.estadoCivil = agente.estadoCivil? ((typeof agente.estadoCivil === 'string') ? agente.estadoCivil : agente.estadoCivil.id) : null;
         this.sexo = agente.sexo? ((typeof agente.sexo === 'string') ? agente.sexo : agente.sexo.id) : null;
-        this.genero = agente.genero? ((typeof agente.genero === 'string') ? agente.genero : agente.genero.id) : null;
-        this.fechaNacimiento = agente.fechaNacimiento;
+        this.genero = agente.genero? ((typeof agente.genero === 'string') ? agente.genero : agente.genero.id) : null
+        this.fechaNacimiento = localDate(agente.fechaNacimiento);
         this.foto = agente.foto || null;
         this.nacionalidad = agente.nacionalidad || null;
         this.direccion = new Direccion(agente.direccion);

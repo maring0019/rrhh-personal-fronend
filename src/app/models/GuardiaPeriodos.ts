@@ -1,3 +1,5 @@
+import { localDate } from 'src/app/utils/dates';
+
 export class GuardiaPeriodo {
     _id?: String;
     fechaDesde: Date;
@@ -9,8 +11,8 @@ export class GuardiaPeriodo {
     {
         periodo = periodo || {};
         this._id = periodo._id || null;
-        this.fechaDesde = periodo.fechaDesde || null;
-        this.fechaHasta = periodo.fechaHasta || null;
+        this.fechaDesde = localDate(periodo.fechaDesde);
+        this.fechaHasta = localDate(periodo.fechaHasta);
         this.nombre = periodo.nombre || '';
         this.range = periodo.range || this.generateDateRange();
     }

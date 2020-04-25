@@ -2,6 +2,7 @@ import { Cargo } from './Cargo';
 import { Regimen } from './Regimen';
 import { NormaLegal } from './NormaLegal';
 import { Situacion } from './Situacion';
+import { localDate } from '../utils/dates';
 
 
 export class SituacionLaboral {
@@ -23,16 +24,16 @@ export class SituacionLaboral {
 
     constructor(sl?){
         sl = sl || {};
-        this.fechaIngresoEstado = sl.fechaIngresoEstado;
-        this.fechaIngresoHospital = sl.fechaIngresoHospital;
-        this.antiguedadVacaciones = sl.antiguedadVacaciones;
-        this.antiguedadPago = sl.antiguedadPago;
+        this.fechaIngresoEstado = localDate(sl.fechaIngresoEstado);
+        this.fechaIngresoHospital = localDate(sl.fechaIngresoHospital);
+        this.antiguedadVacaciones = localDate(sl.antiguedadVacaciones);
+        this.antiguedadPago = localDate(sl.antiguedadPago);
         this.codigoFichado = sl.codigoFichado || '';
         this.normaLegal = new NormaLegal(sl.normaLegal);
         this.situacion = new Situacion(sl.situacion);
         this.cargo = new Cargo(sl.cargo);
         this.regimen = new Regimen(sl.regimen);
-        this.fecha = sl.fecha;
+        this.fecha = localDate(sl.fecha);
         this.motivo = sl.motivo || '';
     }
 }

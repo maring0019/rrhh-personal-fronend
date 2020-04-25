@@ -1,5 +1,6 @@
 import { GuardiaPeriodo } from './GuardiaPeriodos';
 import { GuardiaLote } from './GuardiaLote';
+import { localDate } from 'src/app/utils/dates';
 
 interface IDiaGuardia {
     fecha?: Date,
@@ -80,11 +81,11 @@ export class Guardia {
         }
         
         this.estado = guardia.estado ;
-        this.fechaEntrega = guardia.fechaEntrega;
+        this.fechaEntrega = localDate(guardia.fechaEntrega);
         this.responsableEntrega = guardia.responsableEntrega;
         this.validado = guardia.validado;
         this.responsableValidacion = guardia.responsableValidacion;
-        this.fechaValidacion = guardia.fechaValidacion;
+        this.fechaValidacion = localDate(guardia.fechaValidacion);
     }
 
 }

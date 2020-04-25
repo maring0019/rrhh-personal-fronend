@@ -1,3 +1,24 @@
+let today = new Date();
+let offset = today.getTimezoneOffset()/60;
+let localTime = (offset<0)? 24 - Math.abs(offset): offset;
+let localTimeFormat = "T" + `0${localTime}:00:00Z`.slice(-9); // por ej. T03:00:00Z si el offset es 3 (Argentina)
+
+/**
+ * Manipulamos el objeto Date recibido por parametro para visualizar
+ * correctamente la fecha cuando se utiliza el componente <plex-datetime>
+ * ya que el mismo no soporta mostrar valores utilizando UTC.
+ * Utilizamos el timezone offset del cliente para obtener la misma fecha
+ * independientemente de la zona horaria que cada usuario tenga configurada
+ * localmente.
+ * @param date 
+ */
+export function localDate(date:Date){
+    if (!date) return null;
+    let df = moment(date).utc().format('YYYY-MM-DD');
+    return new Date(df+localTimeFormat);
+}
+
+
 export function  getTomorrow(date){
     let tomorrow = new Date(date);
     tomorrow.setDate(date.getDate() + 1);

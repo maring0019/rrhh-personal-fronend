@@ -1,4 +1,5 @@
 import { ParteJustificacion } from './ParteJustificacion';
+import { localDate } from 'src/app/utils/dates';
 
 export class ParteAgente {
     _id: String;
@@ -33,7 +34,7 @@ export class ParteAgente {
         this._id = parteAgente._id;
         this.parte = parteAgente.parte || null;
         this.agente = parteAgente.agente || null;
-        this.fecha = parteAgente.fecha;
+        this.fecha = localDate(parteAgente.fecha);
         this.fichadas = parteAgente.fichadas || null;
         this.ausencia = parteAgente.ausencia || null;
         this.justificacion = parteAgente.justificacion || null;
