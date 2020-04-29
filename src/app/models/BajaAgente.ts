@@ -1,23 +1,18 @@
-import { TipoNormaLegal } from './TipoNormaLegal';
+import { NormaLegal } from 'src/app/models/NormaLegal';
 import { CausaBaja } from 'src/app/models/CausaBaja';
 import { localDate } from 'src/app/utils/dates';
 
+
 export class BajaAgente {
-    _id: String;
     fecha: Date;
-    causa: CausaBaja;
-    tipoNormaLegal: TipoNormaLegal;
-    numeroNormaLegal: String;
-    observaciones: String;
+    motivo: CausaBaja;
+    normaLegal: NormaLegal;
 
     constructor(baja?)
     {
         baja = baja || {};
-        this._id = baja._id || null;
         this.fecha = localDate(baja.fecha);
-        this.causa = baja.causa || null;
-        this.tipoNormaLegal = baja.tipoNormaLegal || null;
-        this.numeroNormaLegal = baja.numeroNormaLegal || '';
-        this.observaciones = baja.observaciones || '';
+        this.motivo = baja.motivo || null;
+        this.normaLegal = new NormaLegal(baja.normaLegal);
     }
 }

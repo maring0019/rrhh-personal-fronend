@@ -8,51 +8,8 @@
     </div>
 </header>
 
-<div class="row">
-    <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
-        <app-agente-foto
-            [agente]="agente"
-            [editable]="false"
-            [size]="'md'">
-        </app-agente-foto>
-        <article class="d-flex flex-column">
-            <h5 class="mt-2 mb-4">
-                {{ agente.nombre }}
-                <strong>{{ agente.apellido }}</strong>
-            </h5>
-        </article>
-    </div>
-    <div class="col-md-9 col-xs-12">
-        <form name="form" [formGroup]="form">
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <plex-datetime
-                        type="date"
-                        label="Fecha de baja"
-                        name="fecha"
-                        formControlName="fecha"
-                        [required]="true"
-                        class="input-sm">
-                    </plex-datetime>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <plex-select 
-                        [data]="causas"
-                        name="motivo"
-                        formControlName="motivo"
-                        [required]="true"
-                        label="Motivo"
-                        placeholder="Seleccione...">
-                    </plex-select>
-                </div>
-            </div>
-        </form>   
-        <h5 class="subheader mt-4">Norma Legal</h5>
-        <div *ngIf="normaLegal">
-            <agente-datos-norma-legal
-                [normaLegal]="normaLegal"
-                [editable]="'true'">
-            </agente-datos-norma-legal>
-        </div>                
-    </div>
-</div>
+<app-agente-baja-form
+    [agente]="agente"
+    [baja]="baja"
+    [editable]="editable">
+</app-agente-baja-form>

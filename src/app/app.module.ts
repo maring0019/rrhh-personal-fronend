@@ -87,6 +87,7 @@ import { AgenteDetalleComponent } from './modules/agente/components/agente-detal
 
 // Agente Baja/Reactivar
 import { AgenteBajaComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja.component';
+import { AgenteBajaFormComponent } from './modules/agente/components/agente-baja/agente-baja-form-component';
 import { AgenteReactivarComponent } from './modules/agente/components/agente-reactivar/agente-reactivar.component';
 
 // Agente Historia Laboral
@@ -207,7 +208,6 @@ import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regim
 import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
 import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
 
-
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
@@ -266,6 +266,7 @@ const ADMIN_COMPONENTS = [
         AgenteItemListadoComponent,
         AgenteDetalleComponent,
         AgenteBajaComponent,
+        AgenteBajaFormComponent,
         AgenteReactivarComponent,
         AgenteFormSelectComponent,
         AgenteSelectSearchFormComponent,

@@ -4,8 +4,8 @@
         <div class="d-flex flex-row justify-content-start">
             <plex-icon name="file"></plex-icon>
             <plex-label 
-                titulo="{{ item.tipo }}"
-                subtitulo="{{ item.fecha | fecha:'diahora' }}">
+                titulo="{{ item.tipo | title }}"
+                subtitulo="{{ item.changeset.fecha | fecha:'utc' }}">
             </plex-label>
         </div>
     </div>

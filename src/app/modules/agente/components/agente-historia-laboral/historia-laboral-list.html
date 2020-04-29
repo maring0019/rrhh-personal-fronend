@@ -17,29 +17,125 @@
     </div>
 </header>
 
-<ng-container *ngFor="let item of historiaLaboral; let idx=index">
-    <app-historia-laboral-item-list 
-        [item]="item"
-        [itemSelected]="itemSelected"
-        [editable]="editable"
-        (selectionChange)="onSelectionChanged($event)"
-        (edit)="onEdit($event)"
-        (delete)="onDelete($event)">
-    </app-historia-laboral-item-list>
-</ng-container>
-
+<list-item *ngFor="let item of items; let i=index"
+    [item]="item"
+    [itemSelected]="itemSelected"
+    (selectionChange)="onItemSelectionChanged($event)"
+    (view)="onItemView($event)"
+    (edit)="onItemEdit($event)"
+    (delete)="onItemDelete($event)">
+    <plex-icon name="file"></plex-icon>
+    <plex-label
+        class="wp-20" 
+        titulo="{{ item.tipo | title }}"
+        subtitulo="{{ item.changeset.fecha | fecha:'utc' }}">
+    </plex-label>
+</list-item>
 
 <app-leyenda
-    *ngIf="!historiaLaboral?.length"
+    *ngIf="!items?.length"
     [header]="'No hay registros de Historia Laboral aún!'">
 </app-leyenda>
 
-<jw-modal id="{{ modal_id }}">
+<jw-modal id="{{ modal_id_create }}">
     <div *ngIf="agente">
         <app-historia-laboral-create
             [agente]="agente"
             (success)="onSuccessHistoriaLaboralCreate($event)"
-            (cancel)="onCancelModal(modal_id)">
+            (cancel)="onCancelModal(modal_id_create)">
         </app-historia-laboral-create>
+    </div>
+</jw-modal>
+
+<jw-modal id="{{ modal_id_baja }}">
+    <div *ngIf="agente && itemSelected">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Agente | </strong> Baja</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <div *ngIf="!canEditHistoria">
+                    <plex-button
+                        label="Editar"
+                        type="info"
+                        (click)="canEditHistoria=!canEditHistoria"
+                        class="mx-2">
+                    </plex-button>
+                    <plex-button
+                        type="danger" 
+                        icon="mdi mdi-close" 
+                        title="Cerrar"
+                        (click)="onCancelModal(modal_id_baja)">
+                    </plex-button>
+                </div>
+                <div *ngIf="canEditHistoria">
+                    <plex-button label="Guardar" type="success" (click)="guardaBaja()"></plex-button>
+                    <plex-button
+                        class="mx-2"
+                        label="Cancelar"
+                        type="danger"
+                        (click)="onCancelModal(modal_id_baja)">
+                    </plex-button>
+                </div>
+            </div>
+        </header>
+        
+        <app-agente-baja-form
+            [agente]="agente"
+            [baja]="itemSelected.changeset"
+            [editable]="canEditHistoria">
+        </app-agente-baja-form>
+    </div>
+</jw-modal>
+
+<jw-modal id="{{ modal_id_modificacion }}">
+    <div *ngIf="itemSelected">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Historia Laboral | </strong> Detalle Modificacion</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancelModal(modal_id_modificacion)">Cerrar</plex-button>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="{{ modal_id_reactivacion }}">
+    <div *ngIf="itemSelected">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Historia Laboral | </strong> Detalle Reactivacion</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancelModal(modal_id_reactivacion)">Cerrar</plex-button>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+
+<jw-modal id="{{ modal_id_modificacion }}">
+    <div *ngIf="itemSelected">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Historia Laboral | </strong> Detalle Modificacion</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancelModal(modal_id_modificacion)">Cerrar</plex-button>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+            </div>
+        </div>
     </div>
 </jw-modal>

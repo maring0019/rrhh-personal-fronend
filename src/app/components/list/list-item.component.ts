@@ -17,6 +17,7 @@ export class ListItemComponent implements OnInit {
     @Input() itemSelected:any;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() view: EventEmitter<any> = new EventEmitter<any>();
     @Output() edit: EventEmitter<any> = new EventEmitter<any>();
     @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
@@ -28,7 +29,8 @@ export class ListItemComponent implements OnInit {
 
     
     public viewItem(item){
-        this.selectionChange.emit(item)
+        this.itemSelected = item;
+        this.view.emit(item)
     }
 
     public selectItem(item){

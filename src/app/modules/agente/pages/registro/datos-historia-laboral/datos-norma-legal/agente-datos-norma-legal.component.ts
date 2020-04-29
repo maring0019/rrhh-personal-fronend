@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
@@ -11,7 +11,7 @@ import { FileManagerComponent } from 'src/app/components/file-manager/file.manag
     selector: 'agente-datos-norma-legal',
     templateUrl: './agente-datos-norma-legal.html'
 })
-export class AgenteDatosNormaLegalComponent implements OnInit {
+export class AgenteDatosNormaLegalComponent implements OnInit, OnChanges {
     @Input() normaLegal: NormaLegal;
     @Input() editable: boolean = false;
     @Output() change: EventEmitter<NormaLegal> = new EventEmitter<NormaLegal>();
@@ -28,21 +28,26 @@ export class AgenteDatosNormaLegalComponent implements OnInit {
     {}
     
     ngOnInit() {    
-        this.datosNormaLegalForm = this.createDatosNormaLegalForm();
+        this.createDatosNormaLegalForm();
         this.datosNormaLegalForm.valueChanges.subscribe(() => {
             this.change.emit(this.datosNormaLegalForm.value);
         });
     }
 
-    createDatosNormaLegalForm()
-    {
-        return this.formBuilder.group({
-            _id                 : [this.normaLegal._id],
-            tipoNormaLegal      : [this.normaLegal.tipoNormaLegal],
-            numeroNormaLegal    : [this.normaLegal.numeroNormaLegal],
-            fechaNormaLegal     : [this.normaLegal.fechaNormaLegal],
-            observaciones       : [this.normaLegal.observaciones]
-        });
+    ngOnChanges(changes:any){
+        if (changes['normaLegal'] && !changes['normaLegal'].isFirstChange()){
+            this.createDatosNormaLegalForm();
+        } 
+    }
+
+    createDatosNormaLegalForm(){
+        this.datosNormaLegalForm = this.formBuilder.group({
+                _id                 : [this.normaLegal._id],
+                tipoNormaLegal      : [this.normaLegal.tipoNormaLegal],
+                numeroNormaLegal    : [this.normaLegal.numeroNormaLegal],
+                fechaNormaLegal     : [this.normaLegal.fechaNormaLegal],
+                observaciones       : [this.normaLegal.observaciones]
+            });
     }
 
     resetForm(){

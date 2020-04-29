@@ -5,7 +5,6 @@ import { Educacion } from './Educacion';
 import { IPais } from './IPais';
 import { EstadoCivil, Sexo, Genero } from './enumerados';
 import { SituacionLaboral } from './SituacionLaboral';
-import { BajaAgente } from './BajaAgente';
 import { localDate } from 'src/app/utils/dates';
 
 
@@ -29,7 +28,6 @@ export class Agente {
     // especialidad: EspecialidadSchema; // TODO Ver especialidadSchema
     situacionLaboral: SituacionLaboral;
     historiaLaboral: any[];
-    bajas: BajaAgente[];
     foto: String;
     codigoFichado: String;
     activo: Boolean
@@ -69,13 +67,6 @@ export class Agente {
         if (agente.historiaLaboral){
             agente.historiaLaboral.forEach(e => {
                 this.historiaLaboral.push(e)
-            });
-        }
-        
-        this.bajas = [];
-        if (agente.bajas && agente.bajas.length){
-            agente.bajas.forEach(e => {
-                this.bajas.push(new BajaAgente(e))
             });
         }
     }

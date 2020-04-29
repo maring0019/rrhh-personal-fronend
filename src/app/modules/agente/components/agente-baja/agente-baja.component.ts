@@ -1,91 +1,46 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
-import  *  as formUtils from 'src/app/utils/formUtils';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
-import { CausaBaja } from 'src/app/models/CausaBaja';
+import { BajaAgente } from 'src/app/models/BajaAgente';
 
-import { CausaBajaService } from 'src/app/services/causa-baja.service';
 import { AgenteService } from 'src/app/services/agente.service';
-import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
-import { NormaLegal } from 'src/app/models/NormaLegal';
+
+import { AgenteBajaFormComponent } from './agente-baja-form-component';
+
 
 @Component({
     selector: 'app-agente-baja',
     templateUrl: './agente-baja.html'
   })
 
-export class AgenteBajaComponent implements OnInit {
+export class AgenteBajaComponent {
     @Input() agente: Agente;
+    @Input() baja: BajaAgente = new BajaAgente();
+    @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild(FormGroupDirective) _form;
-    @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
-
-    public form: FormGroup;    
-    public causas: CausaBaja[] = [];
-
-    public normaLegal:NormaLegal = new NormaLegal();
+    @ViewChild(AgenteBajaFormComponent) bajaFormComponent: AgenteBajaFormComponent;
     
-    constructor(
-        private formBuilder: FormBuilder,
-        private causaService: CausaBajaService,
-        private agenteService: AgenteService){}
-
-    ngOnInit() {
-        this.initFormSelectOptions();
-        this.form = this.initForm(); 
-    }
-
-    initFormSelectOptions(){
-        // Init Causas de Bajas
-        this.causaService.get({})
-            .subscribe(data => {
-                this.causas = data;
-            });
-    }
-    
-    initForm()
-        {
-            return this.formBuilder.group({
-                fecha    : [new Date()],
-                motivo   : []
-            });
-        }
+    constructor(private agenteService: AgenteService){}
   
-
     public cancelar(){
-        this.resetForms();
+        this.bajaFormComponent.resetForms();
         this.cancel.emit();
     }
 
     public guardar(){
-        if (this.form.invalid || this.datosNormaLegal.datosNormaLegalForm.invalid) {
-            formUtils.markFormAsInvalid(this.form);
-            formUtils.markFormAsInvalid(this.datosNormaLegal.datosNormaLegalForm)
-            return;
-        }
-
-        let datosBaja = {
-            fecha: this.form.value.fecha,
-            motivo: this.form.value.motivo,
-            normaLegal : new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value)
-        }
+        if (this.bajaFormComponent.invalid()) return;
+        let datosBaja = this.bajaFormComponent.values();
         this.agenteService.baja(this.agente, datosBaja)
             .subscribe(
                 data=> {
                     this.success.emit(data);
-                    this.resetForms();
+                    this.bajaFormComponent.resetForms();
                 },
                 error => this.error.emit(error)
             )
-    }
-
-    public resetForms(){
-        formUtils.resetForm(this.form, this._form);
-        this.datosNormaLegal.resetForm();
     }
 }
