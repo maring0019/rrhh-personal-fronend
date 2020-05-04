@@ -70,8 +70,18 @@ export class AgenteService {
     }
 
     addHistoriaLaboral(agente:Agente, situacion:SituacionLaboral):Observable<Agente>{
-        const url = `${this.agenteUrl}/${agente._id}/nuevaHistoriaLaboral`;
+        const url = `${this.agenteUrl}/${agente._id}/historia/add`;
         return this.server.put(url, situacion);
+    }
+
+    updateHistoriaLaboral(agente: Agente, historia:any): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agente._id}/historia/update`;
+        return this.server.put(url, historia);
+    }
+
+    deleteHistoriaLaboral(agente: Agente, historia:any): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agente._id}/historia/delete`;
+        return this.server.put(url, historia);
     }
 
     getFoto(agenteId: any): Observable<any> {

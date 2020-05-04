@@ -57,11 +57,11 @@ export class AgenteBajaFormComponent implements OnInit, OnChanges {
     }
   
     public invalid(){
-        let invalid = true;
+        let invalid = false;
         if (this.form.invalid || this.datosNormaLegal.datosNormaLegalForm.invalid) {
             formUtils.markFormAsInvalid(this.form);
             formUtils.markFormAsInvalid(this.datosNormaLegal.datosNormaLegalForm)
-            invalid = false;
+            invalid = true;
         }
         return invalid;
     }
