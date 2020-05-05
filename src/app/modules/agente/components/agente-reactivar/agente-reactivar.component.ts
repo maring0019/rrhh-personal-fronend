@@ -1,12 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
-import  *  as formUtils from 'src/app/utils/formUtils';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
-import { NormaLegal } from 'src/app/models/NormaLegal';
+import { ReactivacionAgente } from 'src/app/models/ReactivacionAgente';
 
 import { AgenteService } from 'src/app/services/agente.service';
-import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
+import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
 
 
 @Component({
@@ -14,66 +12,35 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
     templateUrl: './agente-reactivar.html'
   })
 
-export class AgenteReactivarComponent implements OnInit {
+export class AgenteReactivarComponent {
     @Input() agente: Agente;
+    @Input() reactivacion: ReactivacionAgente = new ReactivacionAgente();
+    @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild(FormGroupDirective) _form;
-    @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
-
-    public form: FormGroup;
-    public normaLegal:NormaLegal = new NormaLegal();
+    @ViewChild(AgenteReactivarFormComponent) reactivacionFormComponent: AgenteReactivarFormComponent;
     
-    constructor(
-        private formBuilder: FormBuilder,
-        private agenteService: AgenteService){}
-
-    ngOnInit() {
-        this.form = this.initForm(); 
-    }
+    constructor(private agenteService: AgenteService){}
     
-    initForm()
-        {
-            return this.formBuilder.group({
-                fecha      : [new Date()],
-                motivo     : []
-            });
-        }
-  
-
     public cancelar(){
-        this.resetForms();
+        this.reactivacionFormComponent.resetForms();
         this.cancel.emit();
     }
 
-
     public guardar(){
-        if (this.form.invalid || this.datosNormaLegal.datosNormaLegalForm.invalid) {
-            formUtils.markFormAsInvalid(this.form);
-            formUtils.markFormAsInvalid(this.datosNormaLegal.datosNormaLegalForm)
-            return;
-        }
-        let datosReactivacion = {
-            fecha: this.form.value.fecha,
-            motivo: this.form.value.motivo,
-            normaLegal : new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value)
-        }
-
+        if (this.reactivacionFormComponent.invalid()) return;
+        
+        let datosReactivacion = this.reactivacionFormComponent.values();
         this.agenteService.reactivar(this.agente, datosReactivacion)
             .subscribe(
                 data=> {
                     this.success.emit(data);
-                    this.resetForms();
+                    this.reactivacionFormComponent.resetForms();
                 },
                 error => this.error.emit(error)
             )
-    }
-
-    public resetForms(){
-        formUtils.resetForm(this.form, this._form);
-        this.datosNormaLegal.resetForm();
     }
 }

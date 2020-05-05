@@ -89,6 +89,7 @@ import { AgenteDetalleComponent } from './modules/agente/components/agente-detal
 import { AgenteBajaComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja.component';
 import { AgenteBajaFormComponent } from './modules/agente/components/agente-baja/agente-baja-form-component';
 import { AgenteReactivarComponent } from './modules/agente/components/agente-reactivar/agente-reactivar.component';
+import { AgenteReactivarFormComponent } from './modules/agente/components/agente-reactivar/agente-reactivar-form.component';
 
 // Agente Historia Laboral
 import { HistoriaLaboralCreateComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-create.component';
@@ -268,6 +269,7 @@ const ADMIN_COMPONENTS = [
         AgenteBajaComponent,
         AgenteBajaFormComponent,
         AgenteReactivarComponent,
+        AgenteReactivarFormComponent,
         AgenteFormSelectComponent,
         AgenteSelectSearchFormComponent,
         AgenteSelectComponent,

@@ -9,6 +9,7 @@ import { Agente } from 'src/app/models/Agente';
 import { ObjectService } from 'src/app/services/tm/object.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { AgenteService } from 'src/app/services/agente.service';
+import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
 
 @Component({
     selector: 'app-historia-laboral-list',
@@ -23,11 +24,12 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
     @Output() changed: EventEmitter<Agente> = new EventEmitter<Agente>();
 
     @ViewChild(AgenteBajaFormComponent) bajaFormComponent: AgenteBajaFormComponent;
+    @ViewChild(AgenteReactivarFormComponent) reactivacionFormComponent: AgenteReactivarFormComponent;
 
-    public readonly modal_id_create = 'create';
-    public readonly modal_id_baja = 'baja';
-    public readonly modal_id_modificacion = 'modificacion';
-    public readonly modal_id_reactivacion = 'reactivacion';
+    public readonly modal_id_create:string = 'create';
+    public readonly modal_id_baja:string = 'baja';
+    public readonly modal_id_modificacion:string = 'modificacion';
+    public readonly modal_id_reactivacion:string = 'reactivacion';
 
     public canEditHistoria = false;
 
@@ -104,18 +106,32 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
 
     }
 
-    public updateBaja(){
-        if (this.bajaFormComponent.invalid()) return;
-        let changeset = this.bajaFormComponent.values();
-        let datosBaja = {
+    public getFormByModalId(modalId:string){
+        switch (modalId) {
+            // case 'modificacion':
+            // case 'alta':
+            //     this.onOpenModal(this.modal_id_modificacion);
+            //     break;
+            case this.modal_id_baja:
+                return this.bajaFormComponent;
+            case this.modal_id_reactivacion:
+                return this.reactivacionFormComponent
+        }
+    }
+
+    public updateHistoria(modalId:string){
+        let formComponent = this.getFormByModalId(modalId);
+        if (formComponent.invalid()) return;
+        let changeset = formComponent.values();
+        let datosHistoria = {
             _id: this.itemSelected._id,
             tipo: this.itemSelected.tipo,
             changeset: changeset
         }
-        this.agenteService.updateHistoriaLaboral(this.agente, datosBaja)
+        this.agenteService.updateHistoriaLaboral(this.agente, datosHistoria)
             .subscribe(
                 agente => {
-                    this.onCancelModal(this.modal_id_baja);
+                    this.onCancelModal(modalId);
                     this.items = agente.historiaLaboral;
                     this.plex.info('success', 'Se actualizó correctamente el Item');
                 },

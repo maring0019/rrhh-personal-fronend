@@ -1,59 +1,38 @@
 <header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5><strong>Agente | </strong> Reactivar</h5>
+        <h5><strong>Agente | </strong> Datos Reactivación</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <plex-button label="Guardar" type="success" (click)="guardar()"></plex-button>
-        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
+        <div *ngIf="!editable">
+            <plex-button
+                label="Editar"
+                type="info"
+                (click)="editable=!editable"
+                class="mx-2">
+            </plex-button>
+            <plex-button
+                type="danger" 
+                icon="mdi mdi-close" 
+                title="Cerrar"
+                (click)="cancelar()">
+            </plex-button>
+        </div>
+        <div *ngIf="editable">
+            <plex-button label="Guardar" type="success" (click)="guardar()"></plex-button>
+            <plex-button
+                class="mx-2"
+                label="Cancelar"
+                type="danger"
+                (click)="cancelar()">
+            </plex-button>
+        </div>
     </div>
 </header>
 
-<div class="row">
-    <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
-        <app-agente-foto
-            [agente]="agente"
-            [editable]="false"
-            [size]="'md'">
-        </app-agente-foto>
-        <article class="d-flex flex-column">
-            <h5 class="mt-2 mb-4">
-                {{ agente.nombre }}
-                <strong>{{ agente.apellido }}</strong>
-            </h5>
-        </article>
-    </div>
-    <div class="col-md-9 col-xs-12">
-        <form name="form" [formGroup]="form">
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
-                    <plex-datetime
-                        type="date"
-                        label="Fecha de Reactivación"
-                        name="fecha"
-                        formControlName="fecha"
-                        class="input-sm"
-                        required>
-                    </plex-datetime>
-                </div>  
-                <div class="col-md-8 col-xs-12">
-                    <plex-text
-                        name="motivo"
-                        formControlName="motivo"
-                        label="Motivo"
-                        placeholder="Indique motivo de la reactivación"
-                        required>
-                    </plex-text>
-                </div>
-            </div>
-        </form>
-        <h5 class="subheader mt-4">Norma Legal</h5>
-        <div *ngIf="normaLegal">
-            <agente-datos-norma-legal
-                [normaLegal]="normaLegal"
-                [editable]="'true'">
-            </agente-datos-norma-legal>
-        </div>                
-    </div>
-</div>
+<app-agente-reactivar-form
+    [agente]="agente"
+    [reactivacion]="reactivacion"
+    [editable]="editable">
+</app-agente-reactivar-form>
 
     
