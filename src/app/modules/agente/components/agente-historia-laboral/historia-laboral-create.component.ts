@@ -1,161 +1,60 @@
-import { Component, OnInit, HostBinding, ViewChild, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, HostBinding, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Plex } from '@andes/plex';
-import  *  as formUtils from 'src/app/utils/formUtils';
+
+import { Agente } from 'src/app/models/Agente';
+import { HistoriaAgenteSituacion } from 'src/app/models/HistoriaAgenteSituacion';
 
 import { AgenteService } from 'src/app/services/agente.service';
 
-import { AgenteDatosSituacionComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-situacion/agente-datos-situacion.component';
-import { AgenteDatosCargoComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-cargo/agente-datos-cargo.component';
-import { AgenteDatosRegimenComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
-import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
-
-import { Agente } from 'src/app/models/Agente';
-import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
-import { NormaLegal } from 'src/app/models/NormaLegal';
-import { Situacion } from 'src/app/models/Situacion';
-import { Cargo } from 'src/app/models/Cargo';
-import { Regimen } from 'src/app/models/Regimen';
-import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
+import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
 
 @Component({
     selector: 'app-historia-laboral-create',
     templateUrl: './historia-laboral-create.html'
   })
 
-export class HistoriaLaboralCreateComponent implements OnInit, OnChanges {
+export class HistoriaLaboralCreateComponent {
     @Input() agente: Agente;
+    @Input() historia: HistoriaAgenteSituacion = new HistoriaAgenteSituacion();
+    @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
+    @Output() error: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
-    @ViewChild(AgenteDatosSituacionComponent) datosSituacion: AgenteDatosSituacionComponent;
-    @ViewChild(AgenteDatosCargoComponent) datosCargo: AgenteDatosCargoComponent;
-    @ViewChild(AgenteDatosRegimenComponent) datosRegimen: AgenteDatosRegimenComponent;
-    @ViewChild(FormGroupDirective) _form;
+    @ViewChild(HistoriaLaboralFormComponent) historiaFormComponent: HistoriaLaboralFormComponent;
      
     @HostBinding('class.plex-layout') layout = true;
     
-    public formMotivo: FormGroup;
-    // Datos para los formularios
-    public normaLegal: NormaLegal;
-    public situacion: Situacion;
-    public cargo: Cargo;
-    public regimen: Regimen;
-
-    public isEditable = true;
-
-    private _updating:any; // To keep track actual action. If false is create
-    
     constructor(
-        private formBuilder: FormBuilder,
         private agenteService:AgenteService,
         public plex: Plex
         ){}
 
-    ngOnInit() {
-        this.initValueForms();
-    }
-
-    ngOnChanges(changes:any){
-        if (!changes['agente'].isFirstChange()) this.initValueForms();
-    }
-
-    private initValueForms(){
-        if (this._updating){
-            this.formMotivo = this.initCausaForm(); // TODO Revisar esto
-            this.situacion = this.agente.situacionLaboral.situacion;
-            this.normaLegal = this.agente.situacionLaboral.normaLegal;
-            this.cargo = this.agente.situacionLaboral.cargo;
-            this.regimen = this.agente.situacionLaboral.regimen;
-        }
-        else{
-            this.formMotivo = this.initCausaForm();
-            this.normaLegal = new NormaLegal();
-            this.situacion = new Situacion();
-            this.cargo = new Cargo();
-            this.regimen = new Regimen();
-        }   
-    }
-
-    private initCausaForm(){
-        return this.formBuilder.group({
-            fecha    : [new Date()],
-            motivo   : []
-        });
-    }
-
-    allFormsValid(){
-        const forms:any = [
-            this.formMotivo,
-            this.datosNormaLegal.datosNormaLegalForm,
-            this.datosSituacion.datosSituacionForm,
-            this.datosCargo.datosCargoForm,
-            this.datosRegimen.datosRegimenForm
-            ]
-        
-        let existInvalidForms = false;
-        for (const f of forms) {
-            if (f.invalid){
-                existInvalidForms = true;
-                formUtils.markFormAsInvalid(f);
-            }
-        }
-        return !existInvalidForms;
-    }
-
-    save(){
-        if (this.allFormsValid()){
-            const situacionLaboral = this.parseHistoriaLaboral()
-            if (this._updating){
-                this.updateHistoriaLaboral();
-            }
-            else{
-                this.addHistoriaLaboral(situacionLaboral);
-            }
-        }
-        else{
+    guardar(){
+        if (this.historiaFormComponent.invalid()) {
             this.plex.info('danger', 'Debe completar todos los datos obligatorios');
         }
+        else{
+            let datosHistoria = this.historiaFormComponent.values();
+            this.addHistoriaLaboral(datosHistoria);
+        }        
     }
 
-    parseHistoriaLaboral():SituacionLaboral{
-        let situacionLaboral = new SituacionLaboral();
-        situacionLaboral.fecha = this.formMotivo.value.fecha,
-        situacionLaboral.motivo = this.formMotivo.value.motivo,
-        situacionLaboral.normaLegal = new NormaLegal(this.datosNormaLegal.datosNormaLegalForm.value);
-        situacionLaboral.situacion = new Situacion(this.datosSituacion.datosSituacionForm.value);
-        situacionLaboral.cargo = new Cargo(this.datosCargo.datosCargoForm.value);
-        situacionLaboral.regimen = new Regimen(this.datosRegimen.datosRegimenForm.value);
-        return situacionLaboral;
-    }
-
-    addHistoriaLaboral(situacionLaboral:SituacionLaboral){
+    addHistoriaLaboral(situacionLaboral:any){
         this.agenteService.addHistoriaLaboral(this.agente, situacionLaboral)
             .subscribe( agente => {
-                // Try to save files 
-                this.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
-                this.resetForms();
+                // Try to save files TODO REVIEW THIS
+                // this.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
+                this.historiaFormComponent.resetForms();
                 this.success.emit(agente);
+                // TODO emit errors!!
         })
     }
 
-    updateHistoriaLaboral(){}
-
     public cancelar(){
-        this.resetForms();
+        this.historiaFormComponent.resetForms();
         this.cancel.emit();
     }
 
-    private resetForms(){
-        this.resetForm();
-        this.datosNormaLegal.resetForm();
-        this.datosSituacion.resetForm();
-        this.datosCargo.resetForm();
-        this.datosRegimen.resetForm();
-    }
-
-    public resetForm(){
-        formUtils.resetForm(this.formMotivo, this._form);
-    }
 }

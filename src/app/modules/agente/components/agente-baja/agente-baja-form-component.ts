@@ -4,7 +4,7 @@ import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { Agente } from 'src/app/models/Agente';
 import { NormaLegal } from 'src/app/models/NormaLegal';
-import { BajaAgente } from 'src/app/models/BajaAgente';
+import { HistoriaAgenteBaja } from 'src/app/models/HistoriaAgenteBaja';
 
 import { CausaBajaService } from 'src/app/services/causa-baja.service';
 
@@ -18,7 +18,7 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
 
 export class AgenteBajaFormComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
-    @Input() baja: BajaAgente = new BajaAgente();
+    @Input() baja: HistoriaAgenteBaja = new HistoriaAgenteBaja();
     @Input() editable: Boolean = true;
 
     @ViewChild(FormGroupDirective) _form;

@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-md-6">
             <plex-select 
+                [idField]="'_id'"
                 [data]="tiposNormaLegal$ | async"
                 name="tipoNormaLegal"
                 formControlName="tipoNormaLegal"

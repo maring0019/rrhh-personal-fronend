@@ -93,6 +93,7 @@ import { AgenteReactivarFormComponent } from './modules/agente/components/agente
 
 // Agente Historia Laboral
 import { HistoriaLaboralCreateComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-create.component';
+import { HistoriaLaboralFormComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
 import { HistoriaLaboralListComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-list.component';
 import { HistoriaLaboralItemListComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-item-list.component';
 
@@ -258,6 +259,7 @@ const ADMIN_COMPONENTS = [
         AgenteDatosNormaLegalComponent,
 
         HistoriaLaboralCreateComponent,
+        HistoriaLaboralFormComponent,
         HistoriaLaboralListComponent,
         HistoriaLaboralItemListComponent,
         

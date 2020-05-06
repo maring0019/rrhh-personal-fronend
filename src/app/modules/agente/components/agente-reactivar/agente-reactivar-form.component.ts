@@ -4,7 +4,7 @@ import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { Agente } from 'src/app/models/Agente';
 import { NormaLegal } from 'src/app/models/NormaLegal';
-import { ReactivacionAgente } from 'src/app/models/ReactivacionAgente';
+import { HistoriaAgenteReactivacion } from 'src/app/models/HistoriaAgenteReactivacion';
 
 import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/registro/datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component';
 
@@ -15,7 +15,7 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
 
 export class AgenteReactivarFormComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
-    @Input() reactivacion: ReactivacionAgente = new ReactivacionAgente();
+    @Input() reactivacion: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
     @Input() editable: Boolean = true;
 
     @ViewChild(FormGroupDirective) _form;

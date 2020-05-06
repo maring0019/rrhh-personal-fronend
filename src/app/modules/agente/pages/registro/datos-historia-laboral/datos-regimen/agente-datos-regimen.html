@@ -2,7 +2,8 @@
 <form name="datosRegimenForm" [formGroup]="datosRegimenForm">
     <div class="row">
         <div class="col-md-4">
-            <plex-select 
+            <plex-select
+                [idField]="'_id'" 
                 [data]="regimenHorarios"
                 name="regimenHorario"
                 formControlName="regimenHorario"

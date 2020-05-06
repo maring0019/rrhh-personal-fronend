@@ -3,7 +3,7 @@ import { CausaBaja } from 'src/app/models/CausaBaja';
 import { localDate } from 'src/app/utils/dates';
 
 
-export class BajaAgente {
+export class HistoriaAgenteBaja {
     fecha: Date;
     motivo: CausaBaja;
     normaLegal: NormaLegal;

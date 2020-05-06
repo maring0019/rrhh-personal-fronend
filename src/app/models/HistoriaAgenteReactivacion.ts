@@ -2,7 +2,7 @@ import { NormaLegal } from 'src/app/models/NormaLegal';
 import { localDate } from 'src/app/utils/dates';
 
 
-export class ReactivacionAgente {
+export class HistoriaAgenteReactivacion {
     fecha: Date;
     motivo: String;
     normaLegal: NormaLegal;

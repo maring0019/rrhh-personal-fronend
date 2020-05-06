@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
-import { BajaAgente } from 'src/app/models/BajaAgente';
+import { HistoriaAgenteBaja } from 'src/app/models/HistoriaAgenteBaja';
 
 import { AgenteService } from 'src/app/services/agente.service';
 
@@ -15,7 +15,7 @@ import { AgenteBajaFormComponent } from './agente-baja-form-component';
 
 export class AgenteBajaComponent {
     @Input() agente: Agente;
-    @Input() baja: BajaAgente = new BajaAgente();
+    @Input() baja: HistoriaAgenteBaja = new HistoriaAgenteBaja();
     @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();

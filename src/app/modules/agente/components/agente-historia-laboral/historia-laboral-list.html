@@ -130,7 +130,7 @@
 
 
 <jw-modal id="{{ modal_id_modificacion }}">
-    <div *ngIf="itemSelected">
+    <!-- <div *ngIf="itemSelected">
         <header class="d-flex flex-row justify-content-between subheader">
             <div>
                 <h5><strong>Historia Laboral | </strong> Detalle Modificacion</h5>
@@ -143,5 +143,42 @@
             <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
             </div>
         </div>
+    </div> -->
+    <div *ngIf="agente && itemSelected">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Historia Laboral | </strong> Detalle Modificación</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <div *ngIf="!canEditHistoria">
+                    <plex-button
+                        label="Editar"
+                        type="info"
+                        (click)="canEditHistoria=!canEditHistoria"
+                        class="mx-2">
+                    </plex-button>
+                    <plex-button
+                        type="danger" 
+                        icon="mdi mdi-close" 
+                        title="Cerrar"
+                        (click)="onCancelModal(modal_id_modificacion)">
+                    </plex-button>
+                </div>
+                <div *ngIf="canEditHistoria">
+                    <plex-button label="Guardar" type="success" (click)="updateHistoria(modal_id_modificacion)"></plex-button>
+                    <plex-button
+                        class="mx-2"
+                        label="Cancelar"
+                        type="danger"
+                        (click)="onCancelModal(modal_id_modificacion)">
+                    </plex-button>
+                </div>
+            </div>
+        </header>       
+        <app-historia-laboral-form
+            [agente]="agente"
+            [historia]="itemSelected.changeset"
+            [editable]="canEditHistoria">
+        </app-historia-laboral-form>
     </div>
 </jw-modal>

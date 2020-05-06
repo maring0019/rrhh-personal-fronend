@@ -2,14 +2,15 @@ import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core
 import { Router } from '@angular/router';
 import { Plex } from '@andes/plex';
 
-import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
-import { AgenteBajaFormComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja-form-component';
-
 import { Agente } from 'src/app/models/Agente';
 import { ObjectService } from 'src/app/services/tm/object.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { AgenteService } from 'src/app/services/agente.service';
+
+import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
+import { AgenteBajaFormComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja-form-component';
 import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
+import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
 
 @Component({
     selector: 'app-historia-laboral-list',
@@ -25,6 +26,7 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
 
     @ViewChild(AgenteBajaFormComponent) bajaFormComponent: AgenteBajaFormComponent;
     @ViewChild(AgenteReactivarFormComponent) reactivacionFormComponent: AgenteReactivarFormComponent;
+    @ViewChild(HistoriaLaboralFormComponent) historiaFormComponent: HistoriaLaboralFormComponent;
 
     public readonly modal_id_create:string = 'create';
     public readonly modal_id_baja:string = 'baja';
@@ -116,6 +118,8 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
                 return this.bajaFormComponent;
             case this.modal_id_reactivacion:
                 return this.reactivacionFormComponent
+            case this.modal_id_modificacion:
+                return this.historiaFormComponent
         }
     }
 

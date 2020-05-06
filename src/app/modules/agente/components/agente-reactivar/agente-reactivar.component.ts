@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
-import { ReactivacionAgente } from 'src/app/models/ReactivacionAgente';
+import { HistoriaAgenteReactivacion } from 'src/app/models/HistoriaAgenteReactivacion';
 
 import { AgenteService } from 'src/app/services/agente.service';
 import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
@@ -14,7 +14,7 @@ import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/
 
 export class AgenteReactivarComponent {
     @Input() agente: Agente;
-    @Input() reactivacion: ReactivacionAgente = new ReactivacionAgente();
+    @Input() reactivacion: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
     @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
