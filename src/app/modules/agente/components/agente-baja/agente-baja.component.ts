@@ -36,8 +36,13 @@ export class AgenteBajaComponent {
         let datosBaja = this.bajaFormComponent.values();
         this.agenteService.baja(this.agente, datosBaja)
             .subscribe(
-                data=> {
-                    this.success.emit(data);
+                agente => {
+                    // Luego de dar la baja, recuperamos el 'objeto' baja
+                    // del historial e intentamos guardar cualquier archivo
+                    // asociado a la norma (de la baja)
+                    let historia = agente.historiaLaboral[0]; // La baja debe ser el primer elemento del historial
+                    this.bajaFormComponent.datosNormaLegal.fileManager.saveFileChanges(historia.changeset.normaLegal);
+                    this.success.emit(agente);
                     this.bajaFormComponent.resetForms();
                 },
                 error => this.error.emit(error)

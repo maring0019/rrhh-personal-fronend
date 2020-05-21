@@ -33,6 +33,9 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
     public readonly modal_id_modificacion:string = 'modificacion';
     public readonly modal_id_reactivacion:string = 'reactivacion';
 
+    public itemHistoria; // alias modificacion
+    public itemBaja;
+    public itemReactivacion;
     public canEditHistoria = false;
 
     constructor(
@@ -89,12 +92,15 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
         switch (item.tipo) {
             case 'modificacion':
             case 'alta':
+                this.itemHistoria = this.itemSelected.changeset;
                 this.onOpenModal(this.modal_id_modificacion);
                 break;
             case 'baja':
+                this.itemBaja = this.itemSelected.changeset;
                 this.onOpenModal(this.modal_id_baja);
                 break;
             case 'reactivacion':
+                this.itemReactivacion = this.itemSelected.changeset;
                 this.onOpenModal(this.modal_id_reactivacion);
                 break;
         }
@@ -110,16 +116,15 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
 
     public getFormByModalId(modalId:string){
         switch (modalId) {
-            // case 'modificacion':
-            // case 'alta':
-            //     this.onOpenModal(this.modal_id_modificacion);
-            //     break;
             case this.modal_id_baja:
                 return this.bajaFormComponent;
             case this.modal_id_reactivacion:
                 return this.reactivacionFormComponent
             case this.modal_id_modificacion:
                 return this.historiaFormComponent
+            // case 'alta':
+            //     this.onOpenModal(this.modal_id_modificacion);
+            //     break;
         }
     }
 

@@ -44,8 +44,8 @@ export class HistoriaLaboralCreateComponent {
     addHistoriaLaboral(situacionLaboral:any){
         this.agenteService.addHistoriaLaboral(this.agente, situacionLaboral)
             .subscribe( agente => {
-                // Try to save files TODO REVIEW THIS
-                // this.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
+                // Try to save files
+                this.historiaFormComponent.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
                 this.historiaFormComponent.resetForms();
                 this.success.emit(agente);
                 // TODO emit errors!!

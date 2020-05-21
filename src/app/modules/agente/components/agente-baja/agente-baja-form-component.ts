@@ -28,7 +28,7 @@ export class AgenteBajaFormComponent implements OnInit, OnChanges {
     public form: FormGroup;
     public causas$ = this.causaService.get({});    
 
-    public normaLegal:NormaLegal;
+    public normaLegal:NormaLegal = new NormaLegal();
     
     constructor(
         private formBuilder: FormBuilder,
@@ -46,7 +46,7 @@ export class AgenteBajaFormComponent implements OnInit, OnChanges {
 
     initComponentData(){
         this.initForm();
-        this.normaLegal = this.baja.normaLegal;
+        this.normaLegal = new NormaLegal(this.baja.normaLegal);
     }
     
     initForm(){

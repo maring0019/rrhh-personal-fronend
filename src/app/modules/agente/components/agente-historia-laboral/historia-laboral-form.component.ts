@@ -32,7 +32,6 @@ export class HistoriaLaboralFormComponent implements OnInit, OnChanges {
      
     // Form data
     public form: FormGroup;
-    // Datos para los formularios
     public normaLegal: NormaLegal;
     public situacion: Situacion;
     public cargo: Cargo;
@@ -85,6 +84,10 @@ export class HistoriaLaboralFormComponent implements OnInit, OnChanges {
         return existInvalidForms;
     }
 
+    /**
+     * Helper method para recuperar la información de todos
+     * los formularios en un solo objeto.
+     */
     public values(){
         let datosHistoria = {
             fecha: this.form.value.fecha,

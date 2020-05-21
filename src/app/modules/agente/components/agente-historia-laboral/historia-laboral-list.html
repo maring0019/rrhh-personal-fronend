@@ -48,7 +48,7 @@
 </jw-modal>
 
 <jw-modal id="{{ modal_id_baja }}">
-    <div *ngIf="agente && itemSelected">
+    <div *ngIf="agente && itemBaja">
         <header class="d-flex flex-row justify-content-between subheader">
             <div>
                 <h5><strong>Agente | </strong> Baja</h5>
@@ -81,7 +81,7 @@
         </header>       
         <app-agente-baja-form
             [agente]="agente"
-            [baja]="itemSelected.changeset"
+            [baja]="itemBaja"
             [editable]="canEditHistoria">
         </app-agente-baja-form>
     </div>
@@ -89,7 +89,7 @@
 
 
 <jw-modal id="{{ modal_id_reactivacion }}">
-    <div *ngIf="agente && itemSelected">
+    <div *ngIf="agente && itemReactivacion">
         <header class="d-flex flex-row justify-content-between subheader">
             <div>
                 <h5><strong>Agente | </strong> Reactivación</h5>
@@ -122,7 +122,7 @@
         </header>       
         <app-agente-reactivar-form
             [agente]="agente"
-            [reactivacion]="itemSelected.changeset"
+            [reactivacion]="itemReactivacion"
             [editable]="canEditHistoria">
         </app-agente-reactivar-form>
     </div>
@@ -130,21 +130,7 @@
 
 
 <jw-modal id="{{ modal_id_modificacion }}">
-    <!-- <div *ngIf="itemSelected">
-        <header class="d-flex flex-row justify-content-between subheader">
-            <div>
-                <h5><strong>Historia Laboral | </strong> Detalle Modificacion</h5>
-            </div>
-            <div class="d-flex flex-row justify-content-end">
-                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancelModal(modal_id_modificacion)">Cerrar</plex-button>
-            </div>
-        </header>
-        <div class="row">
-            <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
-            </div>
-        </div>
-    </div> -->
-    <div *ngIf="agente && itemSelected">
+    <div *ngIf="agente && itemHistoria">
         <header class="d-flex flex-row justify-content-between subheader">
             <div>
                 <h5><strong>Historia Laboral | </strong> Detalle Modificación</h5>
@@ -177,7 +163,7 @@
         </header>       
         <app-historia-laboral-form
             [agente]="agente"
-            [historia]="itemSelected.changeset"
+            [historia]="itemHistoria"
             [editable]="canEditHistoria">
         </app-historia-laboral-form>
     </div>
