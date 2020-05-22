@@ -15,7 +15,7 @@ import { AgenteBajaFormComponent } from './agente-baja-form-component';
 
 export class AgenteBajaComponent {
     @Input() agente: Agente;
-    @Input() baja: HistoriaAgenteBaja = new HistoriaAgenteBaja();
+    @Input() item: HistoriaAgenteBaja = new HistoriaAgenteBaja();
     @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();

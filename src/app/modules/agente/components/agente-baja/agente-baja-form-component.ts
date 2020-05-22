@@ -18,7 +18,7 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
 
 export class AgenteBajaFormComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
-    @Input() baja: HistoriaAgenteBaja = new HistoriaAgenteBaja();
+    @Input() item: HistoriaAgenteBaja = new HistoriaAgenteBaja();
     @Input() editable: Boolean = true;
 
     @ViewChild(FormGroupDirective) _form;
@@ -39,20 +39,20 @@ export class AgenteBajaFormComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes:any){
-        if (changes['baja'] && !changes['baja'].isFirstChange()){
+        if (changes['item'] && !changes['item'].isFirstChange()){
             this.initComponentData();
         } 
     }
 
     initComponentData(){
         this.initForm();
-        this.normaLegal = new NormaLegal(this.baja.normaLegal);
+        this.normaLegal = new NormaLegal(this.item.normaLegal);
     }
     
     initForm(){
         this.form = this.formBuilder.group({
-            fecha    : [ this.baja.fecha? this.baja.fecha : new Date()],
-            motivo   : [ this.baja.motivo ]
+            fecha    : [ this.item.fecha? this.item.fecha : new Date()],
+            motivo   : [ this.item.motivo ]
         });
     }
   

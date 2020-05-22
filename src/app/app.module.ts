@@ -431,6 +431,9 @@ const ADMIN_COMPONENTS = [
         FichadaReporteItemListComponent,
         GuardiaItemListComponent,
         GuardiaSearchFormComponent,
+        AgenteBajaFormComponent,
+        HistoriaLaboralFormComponent,
+        AgenteReactivarFormComponent,
         ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

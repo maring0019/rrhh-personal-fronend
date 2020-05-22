@@ -14,7 +14,7 @@ import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/
 
 export class AgenteReactivarComponent {
     @Input() agente: Agente;
-    @Input() reactivacion: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
+    @Input() item: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
     @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();

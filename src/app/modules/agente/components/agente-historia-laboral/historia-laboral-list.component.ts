@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Type } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { Plex } from '@andes/plex';
 
@@ -11,6 +12,7 @@ import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.co
 import { AgenteBajaFormComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja-form-component';
 import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
 import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
+
 
 @Component({
     selector: 'app-historia-laboral-list',
@@ -28,14 +30,16 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
     @ViewChild(AgenteReactivarFormComponent) reactivacionFormComponent: AgenteReactivarFormComponent;
     @ViewChild(HistoriaLaboralFormComponent) historiaFormComponent: HistoriaLaboralFormComponent;
 
+    @ViewChild('dynamicBajaForm', { read: ViewContainerRef }) bajaContainerRef: ViewContainerRef;
+    @ViewChild('dynamicReactivacionForm', { read: ViewContainerRef }) reactivacionContainerRef: ViewContainerRef;
+    @ViewChild('dynamicModificacionForm', { read: ViewContainerRef }) modificacionContainerRef: ViewContainerRef;
+    formComponentRef:any;
+
     public readonly modal_id_create:string = 'create';
     public readonly modal_id_baja:string = 'baja';
     public readonly modal_id_modificacion:string = 'modificacion';
     public readonly modal_id_reactivacion:string = 'reactivacion';
 
-    public itemHistoria; // alias modificacion
-    public itemBaja;
-    public itemReactivacion;
     public canEditHistoria = false;
 
     constructor(
@@ -43,7 +47,8 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
         protected objectService: ObjectService,
         private agenteService: AgenteService,
         private modalService: ModalService,
-        private plex: Plex){
+        private plex: Plex,
+        private resolver: ComponentFactoryResolver){
             super(router, objectService)
         }
 
@@ -63,7 +68,9 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
     }
 
     public onCancelModal(modalId:string){
+        this.destroyHistoriaFormComponent();
         this.modalService.close(modalId);
+
     }
 
     public onItemView(item:any){
@@ -72,6 +79,31 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
 
     public onItemEdit(item:any){
         this.viewOrEdit(item, true);
+    }
+
+    public changeCanEditHistoria(){
+        this.canEditHistoria = !this.canEditHistoria;
+        this.formComponentRef.instance.editable = this.canEditHistoria;
+    }
+
+    /**
+     * Crea dinamicamente los formularios para baja, reactivacion o modificacion
+     * segun corresponda de acuerdo al 'tipo' de item seleccionado en el listado.
+     * @param component 
+     * @param containerRef 
+     */
+    createHistoriaFormComponent(component:Type, containerRef) {
+        if (this.formComponentRef) this.formComponentRef.destroy();
+        const factory = this.resolver.resolveComponentFactory(component);
+        this.formComponentRef = containerRef.createComponent(factory);
+        // Pass to child Input() parameters value
+        this.formComponentRef.instance.agente = this.agente;
+        this.formComponentRef.instance.item = this.itemSelected.changeset;
+        this.formComponentRef.instance.editable = this.canEditHistoria;
+    }
+
+    destroyHistoriaFormComponent() {
+        if (this.formComponentRef) this.formComponentRef.destroy();
     }
 
     public onItemDelete(item:any){
@@ -92,44 +124,34 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
         switch (item.tipo) {
             case 'modificacion':
             case 'alta':
-                this.itemHistoria = this.itemSelected.changeset;
+                this.createHistoriaFormComponent(HistoriaLaboralFormComponent, this.modificacionContainerRef);
                 this.onOpenModal(this.modal_id_modificacion);
                 break;
             case 'baja':
-                this.itemBaja = this.itemSelected.changeset;
+                this.createHistoriaFormComponent(AgenteBajaFormComponent, this.bajaContainerRef);
                 this.onOpenModal(this.modal_id_baja);
                 break;
             case 'reactivacion':
-                this.itemReactivacion = this.itemSelected.changeset;
+                this.createHistoriaFormComponent(AgenteReactivarFormComponent, this.reactivacionContainerRef);
                 this.onOpenModal(this.modal_id_reactivacion);
                 break;
         }
     }
 
     public onSuccessHistoriaLaboralCreate(agente:Agente){
-        // this.historiaLaboral = agente.historiaLaboral;
         this.changed.emit(agente);
         this.modalService.close(this.modal_id_create);
         this.plex.info('success', 'Se actualizó correctamente la Historia Laboral del Agente');
 
     }
 
-    public getFormByModalId(modalId:string){
-        switch (modalId) {
-            case this.modal_id_baja:
-                return this.bajaFormComponent;
-            case this.modal_id_reactivacion:
-                return this.reactivacionFormComponent
-            case this.modal_id_modificacion:
-                return this.historiaFormComponent
-            // case 'alta':
-            //     this.onOpenModal(this.modal_id_modificacion);
-            //     break;
-        }
-    }
 
+    /**
+     * 
+     * @param modalId 
+     */
     public updateHistoria(modalId:string){
-        let formComponent = this.getFormByModalId(modalId);
+        let formComponent = this.formComponentRef.instance;
         if (formComponent.invalid()) return;
         let changeset = formComponent.values();
         let datosHistoria = {
@@ -140,6 +162,12 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
         this.agenteService.updateHistoriaLaboral(this.agente, datosHistoria)
             .subscribe(
                 agente => {
+                    // Actualizamos la info de los archivos asociados a la norma legal
+                    // si corresponde. Tener cuidado de no modificar el nombre con el 
+                    // que se referencia a la norma legal en el formComponent
+                    const idx = agente.historiaLaboral.findIndex((obj => obj._id == datosHistoria._id));
+                    const historiaUpdated = agente.historiaLaboral[idx]
+                    formComponent.datosNormaLegal.fileManager.saveFileChanges(historiaUpdated.changeset.normaLegal);
                     this.onCancelModal(modalId);
                     this.items = agente.historiaLaboral;
                     this.plex.info('success', 'Se actualizó correctamente el Item');
@@ -148,9 +176,6 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
                  
             )
     }
-
-
-
 
     public onSuccessBaja(event){
 

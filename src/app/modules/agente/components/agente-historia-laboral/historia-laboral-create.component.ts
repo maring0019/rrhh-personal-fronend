@@ -15,7 +15,7 @@ import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/
 
 export class HistoriaLaboralCreateComponent {
     @Input() agente: Agente;
-    @Input() historia: HistoriaAgenteSituacion = new HistoriaAgenteSituacion();
+    @Input() item: HistoriaAgenteSituacion = new HistoriaAgenteSituacion();
     @Input() editable: Boolean = true;
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();

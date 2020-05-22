@@ -15,7 +15,7 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
 
 export class AgenteReactivarFormComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
-    @Input() reactivacion: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
+    @Input() item: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
     @Input() editable: Boolean = true;
 
     @ViewChild(FormGroupDirective) _form;
@@ -33,20 +33,20 @@ export class AgenteReactivarFormComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes:any){
-        if (changes['reactivacion'] && !changes['reactivacion'].isFirstChange()){
+        if (changes['item'] && !changes['item'].isFirstChange()){
             this.initComponentData();
         } 
     }
 
     initComponentData(){
         this.initForm();
-        this.normaLegal = this.reactivacion.normaLegal;
+        this.normaLegal = this.item.normaLegal;
     }
     
     initForm(){
         this.form = this.formBuilder.group({
-            fecha    : [ this.reactivacion.fecha? this.reactivacion.fecha : new Date()],
-            motivo   : [ this.reactivacion.motivo ]
+            fecha    : [ this.item.fecha? this.item.fecha : new Date()],
+            motivo   : [ this.item.motivo ]
         });
     }
   

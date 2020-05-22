@@ -21,7 +21,7 @@ import { AgenteDatosRegimenComponent } from 'src/app/modules/agente/pages/regist
 
 export class HistoriaLaboralFormComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
-    @Input() historia: HistoriaAgenteSituacion = new HistoriaAgenteSituacion();
+    @Input() item: HistoriaAgenteSituacion = new HistoriaAgenteSituacion();
     @Input() editable: Boolean = true;
 
     @ViewChild(AgenteDatosNormaLegalComponent) datosNormaLegal: AgenteDatosNormaLegalComponent;
@@ -44,7 +44,7 @@ export class HistoriaLaboralFormComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes:any){
-        if ((changes['historia'] && !changes['historia'].isFirstChange())||
+        if ((changes['item'] && !changes['item'].isFirstChange())||
             (changes['agente'] && !changes['agente'].isFirstChange())){
             this.initComponentData();
         } 
@@ -52,16 +52,16 @@ export class HistoriaLaboralFormComponent implements OnInit, OnChanges {
 
     initComponentData(){
         this.initForm();
-        this.situacion = this.historia.situacion;
-        this.normaLegal = this.historia.normaLegal;
-        this.cargo = this.historia.cargo;
-        this.regimen = this.historia.regimen;
+        this.situacion = new Situacion(this.item.situacion);
+        this.normaLegal = new NormaLegal(this.item.normaLegal);
+        this.cargo = new Cargo(this.item.cargo);
+        this.regimen = new Regimen(this.item.regimen);
     }
     
     initForm(){
         this.form = this.formBuilder.group({
-            fecha    : [ this.historia.fecha? this.historia.fecha : new Date()],
-            motivo   : [ this.historia.motivo ]
+            fecha    : [ this.item.fecha? this.item.fecha : new Date()],
+            motivo   : [ this.item.motivo ]
         });
     }
   
