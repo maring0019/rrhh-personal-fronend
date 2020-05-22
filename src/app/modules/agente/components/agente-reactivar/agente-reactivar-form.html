@@ -13,37 +13,43 @@
         </article>
     </div>
     <div class="col-md-9 col-xs-12">
-        <form name="form" [formGroup]="form">
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
-                    <plex-datetime
-                        type="date"
-                        label="Fecha de Reactivación"
-                        name="fecha"
-                        formControlName="fecha"
-                        class="input-sm"
-                        required
-                        [readonly]="!editable">
-                    </plex-datetime>
-                </div>  
-                <div class="col-md-8 col-xs-12">
-                    <plex-text
-                        name="motivo"
-                        formControlName="motivo"
-                        label="Motivo"
-                        placeholder="Indique motivo de la reactivación"
-                        required
-                        [readonly]="!editable">
-                    </plex-text>
-                </div>
-            </div>
-        </form>
-        <h5 class="subheader mt-4">Norma Legal</h5>
-        <div *ngIf="normaLegal">
-            <agente-datos-norma-legal
-                [normaLegal]="normaLegal"
-                [editable]="editable">
-            </agente-datos-norma-legal>
-        </div>                
+        <plex-tabs #tabs>
+            <plex-tab label="DATOS GENERALES">
+            <br>
+            <form name="form" [formGroup]="form">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <plex-datetime
+                            type="date"
+                            label="Fecha de Reactivación"
+                            name="fecha"
+                            formControlName="fecha"
+                            class="input-sm"
+                            required
+                            [readonly]="!editable">
+                        </plex-datetime>
+                    </div>  
+                        <div class="col-md-8 col-xs-12">
+                            <plex-text
+                                name="motivo"
+                                formControlName="motivo"
+                                label="Motivo"
+                                placeholder="Indique motivo de la reactivación (breve descripción)"
+                                required
+                                [readonly]="!editable">
+                            </plex-text>
+                        </div>
+                    </div>
+                </form>
+            </plex-tab>
+            <plex-tab label="NORMA LEGAL">
+                <div *ngIf="normaLegal">
+                    <agente-datos-norma-legal
+                        [normaLegal]="normaLegal"
+                        [editable]="editable">
+                    </agente-datos-norma-legal>
+                </div>                
+            </plex-tab>
+        </plex-tabs>             
     </div>
 </div>

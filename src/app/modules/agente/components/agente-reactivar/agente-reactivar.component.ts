@@ -36,8 +36,13 @@ export class AgenteReactivarComponent {
         let datosReactivacion = this.reactivacionFormComponent.values();
         this.agenteService.reactivar(this.agente, datosReactivacion)
             .subscribe(
-                data=> {
-                    this.success.emit(data);
+                agente => {
+                    // Luego de la reactivacion, recuperamos el 'objeto'
+                    // del historial e intentamos guardar cualquier archivo
+                    // asociado a la norma (de la reactivacion)
+                    let historia = agente.historiaLaboral[0]; // La reactivacion debe ser el primer elemento del historial
+                    this.reactivacionFormComponent.datosNormaLegal.fileManager.saveFileChanges(historia.changeset.normaLegal);
+                    this.success.emit(agente);
                     this.reactivacionFormComponent.resetForms();
                 },
                 error => this.error.emit(error)
