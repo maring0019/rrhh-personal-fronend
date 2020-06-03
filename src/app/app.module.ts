@@ -143,6 +143,7 @@ import { FechaPipe } from './pipes/fecha.pipe';
 import { TitlePipe } from './pipes/title.pipe';
 import { EdadPipe } from './pipes/edad.pipe';
 import { SanitizeHtmlPipe } from './pipes/html.pipe';
+import { HistorialMotivoPipe } from 'src/app/pipes/historial.motivo.pipe';
 
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
@@ -353,6 +354,7 @@ const ADMIN_COMPONENTS = [
         FechaPipe,
         TitlePipe,
         EdadPipe,
+        HistorialMotivoPipe,
         SanitizeHtmlPipe,
 
         // Directives

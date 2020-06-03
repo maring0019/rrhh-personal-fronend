@@ -4,7 +4,10 @@ import { Agente } from 'src/app/models/Agente';
 import { HistoriaAgenteReactivacion } from 'src/app/models/HistoriaAgenteReactivacion';
 
 import { AgenteService } from 'src/app/services/agente.service';
-import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
+
+import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
+import { Plex } from '@andes/plex';
+
 
 
 @Component({
@@ -21,31 +24,32 @@ export class AgenteReactivarComponent {
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild(AgenteReactivarFormComponent) reactivacionFormComponent: AgenteReactivarFormComponent;
+    // Para la reactivacion utilizamos el mismo formulario que para los cambios
+    // de la situacion del agente.
+    @ViewChild(HistoriaLaboralFormComponent) historiaFormComponent: HistoriaLaboralFormComponent;
     
-    constructor(private agenteService: AgenteService){}
+    constructor(
+        private agenteService: AgenteService,
+        public plex: Plex){}
     
     public cancelar(){
-        this.reactivacionFormComponent.resetForms();
+        this.historiaFormComponent.resetForms();
         this.cancel.emit();
     }
 
     public guardar(){
-        if (this.reactivacionFormComponent.invalid()) return;
-        
-        let datosReactivacion = this.reactivacionFormComponent.values();
-        this.agenteService.reactivar(this.agente, datosReactivacion)
-            .subscribe(
-                agente => {
-                    // Luego de la reactivacion, recuperamos el 'objeto'
-                    // del historial e intentamos guardar cualquier archivo
-                    // asociado a la norma (de la reactivacion)
-                    let historia = agente.historiaLaboral[0]; // La reactivacion debe ser el primer elemento del historial
-                    this.reactivacionFormComponent.datosNormaLegal.fileManager.saveFileChanges(historia.changeset.normaLegal);
-                    this.success.emit(agente);
-                    this.reactivacionFormComponent.resetForms();
-                },
-                error => this.error.emit(error)
-            )
+        if (this.historiaFormComponent.invalid()) {
+            this.plex.info('danger', 'Debe completar todos los datos obligatorios');
+        }
+        else{
+            let datosReactivacion = this.historiaFormComponent.values();
+            this.agenteService.reactivar(this.agente, datosReactivacion)
+            .subscribe( agente => {
+                // Try to save files
+                this.historiaFormComponent.datosNormaLegal.fileManager.saveFileChanges(agente.situacionLaboral.normaLegal);
+                this.historiaFormComponent.resetForms();
+                this.success.emit(agente);
+        })
+        }        
     }
 }

@@ -29,10 +29,26 @@
     </div>
 </header>
 
-<app-agente-reactivar-form
-    [agente]="agente"
-    [item]="item"
-    [editable]="editable">
-</app-agente-reactivar-form>
-
+<div class="row">
+    <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+        <app-agente-foto
+            [agente]="agente"
+            [editable]="false"
+            [size]="'md'">
+        </app-agente-foto>
+        <article class="d-flex flex-column">
+            <h5 class="mt-2 mb-4">
+                {{ agente.nombre }}
+                <strong>{{ agente.apellido }}</strong>
+            </h5>
+        </article>
+    </div>
+    <div class="col-md-9 col-xs-12">
+        <app-historia-laboral-form
+            [agente]="agente"
+            [item]="item"
+            [editable]="editable">
+        </app-historia-laboral-form>
+    </div>
+</div>
     

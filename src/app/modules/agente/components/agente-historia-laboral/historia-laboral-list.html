@@ -26,8 +26,8 @@
     (delete)="onItemDelete($event)">
     <plex-icon name="file"></plex-icon>
     <plex-label
-        class="wp-20" 
-        titulo="{{ item.tipo | title }}"
+        class="wp-80" 
+        titulo="{{ item.tipo | title }} {{ item.changeset.motivo? ' - ': '' }} {{ item.changeset.motivo | historialMotivo }}"
         subtitulo="{{ item.changeset.fecha | fecha:'utc' }}">
     </plex-label>
 </list-item>
@@ -83,42 +83,6 @@
     </div>
 </jw-modal>
 
-
-<jw-modal id="{{ modal_id_reactivacion }}">
-    <header class="d-flex flex-row justify-content-between subheader">
-        <div>
-            <h5><strong>Agente | </strong> Reactivación</h5>
-        </div>
-        <div class="d-flex flex-row justify-content-end">
-            <div *ngIf="!canEditHistoria">
-                <plex-button
-                    label="Editar"
-                    type="info"
-                    (click)="changeCanEditHistoria()"
-                    class="mx-2">
-                </plex-button>
-                <plex-button
-                    type="danger" 
-                    icon="mdi mdi-close" 
-                    title="Cerrar"
-                    (click)="onCancelModal(modal_id_reactivacion)">
-                </plex-button>
-            </div>
-            <div *ngIf="canEditHistoria">
-                <plex-button label="Guardar" type="success" (click)="updateHistoria(modal_id_reactivacion)"></plex-button>
-                <plex-button
-                    class="mx-2"
-                    label="Cancelar"
-                    type="danger"
-                    (click)="onCancelModal(modal_id_reactivacion)">
-                </plex-button>
-            </div>
-        </div>
-    </header>
-    <ng-template #dynamicReactivacionForm></ng-template>       
-</jw-modal>
-
-
 <jw-modal id="{{ modal_id_modificacion }}">
     <header class="d-flex flex-row justify-content-between subheader">
         <div>
@@ -150,5 +114,22 @@
             </div>
         </div>
     </header>
-    <ng-template #dynamicModificacionForm></ng-template>
+    <div class="row">
+        <div class="col-md-3 col-xs-12 d-flex justify-content-start align-items-center flex-column">
+            <app-agente-foto
+                [agente]="agente"
+                [editable]="false"
+                [size]="'md'">
+            </app-agente-foto>
+            <article class="d-flex flex-column">
+                <h5 class="mt-2 mb-4">
+                    {{ agente.nombre }}
+                    <strong>{{ agente.apellido }}</strong>
+                </h5>
+            </article>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <ng-template #dynamicModificacionForm></ng-template>
+        </div>
+    </div>
 </jw-modal>

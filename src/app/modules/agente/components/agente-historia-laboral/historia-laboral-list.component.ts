@@ -10,7 +10,6 @@ import { AgenteService } from 'src/app/services/agente.service';
 
 import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
 import { AgenteBajaFormComponent } from 'src/app/modules/agente/components/agente-baja/agente-baja-form-component';
-import { AgenteReactivarFormComponent } from 'src/app/modules/agente/components/agente-reactivar/agente-reactivar-form.component';
 import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
 
 
@@ -27,7 +26,6 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
     @Output() changed: EventEmitter<Agente> = new EventEmitter<Agente>();
 
     @ViewChild(AgenteBajaFormComponent) bajaFormComponent: AgenteBajaFormComponent;
-    @ViewChild(AgenteReactivarFormComponent) reactivacionFormComponent: AgenteReactivarFormComponent;
     @ViewChild(HistoriaLaboralFormComponent) historiaFormComponent: HistoriaLaboralFormComponent;
 
     @ViewChild('dynamicBajaForm', { read: ViewContainerRef }) bajaContainerRef: ViewContainerRef;
@@ -130,10 +128,6 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
             case 'baja':
                 this.createHistoriaFormComponent(AgenteBajaFormComponent, this.bajaContainerRef);
                 this.onOpenModal(this.modal_id_baja);
-                break;
-            case 'reactivacion':
-                this.createHistoriaFormComponent(AgenteReactivarFormComponent, this.reactivacionContainerRef);
-                this.onOpenModal(this.modal_id_reactivacion);
                 break;
         }
     }
