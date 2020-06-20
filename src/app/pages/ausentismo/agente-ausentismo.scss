@@ -2,32 +2,36 @@
     padding: 25px 0;
 }
 
-::ng-deep .input-sm {
-    margin: 2px;
+::ng-deep .form-sm {
+    .input-sm .mdi-calendar {
+        font-size: 0.9rem;
+    }
 }
+// Test and remove this if not necesary.
+// ::ng-deep .input-sm {
+//     margin: 2px;
+// }
+// ::ng-deep .input-sm .form-control {
+//     padding: 0.3rem 0.3rem;
+//     font-size: 0.8rem;
+// }
 
-::ng-deep .input-sm .form-control {
-    padding: 0.3rem 0.3rem;
-    font-size: 0.8rem;
-}
+// ::ng-deep .input-sm .btn {
+//     padding: 0.1rem 0.1rem
+// }
+// ::ng-deep .input-sm .mdi-calendar {
+//     font-size: 0.9rem;
+// }
 
-::ng-deep .input-sm .btn {
-    padding: 0.1rem 0.1rem
-}
+// ::ng-deep .input-sm .selectize-control.single .remove-button {
+//     top: 4px;
+// }
 
-::ng-deep .input-sm .mdi-calendar {
-    font-size: 0.9rem;
-}
-
-::ng-deep .input-sm .selectize-control.single .remove-button {
-    top: 4px;
-}
-
-::ng-deep .input-sm .selectize-input {
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-    min-height: 0px ;
-}
+// ::ng-deep .input-sm .selectize-input {
+//     padding: 0.2rem 0.5rem;
+//     font-size: 0.8rem;
+//     min-height: 0px ;
+// }
 
 ::ng-deep .flex-1 {
     flex: 1
@@ -52,6 +56,10 @@
 
 ::ng-deep .cal-nav-calendars {
     height: 300px;
+    
+    .ausencia-event-class {
+        font-size: 15px;
+    }
 }
 
 ::ng-deep .cal-nav {
@@ -63,4 +71,9 @@
     padding: -8px;
     border: 1px solid #5bc0de;
     background: #8bc0d2 ;
+}
+
+
+::ng-deep .ausencia-event-class {
+    font-size: 20px;
 }

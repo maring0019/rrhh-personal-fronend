@@ -110,8 +110,8 @@ export class AgenteAusentismoComponent implements OnInit {
     }
 
     onActivate(componentRef){
-        console.log('Se activo el componente Interno');
-        console.log(componentRef);
+        // console.log('Se activo el componente Interno');
+        // console.log(componentRef);
     }
 
     refreshEventos(){
