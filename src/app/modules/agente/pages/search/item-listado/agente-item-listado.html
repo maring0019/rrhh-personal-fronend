@@ -9,7 +9,8 @@
             </app-agente-foto>
             <plex-label
                 titulo="D.U {{agente.documento }}"
-                [tituloBold]="false"
+                subtitulo="Leg. {{ agente.numero }}"
+                [tituloBold]="true"
                 (click)="seleccionarAgente(agente, i)"
                 [style.cursor]="'pointer'">
             </plex-label>

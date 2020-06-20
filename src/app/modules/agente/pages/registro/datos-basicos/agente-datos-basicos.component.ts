@@ -63,6 +63,7 @@ export class AgenteDatosBasicosComponent implements OnInit, AfterViewInit {
     {
         return this.formBuilder.group({
             _id             : [this.agente._id],
+            numero          : [this.agente.numero],
             nombre          : [this.agente.nombre],
             apellido        : [this.agente.apellido],
             documento       : [this.agente.documento],

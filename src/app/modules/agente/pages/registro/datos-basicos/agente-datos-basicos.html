@@ -13,6 +13,16 @@
             <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <plex-text
+                        name="numero"
+                        formControlName="numero" 
+                        label="Legajo"
+                        placeholder="Ingrese nro. de legajo"
+                        [required]="false"
+                        [readonly]="!editable">
+                    </plex-text>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <plex-text
                         name="apellido"
                         formControlName="apellido" 
                         label="Apellido/s"
@@ -32,6 +42,8 @@
                         [readonly]="!editable">
                     </plex-text>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <plex-datetime
                         class="input-sm"
@@ -43,8 +55,6 @@
                         [readonly]="!editable">
                     </plex-datetime>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <plex-int
                         name="documento"
@@ -68,6 +78,8 @@
                         (change)='updateCUIL()'>
                     </plex-select>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <plex-text
                         name="cuil"
@@ -78,8 +90,6 @@
                         [readonly]="!editable">
                     </plex-text>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <plex-select 
                         [data]="estados"
