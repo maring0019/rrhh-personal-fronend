@@ -1,13 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { Subscription, Subject } from 'rxjs/Rx';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Articulo } from 'src/app/models/Articulo';
-import { Subscription } from 'rxjs/Rx';
-
 
 
 @Component({
@@ -23,6 +24,8 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
     @Output() errors: EventEmitter<any> = new EventEmitter<any>();    
     @Output() warnings: EventEmitter<any> = new EventEmitter<any>();
+
+    
     
     public ausentismoFiles: any = [];
 
@@ -31,6 +34,7 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
     }
 
     private storeSubscription: Subscription;
+    private cantDiasSubject$ = new Subject(); // To keep track of changes in cantDias
 
     constructor(
         private ausentismoService: AusentismoService,
@@ -50,11 +54,23 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
                     // TODO Terminar interacciones con formulario
                 }
             });
+
+        // Cuando cantDias cambia actualizamos las fechas desde/hasta
+        this.cantDiasSubject$.pipe(
+            debounceTime(500), // Delay between keyup
+            distinctUntilChanged()).subscribe((cantDias: string) => {
+                if (cantDias){
+                    this.form.patchValue({fechaHasta:null});
+                    this.calcularDatosAusentismo();
+                } 
+            });
     }
 
     public ngAfterViewInit(){
         this.form.patchValue({ fechaDesde: this.form.value.fechaDesde });
         this.form.patchValue({ fechaHasta: this.form.value.fechaHasta });
+        
+        
     }
 
     ngOnDestroy() {
@@ -72,10 +88,7 @@ export class AusentismoCargaFormComponent implements OnInit, AfterViewInit, OnDe
 
 
     public onChangedCantidadDias(dias){
-        if (dias){
-            this.form.patchValue({fechaHasta:null});
-            this.calcularDatosAusentismo();
-        } 
+        this.cantDiasSubject$.next(dias)
     }
     
     public onChangedFechaHasta(value){
