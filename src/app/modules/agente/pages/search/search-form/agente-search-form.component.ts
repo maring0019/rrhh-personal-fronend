@@ -69,14 +69,20 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     private prepareSearchParams(){
         let params:any = {};
         let form = this.searchForm.value;
-        if (form.textoLibre && form.textoLibre.length >= 4){
-            const exp = form.textoLibre;
-            params['filter'] = JSON.stringify(
-                {"$or":[
+        let textoLibre = form.textoLibre.trim();
+        if (textoLibre && textoLibre.length >= 4){
+            const exps = textoLibre.split(" ");
+            let andFilters = [];
+            for (let exp of exps) {
+                const orFilters = {"$or":[
                     {"nombre"   :{"$regex": exp, "$options":"i"}},
                     {"apellido" :{"$regex": exp, "$options":"i"}},
                     {"documento":{"$regex": exp, "$options":"i"}},
-                ]}) 
+                    {"numero":{"$regex": exp, "$options":"i"}},
+                ]}
+                andFilters.push(orFilters);
+            }
+            params['filter'] = JSON.stringify({"$and" : andFilters})
         }
         if (form.estado){
             if (form.estado.id == 'activo'){
