@@ -271,6 +271,11 @@ export class AgenteRegistroComponent implements OnInit {
         return !errors;
     }
 
+    /**
+     * Guardado de los datos de un agente. Se identifica si 
+     * se trata de una edicion o alta y delega el guardado
+     * final al metodo correspondiente.
+     */
     saveAgente(){
         if (this.allFormsValid()){
             const agente = this.parseAgente();

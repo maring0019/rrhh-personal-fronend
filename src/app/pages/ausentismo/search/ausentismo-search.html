@@ -4,8 +4,16 @@
     </div>
     <div class="d-flex flex-row justify-content-end">
         <plex-button
-            title="Ver Indicadores"
+            title="Ver Agente Detalle"
             type="info"
+            size="sm"
+            class="mr-2"
+            icon="mdi mdi-eye"
+            [routerLink]="['/agentes/registro', agente?._id]">
+        </plex-button>
+        <plex-button
+            title="Ver Indicadores"
+            type="success"
             size="sm"
             class="mr-2"
             icon="mdi mdi-chart-bar"

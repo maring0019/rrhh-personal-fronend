@@ -11,26 +11,26 @@
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <div *ngIf="!isEditable">
+                         <plex-button
+                            title="Ver Ausencias"
+                            icon="clock"
+                            type="success"
+                            [routerLink]="['/agentes', agente?._id, 'ausentismo']">
+                        </plex-button>
                         <plex-button
                             *ngIf="agente?.activo"
-                            label="Editar Agente"
-                            type="info"
+                            title="Editar Agente"
+                            icon="mdi mdi-pencil" 
+                            type="warning"
                             (click)="onEditar()"
                             class="mx-2">
                         </plex-button>
-                        <!-- <plex-button
-                            *ngIf="agente?.activo"
-                            label="Nueva Historia Laboral"
-                            type="info"
-                            class="mx-2"
-                            (click)="onNuevaHistoriaLaboral()">
-                        </plex-button> -->
                         <plex-button
                             type="danger" 
                             icon="mdi mdi-close" 
                             title="Cerrar"
-                            routerLink="/agentes"
-                        ></plex-button>
+                            routerLink="/agentes">
+                        </plex-button>
                     </div>
                     <div *ngIf="isEditable">
                         <plex-button label="Guardar" type="success" (click)="saveAgente()"></plex-button>
