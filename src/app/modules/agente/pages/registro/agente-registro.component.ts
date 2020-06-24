@@ -29,6 +29,7 @@ import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Regimen } from 'src/app/models/Regimen';
 import { PlexTabsComponent } from '@andes/plex/src/lib/tabs/tabs.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-agente-registro',
@@ -74,8 +75,22 @@ export class AgenteRegistroComponent implements OnInit {
     private _agenteID:any; // To keep track of agente on edit
     
     // Variable de control para confirmar que el usuario desea editar
-    //
     private edicionConfirmada:Boolean = false;
+
+    // Identifica que tabs presentan errores al momento de validar
+    public tabsStatus = {
+        general: "default",
+        domicilio: "default",
+        contacto: "default",
+        educacion: "default",
+        datosLaborales: "default",
+        situacion: "default",
+        cargo: "default",
+        regimenes: "default"
+    }
+    // Estructura de ayuda para validar los forms dentro de cada tabs.
+    // Se utiliza en forma conjunta con la variable definida tabsStatus
+    private tabsForms;    
 
     constructor(
         private agenteService:AgenteService,
@@ -131,76 +146,129 @@ export class AgenteRegistroComponent implements OnInit {
 
     onValueChangeAgente(obj: Agente){
         Object.assign(this.agenteDetalle, obj);
+        this.validateTab();
     }
 
     onValueChangeDireccion(obj: Direccion){
         this.agenteDetalle.direccion = obj;
         this.agenteDetalle.direccion.ubicacion = (new Ubicacion(obj));
+        this.validateTab();
     }
 
     onValueChangeContactos(contactos: Contacto[]){
         this.agenteDetalle.contactos = contactos;
+        this.validateTab();
     }
     
     onValueChangeEducacion(educacion: Educacion[]){
         this.agenteDetalle.educacion = educacion;
+        this.validateTab();
     }
 
     onValueChangeSituacionLaboral(obj: SituacionLaboral){
         this.agenteDetalle.situacionLaboral = obj;
+        this.validateTab();
     }
 
     onValueChangeSituacion(obj: Situacion){
         this.agenteDetalle.situacionLaboral.situacion = obj;
         this.confirmarEdicion();
+        this.validateTab();
 
     }
 
     onValueChangeNormaLegal(obj: NormaLegal){
         this.agenteDetalle.situacionLaboral.normaLegal = obj;
         this.confirmarEdicion();
+        this.validateTab();
     }
 
     onValueChangeCargo(obj: Cargo){
         this.agenteDetalle.situacionLaboral.cargo = obj;
         this.confirmarEdicion();
+        this.validateTab();
     }
 
     onValueChangeRegimen(obj: Regimen){
         this.agenteDetalle.situacionLaboral.regimen = obj;
         this.confirmarEdicion();
+        this.validateTab();
+        
     }
 
     onValueChangeHistoriaLaboral(e){
         this.volverInicio();
-        // this.prepareDataForUpdate(); // Refresh
     }
 
+    /**
+     * Valida individualmente los formularios del tab activo y
+     * actualiza el status del tab que se esta analizando segun
+     * corresponda.
+     */
+    validateTab(){
+        if (this.tabsForms){
+            const idxTab = this.agenteTabs.activeIndex;
+            Object.keys(this.tabsForms).forEach((key,index) => {
+                if (index == idxTab){
+                    const forms = this.tabsForms[key];
+                    let existInvalidForms = false;
+                    forms.forEach(f => {
+                        if (f.invalid){
+                            existInvalidForms = true;
+                            formUtils.markFormAsInvalid(f);
+                        }
+                    });
+                    this.tabsStatus[key] = existInvalidForms? "procedimiento":"default";
+                }
+            })
+        }
+    }
+
+    /**
+     * Replica la estructura definida en la variable tabsStatus pero con
+     * los formularios dentro de cada key. 
+     * Importante: Mantener siempre la misma estructura que en la variable
+     * tabsStatus para que el metodo validateTab() funcione correctamente
+     */
+    private initTabsForms(){
+        this.tabsForms = {
+            general: [this.datosBasicos.datosBasicosForm],
+            domicilio: [this.datosDireccion.direccionForm],
+            contacto: this.datosContacto.contactoForms.controls,
+            educacion: this.datosEducacion.educacionForms.controls,
+            datosLaborales: [this.datosSituacionLaboral.datosGeneralesForm, this.datosNormaLegal.datosNormaLegalForm],
+            situacion: [this.datosSituacion.datosSituacionForm],
+            cargo: [this.datosCargo.datosCargoForm],
+            regimenes:[this.datosRegimen.datosRegimenForm]
+        }   
+    }
+
+    /**
+     * Valida todos los formularios presentes. Si encuentra errores
+     * ademas actualiza el status del tab con problemas para que sea
+     * facilmente identificable para el usuario.
+     */
     allFormsValid(){
-        const forms:any = [
-            this.datosBasicos.datosBasicosForm,
-            this.datosDireccion.direccionForm,
-            this.datosSituacionLaboral.datosGeneralesForm,
-            this.datosNormaLegal.datosNormaLegalForm,
-            this.datosSituacion.datosSituacionForm,
-            this.datosCargo.datosCargoForm,
-            this.datosRegimen.datosRegimenForm
-            ]
-        this.datosContacto.contactoForms.controls.forEach(cf => {
-            forms.push(cf)
-        })
-        this.datosEducacion.educacionForms.controls.forEach(ef => {
-            forms.push(ef)
-        })
-        
-        let existInvalidForms = false;
-        forms.forEach(f => {
-            if (f.invalid){
-                existInvalidForms = true;
-                formUtils.markFormAsInvalid(f);
+        if (!this.tabsForms) this.initTabsForms();
+        let errors = false;
+        Object.keys(this.tabsForms).forEach(key => {
+            const forms = this.tabsForms[key];
+            let existInvalidForms = false;
+            forms.forEach(f => {
+                if (f.invalid){
+                    existInvalidForms = true;
+                    formUtils.markFormAsInvalid(f);
+                }
+            });
+            if (existInvalidForms){
+                errors = true;
+                this.tabsStatus[key] = "procedimiento"
             }
+            else{
+                this.tabsStatus[key] = "default"
+            }   
         });
-        return !existInvalidForms;
+        return !errors;
     }
 
     saveAgente(){

@@ -45,7 +45,7 @@
             </section>
         </header>
         <plex-tabs #tabs>
-            <plex-tab label="GENERAL">
+            <plex-tab label="GENERAL" [color]="tabsStatus.general">
                 <div *ngIf="agente">
                     <agente-datos-basicos 
                         [agente]="agente"
@@ -54,7 +54,7 @@
                     </agente-datos-basicos>
                 </div>
             </plex-tab>
-            <plex-tab label="DOMICILIO">
+            <plex-tab label="DOMICILIO" [color]="tabsStatus.domicilio">
                 <div *ngIf="direccion">
                     <agente-datos-direccion 
                         [direccion]="direccion"
@@ -63,7 +63,7 @@
                     </agente-datos-direccion>
                 </div>
             </plex-tab>
-            <plex-tab label="CONTACTO">
+            <plex-tab label="CONTACTO" [color]="tabsStatus.contacto">
                 <div *ngIf="contactos">
                     <agente-datos-contacto 
                         [contactos]="contactos"
@@ -72,7 +72,7 @@
                     </agente-datos-contacto>
                 </div>
             </plex-tab>
-            <plex-tab label="EDUCACIÓN">
+            <plex-tab label="EDUCACIÓN" [color]="tabsStatus.educacion">
                 <div *ngIf="educacion">
                     <agente-datos-educacion 
                         [educacion]="educacion"
@@ -81,7 +81,7 @@
                     </agente-datos-educacion>
                 </div>
             </plex-tab>
-            <plex-tab label="DATOS LABORALES">
+            <plex-tab label="DATOS LABORALES" [color]="tabsStatus.datosLaborales">
                 <div *ngIf="situacionLaboral">
                     <agente-datos-generales
                         [situacionLaboral]="situacionLaboral"
@@ -98,7 +98,7 @@
                     </agente-datos-norma-legal>
                 </div>
             </plex-tab>
-            <plex-tab label="SITUACIÓN">
+            <plex-tab label="SITUACIÓN" [color]="tabsStatus.situacion">
                 <div *ngIf="situacion">
                     <agente-datos-situacion
                         [situacion]="situacion"
@@ -107,7 +107,7 @@
                     </agente-datos-situacion>
                 </div>
             </plex-tab>
-            <plex-tab label="CARGO">
+            <plex-tab label="CARGO" [color]="tabsStatus.cargo">
                 <div *ngIf="cargo">
                     <agente-datos-cargo
                         [cargo]="cargo"
@@ -116,7 +116,7 @@
                     </agente-datos-cargo>
                 </div>
             </plex-tab>
-            <plex-tab label="REGÍMENES">
+            <plex-tab label="REGÍMENES" [color]="tabsStatus.regimenes">
                 <div *ngIf="regimen">
                     <agente-datos-regimen
                         [regimen]="regimen"

@@ -69,7 +69,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     private prepareSearchParams(){
         let params:any = {};
         let form = this.searchForm.value;
-        let textoLibre = form.textoLibre.trim();
+        let textoLibre = form.textoLibre? form.textoLibre.trim(): "";
         if (textoLibre && textoLibre.length >= 4){
             const exps = textoLibre.split(" ");
             let andFilters = [];
