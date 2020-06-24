@@ -121,11 +121,12 @@ export class EventosCalendarService {
     mapAusencia(ausencia, ausentismo){
         return {
             '_id': ausentismo._id,
-            'title':  `ART. ${ausentismo.articulo.codigo}`,
+            'title':  `${ausentismo.articulo.codigo}`,
             'start': ausencia.fecha,
             'allDay': true,
             'backgroundColor': "transparent",
-            'textColor': ausentismo.articulo.color? ausentismo.articulo.color: '#002738',
+            'textColor': ausentismo.articulo.color? ausentismo.articulo.color: '#00A8E0',
+            'className': "ausencia-event-class",
             'type': 'AUSENCIA',
             'ausentismoFechaDesde': ausentismo.fechaDesde,
             'ausentismoFechaHasta': ausentismo.fechaHasta

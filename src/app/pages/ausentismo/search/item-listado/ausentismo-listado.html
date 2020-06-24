@@ -4,8 +4,8 @@
         <div class="item-column">
             <div class="d-flex flex-row justify-content-start">
                 <plex-label
-                    
-                    titulo="Art. {{ item.articulo?.codigo }} {{ (item.articulo?.descripcion.length > 18)? (item.articulo?.descripcion | slice:0:15 ) + '...' : item.articulo?.descripcion }}"
+                    title="Art. {{ item.articulo?.codigo }} {{ item.articulo?.descripcion}}"                   
+                    titulo="{{ item.articulo?.codigo }} {{ (item.articulo?.descripcion.length > 15)? (item.articulo?.descripcion | slice:0:12 ) + '...' : item.articulo?.descripcion }}"
                     subtitulo="{{ item.fechaDesde | fecha:'utc' }} - {{ item.fechaHasta | fecha:'utc' }}">
                 </plex-label>
             </div>    
