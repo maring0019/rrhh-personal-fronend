@@ -30,6 +30,7 @@
         <list-item *ngFor="let item of items; let i=index"
             [item]="item"
             [itemSelected]="itemSelected"
+            [actions]="['view', 'edit', 'delete']"
             (selectionChange)="onItemSelectionChanged($event)"
             (edit)="onItemEdit($event)"
             (delete)="onItemDelete($event)">

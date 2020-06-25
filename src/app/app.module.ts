@@ -49,6 +49,7 @@ import { GuardiaPeriodoService } from './services/guardia-periodo.service';
 import { GuardiaLoteService } from './services/guardia-lote.service';
 import { MenuService } from './services/menu.service';
 import { ObjectService } from './services/tm/object.service';
+import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -210,6 +211,8 @@ import { GuardiaLotesCreateUpdateComponent } from 'src/app/modules/tm/components
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-horario/list/search/regimen-horario-search.component';
 import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
+import { LicenciaPeriodoSearchComponent } from 'src/app/modules/tm/components/licencia-periodo/list/search/licencia-periodo-search.component';
+import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component';
 
 const ADMIN_COMPONENTS = [
 
@@ -236,7 +239,10 @@ const ADMIN_COMPONENTS = [
 
     RegimenHorarioListComponent,
     RegimenHorarioSearchComponent,
-    RegimenHorarioCreateUpdateComponent
+    RegimenHorarioCreateUpdateComponent,
+
+    LicenciaPeriodoListComponent,
+    LicenciaPeriodoSearchComponent
   ]
 
 @NgModule({
@@ -401,6 +407,7 @@ const ADMIN_COMPONENTS = [
         AusentismoService,
         FeriadoService,
         FrancoService,
+        IndicadorLicenciaService,
         EventosCalendarService,
         FilesService,
         CalendarRangeSelectorService,

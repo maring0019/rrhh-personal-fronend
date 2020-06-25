@@ -1,4 +1,4 @@
-<ng-container *ngFor="let item of indicadores">
+<!-- <ng-container *ngFor="let item of indicadores">
     <div class="item-row">
         <div class="item-column">
             <div class="d-flex flex-row justify-content-start">
@@ -19,3 +19,21 @@
         </div>
     </div>
 </ng-container>
+
+<br><br><br> -->
+
+<list-item *ngFor="let item of indicadores; let i=index"
+    [item]="item"
+    [itemSelected]="itemSelected"
+    [actions]="editable? ['edit']:[]"
+    (edit)="onItemEdit($event)">
+    <plex-label
+        titulo="{{ item.vigencia }}">
+    </plex-label>
+    <plex-badge type="info">
+        {{ item.intervalos[0]?.totales}} Asig.
+    </plex-badge>
+    <plex-badge type="success">
+        {{ item.intervalos[0]?.ejecutadas}} Toma.
+    </plex-badge>
+</list-item>

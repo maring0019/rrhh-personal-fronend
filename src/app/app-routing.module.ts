@@ -45,6 +45,8 @@ import { GuardiaLotesCreateUpdateComponent } from 'src/app/modules/tm/components
 import { RegimenHorarioListComponent } from 'src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component';
 import { RegimenHorarioCreateUpdateComponent } from 'src/app/modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
 
+import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component';
+
 const routes: Routes = [
     // Inicio
     { path: 'inicio', component: HomeMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
@@ -74,6 +76,8 @@ const routes: Routes = [
     { path: 'configuracion/guardia-lotes', component: GuardiaLotesListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/guardia-lotes/crear', component: GuardiaLotesCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     { path: 'configuracion/guardia-lotes/editar/:id', component: GuardiaLotesCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
+    { path: 'configuracion/licencia-periodos', component: LicenciaPeriodoListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 

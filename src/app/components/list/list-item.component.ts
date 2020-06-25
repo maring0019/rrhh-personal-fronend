@@ -8,10 +8,11 @@ import { Plex } from '@andes/plex';
 })
 export class ListItemComponent implements OnInit { 
 
-    // @Input() layout: 'completo' | 'contenido' | 'izquierda' | 'derecha' = 'completo';
-    // @Input() striped = false;
     @Input() columnDef: any[];
-    @Input() botonera: Boolean = true;    
+    @Input() botonera: Boolean = true;
+    @Input() actions: String[] = []; // ['view', 'edit', 'delete']
+    @Input() botonView: Boolean = true;
+    @Input() botonDelete: Boolean = true;
     @Input() editable: Boolean = true;
     @Input() item: any;
     @Input() itemSelected:any;
@@ -21,10 +22,16 @@ export class ListItemComponent implements OnInit {
     @Output() edit: EventEmitter<any> = new EventEmitter<any>();
     @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
+    public editEnabled:Boolean = false;
+    public viewEnabled:Boolean = false;
+    public deleteEnabled:Boolean = false;
+
     constructor(private plex: Plex) { }
 
     ngOnInit() {
-        // this.layout = this.layout ? this.layout : 'completo';
+        this.viewEnabled = this.actions.indexOf("view") > -1;
+        this.editEnabled = this.actions.indexOf("edit") > -1;
+        this.deleteEnabled = this.actions.indexOf("delete") > -1;
     }
 
     

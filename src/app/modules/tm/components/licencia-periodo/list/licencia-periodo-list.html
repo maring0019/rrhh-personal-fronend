@@ -2,14 +2,14 @@
 
     <plex-layout-main>
         <app-crud-header 
-            [titulo]="'Guardias Lotes'"
+            [titulo]="'Licencias. Períodos'"
             (cancel)="cancel()"
             (create)="createItem()">
         </app-crud-header>
         
-        <app-guardia-lotes-search
+        <app-licencia-periodo-search
             (change)="search($event)">
-        </app-guardia-lotes-search>
+        </app-licencia-periodo-search>
 
         <br>
         
@@ -35,22 +35,16 @@
             (selectionChange)="onItemSelectionChanged($event)"
             (edit)="onItemEdit($event)"
             (delete)="onItemDelete($event)">
-            <plex-label 
-                class="wp-10"
-                titulo="{{ item.numero }}">
-            </plex-label>
-            <plex-label 
+            <plex-label
                 class="wp-40"
-                titulo="{{ item.servicio?.nombre }}">
+                titulo="{{ item.agente.apellido }}, {{ item.agente.nombre }}"
+                subtitulo="Leg. {{ item.agente.numero }}"
+                [tituloBold]="true">
             </plex-label>
-            <plex-label 
-                class="wp-20"
-                titulo="{{ item.tipoGuardia | title }}">
-            </plex-label>
-            <plex-label 
-                class="wp-30"
-                titulo="{{ item.categoria?.nombre }}">
-            </plex-label>
+            <plex-label class="wp-20" titulo="{{item.vigencia | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-20" titulo="{{item.totales | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-20" titulo="{{item.ejecutadas | title }}" [tituloBold]="false"></plex-label>
+            <!-- <plex-label class="wp-10" titulo="{{item.vencido | title }}" [tituloBold]="false"></plex-label> -->
         </list-item>
         
         <div class="d-flex justify-content-center mt-4">
@@ -61,6 +55,6 @@
                 (click)="showMoreResultados()">
             </plex-button>
         </div>
-                
+               
     </plex-layout-main>   
-</plex-layout>    
+</plex-layout>

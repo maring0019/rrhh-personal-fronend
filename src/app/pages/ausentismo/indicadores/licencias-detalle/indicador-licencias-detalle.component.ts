@@ -15,6 +15,8 @@ export class IndicadorLicenciasDetalleComponent {
         this.initIndicadores(value);
     }
     
+    @Input() editable:Boolean = false;
+    
     public indicadores;
 
     constructor(private ausentismoService:AusentismoService){}
@@ -22,5 +24,10 @@ export class IndicadorLicenciasDetalleComponent {
     initIndicadores(agente:Agente){
         this.ausentismoService.getLicenciasByAgente(agente._id)
             .subscribe( data => this.indicadores = data);
+    }
+
+    public onItemEdit(item){
+        console.log('Vamos a editar');
+        console.log(item);
     }
 }

@@ -8,6 +8,7 @@
     <div class="item-column item-botonera" *ngIf="botonera">
         <div class="d-flex flex-row justify-content-end align-items-center"> 
             <plex-button
+                *ngIf="viewEnabled"
                 title="Ver detalle"
                 type="info"
                 icon="mdi mdi-eye"
@@ -15,6 +16,7 @@
                 (click)="viewItem(item)">
             </plex-button>
             <plex-button
+                *ngIf="editEnabled"
                 title="Editar"
                 type="warning"
                 icon="mdi mdi-pencil"
@@ -23,6 +25,7 @@
                 [disabled]="!editable">
             </plex-button>
             <plex-button
+                *ngIf="deleteEnabled"
                 title="Eliminar"
                 type="danger"
                 icon="mdi mdi-close"

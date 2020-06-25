@@ -44,7 +44,14 @@ export class MenuService {
             subtitulo:'Configuracion',
             url:'/configuracion/regimen-horarios',
             icono:'mdi-account-multiple-outline'
-        }]
+        },
+        { 
+            titulo: 'Licencias Periodos',
+            subtitulo:'Configuracion',
+            url:'/configuracion/licencia-periodos',
+            icono:'mdi-account-multiple-outline'
+        }
+    ]
 
 
     private menuPartes = [
