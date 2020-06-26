@@ -1,0 +1,58 @@
+<plex-layout main="12">
+    <plex-layout-main>
+
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong> {{ titulo }} | </strong> {{ subtitulo }}</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button label="Guardar" type="success" (click)="onSave()"></plex-button>
+                <plex-button class="mx-2" label="Cancelar" type="danger" (click)="onCancel()"></plex-button>
+            </div>
+        </header>
+        
+        <form *ngIf='form' name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <app-agente-select-input
+                        [form]="form"
+                        [editable]="!_objectID">
+                    </app-agente-select-input>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-float 
+                        name="vigencia" 
+                        formControlName="vigencia"
+                        label="Periodo"
+                        [required]="true"
+                        placeholder="Ingrese año">
+                    </plex-float>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-float 
+                        name="totales" 
+                        formControlName="totales"
+                        label="Lic. Totales (cant. días)"
+                        [required]="true"
+                        placeholder="Ingrese total de licencias disponibles">
+                    </plex-float>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-float 
+                        name="ejecutadas" 
+                        formControlName="ejecutadas"
+                        label="Lic. Tomadas (cant. dias)"
+                        placeholder="Total de licencias tomadas">
+                    </plex-float>
+                </div>
+            </div>
+        </form>
+
+    </plex-layout-main>
+</plex-layout>

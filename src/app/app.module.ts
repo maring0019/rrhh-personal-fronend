@@ -199,6 +199,7 @@ import { RangeDirective } from './directives/range';
 
 import { AgenteSelectComponent } from 'src/app/modules/agente/components/agente-select/agente-select.component';
 import { AgenteSelectSearchFormComponent } from 'src/app/modules/agente/components/agente-select/search/agente-select-search-form.component';
+import { AgenteSelectInputComponent } from 'src/app/modules/agente/components/agente-select-input/agente-select-input.component';
 
 // TM
 import { GuardiaPeriodoListComponent } from 'src/app/modules/tm/components/guardia-periodos/list/guardia-periodo-list.component';
@@ -213,6 +214,8 @@ import { RegimenHorarioSearchComponent } from './modules/tm/components/regimen-h
 import { RegimenHorarioCreateUpdateComponent } from './modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component';
 import { LicenciaPeriodoSearchComponent } from 'src/app/modules/tm/components/licencia-periodo/list/search/licencia-periodo-search.component';
 import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component';
+import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component';
+
 
 const ADMIN_COMPONENTS = [
 
@@ -242,7 +245,8 @@ const ADMIN_COMPONENTS = [
     RegimenHorarioCreateUpdateComponent,
 
     LicenciaPeriodoListComponent,
-    LicenciaPeriodoSearchComponent
+    LicenciaPeriodoSearchComponent,
+    LicenciaPeriodoCreateUpdateComponent
   ]
 
 @NgModule({
@@ -282,6 +286,7 @@ const ADMIN_COMPONENTS = [
         AgenteFormSelectComponent,
         AgenteSelectSearchFormComponent,
         AgenteSelectComponent,
+        AgenteSelectInputComponent,
         
         AgenteAusentismoComponent,
         AgenteCalendarComponent,

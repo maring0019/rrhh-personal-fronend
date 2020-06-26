@@ -1,0 +1,21 @@
+<div [formGroup]="form">
+    <plex-select 
+        *ngIf="editable"
+        (getData)="onSearchAgentes($event)" 
+        (change)="onChangeAgente($event)" 
+        label="Agente"
+        name="agente"
+        formControlName="agente"
+        placeholder="Buscar Agente"
+        [required]="true">
+    </plex-select>
+
+    <plex-text
+        *ngIf="!editable"
+        label="Agente"
+        name="agente"
+        formControlName="agente"
+        [required]="true"
+        [readonly]="true">
+    </plex-text>
+</div>

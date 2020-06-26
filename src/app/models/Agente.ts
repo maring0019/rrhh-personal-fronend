@@ -31,6 +31,10 @@ export class Agente {
     foto: String;
     codigoFichado: String;
     activo: Boolean
+    
+    get nombreCompleto(){
+        return `${this.apellido}, ${this.nombre}`;
+    }
 
     constructor(agente?)
     {
