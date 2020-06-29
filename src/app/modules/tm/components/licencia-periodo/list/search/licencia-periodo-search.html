@@ -5,6 +5,7 @@
                 name="searchText"
                 [(ngModel)]="searchText"
                 [debounce]="1000"
+                [autoFocus]="autoFocus"
                 (change)="onChange()"
                 placeholder="Ingrese un parámetro de búsqueda">
             </plex-text>

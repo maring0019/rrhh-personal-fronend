@@ -9,11 +9,16 @@ import { ABMSearchComponent } from 'src/app/modules/tm/components/crud/abm-searc
 })
 export class LicenciaPeriodoSearchComponent extends ABMSearchComponent {
     
+    public autoFocus = 0;
     public searchText:String;  // User input value
     private searchExpresion:any;
 
     constructor(protected formBuilder: FormBuilder) {
         super(formBuilder)
+    }
+
+    ngOnInit() {
+        this.autoFocus = this.autoFocus + 1;
     }
 
     public onChange(){
