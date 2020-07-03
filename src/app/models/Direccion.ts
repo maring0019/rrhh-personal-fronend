@@ -3,6 +3,7 @@ import { Localidad } from './Localidad';
 
 
 export class Direccion {
+    _id: String;
     valor: String;
     codigoPostal: String;
     barrio: String;
@@ -21,6 +22,7 @@ export class Direccion {
     constructor(direccion?)
     {
         direccion = direccion || {};
+        this._id = direccion._id || null;
         this.valor = direccion.valor || '';
         this.codigoPostal = direccion.codigoPostal || '';
         this.barrio = direccion.barrio || '';

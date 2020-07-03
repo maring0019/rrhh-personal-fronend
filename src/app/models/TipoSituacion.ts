@@ -9,7 +9,7 @@ export class TipoSituacion {
         situacion = situacion || {};
         this._id = situacion._id || null;
         this.nombre = situacion.nombre || '';
-        this.requiereVencimiento = this.requiereVencimiento;
-        this.activo = this.activo;
+        this.requiereVencimiento = situacion.requiereVencimiento;
+        this.activo = situacion.activo;
     }
 }

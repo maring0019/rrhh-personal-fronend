@@ -6,6 +6,7 @@ import { localDate } from '../utils/dates';
 
 
 export class SituacionLaboral {
+    _id: String;
     fechaIngresoEstado: Date;
     fechaIngresoHospital: Date;
     antiguedadVacaciones: Date;
@@ -24,6 +25,7 @@ export class SituacionLaboral {
 
     constructor(sl?){
         sl = sl || {};
+        this._id = sl._id || null;
         this.fechaIngresoEstado = localDate(sl.fechaIngresoEstado);
         this.fechaIngresoHospital = localDate(sl.fechaIngresoHospital);
         this.antiguedadVacaciones = localDate(sl.antiguedadVacaciones);

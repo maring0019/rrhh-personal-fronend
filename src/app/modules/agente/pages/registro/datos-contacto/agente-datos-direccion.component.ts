@@ -45,6 +45,7 @@ export class AgenteDatosDireccionComponent implements OnInit {
         // Init localidades options
         this.filterLocalidadesOptions(provincia);
         return this.formBuilder.group({
+            _id                  : [this.direccion._id],
             valor                : [this.direccion.valor],
             provincia            : [provincia],
             localidad            : [this.direccion.localidad],
@@ -54,7 +55,8 @@ export class AgenteDatosDireccionComponent implements OnInit {
             calleIzquierda       : [this.direccion.calleIzquierda],
             calleDerecha         : [this.direccion.calleDerecha],
             calleParalela        : [this.direccion.calleParalela],
-            complementarios      : [this.direccion.complementarios]
+            complementarios      : [this.direccion.complementarios],
+            activo               : [this.direccion.activo]
         });
     }
 
