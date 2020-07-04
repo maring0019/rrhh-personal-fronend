@@ -50,6 +50,7 @@ import { GuardiaLoteService } from './services/guardia-lote.service';
 import { MenuService } from './services/menu.service';
 import { ObjectService } from './services/tm/object.service';
 import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.service';
+import { AuditService } from 'src/app/services/audit.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -216,6 +217,9 @@ import { LicenciaPeriodoSearchComponent } from 'src/app/modules/tm/components/li
 import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component';
 import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component';
 
+// Auditoria
+import { AuditSearchComponent } from 'src/app/components/audit/list/search/audit-search.component';
+import { AuditListComponent } from 'src/app/components/audit/list/audit-list.component';
 
 const ADMIN_COMPONENTS = [
 
@@ -229,7 +233,7 @@ const ADMIN_COMPONENTS = [
     
     ArticuloListComponent,
     ArticuloSearchComponent,
-    ArticuloCreateUpdateComponent,
+    ArticuloCreateUpdateComponent, 
 
     GuardiaPeriodoListComponent,
     GuardiaPeriodoSearchComponent,
@@ -327,6 +331,9 @@ const ADMIN_COMPONENTS = [
         GuardiaItemListComponent,
         GuardiaSearchFormComponent,
 
+        // Auditoria
+        AuditSearchComponent,
+        AuditListComponent,
 
         SearchLeyendaComponent,
         ListadoComponent,
@@ -429,7 +436,8 @@ const ADMIN_COMPONENTS = [
         GuardiaLoteService,
         ParteAgenteService,
         MenuService,
-        ObjectService
+        ObjectService,
+        AuditService
         
     ],
     bootstrap: [AppComponent],

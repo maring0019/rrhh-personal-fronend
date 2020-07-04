@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 
@@ -19,6 +19,7 @@ export class RegimenHorarioCreateUpdateComponent extends ABMCreateUpdateComponen
     titulo = 'Regimen Horario';
     
     constructor(
+        protected router: Router,
         protected route: ActivatedRoute,
         protected location: Location,
         protected plex: Plex,
@@ -26,7 +27,7 @@ export class RegimenHorarioCreateUpdateComponent extends ABMCreateUpdateComponen
         protected objectService: ObjectService,
         private regimenHorarioService: RegimenHorarioService)
     {
-        super(route, location, plex, formBuilder, objectService)
+        super(router, route, location, plex, formBuilder, objectService)
     }
 
     protected get dataService(){

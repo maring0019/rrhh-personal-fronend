@@ -25,4 +25,8 @@ export class ObjectService {
         return service.delete(objectId);
     }
 
+    history(service, objectId?: any): Observable<any> {
+        return service.history(objectId);
+    }
+
 }

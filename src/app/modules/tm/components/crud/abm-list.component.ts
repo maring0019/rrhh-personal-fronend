@@ -5,6 +5,7 @@ import { ObjectService } from 'src/app/services/tm/object.service';
 
 export abstract class ABMListComponent implements OnInit {
 
+    public modelName = 'articulos';
     public canCreateObject: boolean = true;
 
     public items:any[] = [];           // Contenedor de objetos visibles para el listado
@@ -55,7 +56,7 @@ export abstract class ABMListComponent implements OnInit {
      * control que proveen feedback al usuario sobre lo que esta
      * ocurriendo.
      */
-    private searchStart(){
+    searchStart(){
         this.searching = true;
         this.items = []
         this.hiddenItems = [];
@@ -70,7 +71,7 @@ export abstract class ABMListComponent implements OnInit {
      * mostrar los items y el boton de 'paginado'.
      * @param items 
      */
-    private searchEnd(items:any){
+    searchEnd(items:any){
         this.searching = false;
         this.searched = true; 
         this.hiddenItems = items ;
@@ -132,6 +133,5 @@ export abstract class ABMListComponent implements OnInit {
     public cancel(){
         this.router.navigate(['/configuracion']);
     }
-
 
 }

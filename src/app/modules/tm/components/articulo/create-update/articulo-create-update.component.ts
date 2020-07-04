@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 
@@ -16,16 +16,18 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 export class ArticuloCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     titulo = 'Artículos';
+    modelName = 'articulos';
     
     constructor(
+        protected router: Router,
         protected route: ActivatedRoute,
         protected location: Location,
         protected plex: Plex,
         protected formBuilder: FormBuilder,
         protected objectService: ObjectService,
-        private articuloService: ArticuloService)
+        private articuloService: ArticuloService,)
     {
-        super(route, location, plex, formBuilder, objectService)
+        super(router, route, location, plex, formBuilder, objectService)
     }
 
     protected get dataService(){
@@ -46,6 +48,6 @@ export class ArticuloCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     public onColorChange(newColor:string){
         this.form.patchValue({ color: newColor});
-
     }
+
 }

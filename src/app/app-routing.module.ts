@@ -48,9 +48,15 @@ import { RegimenHorarioCreateUpdateComponent } from 'src/app/modules/tm/componen
 import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component';
 import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component';
 
+import { AuditListComponent } from 'src/app/components/audit/list/audit-list.component';
+
 const routes: Routes = [
     // Inicio
     { path: 'inicio', component: HomeMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
+    // Audit/History
+    { path: 'historia/:model/:id', component: AuditListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { path: 'historia/:model', component: AuditListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     
     // Tablas maestras
     { path: 'configuracion', component: ConfiguracionMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },

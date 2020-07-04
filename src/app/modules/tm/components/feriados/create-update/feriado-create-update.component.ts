@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 
@@ -16,8 +16,10 @@ import { FeriadoService } from 'src/app/services/feriado.service';
 export class FeriadoCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     titulo = 'Feríados';
+    modelName = 'feriados';
     
     constructor(
+        protected router: Router,
         protected route: ActivatedRoute,
         protected location: Location,
         protected plex: Plex,
@@ -25,7 +27,7 @@ export class FeriadoCreateUpdateComponent extends ABMCreateUpdateComponent {
         protected objectService: ObjectService,
         private feriadoService: FeriadoService)
     {
-        super(route, location, plex, formBuilder, objectService)
+        super(router, route, location, plex, formBuilder, objectService)
     }
 
     protected get dataService(){

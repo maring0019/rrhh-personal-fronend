@@ -35,5 +35,10 @@ export abstract class GenericService<T extends IdentityObject> {
         const url = `${this.url}/${objectId}`;
         return this.server.delete(url);
     }
+
+    history(objectId?: any): Observable<T> {
+        let url = `${this.url}/${objectId}/history`;
+        return this.server.get(url);
+    }
     
   } 

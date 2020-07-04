@@ -1,5 +1,5 @@
 import { OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 import { BehaviorSubject } from 'rxjs'
@@ -20,7 +20,7 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
         }
         return value;
     }
-    
+    protected modelName:String = "";
     protected _objectID:any;
     protected _object = new BehaviorSubject(null);
     readonly object$ = this._object.asObservable();
@@ -40,6 +40,7 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
     
     constructor
     (
+        protected router: Router,
         protected route: ActivatedRoute,
         protected location: Location,
         protected plex: Plex,
@@ -158,6 +159,12 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
     }
 
     public onError(obj:any){
+    }
+
+    public onHistoria(){
+        if (!this.modelName) return; // Alertar mal configurado
+        this.router.navigate(['/historia', this.modelName, this._objectID]);
+        
     }
 
 }

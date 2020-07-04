@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 
@@ -28,6 +28,7 @@ export class GuardiaLotesCreateUpdateComponent extends ABMCreateUpdateComponent 
     public categoriaOpciones$ = this.categoriaService.get({});
     
     constructor(
+        protected router: Router,
         protected route: ActivatedRoute,
         protected location: Location,
         protected plex: Plex,
@@ -37,7 +38,7 @@ export class GuardiaLotesCreateUpdateComponent extends ABMCreateUpdateComponent 
         private servicioService: UbicacionService,
         private categoriaService: AgrupamientoService)
     {
-        super(route, location, plex, formBuilder, objectService)
+        super(router, route, location, plex, formBuilder, objectService)
     }
 
     protected get dataService(){

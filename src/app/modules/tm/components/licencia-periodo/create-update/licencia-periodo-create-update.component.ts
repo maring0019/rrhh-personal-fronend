@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Plex } from '@andes/plex';
 
@@ -18,6 +18,7 @@ export class LicenciaPeriodoCreateUpdateComponent extends ABMCreateUpdateCompone
     titulo = 'Licencia Periodos';
     
     constructor(
+        protected router: Router,
         protected route: ActivatedRoute,
         protected location: Location,
         protected plex: Plex,
@@ -25,7 +26,7 @@ export class LicenciaPeriodoCreateUpdateComponent extends ABMCreateUpdateCompone
         protected objectService: ObjectService,
         private indicadorLicenciaService: IndicadorLicenciaService)
     {
-        super(route, location, plex, formBuilder, objectService)
+        super(router, route, location, plex, formBuilder, objectService)
     }
 
     protected get dataService(){

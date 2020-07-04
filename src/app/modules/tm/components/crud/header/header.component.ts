@@ -7,12 +7,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CrudHeaderComponent {
 
-    @Input() titulo:any;
+    @Input() titulo:String;
+    @Input() canCreateObject: boolean = true;
     
     @Output() create: EventEmitter<any> = new EventEmitter<any>();
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
-
-    public canCreateObject: boolean = true;
 
     public onCreate(){
         this.create.emit();

@@ -1,0 +1,67 @@
+<plex-layout main="12">
+
+    <plex-layout-main>
+        <app-crud-header 
+            [titulo]="'Historial de Cambios'"
+            [canCreateObject]="false"
+            (cancel)="cancel()">
+        </app-crud-header>
+        
+        <app-audit-search
+            (change)="search($event)">
+        </app-audit-search>
+
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
+        <app-search-leyenda
+            *ngIf="searched && items && !items.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            (selectionChange)="onItemSelectionChanged($event)">
+            <plex-label
+                class="wp-20"
+                titulo="{{ item.updatedAt | fecha:'diahora' }}"
+                subtitulo="{{ item.method | title }}"
+                [tituloBold]="true">
+            </plex-label>
+            <plex-label
+                *ngIf="!item.changedBy"
+                class="wp-30"
+                titulo=""
+                subtitulo="D.U"
+                [tituloBold]="false">
+            </plex-label>
+            <plex-label
+                *ngIf="item.changedBy"
+                class="wp-30"
+                titulo="{{ item.changedBy.apellido }}, {{ item.changedBy.nombre }}"
+                subtitulo="D.U {{ item.changedBy.documento }}">
+            </plex-label>
+            <plex-label class="wp-60" titulo="{{ item.comment | title }}" [tituloBold]="false"></plex-label>
+        </list-item>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="showMoreResultados()">
+            </plex-button>
+        </div>
+               
+    </plex-layout-main>   
+</plex-layout>
