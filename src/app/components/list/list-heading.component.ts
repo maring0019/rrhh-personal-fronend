@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'list-head',
     template: `
         <div class="item-row" *ngIf="columnDef && columnDef.length">
-            <div class="item-column">
+            <div [ngClass]="(botonera)? 'item-column': 'item-column-full'">
                 <div class="d-flex flex-row justify-content-start align-items-center">
                     <plex-label *ngFor="let col of columnDef; let i=index"
                         [ngClass]="col?.size ? 'wp-' + col?.size : ''"
@@ -17,6 +17,7 @@ import { Component, Input } from '@angular/core';
 export class ListHeadComponent {
 
     @Input() columnDef:any;
+    @Input() botonera:Boolean = true; // Se utiliza para determinar el ancho total del encabezado
 
 }
 
