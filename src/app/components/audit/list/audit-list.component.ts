@@ -19,17 +19,17 @@ export class AuditListComponent extends ABMListComponent {
         {
             id: 'fecha',
             title: 'Fecha',
-            size: '20'
+            size: '10'
         },
         {
             id: 'usuario',
             title: 'Usuario',
-            size: '30'
+            size: '20'
         },
         {
             id: 'modificacion',
             title: 'Modificaciones',
-            size: '60'
+            size: '70'
         }
     ]
 
