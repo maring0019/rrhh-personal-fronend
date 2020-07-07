@@ -4,6 +4,7 @@ import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
 import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
+import { DescargasService } from 'src/app/services/descargas.service';
 
 import { AusentismoSearchFormComponent } from './search-form/ausentismo-search-form.component';
 import { Ausentismo } from 'src/app/models/Ausentismo';
@@ -30,6 +31,7 @@ export class AusentismoSearchComponent implements OnInit {
     constructor(
         private agenteService:AgenteService,
         private calendarStoreService: CalendarStoreService,
+        protected descargasService: DescargasService,
         private router:Router,
         private route: ActivatedRoute,
         protected plex: Plex){}
@@ -74,6 +76,16 @@ export class AusentismoSearchComponent implements OnInit {
                 }
         });
         
+    }
+
+    public printAusentismo(ausentismo){
+        this.descargasService.download(ausentismo._id)
+        .subscribe(data => {           
+            this.descargasService.descargarArchivo(data);     
+            // this.descargarArchivo(data);
+        }, error => {
+            console.log('download error:', JSON.stringify(error));
+        }); 
     }
 
     public verIndicadores(){

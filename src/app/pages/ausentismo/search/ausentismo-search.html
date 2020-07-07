@@ -73,7 +73,8 @@
         [items]="ausentismos"
         (selected)="seleccionarAusentismo($event)"
         (edit)="editarAusentismo($event)"
-        (delete)="eliminarAusentismo($event)">
+        (delete)="eliminarAusentismo($event)"
+        (print)="printAusentismo($event)">
     </app-ausentismo-listado>
     <app-search-leyenda
         *ngIf="!ausentismos?.length"

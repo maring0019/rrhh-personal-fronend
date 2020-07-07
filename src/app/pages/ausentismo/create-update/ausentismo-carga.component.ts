@@ -139,21 +139,9 @@ export class AusentismoCargaComponent implements OnInit {
     public onPrint(){
         this.descargasService.download(this.ausentismo._id)
             .subscribe(data => {                
-                this.descargarArchivo(data);
+                this.descargasService.descargarArchivo(data);
             }, error => {
                 console.log('download error:', JSON.stringify(error));
             }); 
-    }
-
-    private descargarArchivo(data){
-        let url = window.URL.createObjectURL(data.file);
-        let a = document.createElement('a');
-        document.body.appendChild(a);
-        a.setAttribute('style', 'display: none');
-        a.href = url;
-        a.download = data.filename;
-        a.click();
-        window.URL.revokeObjectURL(url);
-        a.remove(); // remove the element
     }
 }

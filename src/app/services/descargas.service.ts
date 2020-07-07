@@ -31,4 +31,16 @@ export class DescargasService {
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         return Observable.throw(errMsg);
     }
+
+    public descargarArchivo(data){
+        let url = window.URL.createObjectURL(data.file);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = data.filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
+    }
 }

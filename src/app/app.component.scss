@@ -68,6 +68,10 @@ $gap: 5px;
       flex-wrap: wrap;
       padding: 10px $gap/2;
       cursor: pointer;
+
+      plex-dropdown {
+        text-indent: 1px;
+      }
     }
 
     .item-row-selected {

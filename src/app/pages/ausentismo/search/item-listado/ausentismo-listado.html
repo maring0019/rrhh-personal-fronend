@@ -1,4 +1,4 @@
-<ng-container *ngFor="let item of listado">
+<ng-container *ngFor="let item of listado; let i=index">
     <div class="item-row" (click)="seleccionarItem(item)"
         [ngClass]="{'item-row-selected': itemSelected?._id == item._id}">
         <div class="item-column">
@@ -15,15 +15,6 @@
                 <plex-badge type="info">
                         {{ item.cantidadDias }} DÍAS
                 </plex-badge>
-
-                <plex-button
-                    title="Eliminar Ausentismo"
-                    size="sm"
-                    type="danger"
-                    icon="mdi mdi-trash-can-outline"
-                    (click)="deleteItem(item)">
-                </plex-button>
-
                 <plex-button
                     title="Editar Ausentismo"
                     size="sm"
@@ -31,6 +22,13 @@
                     icon="mdi mdi-pencil"
                     (click)="editItem(item)">
                 </plex-button>
+                <plex-dropdown
+                    title="Acciones Extras"
+                    icon="dots-vertical"
+                    [type]="'sm btn-info'"
+                    [right]="true"
+                    [items]="accionesDropdownMenu[i]">
+                </plex-dropdown>
             </div>
         </div>
     </div>

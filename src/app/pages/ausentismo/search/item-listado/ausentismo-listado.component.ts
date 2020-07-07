@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Ausentismo as Item } from 'src/app/models/Ausentismo';
 import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 import { Subscription } from 'rxjs/Subscription';
+import { DropdownItem } from '@andes/plex';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class AusentismoListadoComponent {
     public itemSelected: any;
 
     public listado: Item[]; // Contiene un listado plano de items
+    public accionesDropdownMenu = [];
 
     /**
      * Listado de items para mostrar. Acepta una lista de items
@@ -26,6 +28,11 @@ export class AusentismoListadoComponent {
     }
 
     set items(value: Item[]) {
+        this.accionesDropdownMenu = [];
+        value.map((a,index) => {
+            let acciones:DropdownItem[] = this.prepareAusentismoDropdownActions(a, index);
+            this.accionesDropdownMenu.push(acciones);
+        })
         this._items = value;
         if (value && value.length) {
             this.listado = value;
@@ -47,6 +54,7 @@ export class AusentismoListadoComponent {
     @Output() selected: EventEmitter<Item> = new EventEmitter<Item>();
     @Output() edit: EventEmitter<Item> = new EventEmitter<Item>();
     @Output() delete: EventEmitter<Item> = new EventEmitter<Item>();
+    @Output() print: EventEmitter<Item> = new EventEmitter<Item>();
     
     /**
      * Evento que se emite cuando el mouse está sobre un item
@@ -108,6 +116,33 @@ export class AusentismoListadoComponent {
 
     public deleteItem(item: Item){
         this.delete.emit(item);
+    }
+
+    private prepareAusentismoDropdownActions(item, index):DropdownItem[]{
+        let acciones:DropdownItem[]= [];
+        acciones.push(this.bajaDropdownAction(item, index));
+        acciones.push(this.printDropdownAction(item, index))
+        return acciones;
+    }
+
+    public bajaDropdownAction(item, index){
+        let accion = { 
+            label: 'Eliminar',
+            icon: 'mdi mdi-trash-can-outline',
+            handler: (() => {
+                this.delete.emit(item);
+            }) }
+        return accion;
+    }
+
+    public printDropdownAction(item, index){
+        let accion = { 
+            label: 'Imprimir',
+            icon: 'mdi mdi-printer',
+            handler: (() => {
+                this.print.emit(item);
+            }) }
+        return accion;
     }
 }
 
