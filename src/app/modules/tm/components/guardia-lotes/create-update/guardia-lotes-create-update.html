@@ -1,7 +1,7 @@
 <plex-layout main="12">
     <plex-layout-main>
 
-        <header class="d-flex flex-row justify-content-between subheader">
+        <!-- <header class="d-flex flex-row justify-content-between subheader">
             <div>
                 <h5><strong> {{ titulo }} | </strong> {{ subtitulo }}</h5>
             </div>
@@ -9,7 +9,15 @@
                 <plex-button label="Guardar" type="success" (click)="onSave()"></plex-button>
                 <plex-button class="mx-2" label="Cancelar" type="danger" (click)="onCancel()"></plex-button>
             </div>
-        </header>
+        </header> -->
+        <app-crud-header
+            [action]="(_objectID)? 'update':'create'"
+            [titulo]="titulo"
+            [subtitulo]="subtitulo"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+            (history)="onHistoria()">
+        </app-crud-header>
         
         <form *ngIf='form' name="form" [formGroup]="form">
             <div class="row">

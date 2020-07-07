@@ -20,7 +20,8 @@ import { GuardiaLote } from 'src/app/models/GuardiaLote';
 
 export class GuardiaLotesCreateUpdateComponent extends ABMCreateUpdateComponent {
 
-    titulo = 'Guardia Lotes';
+    titulo = "Guardia Lotes";
+    modelName = "guardia-lote"
 
     // Form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);

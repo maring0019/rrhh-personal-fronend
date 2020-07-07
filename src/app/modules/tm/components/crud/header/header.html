@@ -1,17 +1,31 @@
 <header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5><strong>{{ titulo }}</strong></h5>
+        <h5><strong> {{ titulo }} |</strong> {{ subtitulo }}</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">    
         <plex-button
             *ngIf="canCreateObject"
+            class="mr-2"
             label="Nuevo"
             type="info"
             title="Nuevo Item"
             (click)="onCreate()">
         </plex-button>
         <plex-button
-            class="mx-2"
+            *ngIf="action=='update'"
+            class="mr-2"
+            label="Ver Historia"
+            type="info"
+            (click)="onHistory()">
+        </plex-button>
+        <plex-button
+            *ngIf="action=='update' || action=='create'"
+            class="mr-2"
+            label="Guardar"
+            type="success"
+            (click)="onSave()">
+        </plex-button>
+        <plex-button
             type="danger"
             icon="mdi mdi-close"
             title="Cerrar"

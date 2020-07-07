@@ -16,6 +16,7 @@ import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
 export class SituacionCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     titulo = 'Situacion Laboral';
+    modelName = 'tipo-situaciones';
     
     constructor(
         protected router: Router,
