@@ -383,6 +383,10 @@ export class AgenteRegistroComponent implements OnInit {
         this.isEditable = true;
     }
 
+    public onHistory(){
+        this.router.navigate(['/historia/agente', this.agente._id]);
+    }
+
     public onNextTab(){
         const maxTabs = this.agenteTabs.tabs.length;
         const idxTab = this.agenteTabs.activeIndex

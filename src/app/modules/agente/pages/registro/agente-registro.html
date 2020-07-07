@@ -11,6 +11,13 @@
                     </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <div *ngIf="!isEditable">
+                        <plex-button
+                            *ngIf="agente?._id"
+                            class="mr-2"
+                            label="Ver Historia"
+                            type="info"
+                            (click)="onHistory()">
+                        </plex-button>
                          <plex-button
                             title="Ver Ausencias"
                             icon="clock"
