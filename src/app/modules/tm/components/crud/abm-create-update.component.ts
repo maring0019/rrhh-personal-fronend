@@ -25,11 +25,11 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
     protected _object = new BehaviorSubject(null);
     readonly object$ = this._object.asObservable();
 
-    protected get object(){
+    public get object(){
         return this._object.getValue();
     }
     
-    protected set object(val){
+    public set object(val){
         this._object.next(val);
     }
 

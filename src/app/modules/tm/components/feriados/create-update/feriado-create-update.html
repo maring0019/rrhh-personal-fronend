@@ -2,7 +2,7 @@
     <plex-layout-main>
         
         <app-crud-header
-            [action]="(_objectID)? 'update':'create'"
+            [action]="(object?.id)? 'update':'create'"
             [titulo]="titulo"
             [subtitulo]="subtitulo"
             (save)="onSave()"
