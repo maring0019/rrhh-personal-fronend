@@ -12,7 +12,6 @@ import { HistoriaLaboralFormComponent } from 'src/app/modules/agente/components/
     selector: 'app-historia-laboral-create',
     templateUrl: './historia-laboral-create.html'
   })
-
 export class HistoriaLaboralCreateComponent {
     @Input() agente: Agente;
     @Input() item: HistoriaAgenteSituacion = new HistoriaAgenteSituacion();

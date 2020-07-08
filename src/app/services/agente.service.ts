@@ -109,4 +109,10 @@ export class AgenteService {
         return this.server.get(url);
     }
 
+
+    getNotas(agenteId):Observable<any[]> {
+        const url = `${this.agenteUrl}/${agenteId}/notas`;
+        return this.server.get(url);
+    }
+
 }

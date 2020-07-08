@@ -17,6 +17,7 @@ import { AgenteDatosCargoComponent } from './datos-historia-laboral/datos-cargo/
 import { AgenteDatosRegimenComponent } from './datos-historia-laboral/datos-regimen/agente-datos-regimen.component';
 import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
 import { HistoriaLaboralListComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-list.component';
+import { PlexTabsComponent } from '@andes/plex/src/lib/tabs/tabs.component';
 
 import { Contacto } from 'src/app/models/Contacto';
 import { Agente } from 'src/app/models/Agente';
@@ -28,7 +29,7 @@ import { Situacion } from 'src/app/models/Situacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 import { Regimen } from 'src/app/models/Regimen';
-import { PlexTabsComponent } from '@andes/plex/src/lib/tabs/tabs.component';
+import { Nota } from 'src/app/models/Nota';
 
 @Component({
     selector: 'app-agente-registro',
@@ -62,6 +63,7 @@ export class AgenteRegistroComponent implements OnInit {
     public situacion: Situacion;
     public cargo: Cargo;
     public regimen: Regimen;
+    public notas: Nota[];
 
     // Variable de control para determinar si se puede puede editar
     // los datos de un agente. En el caso de un alta siempre es true
@@ -141,6 +143,7 @@ export class AgenteRegistroComponent implements OnInit {
         this.situacion = this.agente.situacionLaboral.situacion;
         this.cargo = this.agente.situacionLaboral.cargo;
         this.regimen = this.agente.situacionLaboral.regimen;
+        this.agenteService.getNotas(this._agenteID).subscribe(notas => this.notas = notas);
     }
 
     onValueChangeAgente(obj: Agente){

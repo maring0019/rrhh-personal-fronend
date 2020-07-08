@@ -1,0 +1,23 @@
+<form name="form" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <plex-text
+                name="titulo"
+                formControlName="titulo"
+                label="Titulo"
+                placeholder="Ingrese un título para la nota"
+                required
+                [readonly]="!editable">
+            </plex-text>
+        </div>
+        <div class="col-md-12 col-xs-12">
+            <plex-text
+                name="detalle"
+                formControlName="detalle"
+                label="Detalle"
+                placeholder="Ingrese el detalle de la nota (opcional)"
+                [readonly]="!editable">
+            </plex-text>
+        </div>
+    </div>
+</form>

@@ -51,6 +51,7 @@ import { MenuService } from './services/menu.service';
 import { ObjectService } from './services/tm/object.service';
 import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.service';
 import { AuditService } from 'src/app/services/audit.service';
+import { NotaService } from 'src/app/services/nota.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -98,6 +99,11 @@ import { HistoriaLaboralCreateComponent } from './modules/agente/components/agen
 import { HistoriaLaboralFormComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-form.component';
 import { HistoriaLaboralListComponent } from './modules/agente/components/agente-historia-laboral/historia-laboral-list.component';
 import { HistoriaLaboralItemListComponent } from 'src/app/modules/agente/components/agente-historia-laboral/historia-laboral-item-list.component';
+
+// Agente Notas
+import { AgenteNotasListComponent } from 'src/app/modules/agente/components/agente-notas/list/agente-notas-list.component';
+import { AgenteNotasCreateUpdateComponent } from 'src/app/modules/agente/components/agente-notas/list/create-update/agente-notas-create-update.component';
+import { AgenteNotasFormComponent } from 'src/app/modules/agente/components/agente-notas/list/create-update/agente-notas-form.component';
 
 // Otros
 import { AgenteFormSelectComponent } from './modules/agente/components/agente-form-select/agente-form-select.component';
@@ -221,6 +227,7 @@ import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/compone
 import { AuditSearchComponent } from 'src/app/components/audit/list/search/audit-search.component';
 import { AuditListComponent } from 'src/app/components/audit/list/audit-list.component';
 
+
 const ADMIN_COMPONENTS = [
 
     FeriadoListComponent,
@@ -272,6 +279,9 @@ const ADMIN_COMPONENTS = [
         AgenteDatosSituacionComponent,
         AgenteDatosRegimenComponent,
         AgenteDatosNormaLegalComponent,
+        AgenteNotasListComponent,
+        AgenteNotasCreateUpdateComponent,
+        AgenteNotasFormComponent,
 
         HistoriaLaboralCreateComponent,
         HistoriaLaboralFormComponent,
@@ -437,7 +447,8 @@ const ADMIN_COMPONENTS = [
         ParteAgenteService,
         MenuService,
         ObjectService,
-        AuditService
+        AuditService,
+        NotaService,
         
     ],
     bootstrap: [AppComponent],

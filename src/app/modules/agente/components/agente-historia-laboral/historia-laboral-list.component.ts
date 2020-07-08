@@ -136,7 +136,6 @@ export class HistoriaLaboralListComponent extends ABMListComponent {
         this.changed.emit(agente);
         this.modalService.close(this.modal_id_create);
         this.plex.info('success', 'Se actualizó correctamente la Historia Laboral del Agente');
-
     }
 
 

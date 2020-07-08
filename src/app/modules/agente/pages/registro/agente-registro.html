@@ -152,6 +152,17 @@
                 </div>
             </plex-tab>
 
+            <plex-tab label="NOTAS" *ngIf="agente?._id">
+                <div class="mt-4">
+                    <app-agente-notas-list
+                        *ngIf="notas"
+                        [agente]="agente"
+                        [notas]="notas"
+                        [editable]="isEditable">
+                    </app-agente-notas-list>
+                </div>
+            </plex-tab>
+
             <!-- Habilitar cuando sea posible 
                 <div *ngIf="agente"
                 class="d-flex flex-row justify-content-end align-items-center">
