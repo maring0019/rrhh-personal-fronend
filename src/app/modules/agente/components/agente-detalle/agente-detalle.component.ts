@@ -8,6 +8,7 @@ import { Educacion } from 'src/app/models/Educacion';
 import { Situacion } from 'src/app/models/Situacion';
 import { Cargo } from 'src/app/models/Cargo';
 import { Regimen } from 'src/app/models/Regimen';
+import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AgenteDetalleComponent{
     @Input() contactos: Contacto[];
     @Input() educacion: Educacion[];
     @Input() situacion: Situacion;
+    @Input() situacionLaboral: SituacionLaboral;
     @Input() cargo: Cargo;
     @Input() regimen: Regimen;
 

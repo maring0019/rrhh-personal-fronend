@@ -164,10 +164,16 @@
                 <plex-panel 
                     icon="mdi icon-hospital"
                     tituloPrincipal="Situación y Cargo">
-                    <div *ngIf="situacion">
+                    <div *ngIf="situacionLaboral">
                         <article class="d-inline-block mr-4">
-                            <strong>Situación Laboral</strong>
-                            <p>{{ situacion.tipoSituacion | title:'nombre' }}</p>
+                            <strong>Ingreso Hospital</strong>
+                            <p>{{ situacionLaboral.fechaIngresoHospital | fecha:'utc' }}</p>
+                        </article>
+                    </div>
+                    <div *ngIf="situacionLaboral?.situacion">
+                        <article class="d-inline-block mr-4">
+                            <strong>Situación en Planta</strong>
+                            <p>{{ situacionLaboral.situacion.tipoSituacion | title:'nombre' }}</p>
                         </article>
                     </div>
                     <div *ngIf="cargo">
