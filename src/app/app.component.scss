@@ -88,26 +88,26 @@ $gap: 5px;
 
     .item.row, .item-column, .item-column-full{
       margin: $gap/2;
-      text-indent: 10px;
+      padding-left: 10px;
     }
 
     .item-column {
-      // background-color: gold;
       flex: 0 0 calc(100% - #{$gap});
     }
 
     .item-column { 
       flex: 0 0 calc(55% - #{$gap});
-      height: 30px;
+      min-height: 30px;
     }
     
     .item-botonera {
       flex: 0 0 calc(45% - #{$gap});
+      text-indent: 10px;
     }
 
     .item-column-full{
       flex: 0 0 calc(100% - #{$gap});
-      height: 30px;
+      min-height: 30px;
     }
 
     @for $i from 1 to 100 {
