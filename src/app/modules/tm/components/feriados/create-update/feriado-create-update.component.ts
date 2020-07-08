@@ -16,7 +16,7 @@ import { FeriadoService } from 'src/app/services/feriado.service';
 export class FeriadoCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     titulo = 'Feríados';
-    modelName = 'feriados';
+    modelName = 'feriado';
     
     constructor(
         protected router: Router,

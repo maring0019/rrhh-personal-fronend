@@ -16,7 +16,7 @@ import { ArticuloService } from 'src/app/services/articulo.service';
 export class ArticuloCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     titulo = 'Artículos';
-    modelName = 'articulos';
+    modelName = 'articulo';
     
     constructor(
         protected router: Router,
