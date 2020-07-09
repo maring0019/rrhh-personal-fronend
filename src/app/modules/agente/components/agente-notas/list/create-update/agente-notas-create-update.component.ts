@@ -16,6 +16,15 @@ export class AgenteNotasCreateUpdateComponent {
     @Input() agente: Agente;
     @Input() item: Nota = new Nota();
     @Input() editable: Boolean = true;
+    @Input() titulo: String = "Agente";
+    @Input() 
+    get subtitulo(){
+        let value = ""
+        if(this.item){
+            value = (this.item._id)? 'Editar Nota':'Nueva Nota';
+        }
+        return value;
+    }
 
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
@@ -24,6 +33,8 @@ export class AgenteNotasCreateUpdateComponent {
     @ViewChild(AgenteNotasFormComponent) notaFormComponent: AgenteNotasFormComponent;
      
     @HostBinding('class.plex-layout') layout = true;
+
+    // public subtitulo:String = "";
     
     constructor(
         private notaService:NotaService,
@@ -36,7 +47,12 @@ export class AgenteNotasCreateUpdateComponent {
         }
         else{
             let datosNota = this.notaFormComponent.form.value;
-            this.addNota(datosNota);
+            if (datosNota._id){
+                this.updateNota(datosNota);
+            }
+            else{
+                this.addNota(datosNota);
+            }
         }        
     }
 
@@ -45,8 +61,15 @@ export class AgenteNotasCreateUpdateComponent {
             .subscribe( nota => {
                 this.notaFormComponent.resetForms();
                 this.success.emit(nota);
-                // TODO emit errors!!
-        })
+        }, errors => this.error.emit(errors))
+    }
+
+    updateNota(nota:any){
+        this.notaService.put(nota)
+            .subscribe( nota => {
+                this.notaFormComponent.resetForms();
+                this.success.emit(nota);
+        }, errors => this.error.emit(errors))
     }
 
     public cancelar(){

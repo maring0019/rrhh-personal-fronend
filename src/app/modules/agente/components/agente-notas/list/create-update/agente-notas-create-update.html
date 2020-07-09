@@ -1,10 +1,34 @@
 <header class="d-flex flex-row justify-content-between subheader">
     <div>
-        <h5><strong>Agente | </strong> Nueva Nota</h5>
+        <h5><strong>{{ titulo }} | </strong> {{ subtitulo }}</h5>
     </div>
     <div class="d-flex flex-row justify-content-end">
-        <plex-button label="Guardar" type="success" (click)="guardar()"></plex-button>
-        <plex-button class="mx-2" label="Cancelar" type="danger" (click)="cancelar()"></plex-button>
+        <div *ngIf="!editable">
+            <plex-button
+                label="Editar"
+                type="info"
+                (click)="editable = !editable"
+                class="mx-2">
+            </plex-button>
+            <plex-button
+                type="danger" 
+                icon="mdi mdi-close" 
+                title="Cerrar"
+                (click)="cancelar()">
+            </plex-button>
+        </div>
+        <div *ngIf="editable">
+            <plex-button
+                label="Guardar"
+                type="success"
+                (click)="guardar()"></plex-button>
+            <plex-button
+                class="mx-2"
+                label="Cancelar"
+                type="danger"
+                (click)="cancelar()">
+            </plex-button>
+        </div>
     </div>
 </header>
 

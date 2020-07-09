@@ -11,7 +11,7 @@
             titlePosition="left"
             type="primary btn-sm"
             icon="plus"
-            (click)="nuevaNota()"
+            (click)="onItemCreate()"
             [disabled]="!editable">
         </plex-button>
     </div>
@@ -25,11 +25,10 @@
     (view)="onItemView($event)"
     (edit)="onItemEdit($event)"
     (delete)="onItemDelete($event)">
-    <plex-icon name="file"></plex-icon>
     <plex-label
         class="wp-30" 
-        titulo="{{ item.fecha | fecha:'utc' }}"
-        subtitulo="{{ item.apellido }}, {{ item.nombre }}">
+        titulo="{{ item.fecha | fecha:'diahora' }}"
+        subtitulo="{{ item.usuario?.apellido }}, {{ item.usuario?.nombre }}">
     </plex-label>
     <plex-label
         class="wp-70" 
@@ -42,12 +41,6 @@
     [header]="'No hay registros de Notas aún!'">
 </app-leyenda>
 
-<jw-modal id="{{ modal_id_create }}">
-    <div *ngIf="agente">
-        <app-agente-notas-create-update
-            [agente]="agente"
-            (success)="onSuccessNotaCreate($event)"
-            (cancel)="onCancelModal(modal_id_create)">
-        </app-agente-notas-create-update>
-    </div>
+<jw-modal id="{{ modal_id }}">
+    <ng-template #createUpdateDynamicComponent></ng-template>
 </jw-modal>

@@ -467,6 +467,7 @@ const ADMIN_COMPONENTS = [
         AgenteBajaFormComponent,
         HistoriaLaboralFormComponent,
         AgenteReactivarFormComponent,
+        AgenteNotasCreateUpdateComponent,
         ...ADMIN_COMPONENTS]
 })
 export class AppModule { }

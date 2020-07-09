@@ -91,7 +91,7 @@ export class AgenteRegistroComponent implements OnInit {
     }
     // Estructura de ayuda para validar los forms dentro de cada tabs.
     // Se utiliza en forma conjunta con la variable definida tabsStatus
-    private tabsForms;    
+    private tabsForms;
 
     constructor(
         private agenteService:AgenteService,
