@@ -25,6 +25,14 @@
                 [disabled]="!editable">
             </plex-button>
             <plex-button
+                *ngIf="historyEnabled"
+                title="Ver Historia"
+                type="success"
+                icon="clock"
+                size="sm"
+                (click)="historyItem(item)">
+            </plex-button>
+            <plex-button
                 *ngIf="deleteEnabled"
                 title="Eliminar"
                 type="danger"

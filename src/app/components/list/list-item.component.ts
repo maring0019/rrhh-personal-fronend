@@ -10,7 +10,7 @@ export class ListItemComponent implements OnInit {
 
     @Input() columnDef: any[];
     @Input() botonera: Boolean = true;
-    @Input() actions: String[] = []; // ['view', 'edit', 'delete']
+    @Input() actions: String[] = []; // ['view', 'edit', 'delete', 'history']
     @Input() botonView: Boolean = true;
     @Input() botonDelete: Boolean = true;
     @Input() editable: Boolean = true;
@@ -21,10 +21,12 @@ export class ListItemComponent implements OnInit {
     @Output() view: EventEmitter<any> = new EventEmitter<any>();
     @Output() edit: EventEmitter<any> = new EventEmitter<any>();
     @Output() delete: EventEmitter<any> = new EventEmitter<any>();
+    @Output() history: EventEmitter<any> = new EventEmitter<any>();
 
     public editEnabled:Boolean = false;
     public viewEnabled:Boolean = false;
     public deleteEnabled:Boolean = false;
+    public historyEnabled:Boolean = false;
 
     constructor(private plex: Plex) { }
 
@@ -32,6 +34,7 @@ export class ListItemComponent implements OnInit {
         this.viewEnabled = this.actions.indexOf("view") > -1;
         this.editEnabled = this.actions.indexOf("edit") > -1;
         this.deleteEnabled = this.actions.indexOf("delete") > -1;
+        this.historyEnabled = this.actions.indexOf("history") > -1;
     }
 
     
@@ -46,6 +49,11 @@ export class ListItemComponent implements OnInit {
 
     public editItem(item){
         this.edit.emit(item)
+    }
+
+    public historyItem(item){
+        this.itemSelected = item;
+        this.history.emit(item);
     }
 
     public deleteItem(item){

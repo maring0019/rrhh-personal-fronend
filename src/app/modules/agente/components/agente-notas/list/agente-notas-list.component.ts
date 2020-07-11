@@ -18,6 +18,7 @@ import { AgenteNotasCreateUpdateComponent } from 'src/app/modules/agente/compone
   })
 
 export class AgenteNotasListComponent extends ABMListComponent {
+    
     @Input() editable:Boolean;
     @Input() agente: Agente;
     @Input() notas:Nota[];
@@ -27,7 +28,9 @@ export class AgenteNotasListComponent extends ABMListComponent {
     @ViewChild(AgenteNotasCreateUpdateComponent) createUpdateComponent: AgenteNotasCreateUpdateComponent;
     @ViewChild('createUpdateDynamicComponent', { read: ViewContainerRef }) createUpdateContainerRef: ViewContainerRef;
     componentRef:any;
-
+    
+    public modelName = 'nota';
+    
     public readonly modal_id:string = 'create_update_nota';
     public canEditNotas = false;
 

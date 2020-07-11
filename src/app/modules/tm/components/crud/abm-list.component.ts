@@ -119,6 +119,12 @@ export abstract class ABMListComponent implements OnInit {
         this.router.navigate([this.router.url+'/editar/'+obj._id]);
     }
 
+
+    public onItemHistory(obj:any){
+        if (!this.modelName) return; // Alertar mal configurado
+        this.router.navigate(['/historia', this.modelName, obj._id]);
+    }
+
     public onItemAction(actionEvent: IActionEvent){
 
     }

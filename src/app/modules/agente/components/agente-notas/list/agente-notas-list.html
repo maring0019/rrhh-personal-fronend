@@ -20,10 +20,11 @@
 <list-item *ngFor="let item of items; let i=index"
     [item]="item"
     [itemSelected]="itemSelected"
-    [actions]="['view', 'edit', 'delete']"
+    [actions]="['view', 'edit', 'delete', 'history']"
     (selectionChange)="onItemSelectionChanged($event)"
     (view)="onItemView($event)"
     (edit)="onItemEdit($event)"
+    (history)="onItemHistory($event)"
     (delete)="onItemDelete($event)">
     <plex-label
         class="wp-20" 
