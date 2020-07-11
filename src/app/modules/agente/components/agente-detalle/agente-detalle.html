@@ -208,10 +208,37 @@
                 <plex-panel 
                     icon="mdi icon-nodos"
                     tituloPrincipal="Ausentismo">
-                    <app-indicador-licencias *ngIf="agente" [agente]="agente">
+                    <app-indicador-licencias 
+                        *ngIf="agente" [agente]="agente">
                     </app-indicador-licencias>
-                    <app-indicador-licencias-detalle *ngIf="agente" [agente]="agente">
+                    <app-indicador-licencias-detalle
+                        *ngIf="agente" [agente]="agente">
                     </app-indicador-licencias-detalle>
+                </plex-panel>
+            </plex-accordion>
+        </li>
+        <li>
+            <plex-accordion>
+                <plex-panel icon="mdi icon-nodos" tituloPrincipal="Notas">
+                    <plex-loader 
+                        *ngIf="!notas"
+                        class="d-flex flex-column align-items-center justify-content-center h-75"
+                        type="ball-beat">
+                    </plex-loader>
+                    <list-item *ngFor="let item of notas; let i=index"
+                        [item]="item"
+                        [itemSelected]="itemSelected"
+                        [botonera]="false">
+                        <plex-label
+                            class="wp-40" 
+                            titulo="{{ item.updatedAt | fecha:'diahora' }}"
+                            subtitulo="{{ item.usuario?.apellido }}, {{ item.usuario?.nombre }}">
+                        </plex-label>
+                        <plex-label
+                            class="wp-60" 
+                            titulo="{{ item.titulo | title }}">
+                        </plex-label>
+                    </list-item>
                 </plex-panel>
             </plex-accordion>
         </li>

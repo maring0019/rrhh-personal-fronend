@@ -5,7 +5,7 @@ export class Nota {
         nombre: String,
         apellido: String
     };
-    fecha: Date;
+    updatedAt: Date;
     usuario: any;
     titulo: String;
     detalle: String;
@@ -14,7 +14,7 @@ export class Nota {
         nota = nota || {};
         this._id = nota._id || null;
         this.agente = nota.agente || null;
-        this.fecha = nota.fecha;
+        this.updatedAt = nota.updatedAt;
         this.usuario = nota.usuario || null;
         this.titulo = nota.titulo || '';
         this.detalle = nota.detalle || '';

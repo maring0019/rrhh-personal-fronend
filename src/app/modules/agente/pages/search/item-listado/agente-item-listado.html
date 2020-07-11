@@ -93,3 +93,13 @@
         </app-historia-laboral-create>
     </div>
 </jw-modal>
+
+<jw-modal id="modal-nota-create">
+    <div *ngIf="agenteSeleccionado">
+        <app-agente-notas-create-update
+            [agente]="agenteSeleccionado"
+            (success)="onSuccessNotaCreate($event)"
+            (cancel)="onCancelModal('modal-nota-create')">
+        </app-agente-notas-create-update>
+    </div>
+</jw-modal>

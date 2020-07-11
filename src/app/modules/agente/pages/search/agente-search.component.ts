@@ -17,7 +17,7 @@ export class AgenteSearchComponent implements OnInit {
     public searching = false;
     public searched = false;
     public showMore: Boolean = false;
-    private hiddenAgentes:Agente[]; 
+    private hiddenAgentes:Agente[];
 
     public ngOnInit() {
         this.agentes = [];
@@ -73,6 +73,11 @@ export class AgenteSearchComponent implements OnInit {
 
     public onCerrarDetalle(){
         this.agenteSeleccionado = null;
+    }
+
+    public onChangeAgente(agente){
+        console.log("Cambio el agente:", agente);
+        this.agenteSeleccionado = {... agente};
     }
     
 }

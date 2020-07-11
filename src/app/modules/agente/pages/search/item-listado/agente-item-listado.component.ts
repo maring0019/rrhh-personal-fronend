@@ -80,6 +80,12 @@ export class AgenteItemListadoComponent {
      */
     @Output() accion: EventEmitter<ActionEvent> = new EventEmitter<ActionEvent>();
 
+    /**
+     * Evento que se emite cuando cambia el estado del agente (producto
+     * de una accion)
+     */
+    @Output() change: EventEmitter<Agente> = new EventEmitter<Agente>();
+
 
     constructor(
         private router: Router,
@@ -91,6 +97,7 @@ export class AgenteItemListadoComponent {
         if (agente.activo){
             acciones.push(this.bajaDropdownAction(agente, index));
             acciones.push(this.historiaLaboralDropdownAction(agente, index));
+            acciones.push(this.notaDropdownAction(agente, index));
         }
         else{
             acciones.push(this.reactivarDropdownAction(agente, index));
@@ -135,6 +142,17 @@ export class AgenteItemListadoComponent {
         return accion;
     }
 
+    private notaDropdownAction(agente, index){
+        let accion = { 
+            label: 'Nueva Nota',
+            icon: 'plus',
+            handler: (() => {
+                this.seleccionarAgente(agente, index);
+                this.modalService.open('modal-nota-create');
+            }) }
+        return accion;
+    }
+
     public seleccionarAgente(agente: Agente, index?) {
         // if (this.agenteSeleccionado !== agente) {
         //     this.agenteSeleccionado = agente;
@@ -142,7 +160,7 @@ export class AgenteItemListadoComponent {
         //     this.selected.emit(this.agenteSeleccionado);
         // }
 
-        this.agenteSeleccionado = agente;
+        this.agenteSeleccionado = new Agente(agente);
         this.idxAgenteSeleccionado = index;
         this.selected.emit(this.agenteSeleccionado);
     }
@@ -175,6 +193,7 @@ export class AgenteItemListadoComponent {
         this.accionesDropdownMenu[this.idxAgenteSeleccionado] = [
             this.reactivarDropdownAction(this.agenteSeleccionado, this.idxAgenteSeleccionado)
         ]
+        this.change.emit(this.agenteSeleccionado);
     }
 
     public onErrorBaja(e){
@@ -193,6 +212,7 @@ export class AgenteItemListadoComponent {
         this.accionesDropdownMenu[this.idxAgenteSeleccionado] = [
             this.bajaDropdownAction(this.agenteSeleccionado, this.idxAgenteSeleccionado)
         ]
+        this.change.emit(this.agenteSeleccionado);
     }
 
     public onErrorReactivar(e){
@@ -205,6 +225,13 @@ export class AgenteItemListadoComponent {
         this.modalService.close('modal-historia-laboral-create');
         this.plex.info('success', 'Se actualizó correctamente la Historia Laboral del Agente');
         this.agenteSeleccionado.situacionLaboral = agente.situacionLaboral;
+        this.change.emit(this.agenteSeleccionado);
+    }
+
+    public onSuccessNotaCreate(agente){
+        this.modalService.close('modal-nota-create');
+        this.plex.info('success', 'Se ingresó correctamente la Nota creada.');
+        this.change.emit(this.agenteSeleccionado);
     }
 }
 

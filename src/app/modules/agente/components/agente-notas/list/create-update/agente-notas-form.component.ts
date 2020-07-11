@@ -37,7 +37,6 @@ export class AgenteNotasFormComponent implements OnInit, OnChanges {
         this.form = this.formBuilder.group({
             _id      : [ this.item._id ],
             agente   : [ this.agente ],
-            fecha    : [ this.item.fecha? this.item.fecha : new Date()],
             titulo   : [ this.item.titulo ],
             detalle  : [ this.item.detalle ]
         });

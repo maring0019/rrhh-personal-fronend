@@ -33,8 +33,6 @@ export class AgenteNotasCreateUpdateComponent {
     @ViewChild(AgenteNotasFormComponent) notaFormComponent: AgenteNotasFormComponent;
      
     @HostBinding('class.plex-layout') layout = true;
-
-    // public subtitulo:String = "";
     
     constructor(
         private notaService:NotaService,

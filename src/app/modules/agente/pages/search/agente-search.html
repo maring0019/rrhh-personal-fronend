@@ -45,7 +45,8 @@
                 [editable]="true"
                 [agentes]="agentes"
                 (selected)="seleccionarAgente($event)"
-                (hover)="hoverAgente($event)">
+                (hover)="hoverAgente($event)"
+                (change)="onChangeAgente($event)">
             </app-agente-item-listado>
 
             <div class="d-flex justify-content-center mt-4">

@@ -26,12 +26,12 @@
     (edit)="onItemEdit($event)"
     (delete)="onItemDelete($event)">
     <plex-label
-        class="wp-30" 
-        titulo="{{ item.fecha | fecha:'diahora' }}"
+        class="wp-20" 
+        titulo="{{ item.updatedAt | fecha:'diahora' }}"
         subtitulo="{{ item.usuario?.apellido }}, {{ item.usuario?.nombre }}">
     </plex-label>
     <plex-label
-        class="wp-70" 
+        class="wp-80" 
         titulo="{{ item.titulo | title }}">
     </plex-label>
 </list-item>
