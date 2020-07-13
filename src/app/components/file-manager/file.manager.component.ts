@@ -146,7 +146,12 @@ export class FileManagerComponent implements OnInit {
         this.filesChanged.emit();
     }
 
+    /**
+     * La visualizacion de un adjunto se dispara desde el template html
+     * @param index 
+     */
     public viewFile(index){
+    
     }
 
     
