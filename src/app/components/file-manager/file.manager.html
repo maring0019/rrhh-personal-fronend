@@ -29,13 +29,12 @@
         </div>
         <div class="item-column item-botonera">
             <div class="d-flex flex-row justify-content-end">  
-                <a id="downloader-{{ idx }}" target="_blank" href="{{ file.downloadURL }}" download="{{ file.filename }}">
+                <a id="downloader-{{ idx }}" target="_blank" href="{{ file.downloadURL | token }}" download="{{ file.filename }}">
                     <plex-button
                         title="Ver Archivo"
                         size="sm"
                         type="primary"
-                        icon="mdi mdi-eye"
-                        (click)="viewFile(idx)">
+                        icon="mdi mdi-eye">
                     </plex-button>
                 </a>
                 <plex-button

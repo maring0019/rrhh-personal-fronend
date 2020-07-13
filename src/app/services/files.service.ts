@@ -7,6 +7,7 @@ import { Server } from '@andes/shared';
 import { IUploadResponse } from '../models/IUploadResponse';
 
 import { environment } from 'src/environments/environment';
+import { RequestOptions, Headers } from '@angular/http';
  
 @Injectable()
 export class FilesService {
@@ -16,10 +17,15 @@ export class FilesService {
     
     constructor(private server: Server, private httpClient: HttpClient) { }
 
+    public headerAuth = {
+        'Authorization': window.sessionStorage.getItem('jwt') ? 'JWT ' + window.sessionStorage.getItem('jwt') : null
+    };
+
     public upload(data):Observable<IUploadResponse> {
         let uploadURL = `${this.serverUrl}${this.baseUrl}/upload`;
-    
+        console.log(this.headerAuth)
         return this.httpClient.post<any>(uploadURL, data, {
+            headers: this.headerAuth,
             reportProgress: true,
             observe: 'events'
         }).pipe(map((event) => {

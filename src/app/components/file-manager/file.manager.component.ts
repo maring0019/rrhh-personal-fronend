@@ -147,7 +147,6 @@ export class FileManagerComponent implements OnInit {
     }
 
     public viewFile(index){
-        document.getElementById(`downloader-${index}`).click();
     }
 
     
