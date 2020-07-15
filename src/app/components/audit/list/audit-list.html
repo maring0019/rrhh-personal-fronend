@@ -32,10 +32,11 @@
         <list-item *ngFor="let item of items; let i=index"
             [item]="item"
             [itemSelected]="itemSelected"
-            [botonera]="false"
+            [actions]="['view']"
+            (view)="onItemView($event)"
             (selectionChange)="onItemSelectionChanged($event)">
             <plex-label
-                class="wp-10"
+                class="wp-20"
                 titulo="{{ item.updatedAt | fecha:'diahora' }}"
                 subtitulo="{{ item.method | title }}"
                 [tituloBold]="true">
@@ -53,7 +54,7 @@
                 titulo="{{ item.changedBy.apellido }}, {{ item.changedBy.nombre }}"
                 subtitulo="D.U {{ item.changedBy.documento }}">
             </plex-label>
-            <plex-label class="wp-70" titulo="{{ item.comment }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-60" titulo="{{ item.comment }}" [tituloBold]="false"></plex-label>
         </list-item>
         
         <div class="d-flex justify-content-center mt-4">
@@ -67,3 +68,18 @@
                
     </plex-layout-main>   
 </plex-layout>
+
+<jw-modal id="{{ modal_id }}">
+    <div>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Historial | </strong>Detalle de Cambios</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCancelModal()">Cerrar</plex-button>
+            </div>
+        </header>
+        <div [innerHTML]="htmlDiff | sanitizeHtml"></div>
+    </div>
+</jw-modal>
+    

@@ -22,7 +22,8 @@
                             title="Ver Ausencias"
                             icon="clock"
                             type="success"
-                            [routerLink]="['/agentes', agente?._id, 'ausentismo']">
+                            [routerLink]="['/agentes', agente?._id, 'ausentismo']"
+                            class="mr-2">
                         </plex-button>
                         <plex-button
                             *ngIf="agente?.activo"
@@ -30,7 +31,7 @@
                             icon="mdi mdi-pencil" 
                             type="warning"
                             (click)="onEditar()"
-                            class="mx-2">
+                            class="mr-2">
                         </plex-button>
                         <plex-button
                             type="danger" 

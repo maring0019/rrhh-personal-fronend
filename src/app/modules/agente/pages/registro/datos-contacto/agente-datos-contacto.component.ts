@@ -37,13 +37,13 @@ export class AgenteDatosContactoComponent implements OnInit {
     {
         let contactoForms = [];
         if (this.contactos.length > 0){
-            this.contactos.forEach(e => {
-                const contacto = this.createContactoForm(e.tipo, e.valor);
+            this.contactos.forEach(c => {
+                const contacto = this.createContactoForm(c._id, c.tipo, c.valor);
                 contactoForms.push(contacto);
             });
         }
         else{
-            const contacto = this.createContactoForm('celular', '');
+            const contacto = this.createContactoForm(null, 'celular', '');
             contactoForms.push(contacto);
         }
         return this.formBuilder.group({
@@ -56,15 +56,16 @@ export class AgenteDatosContactoComponent implements OnInit {
         return this.datosContactoForm.get('contactos') as FormArray;
     }
 
-    createContactoForm(tipoContacto, valor){
+    createContactoForm(id, tipoContacto, valor){
         return this.formBuilder.group({ 
+            _id                : [id],
             tipo               : [tipoContacto],
-            valor              : [valor],
+            valor              : [valor]
         })
     }
       
     addContacto() {
-        const contacto = this.createContactoForm('celular', '');
+        const contacto = this.createContactoForm(null, 'celular', '');
         this.contactoForms.push(contacto);
     }
     

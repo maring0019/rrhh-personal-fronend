@@ -33,13 +33,4 @@ export class AuditSearchComponent extends ABMSearchComponent {
             this.search();
         });
     }
-
-    // protected prepareSearchParams(){
-
-    //     let params = this.searchFilterFormParameters; // Hook para personalizar los filtros 
-    //     // Objeto final de busqueda (searchField + searchFilters)
-    //     params = {...this.searchTextFieldParameters,...params};
-    //     return params;
-    // }
-
 }
