@@ -8,7 +8,7 @@ import { PlexModule } from '@andes/plex';
 import { Plex } from '@andes/plex';
 import { Server } from '@andes/shared';
 import { AuthModule } from '@andes/auth';
-import { Auth } from '@andes/auth';
+// import { Auth } from '@andes/auth';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -52,6 +52,7 @@ import { ObjectService } from './services/tm/object.service';
 import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.service';
 import { AuditService } from 'src/app/services/audit.service';
 import { NotaService } from 'src/app/services/nota.service';
+import { Auth } from 'src/app/services/auth.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';

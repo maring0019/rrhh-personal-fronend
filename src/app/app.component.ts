@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { environment } from './../environments/environment';
 import { Plex } from '@andes/plex';
 import { Server } from '@andes/shared';
-import { Auth } from '@andes/auth';
+import { Auth } from 'src/app/services/auth.service';
+
+// import { Auth } from '@andes/auth';
 
 @Component({
     selector: 'app-root',

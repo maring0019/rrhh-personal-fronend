@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Plex } from '@andes/plex';
-import { Auth } from '@andes/auth';
+import { Auth } from 'src/app/services/auth.service';
+
 @Component({
     templateUrl: 'login.html',
     styleUrls: ['login.scss'],
@@ -19,13 +20,11 @@ export class LoginPage implements OnInit {
         this.auth.logout();
     }
 
-
     login(event) {
         if (event.formValid) {
             this.deshabilitar = true;
             this.loading = true;
             this.auth.login(this.usuario.toString(), this.password).subscribe(() => {
-                this.plex.updateUserInfo({ usuario: this.auth.usuario });
                 this.router.navigate(['agentes/busqueda']);
             }, (err) => {
                 this.plex.info('danger', 'Usuario o contraseña incorrectos');

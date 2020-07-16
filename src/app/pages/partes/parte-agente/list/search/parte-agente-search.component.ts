@@ -20,6 +20,7 @@ import { ParteAgente } from '../../../../../models/ParteAgente';
 export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Output() searchEndParte: EventEmitter<Parte> = new EventEmitter<Parte>();
+    
     public parte:Parte;
     public partesAgentes:ParteAgente[] = [];
     //Search form options
@@ -72,7 +73,8 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     private getServiciosUserLogged(){
-        return this.ubicacionService.getByUserID({ userID: this.authService.usuario._id });
+        
+        return this.agenteService.getServiciosComoJefe(this.authService.usuario._id)
     }
 
     prepareSearchParams(){
