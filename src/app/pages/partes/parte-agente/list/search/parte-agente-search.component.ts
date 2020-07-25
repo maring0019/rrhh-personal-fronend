@@ -10,7 +10,6 @@ import { AgenteService } from 'src/app/services/agente.service';
 import { ParteAgenteService } from 'src/app/services/parte-agente.service';
 
 import { Parte } from 'src/app/models/Parte';
-import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
 import { ParteAgente } from '../../../../../models/ParteAgente';
 import { Auth } from 'src/app/services/auth.service';
 
@@ -30,7 +29,6 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     constructor(
         formBuilder: FormBuilder,
         private objectService: ParteService,
-        private ubicacionService: UbicacionService,
         private authService: Auth,
         private agenteService: AgenteService,
         private parteAgenteService: ParteAgenteService) {
@@ -58,14 +56,6 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     initFormSelectOptions(){
-        // this.getServiciosUserLogged()
-        //     .subscribe(data => {
-        //         this.servicioOpciones = data;
-        //         this.searchForm = this.initSearchForm();
-        //         this.buscar();
-        // });
-        
-        // this.servicioOpciones = this.getServiciosUserLogged();
         this.searchForm = this.initSearchForm();
         this.buscar();
     }
@@ -77,10 +67,6 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
         });
     }
 
-    private getServiciosUserLogged(){
-        console.log(this.authService.servicios);
-        return this.authService.servicios;
-    }
 
     prepareSearchParams(){
         let params:any = {};
