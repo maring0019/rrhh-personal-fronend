@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <plex-select
                 [idField]="'_id'" 
                 [data]="sectores"
@@ -51,7 +51,7 @@
                 [readonly]="!editable">
             </plex-select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <plex-select
                 [idField]="'_id'"
                 [data]="servicios"
@@ -73,6 +73,34 @@
                 placeholder="Ingrese observaciones..."
                 [readonly]="!editable">
             </plex-text>
+        </div>
+    </div>
+    <h5 class="subheader mt-4">Jefes de Servicio</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <plex-bool
+                type="slide"
+                name="esJefeServicio"
+                formControlName="esJefeServicio"
+                label="Es Jefe de Servicio?"
+                [readonly]="!editable"
+                (change)=onChangeEsJefeServicio()>
+            </plex-bool>
+        </div>
+    </div>
+    <div class="row" *ngIf="cargo?.esJefeServicio">
+        <div class="col-md-12">
+            <plex-select
+                [idField]="'_id'"
+                [data]="servicios"
+                [multiple]="true"
+                name="jefeServicios"
+                formControlName="jefeServicios"
+                label="Servicios a Cargo"
+                placeholder="Seleccione uno o mas servicios..."
+                [required]="false"
+                [readonly]="!editable">
+            </plex-select>
         </div>
     </div>
 </form>

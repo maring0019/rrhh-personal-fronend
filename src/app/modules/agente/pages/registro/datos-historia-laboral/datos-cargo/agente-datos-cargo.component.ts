@@ -85,12 +85,18 @@ export class AgenteDatosCargoComponent implements OnInit {
             subpuesto           : [this.cargo.subpuesto],
             sector              : [this.cargo.sector],
             servicio            : [this.cargo.servicio],
-            observaciones       : [this.cargo.observaciones]
+            observaciones       : [this.cargo.observaciones],
+            esJefeServicio      : [this.cargo.esJefeServicio],
+            jefeServicios       : [this.cargo.jefeServicios]
         });
     }
 
     resetForm(){
         formUtils.resetForm(this.datosCargoForm, this._form);
+    }
+
+    public onChangeEsJefeServicio(){
+        this.cargo.esJefeServicio = !this.cargo.esJefeServicio;
     }
 
 }

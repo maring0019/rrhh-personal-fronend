@@ -13,6 +13,8 @@ export class Cargo {
     servicio: Servicio;
     observaciones: String;
     inactivo: Boolean;
+    esJefeServicio: Boolean;
+    jefeServicios: Servicio[];
 
     constructor(cargo?)
     {
@@ -25,5 +27,12 @@ export class Cargo {
         this.observaciones = cargo.observaciones || '';
         this.servicio = cargo.servicio || null;
         this.inactivo = cargo.inactivo;
+        this.esJefeServicio = cargo.esJefeServicio;
+        this.jefeServicios = [];
+        if (cargo.jefeServicios){
+            for (const servicio of cargo.jefeServicios) {
+                this.jefeServicios.push(new Servicio(servicio));
+            }
+        }
     }
 }
