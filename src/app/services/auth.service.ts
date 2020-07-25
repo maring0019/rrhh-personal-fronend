@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Server } from '@andes/shared';
 import { tap, publishReplay, refCount } from 'rxjs/operators';
+import { platform } from 'os';
 const shiroTrie = require('shiro-trie');
 
 enum Estado { inProgress, active, logout };
@@ -25,9 +26,10 @@ export class Auth {
     private shiro = shiroTrie.new();
     public estado: Estado;
     public usuario: IUsuario;
-    public organizacion: IOrganizacion;
-    public profesional: string;
-    public orgs = [];
+    // public organizacion: IOrganizacion;
+    public profesional: string; // El profesional aqui es el agente asociado al usuario
+    public servicios:any[] = []
+    // public orgs = [];
     private roles: string[];
     private permisos: string[];
 
@@ -60,7 +62,7 @@ export class Auth {
     logout() {
         this.estado = Estado.logout;
         this.usuario = null;
-        this.organizacion = null;
+        // this.organizacion = null;
         this.roles = null;
         this.permisos = null;
         this.session$ = null;
@@ -91,10 +93,16 @@ export class Auth {
         if (!this.session$ || force) {
             this.session$ = this.server.get('/auth/sesion').pipe(
                 tap((payload) => {
+                    console.log("A la vuelta del session:", payload);
                     this.usuario = payload.usuario;
-                    this.organizacion = payload.organizacion;
                     this.profesional = payload.profesional;
                     this.permisos = payload.permisos;
+                    this.servicios = payload.servicios;
+                    // if (payload.usuario.extra){
+                    //     this.profesional = payload.usuario.extra.profesional;
+                    //     this.permisos = payload.extra.permisos;
+                    //     this.servicios = payload.extra.servicios;
+                    // }
                     this.estado = Estado.active;
                     this.initShiro();
                 }),
@@ -105,22 +113,22 @@ export class Auth {
         return this.session$;
     }
 
-    organizaciones(): Observable<any> {
-        return this.server.get('/auth/organizaciones').pipe(
-            tap((data) => {
-                this.orgs = data;
-            })
-        );
-    }
+    // organizaciones(): Observable<any> {
+    //     return this.server.get('/auth/organizaciones').pipe(
+    //         tap((data) => {
+    //             this.orgs = data;
+    //         })
+    //     );
+    // }
 
-    setOrganizacion(org: any): Observable<any> {
-        return this.server.post('/auth/v2/organizaciones', { organizacion: org._id }).pipe(
-            tap((data) => {
-                this.setToken(data.token);
-                this.estado = Estado.active;
-            })
-        );
-    }
+    // setOrganizacion(org: any): Observable<any> {
+    //     return this.server.post('/auth/v2/organizaciones', { organizacion: org._id }).pipe(
+    //         tap((data) => {
+    //             this.setToken(data.token);
+    //             this.estado = Estado.active;
+    //         })
+    //     );
+    // }
 
 
 

@@ -12,16 +12,12 @@ export class RoutingGuard implements CanActivate {
 
     canActivate() {
         if (this.auth.loggedIn()) {
-            this.plex.updateUserInfo({ usuario: this.auth.usuario, organizacion: this.auth.organizacion });
+            this.plex.updateUserInfo({ usuario: this.auth.usuario });
             return true;
-        } else if (this.auth.inProgress()) {
-            return true;
-        } else if (this.auth.getToken()) {
+        } else if (this.auth.inProgress() || this.auth.getToken()) {
             return this.auth.session().pipe(map(() => {
-                if (this.auth.organizacion) {
-                    this.plex.updateUserInfo({ usuario: this.auth.usuario, organizacion: this.auth.organizacion });
-                }
-                return true;
+                    this.plex.updateUserInfo({ usuario: this.auth.usuario });
+            return true;
             }));
         } else {
             this.router.navigate(['login']);
