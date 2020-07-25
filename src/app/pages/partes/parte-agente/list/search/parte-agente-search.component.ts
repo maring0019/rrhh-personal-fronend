@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Auth } from '@andes/auth';
+
 
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
 
@@ -12,6 +12,7 @@ import { ParteAgenteService } from 'src/app/services/parte-agente.service';
 import { Parte } from 'src/app/models/Parte';
 import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
 import { ParteAgente } from '../../../../../models/ParteAgente';
+import { Auth } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-parte-agente-search-form',
@@ -24,7 +25,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     public parte:Parte;
     public partesAgentes:ParteAgente[] = [];
     //Search form options
-    public servicioOpciones:UbicacionServicio[] = []; 
+    public servicioOpciones = this.authService.servicios; 
 
     constructor(
         formBuilder: FormBuilder,
@@ -57,24 +58,28 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     }
 
     initFormSelectOptions(){
-        this.getServiciosUserLogged()
-            .subscribe(data => {
-                this.servicioOpciones = data;
-                this.searchForm = this.initSearchForm();
-                this.buscar();
-        });
+        // this.getServiciosUserLogged()
+        //     .subscribe(data => {
+        //         this.servicioOpciones = data;
+        //         this.searchForm = this.initSearchForm();
+        //         this.buscar();
+        // });
+        
+        // this.servicioOpciones = this.getServiciosUserLogged();
+        this.searchForm = this.initSearchForm();
+        this.buscar();
     }
 
     initSearchForm(){
         return this.formBuilder.group({
             fecha     : [ new Date()],
-            servicio  : [ this.servicioOpciones[1]]
+            servicio  : [ this.servicioOpciones[0]]
         });
     }
 
     private getServiciosUserLogged(){
-        
-        return this.agenteService.getServiciosComoJefe(this.authService.usuario._id)
+        console.log(this.authService.servicios);
+        return this.authService.servicios;
     }
 
     prepareSearchParams(){
@@ -85,7 +90,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
                 params['fecha'] = form.fecha;
             }
             if (form.servicio){ // Filtro por servicio del parte
-                params['ubicacion._id'] = form.servicio._id;
+                params['ubicacion.codigo'] = form.servicio.ubicacion;
             }
         }
         return params;
@@ -127,7 +132,7 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
         if (!this.searchForm.valid) return ;
         let form = this.searchForm.value;
         this.agenteService.search({
-            'situacionLaboral.cargo.servicio.ubicacion': form.servicio.codigo,
+            'situacionLaboral.cargo.servicio.ubicacion': form.servicio.ubicacion,
             'activo': true
         }).subscribe(agentes => {
             if (agentes.length){
@@ -162,7 +167,8 @@ export class ParteAgenteSearchFormComponent extends CRUDSearchFormComponent impl
     createPartes(){
         if (this.searchForm.valid){
             const form = this.searchForm.value;
-            let parte = new Parte({ fecha: form.fecha, ubicacion: form.servicio });
+            const ubicacion = { codigo: form.servicio.ubicacion, nombre: form.servicio.nombre }
+            let parte = new Parte({ fecha: form.fecha, ubicacion: ubicacion });
             this.objectService.post(parte).subscribe(
                 object => {
                     if (object) {
