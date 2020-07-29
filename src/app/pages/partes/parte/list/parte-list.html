@@ -1,0 +1,98 @@
+<plex-layout main="12">
+
+    <plex-layout-main>
+        <app-crud-header 
+            [titulo]="'Parte Diarios Recibidos'"
+            [canCreateObject]="false"
+            (cancel)="cancel()">
+        </app-crud-header>
+        
+        <app-parte-search-form
+            (change)="search($event)">
+        </app-parte-search-form>
+
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
+        <app-search-leyenda
+            *ngIf="searched && items && !items.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            [actions]="['view', 'history']"
+            (view)="onItemView($event)"
+            (history)="onItemHistory($event)"
+            (selectionChange)="onItemSelectionChanged($event)">
+            <plex-label class="wp-10" titulo="{{item.fecha | fecha:'dia' | title }}" [tituloBold]="true"></plex-label>
+            <plex-label class="wp-10" titulo="{{item.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-30" titulo="{{item.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-10" titulo="{{item.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+            <div class="wp-10" [ngSwitch]="item.estado.nombre"><!-- TODO cambiar por codigo -->
+                <plex-badge *ngSwitchCase="'Sin presentar'" type="danger" size="sm" title="{{ item.estado.nombre }}">
+                    <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchCase="'Presentación parcial'" type="warning" size="sm" title="{{ item.estado.nombre }}">
+                    <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchDefault type="success" size="sm" title="{{ item.estado.nombre }}">
+                    <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                </plex-badge>
+            </div>
+            <div class="wp-10">
+                <plex-badge 
+                    *ngIf="item.novedades"
+                    type="info"
+                    size="sm"
+                    title="Inconsistencias">
+                    <plex-icon name="mdi mdi-eye"></plex-icon>
+                </plex-badge>
+                <!-- <plex-badge type="danger" size="sm">
+                    <plex-icon name="mdi mdi-eye"></plex-icon>
+                </plex-badge> -->
+            </div>
+            <plex-bool
+                class="wp-10"
+                type="slide"
+                [(ngModel)]="item.procesado"
+                [readonly]="item.procesado"
+                label=""
+                (change)="procesarParte(item)">
+            </plex-bool>
+            <plex-bool
+                class="wp-10"
+                type="slide"
+                [(ngModel)]="item.editadoPostProcesado"
+                [readonly]="true"
+                label="">
+            </plex-bool>      
+
+
+
+            <!-- <plex-label class="wp-20" titulo="{{ item.fecha | fecha:'utc' }}" [tituloBold]="true"></plex-label>
+            <plex-label class="wp-80" titulo="{{ item.descripcion }}"></plex-label>           -->
+        </list-item>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="showMoreResultados()">
+            </plex-button>
+        </div>
+               
+    </plex-layout-main>   
+</plex-layout>

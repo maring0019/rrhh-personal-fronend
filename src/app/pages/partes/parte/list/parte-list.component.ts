@@ -1,33 +1,103 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Plex } from '@andes/plex';
 
-import { CRUDListComponent } from 'src/app/modules/tm/components/crud/list/crud-list.component';
+import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.component';
 
-import { ParteSearchFormComponent } from './search/parte-search.component';
-import { ParteItemListComponent } from './item/parte-item-list.component';
+import { ObjectService } from 'src/app/services/tm/object.service';
+import { ParteService } from 'src/app/services/parte.service';
+
 
 @Component({
-    selector: 'app-parte-list',
-    templateUrl: '../../../../modules/tm/components/crud/list/crud-list.html',
+    selector: 'app-feriado-list',
+    templateUrl: 'parte-list.html',
 })
-export class ParteListComponent extends CRUDListComponent implements OnInit {
+export class ParteListComponent extends ABMListComponent {
 
-    public searchFormComponent = ParteSearchFormComponent;
-    public itemListComponent = ParteItemListComponent;
-    public titulo = 'Partes Diarios Recibidos';
-    public canCreateObject: boolean = false;
+    public modelName = 'parte';
+
+    // list-head options
+    public columnDef =
+    [
+        {
+            id: 'dia',
+            title: 'Día',
+            size: '10',
+            sort: 'desc'
+        },
+        {
+            id: 'fecha-parte',
+            title: 'Fecha',
+            size: '10'
+        }
+        ,
+        {
+            id: 'servicio',
+            title: 'Servicio',
+            size: '30'
+        },
+        {
+            id: 'fecha-envio',
+            title: 'Envío',
+            size: '10'
+        },
+        {
+            id: 'estado',
+            title: 'Estado',
+            size: '10'
+        },
+        {
+            id: 'novedades',
+            title: 'Novedades',
+            size: '10'
+        },
+        {
+            id: 'procesado',
+            title: 'Procesado',
+            size: '10'
+        },
+        {
+            id: 'editado',
+            title: 'Editado',
+            size: '10'
+        }
+    ]
 
     constructor(
-        public router: Router,
-        public resolver: ComponentFactoryResolver) {
-        super(router, resolver); 
+        protected router: Router,
+        protected objectService: ObjectService,
+        private parteService: ParteService,
+        public plex: Plex) {
+            super(router, objectService);
+         }
+
+    protected get dataService(){
+        return this.parteService;
     }
 
     public ngOnInit() {
-        super.ngOnInit();
+        // Prevent initial search
     }
 
-    public onCerrar(){
+    public onItemView(obj:any){
+        if (obj._id){
+            this.router.navigate(['/partes/recibidos', obj._id, 'agentes']);
+        }
+        else{
+            this.router.navigate(['/objetos/registro']);
+        }
+    }
+
+    public procesarParte(obj){
+        this.parteService.procesar(obj)
+            .subscribe(data=>{
+                this.plex.info('info', 'Parte procesado correctamente')
+                    .then( e => {
+                });
+            })
+    }
+
+    public cancel(){
         this.router.navigate(['/partes']);
     }
 

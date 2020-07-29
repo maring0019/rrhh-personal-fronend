@@ -88,9 +88,7 @@ export class AgenteNotasListComponent extends ABMListComponent {
     }
 
     public onSuccessItemCreate(nota:Nota){
-        console.log("Nueva NOTA",nota);
         this.modalService.close(this.modal_id);
-        this.plex.info('success', 'Se ingresó correctamente la nota del Agente');
         this.items.unshift(nota);
         this.changed.emit(nota);
     }

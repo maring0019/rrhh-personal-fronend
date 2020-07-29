@@ -1,6 +1,6 @@
 
 <div class="item-row" (click)="selectItem(item)" [ngClass]="{'item-row-selected': itemSelected?._id == item._id }">
-    <div [ngClass]="(botonera)? 'item-column': 'item-column-full'">
+    <div [ngClass]="(botonera)? 'item-column': 'item-column-full'" class="{{ size }}">
         <div class="d-flex flex-row justify-content-start align-items-center">
             <ng-content ></ng-content>
         </div>

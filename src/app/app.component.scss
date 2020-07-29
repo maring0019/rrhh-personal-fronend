@@ -95,13 +95,23 @@ $gap: 5px;
       flex: 0 0 calc(100% - #{$gap});
     }
 
+    .item-column.sm {
+        flex: 0 0 calc(55% - #{$gap});
+        min-height: 30px;
+    }
+
+    .item-botonera.sm {
+        flex: 0 0 calc(45% - #{$gap});
+        text-indent: 10px;
+    }
+
     .item-column { 
-      flex: 0 0 calc(55% - #{$gap});
+      flex: 0 0 calc(80% - #{$gap});
       min-height: 30px;
     }
     
     .item-botonera {
-      flex: 0 0 calc(45% - #{$gap});
+      flex: 0 0 calc(20% - #{$gap});
       text-indent: 10px;
     }
 

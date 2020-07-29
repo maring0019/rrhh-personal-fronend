@@ -26,11 +26,15 @@ export class AuditSearchComponent extends ABMSearchComponent {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._model = params.get("model");
             this._objectID = params.get("id");
-            this.searchFilterFormParameters = {
-                model: this._model,
-                id: this._objectID
-            }
             this.search();
         });
     }
+
+    get searchFilterFormParameters(){
+        return {
+                model: this._model,
+                id: this._objectID
+            }
+    }
+
 }

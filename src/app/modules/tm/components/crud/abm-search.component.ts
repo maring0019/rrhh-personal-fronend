@@ -26,7 +26,7 @@ export abstract class ABMSearchComponent implements OnInit {
     // los mismos a traves de un formulario y deberan implementar
     // el metodo get searchFilterFormParameters(){} para armar el 
     // objeto json correspondiente
-    protected searchFilterFormParameters = {}; 
+    protected get searchFilterFormParameters(){ return {}}; 
     
     public filterForm: FormGroup;
 

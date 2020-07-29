@@ -1,5 +1,5 @@
 <header>
-    <form name="searchForm" [formGroup]="searchForm">
+    <form name="filterForm" [formGroup]="filterForm">
         <div class="row">
             <div class="col-md-3">
                 <plex-datetime
@@ -8,7 +8,7 @@
                     type="date"
                     name="fechaDesde"
                     placeholder="Desde"
-                    (change)="buscar($event)">
+                    (change)="search($event)">
                 </plex-datetime>
             </div>
             <div class="col-md-3">
@@ -18,7 +18,7 @@
                     type="date"
                     name="fechaHasta"
                     placeholder="Hasta"
-                    (change)="buscar($event)">
+                    (change)="search($event)">
                 </plex-datetime>
             </div>
             <div class="col-md-1">
@@ -37,7 +37,7 @@
                     name="estado"
                     label="Estado del parte"
                     placeholder="Seleccione.."
-                    (change)="buscar($event)">
+                    (change)="search($event)">
                 </plex-select>
             </div>
             <div class="col-md-3">
@@ -47,15 +47,15 @@
                     name="procesado"
                     label="Procesado"
                     placeholder="Seleccione.."
-                    (change)="buscar($event)">
+                    (change)="search($event)">
                 </plex-select>
             </div>
             <div class="col-md-4">
                 <app-ubicacion-form-select
-                    [parent]="searchForm"
+                    [parent]="filterForm"
                     [label]="'Dependencia Administrativa'"
                     [placeholder]="'Seleccione...'"
-                    (change)="buscar($event)">
+                    (change)="search($event)">
                 </app-ubicacion-form-select>
             </div>
         </div>

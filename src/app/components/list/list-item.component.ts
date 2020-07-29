@@ -8,6 +8,7 @@ import { Plex } from '@andes/plex';
 })
 export class ListItemComponent implements OnInit { 
 
+    @Input() size: 'sm' | '' = '';
     @Input() columnDef: any[];
     @Input() botonera: Boolean = true;
     @Input() actions: String[] = []; // ['view', 'edit', 'delete', 'history']

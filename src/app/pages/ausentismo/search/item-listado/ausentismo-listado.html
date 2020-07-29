@@ -1,7 +1,7 @@
 <ng-container *ngFor="let item of listado; let i=index">
     <div class="item-row" (click)="seleccionarItem(item)"
         [ngClass]="{'item-row-selected': itemSelected?._id == item._id}">
-        <div class="item-column">
+        <div class="item-column sm">
             <div class="d-flex flex-row justify-content-start">
                 <plex-label
                     title="Art. {{ item.articulo?.codigo }} {{ item.articulo?.descripcion}}"                   
