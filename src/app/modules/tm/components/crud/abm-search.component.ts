@@ -19,6 +19,8 @@ export abstract class ABMSearchComponent implements OnInit {
     // Almacena un objeto json con la expresion de busqueda
     // a aplicar sobre la cadena ingresada.
     public searchTextFieldParameters:any;
+
+    public mostrarMasOpciones: Boolean = false;
     
     // Almacena un objeto json con los filtros a aplicar en las
     // busquedas. Los filtros son opcionales.

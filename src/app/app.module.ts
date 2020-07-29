@@ -184,7 +184,6 @@ import { ReporteSeleccionTipoComponent } from './pages/reportes/forms/reporte-se
 
 
 import { ParteListComponent } from './pages/partes/parte/list/parte-list.component';
-import { ParteItemListComponent } from './pages/partes/parte/list/item/parte-item-list.component';
 import { ParteSearchFormComponent } from './pages/partes/parte/list/search/parte-search.component';
 import { ParteAgenteSearchFormComponent } from 'src/app/pages/partes/parte-agente/list/search/parte-agente-search.component';
 import { ParteAgenteItemListComponent } from 'src/app/pages/partes/parte-agente/list/item/parte-agente-item-list.component';
@@ -322,7 +321,6 @@ const ADMIN_COMPONENTS = [
         
         // Partes
         ParteListComponent,
-        ParteItemListComponent,
         ParteSearchFormComponent,
         ParteAgenteListComponent,
         ParteAgenteListViewComponent,
@@ -457,8 +455,6 @@ const ADMIN_COMPONENTS = [
     bootstrap: [AppComponent],
     entryComponents: [
         UploaderStatusComponent,
-        ParteItemListComponent,
-        ParteSearchFormComponent,
         ParteAgenteItemListComponent,
         ParteAgenteSearchFormComponent,
         ParteReporteItemListComponent,
