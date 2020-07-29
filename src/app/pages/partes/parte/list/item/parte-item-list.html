@@ -8,6 +8,7 @@
         <label>Estado</label>
         <label>Novedades</label>
         <label>Procesado</label>
+        <label>Editado?</label>
     </plex-heading>
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
@@ -36,12 +37,16 @@
                 </plex-badge>
             </div>
             <div>
-                <plex-badge type="info" size="sm">
+                <plex-badge 
+                    *ngIf="object.novedades"
+                    type="info"
+                    size="sm"
+                    title="Inconsistencias">
                     <plex-icon name="mdi mdi-eye"></plex-icon>
                 </plex-badge>
-                <plex-badge type="danger" size="sm">
+                <!-- <plex-badge type="danger" size="sm">
                     <plex-icon name="mdi mdi-eye"></plex-icon>
-                </plex-badge>
+                </plex-badge> -->
             </div>
             <plex-bool 
                 type="slide"
@@ -49,6 +54,12 @@
                 [readonly]="object.procesado"
                 label=""
                 (change)="procesarParte(object)">
+            </plex-bool>
+            <plex-bool 
+                type="slide"
+                [(ngModel)]="object.editadoPostProcesado"
+                [readonly]="true"
+                label="">
             </plex-bool>      
         </plex-item>
     </ng-container>

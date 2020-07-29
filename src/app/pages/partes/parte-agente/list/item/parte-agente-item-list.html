@@ -7,8 +7,8 @@
         <label>Artículo</label>
         <label>Justificación</label>
         <label>Obs.</label>
-        <label>Novedades</label>
-        <label *ngIf="readonly"></label>
+        <!-- <label>Novedades</label> -->
+        <label *ngIf="readonly">Novedades</label>
     </plex-heading>
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
@@ -39,17 +39,21 @@
                 (change)="onChangeParteAgente(object)">
             </plex-text>
             <div *ngIf="readonly">
-                <plex-badge type="info" size="sm">
+                <plex-badge 
+                    *ngIf="hasInconsistencias(object)"
+                    type="info"
+                    size="sm"
+                    title="Inconsistencias">
                     <plex-icon name="mdi mdi-eye"></plex-icon>
                 </plex-badge>
-                <plex-badge type="danger" size="sm">
+                <!-- <plex-badge type="danger" size="sm">
                     <plex-icon name="mdi mdi-eye"></plex-icon>
-                </plex-badge>
+                </plex-badge> -->
             </div>
             
             <!-- Boton de carga de Articulos -->
             <plex-button
-                *ngIf="readonly && !object.ausencia"
+                *ngIf="canAddAusentismo(object)"
                 title="Cargar Ausentismo"
                 type="info"
                 size="sm"

@@ -93,7 +93,6 @@ export class Auth {
         if (!this.session$ || force) {
             this.session$ = this.server.get('/auth/sesion').pipe(
                 tap((payload) => {
-                    console.log("A la vuelta del session:", payload);
                     this.usuario = payload.usuario;
                     this.profesional = payload.profesional;
                     this.permisos = payload.permisos;

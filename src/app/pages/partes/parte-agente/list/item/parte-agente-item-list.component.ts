@@ -45,6 +45,12 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
         this.modalService.open('modal-carga-articulo');
     }
 
+    public canAddAusentismo(obj){
+        // Fix this. Revisar validez de las condiciones
+        return (this.readonly && !obj.ausencia
+            && obj.justificacion && obj.justificacion.nombre == "Ausente con aviso")
+    }
+
     public onCloseModal(){
         this.modalService.close('modal-carga-articulo');
     }
@@ -75,5 +81,15 @@ export class ParteAgenteItemListComponent extends CRUDItemListComponent implemen
             this.plex.info('info', `<p>El articulo seleccionado presenta los
                                     siguientes problemas: ${textWarning} </p>`) ;
         }
+    }
+
+    public hasInconsistencias(obj){
+        // Fix this. Revisar validez de las condiciones
+        if (!obj.fichadas && !obj.ausencia && obj.justificacion && obj.justificacion.nombre != "Sin novedad") return true;
+        if (!obj.fichadas && obj.ausencia && obj.justificacion && obj.justificacion.nombre == "Inasistencia justificada") return true;
+        if (obj.fichadas && (!obj.fichadas.entrada || !obj.fichadas.salida) &&
+            obj.justificacion && (obj.justificacion.nombre == "Presente" || obj.justificacion.nombre == "Cumplió jornada laboral")
+            ) return true
+        return false;
     }
 } 

@@ -10,6 +10,8 @@ export class Parte {
     _id: String;
     fecha: Date;
     procesado: Boolean;
+    editadoPostProcesado: Boolean;
+    novedades: Boolean;
     estado: ParteEstado;
     fechaEntrega: Date;
     ubicacion: UbicacionServicio;
@@ -21,6 +23,8 @@ export class Parte {
         this._id = parte._id;
         this.fecha = localDate(parte.fecha);
         this.procesado = parte.procesado;
+        this.editadoPostProcesado = parte.editadoPostProcesado;
+        this.novedades = parte.novedades;
         this.estado = parte.estado || null;
         this.ubicacion = parte.ubicacion? new UbicacionServicio(parte.ubicacion): null;
         this.partesAgentes = [];

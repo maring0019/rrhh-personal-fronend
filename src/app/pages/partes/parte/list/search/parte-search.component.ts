@@ -80,7 +80,7 @@ export class ParteSearchFormComponent extends CRUDSearchFormComponent implements
                 }
             }
             if (form.ubicacion){
-                params['ubicacion._id'] = form.ubicacion._id;
+                params['ubicacion.codigo'] = form.ubicacion.codigo;
             }
             // Sorting
             params['sort'] = '-fecha';
