@@ -9,7 +9,7 @@ import { ParteService } from 'src/app/services/parte.service';
 
 
 @Component({
-    selector: 'app-feriado-list',
+    selector: 'app-parte-list',
     templateUrl: 'parte-list.html',
 })
 export class ParteListComponent extends ABMListComponent {

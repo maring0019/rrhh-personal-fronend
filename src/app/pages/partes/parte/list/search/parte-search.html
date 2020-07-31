@@ -35,7 +35,7 @@
                     name="estado"
                     label="Estado del parte"
                     placeholder="Seleccione.."
-                    (change)="search($event)">
+                    (change)="search()">
                 </plex-select>
             </div>
             <div class="col-md-3">
@@ -45,7 +45,7 @@
                     name="procesado"
                     label="Procesado"
                     placeholder="Seleccione.."
-                    (change)="search($event)">
+                    (change)="search()">
                 </plex-select>
             </div>
             <div class="col-md-4">
@@ -53,7 +53,7 @@
                     [parent]="filterForm"
                     [label]="'Dependencia Administrativa'"
                     [placeholder]="'Seleccione...'"
-                    (change)="search($event)">
+                    (change)="search()">
                 </app-ubicacion-form-select>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <header>
-    <form *ngIf="searchForm" name="searchForm" [formGroup]="searchForm">
+    <form *ngIf="filterForm" name="filterForm" [formGroup]="filterForm">
         <div class="row">
             <div class="col-md-3">
                 <plex-datetime
@@ -8,7 +8,7 @@
                     type="date"
                     name="fecha"
                     placeholder="Fecha Parte"
-                    (change)="buscar($event)">
+                    (change)="search()">
                 </plex-datetime>
             </div>
             <div class="col-md-4">
@@ -19,17 +19,17 @@
                     formControlName="servicio"
                     name="servicio"
                     placeholder="Seleccione Dependencia Administrativa"
-                    (change)="buscar($event)">
+                    (change)="search()">
                 </plex-select>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <plex-button
                     title="Refrescar Búsqueda"
                     type="primary"
                     [icon]="'mdi mdi-reload'"
                     (click)="reloadPartesAgentes()">
                 </plex-button>
-            </div>
+            </div> -->
         </div>
     </form>
 </header>

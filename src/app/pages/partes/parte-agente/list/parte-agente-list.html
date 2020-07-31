@@ -5,7 +5,7 @@
                 <h5 class="align-self-center"><strong>{{ titulo }}</strong></h5>
                 <div class="d-flex flex-row justify-content-end align-items-center">
                     <div class="d-flex flex-row justify-content-end align-items-center"
-                        *ngIf="parteToUpdate && objects && objects.length">
+                        *ngIf="parteToUpdate && items && items.length">
                         <plex-button
                             *ngIf="estadoPresentacionConfirmada && !editionEnabled"
                             class="mr-2"
@@ -54,7 +54,9 @@
             </section> 
         </header>
 
-        <ng-template #searchForm></ng-template>
+        <app-parte-agente-search-form
+            (change)="search($event)">
+        </app-parte-agente-search-form>
         <br>
 
         <plex-loader 
@@ -64,12 +66,49 @@
         </plex-loader>
         
         <app-search-leyenda
-            *ngIf="searched && objects && !objects.length"
-            [header]="'No se encontraron resultados!'"
-            [subHeader]="'Podes intentar realizando un refresh búsqueda'">
+            *ngIf="searched && items && !items.length"
+            [header]="'No se encontraron resultados!'">
         </app-search-leyenda>
 
-        <ng-template #itemList></ng-template>
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            [actions]="['history']"
+            (history)="onItemHistory($event)"
+            (selectionChange)="onItemSelectionChanged($event)">
+            <plex-label class="wp-16" titulo="{{item.agente?.apellido | title }} {{item.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-label class="wp-13" titulo="{{item.fichadas?.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-13" titulo="{{item.fichadas?.salida | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-13" titulo="{{item.fichadas?.horasTrabajadas | fecha:'duracion' }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-10" titulo="{{item.ausencia?.articulo.codigo | title }}" [tituloBold]="false"></plex-label>
+
+            <plex-label class="wp-20" *ngIf="!editionEnabled" titulo="{{item.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-16" *ngIf="!editionEnabled" titulo="{{item.observaciones | title }}" [tituloBold]="false"></plex-label>
+
+            <plex-select 
+                class="wp-20 mt-1"
+                *ngIf="editionEnabled"
+                [data]="justificaciones"
+                [idField]="'_id'"
+                name="justificacion"
+                [(ngModel)]="item.justificacion"
+                label=""
+                placeholder="Seleccione...">
+            </plex-select>
+            <plex-text
+                class="wp-20 ml-2"
+                *ngIf="editionEnabled"
+                name="observaciones"
+                [(ngModel)]="item.observaciones"
+                label="">
+            </plex-text>
+        </list-item>
+
         
         <div class="d-flex justify-content-center mt-4">
             <plex-button

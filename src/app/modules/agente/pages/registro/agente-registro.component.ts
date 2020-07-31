@@ -63,7 +63,7 @@ export class AgenteRegistroComponent implements OnInit {
     public situacion: Situacion;
     public cargo: Cargo;
     public regimen: Regimen;
-    public notas: Nota[];
+    public notas: Nota[] = [];
 
     // Variable de control para determinar si se puede puede editar
     // los datos de un agente. En el caso de un alta siempre es true
@@ -143,7 +143,7 @@ export class AgenteRegistroComponent implements OnInit {
         this.situacion = this.agente.situacionLaboral.situacion;
         this.cargo = this.agente.situacionLaboral.cargo;
         this.regimen = this.agente.situacionLaboral.regimen;
-        this.agenteService.getNotas(this._agenteID).subscribe(notas => this.notas = notas);
+        if (this._agenteID) this.agenteService.getNotas(this._agenteID).subscribe(notas => this.notas = notas);
     }
 
     onValueChangeAgente(obj: Agente){

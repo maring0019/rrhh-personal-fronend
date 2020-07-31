@@ -15,14 +15,67 @@
             type="ball-beat">
         </plex-loader>
 
-        <app-parte-agente-item-list
-            *ngIf="partesAgentes"            
-            [objects]="partesAgentes"
-            [readonly]="true"
-            (changed)="onParteChanged()">
-        </app-parte-agente-item-list>
+    <list-head
+        *ngIf="items && items.length"
+        [columnDef]="columnDef"
+        [botonera]="false">
+    </list-head>
+
+    <list-item *ngFor="let item of items; let i=index" [item]="item" [botonera]="false">
+        <plex-label class="wp-15" titulo="{{item.agente?.apellido | title }} {{item.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
+        <plex-label class="wp-12" titulo="{{item.fichadas?.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-12" titulo="{{item.fichadas?.salida | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-11" titulo="{{item.fichadas?.horasTrabajadas | fecha:'duracion' }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-10" titulo="{{item.ausencia?.articulo.codigo | title }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-15" titulo="{{item.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-15" titulo="{{item.observaciones | title }}" [tituloBold]="false"></plex-label>
+
+        <div class="wp-5">
+            <plex-badge 
+                *ngIf="hasInconsistencias(item)"
+                type="info"
+                size="sm"
+                title="Inconsistencias">
+                <plex-icon name="mdi mdi-eye"></plex-icon>
+            </plex-badge>
+            <!-- <plex-badge type="danger" size="sm">
+                <plex-icon name="mdi mdi-eye"></plex-icon>
+            </plex-badge> -->
+        </div>
+        <!-- Boton de carga de Articulos -->
+        <div class="wp-5">
+            <plex-button
+                *ngIf="canAddAusentismo(item)"
+                title="Cargar Ausentismo"
+                type="info"
+                size="sm"
+                icon="mdi mdi-plus"
+                (click)="accionToDo(item, i)">
+            </plex-button>
+        </div>
+    </list-item>
             
     </plex-layout-main>   
 </plex-layout>
+
+
+<jw-modal id="modal-carga-articulo">
+    <div *ngIf="objetoSeleccionado">
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Carga de Ausentismo | </strong> {{objetoSeleccionado.agente?.apellido | title }} {{objetoSeleccionado.agente?.nombre | title }} </h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
+            </div>
+        </header>
+        <app-ausentismo-carga-add
+            [agente]="objetoSeleccionado.agente"
+            (onSuccess)="onSuccessCargaAusencia($event)"
+            (onErrors)="onErrorsCargaAusencia($event)"
+            (onWarnings)="onWarningsCargaAusencia($event)">
+        </app-ausentismo-carga-add>
+    </div>
+</jw-modal>
     
     

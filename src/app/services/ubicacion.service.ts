@@ -11,7 +11,12 @@ export class UbicacionService {
     constructor(private server: Server) { }
 
     get(params: any): Observable<UbicacionServicio[]> {
-        return this.server.get(this.baseUrl + '/mock', { params: params, showError: true });
+        return this.server.get(this.baseUrl + '/mock/ubicaciones', { params: params, showError: true });
+    }
+
+    getByCodigo(codigo: any): Observable<UbicacionServicio> {
+        let url = `${this.baseUrl}/codigo/${codigo}`;
+        return this.server.get(url);
     }
 
     getByUserID(userID): Observable<UbicacionServicio[]> {
