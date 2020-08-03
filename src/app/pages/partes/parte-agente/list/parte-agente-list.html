@@ -77,9 +77,6 @@
 
         <list-item *ngFor="let item of items; let i=index"
             [item]="item"
-            [itemSelected]="itemSelected"
-            [actions]="['history']"
-            (history)="onItemHistory($event)"
             (selectionChange)="onItemSelectionChanged($event)">
             <plex-label class="wp-16" titulo="{{item.agente?.apellido | title }} {{item.agente?.nombre | title }}" [tituloBold]="true"></plex-label>
             <plex-label class="wp-13" titulo="{{item.fichadas?.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
