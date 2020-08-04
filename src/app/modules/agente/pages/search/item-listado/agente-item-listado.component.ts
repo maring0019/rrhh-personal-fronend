@@ -5,6 +5,7 @@ import { DropdownItem, Plex } from '@andes/plex';
 
 import { Agente } from 'src/app/models/Agente';
 import { ModalService } from 'src/app/services/modal.service';
+import { DescargasService } from 'src/app/services/descargas.service';
 
 
 export interface ActionEvent {
@@ -90,6 +91,7 @@ export class AgenteItemListadoComponent {
     constructor(
         private router: Router,
         private modalService: ModalService,
+        protected descargasService: DescargasService,
         public plex: Plex) {}
 
     prepareAgenteDropdownActions(agente, index):DropdownItem[]{
@@ -98,6 +100,7 @@ export class AgenteItemListadoComponent {
             acciones.push(this.bajaDropdownAction(agente, index));
             acciones.push(this.historiaLaboralDropdownAction(agente, index));
             acciones.push(this.notaDropdownAction(agente, index));
+            acciones.push(this.imprimirCredencialDropdownAction(agente, index));
         }
         else{
             acciones.push(this.reactivarDropdownAction(agente, index));
@@ -149,6 +152,23 @@ export class AgenteItemListadoComponent {
             handler: (() => {
                 this.seleccionarAgente(agente, index);
                 this.modalService.open('modal-nota-create');
+            }) }
+        return accion;
+    }
+
+    private imprimirCredencialDropdownAction(agente, index){
+        let accion = { 
+            label: 'Imprimir Credencial',
+            icon: 'mdi mdi-printer',
+            handler: (() => {
+                this.seleccionarAgente(agente, index);
+                this.descargasService.credencialAgente(agente._id)
+                .subscribe(data => {           
+                    this.descargasService.descargarArchivo(data);     
+                    // this.descargarArchivo(data);
+                }, error => {
+                    console.log('download error:', JSON.stringify(error));
+                }); 
             }) }
         return accion;
     }

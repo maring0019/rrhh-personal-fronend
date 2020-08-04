@@ -79,10 +79,9 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public printAusentismo(ausentismo){
-        this.descargasService.download(ausentismo._id)
+        this.descargasService.constanciaCertificado(ausentismo._id)
         .subscribe(data => {           
             this.descargasService.descargarArchivo(data);     
-            // this.descargarArchivo(data);
         }, error => {
             console.log('download error:', JSON.stringify(error));
         }); 

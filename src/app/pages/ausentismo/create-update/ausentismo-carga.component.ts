@@ -137,7 +137,7 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onPrint(){
-        this.descargasService.download(this.ausentismo._id)
+        this.descargasService.constanciaCertificado(this.ausentismo._id)
             .subscribe(data => {                
                 this.descargasService.descargarArchivo(data);
             }, error => {

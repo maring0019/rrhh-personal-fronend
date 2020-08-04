@@ -13,13 +13,41 @@ export class DescargasService {
     
     constructor(private server: Server, private http: Http) { }
 
-    download(ausentismoId: any): Observable<any> { 
+    credencialAgente(agenteID: any): Observable<any> { 
+        const url = `${this.serverUrl}${this.baseUrl}/agentes/${agenteID}/credencial/download`;
+        return this.download(url, 'credencialAgente.pdf');
+        // const options = new RequestOptions({responseType: ResponseContentType.Blob });
+        // return this.http.get(url, options)
+        //     .map(res => {
+        //         return {
+        //             filename: 'constanciaCertificado.pdf',
+        //             file: res.blob()
+        //         };
+        //     })
+        //     .catch(this.handleError)
+    }
+
+    constanciaCertificado(ausentismoId: any): Observable<any> { 
         const url = `${this.serverUrl}${this.baseUrl}/ausentismo/${ausentismoId}/comprobantes/certificado/download`;
+        return this.download(url, 'constanciaCertificado.pdf');
+        // const options = new RequestOptions({responseType: ResponseContentType.Blob });
+        // return this.http.get(url, options)
+        //     .map(res => {
+        //         return {
+        //             filename: 'constanciaCertificado.pdf',
+        //             file: res.blob()
+        //         };
+        //     })
+        //     .catch(this.handleError)
+    }
+
+
+    download(url: string, filename: string): Observable<any> { 
         const options = new RequestOptions({responseType: ResponseContentType.Blob });
         return this.http.get(url, options)
             .map(res => {
                 return {
-                    filename: 'constanciaCertificado.pdf',
+                    filename: filename,
                     file: res.blob()
                 };
             })
