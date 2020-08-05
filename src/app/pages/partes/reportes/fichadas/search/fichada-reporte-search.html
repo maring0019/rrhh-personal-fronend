@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-md-2">
                 <plex-datetime
+                    label="Fecha Desde"
                     required
                     formControlName="fechaDesde"
                     type="date"
@@ -13,6 +14,7 @@
             </div>
             <div class="col-md-2">
                 <plex-datetime
+                    label="Fecha Hasta"
                     required
                     formControlName="fechaHasta"
                     type="date"
@@ -24,22 +26,17 @@
             <div class="col-md-4">
                 <app-ubicacion-form-select
                     [parent]="searchForm"
+                    [label]="'Ubicación'"
+                    [placeholder]="'Seleccione...'"
                     (change)="buscar($event)">
                 </app-ubicacion-form-select>
             </div>
             <div class="col-md-4">
-                <app-agente-form-select
-                    [parent]="searchForm"
+                <app-agente-select-input
+                    [form]="searchForm"
                     (change)="buscar($event)">
-                </app-agente-form-select>
+                </app-agente-select-input>
             </div>
-            <!-- <div class="col-md-1">
-                <plex-button
-                    type="primary"
-                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
-                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
-                </plex-button>
-            </div> -->
         </div>
     </form>
 </header>

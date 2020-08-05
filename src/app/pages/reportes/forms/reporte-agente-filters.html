@@ -27,15 +27,13 @@
             </plex-radio>
         </div>
         <div class="col-md-6">
-            <plex-select 
-                [data]="sectores"
-                name="lugarTrabajo"
-                formControlName="lugarTrabajo"
-                placeholder="Buscar Lugares de trabajo"
-                (change)="onChangeLugarTrabajo($event)" 
-                [multiple]="false"
+            <app-ubicacion-form-select
+                *ngIf="form"
+                [parent]="form"
+                [placeholder]="'Buscar Lugares de trabajo'"
+                (change)="onChangeLugarTrabajo($event)"
                 [required]="form.controls['optionAgenteLugarTrabajo'].value == true">
-            </plex-select>
+            </app-ubicacion-form-select>
         </div>
     </div>
 
@@ -50,14 +48,11 @@
             </plex-radio>
         </div>
         <div class="col-md-6">
-            <plex-select 
-                (getData)="onSearchAgentes($event)" 
-                (change)="onChangeAgente($event)" 
-                name="agente"
-                formControlName="agente"
-                placeholder="Buscar Agente"
+            <app-agente-select-input
+                [form]="form"
+                (change)="onChangeAgente($event)"
                 [required]="form.controls['optionAgente'].value == true">
-            </plex-select>
+            </app-agente-select-input>
         </div>
     </div>
     <hr>

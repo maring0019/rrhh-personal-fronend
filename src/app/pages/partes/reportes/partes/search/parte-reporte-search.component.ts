@@ -4,8 +4,6 @@ import { FormBuilder } from '@angular/forms';
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
 
 import { ParteService } from 'src/app/services/parte.service';
-import { AgenteService } from 'src/app/services/agente.service';
-import { Agente } from 'src/app/models/Agente';
 
 
 @Component({
@@ -14,14 +12,9 @@ import { Agente } from 'src/app/models/Agente';
 })
 export class ParteReporteSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    private timeoutHandler: number;
-    //Search form options
-    public agenteOpciones: Agente[] = []; 
-
     constructor(
         formBuilder: FormBuilder,
-        private objectService: ParteService,
-        private agenteService: AgenteService) {
+        private objectService: ParteService) {
             super(formBuilder);
     }
 
@@ -45,12 +38,7 @@ export class ParteReporteSearchFormComponent extends CRUDSearchFormComponent imp
         super.ngOnDestroy();
     }
 
-    initFormSelectOptions(){
-        // this.agenteService.get({})
-        //     .subscribe(data => {
-        //         this.agenteOpciones = data;
-        // });
-    }
+    initFormSelectOptions(){}
 
     initSearchForm(){
         return this.formBuilder.group({
@@ -92,29 +80,6 @@ export class ParteReporteSearchFormComponent extends CRUDSearchFormComponent imp
         }
         else{
             this.searchEnd.emit([])
-        }
-    }
-
-    public onSearchAgentes(event){
-        if (event && event.query && event.query.length >= 4) {
-            // Cancela la búsqueda anterior
-            if (this.timeoutHandler) {
-                window.clearTimeout(this.timeoutHandler);
-            }
-            this.timeoutHandler = window.setTimeout(() => {
-                this.timeoutHandler = null;
-                this.agenteService.filter(event.query).subscribe(
-                    (agentes) => {
-                        event.callback(agentes);
-                    },
-                    (err) => {
-                        event.callback([]);
-                    });
-            }, 1000);
-        
-        }
-        else {    
-            event.callback([]);
         }
     }
 }

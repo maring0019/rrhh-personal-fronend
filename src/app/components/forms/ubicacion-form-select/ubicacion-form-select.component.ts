@@ -14,6 +14,7 @@ export class UbicaciónFormSelectComponent {
     @Input() formControlName: string = "ubicacion";
     @Input() label: string;
     @Input() placeholder: string = "Seleccione ubicación";
+    @Input() required: boolean = false;
 
     @Output() change: EventEmitter<any> = new EventEmitter<any>();
     

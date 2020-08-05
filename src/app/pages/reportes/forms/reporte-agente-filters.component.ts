@@ -1,12 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Sector } from 'src/app/models/Sector';
-import { SectorService } from 'src/app/services/sector.service';
-import { Agente } from 'src/app/models/Agente';
-import { AgenteService } from 'src/app/services/agente.service';
-
-
 @Component({
     selector: 'app-reporte-agente-filters',
     templateUrl: './reporte-agente-filters.html',
@@ -16,9 +10,6 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
     public form: FormGroup;
     private timeoutHandle: number;
     
-    // Form select options
-    public agentes: Agente[] = [];
-    public sectores: Sector[] = []; // Alias Lugar de Trabajo
 
     public formRadioOptions = {
         'all'    : [{ id: true, label: 'Todos los Agentes' }],
@@ -32,9 +23,7 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
     public filtrosTiposEstados;
 
     constructor(
-        private formBuilder: FormBuilder,
-        private sectorService: SectorService,
-        private agenteService: AgenteService
+        private formBuilder: FormBuilder
         ){}
     
     ngOnInit() {
@@ -47,10 +36,6 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
     }
 
     private initFormSelectOptions(){
-        this.sectorService.get({})
-            .subscribe(data => {
-                this.sectores = data;
-        });
         // Radio buttons options. Se crean individualmente para tener mayor 
         // control en el layout del html. Esto implica luego gestionar cada
         // evento de seleccion manualmentes ya que las opciones son excluyentes
@@ -73,7 +58,7 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
             optionAgenteLugarTrabajo : [],
             optionAgente             : [],
             // Filter options
-            lugarTrabajo             : [],
+            ubicacion                : [],
             agente                   : [],
             activo                   : [{id:'activo', nombre:'Sólo agentes activos'}]
         });
@@ -84,7 +69,7 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
         let form = this.form.value;
         // Filters
         if (form.optionAgenteLugarTrabajo){
-            params['situacionLaboral.cargo.sector._id'] = form.lugarTrabajo._id;
+            params['situacionLaboral.cargo.sector.ubicacion'] = form.ubicacion.codigo;
         }
         if (form.optionAgente){
             params['_id'] = form.agente._id;
@@ -114,38 +99,6 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
             else{
                 this.form.controls[opt].setValue(false);
             }
-        }
-    }
-
-    public onSearchAgentes(event){
-        if (event && event.query && event.query.length >= 4) {
-            // Cancela la búsqueda anterior
-            if (this.timeoutHandle) {
-                window.clearTimeout(this.timeoutHandle);
-            }
-            
-            let params:any = {};
-            params['filter'] = JSON.stringify(
-                {"$or":[
-                    {"nombre"   :{"$regex": event.query, "$options":"i"}},
-                    {"apellido" :{"$regex": event.query, "$options":"i"}},
-                    {"numero"   :{"$regex": event.query, "$options":"i"}},
-                ]});
-            this.timeoutHandle = window.setTimeout(() => {
-                this.timeoutHandle = null;
-                this.agenteService.search(params).subscribe(
-                    (agentes) => {
-                        agentes.map(dato => { dato.nombre = `${dato.numero} - ${dato.apellido}, ${dato.nombre}`});
-                        event.callback(agentes);
-                    },
-                    (err) => {
-                        event.callback([]);
-                    });
-            }, 1000);
-        
-        }
-        else {    
-            event.callback([]);
         }
     }
 }
