@@ -14,6 +14,7 @@ export abstract class ABMListComponent implements OnInit {
     
 
     // Variable de control para el proceso de busqueda  
+    public searchParams = {}; // To keep a local copy of searched params
     public searching = false;      
     public searched = false;
     public showMore: Boolean = false;
@@ -31,7 +32,7 @@ export abstract class ABMListComponent implements OnInit {
     }
     
     search(searchParams){
-        this.searchStart();
+        this.searchStart(searchParams);
         this.objectService.get(this.dataService, {...searchParams,...this.sortParams})
         .subscribe(
             objects => {
@@ -56,7 +57,8 @@ export abstract class ABMListComponent implements OnInit {
      * control que proveen feedback al usuario sobre lo que esta
      * ocurriendo.
      */
-    searchStart(){
+    searchStart(searchParams){
+        this.searchParams = searchParams;
         this.searching = true;
         this.items = []
         this.hiddenItems = [];

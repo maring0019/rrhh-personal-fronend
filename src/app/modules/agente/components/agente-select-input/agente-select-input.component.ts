@@ -11,7 +11,7 @@ export class AgenteSelectInputComponent implements OnInit{
 
     @Input() form: FormGroup; // Parent form
     @Input() editable: Boolean = true;
-    @Input() required: Boolean = true;
+    @Input() required: Boolean = false;
     @Output() change:EventEmitter<any> = new EventEmitter<any>();
     
     private timeoutHandle: number;

@@ -12,8 +12,8 @@
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
             <plex-label titulo="{{object.fecha | fecha:'dia' | title }} {{object.fecha | fecha:'utc' }}" [tituloBold]="true"></plex-label>
-            <plex-label titulo="{{object.parte.usuarioEnvio?.apellido | title }} {{object.parte.usuarioEnvio?.nombre | title }}" [tituloBold]="true"></plex-label>
-            <plex-label titulo="{{object.parte.fechaEnvio | fecha:'utc' }}"></plex-label>
+            <plex-label titulo="{{object.parte?.usuarioEnvio?.apellido | title }} {{object.parte?.usuarioEnvio?.nombre | title }}" [tituloBold]="true"></plex-label>
+            <plex-label titulo="{{object.parte?.fechaEnvio | fecha:'utc' }}"></plex-label>
             <plex-label titulo="{{object.fichadas?.entrada | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.fichadas?.salida | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>

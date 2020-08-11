@@ -1,5 +1,5 @@
 <header>
-    <form name="searchForm" [formGroup]="searchForm">
+    <form name="filterForm" [formGroup]="filterForm">
         <div class="row">
             <div class="col-md-3">
                 <plex-datetime
@@ -9,7 +9,7 @@
                     type="date"
                     name="fechaDesde"
                     placeholder="Desde"
-                    (change)="buscar($event)">
+                    (change)="search()">
                 </plex-datetime>
             </div>
             <div class="col-md-3">
@@ -20,16 +20,18 @@
                     type="date"
                     name="fechaHasta"
                     placeholder="Hasta"
-                    (change)="buscar($event)">
+                    (change)="search()">
                 </plex-datetime>
             </div>
             <div class="col-md-4">
                 <app-agente-select-input
-                    [form]="searchForm"
-                    (change)="buscar($event)"
+                    *ngIf="filterForm"
+                    [form]="filterForm"
+                    (change)="search()"
                     [required]="true">
                 </app-agente-select-input>
             </div>
         </div>
     </form>
 </header>
+    

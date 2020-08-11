@@ -94,7 +94,7 @@ export class ParteAgenteListComponent extends ABMListComponent {
     }
 
     search(searchParams){
-        this.searchStart();
+        this.searchStart(searchParams);
         this.objectService.get(this.dataService, {...searchParams,...this.sortParams})
         .subscribe(
             objects => {
@@ -106,7 +106,8 @@ export class ParteAgenteListComponent extends ABMListComponent {
                 else {
                     // Si el parte no existe lo creamos junto a los
                     // partes de los agentes.
-                    this.createPartes(searchParams);
+                    // this.createPartes(searchParams);
+                    this.searchEnd([]);
                 }
             },
             (err) => {
