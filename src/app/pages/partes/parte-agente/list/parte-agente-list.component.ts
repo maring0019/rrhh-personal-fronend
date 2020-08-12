@@ -85,8 +85,7 @@ export class ParteAgenteListComponent extends ABMListComponent {
         return this.parteService;
     }
 
-    public ngOnInit() {
-        
+    public ngOnInit() {    
         this.parteJustificacionService.get({})
             .subscribe(data => {
                 this.justificaciones = data
@@ -98,71 +97,57 @@ export class ParteAgenteListComponent extends ABMListComponent {
         this.objectService.get(this.dataService, {...searchParams,...this.sortParams})
         .subscribe(
             objects => {
-                if (objects && objects.length){
-                    // Si el parte existe buscamos los partes de los agentes
-                    this.refreshSearch(objects[0])
-                    this.searchPartesAgentes(this.parteToUpdate._id);
-                }
-                else {
-                    // Si el parte no existe lo creamos junto a los
-                    // partes de los agentes.
-                    // this.createPartes(searchParams);
-                    this.searchEnd([]);
-                }
+                return (objects && objects.length)? this.searchPartesAgentes(objects[0]):this.createPartes(searchParams);
             },
             (err) => {
-                this.searchEnd([]);
+                this.searchPartesAgentes(null);
             }
         );
     }
 
-    searchPartesAgentes(parteID){
-        this.parteService.getPartesAgentes(parteID).subscribe(
-            objects => {
-                this.partesAgentes = objects;
-                this.searchEnd(objects);
-            },
-            (err) => {
-                this.searchEnd([]);
-            }
-        );
+    searchPartesAgentes(parte:Parte){
+        this.refreshParte(parte);
+        if (parte && parte._id){
+            this.parteService.getPartesAgentes(parte._id).subscribe(
+                objects => {
+                    this.partesAgentes = objects;
+                    this.searchEnd(objects);
+                },
+                (err) => {
+                    this.searchEnd([]);
+                }
+            );
+        }
+        else {
+            this.searchEnd([]);
+        }
+        
     }
 
     createPartes(params){
-        if (params['fecha'] && params['ubicacion.codigo']){
-            this.ubicacionService.getByCodigo(params['ubicacion.codigo'])
-                .subscribe( obj => {
-                    if (obj){
-                        const ubicacion = { codigo: obj.codigo, nombre: obj.nombre }
-                        let parte = new Parte({ fecha: params.fecha, ubicacion: ubicacion });
-                        this.parteService.post(parte).subscribe(
-                            object => {
-                                if (object) {
-                                    this.refreshSearch(object)
-                                    return this.searchPartesAgentes(object._id)
-                                }
-                                else{
-                                    this.searchEnd([]);
-                                }
-                            },
-                            (err) => {
-                                this.searchEnd([]);
-                            }
-                        );
+        if (!params['fecha'] || !params['ubicacion.codigo']) return this.searchPartesAgentes(null);
+        
+        this.ubicacionService.getByCodigo(params['ubicacion.codigo'])
+        .subscribe( ubi => {
+            if (ubi){
+                const ubicacion = { codigo: ubi.codigo, nombre: ubi.nombre }
+                let parte = new Parte({ fecha: params.fecha, ubicacion: ubicacion });
+                this.parteService.post(parte).subscribe(
+                    object => this.searchPartesAgentes(object) 
+                    ,(err) => {
+                        this.searchPartesAgentes(null);
                     }
-                }),
-                (err) => {
-                    this.searchEnd([]);
-                }            
-        }
-        else{
-            this.searchEnd([]);
-        }
+                );
+            }
+        }),
+        (err) => {
+            this.searchPartesAgentes(null);
+        }            
     }
 
-    public refreshSearch(parte){
+    public refreshParte(parte:Parte){
         this.parteToUpdate = parte;
-        if (parte.estado && parte.estado.nombre == "Presentación total") {
+        if (parte && parte.estado && parte.estado.nombre == "Presentación total") {
             this.estadoPresentacionConfirmada = true;
             this.enableEdition(false);
         }
@@ -191,7 +176,7 @@ export class ParteAgenteListComponent extends ABMListComponent {
                 this.plex.info('info', `Parte actualizado correctamente. El parte
                     se encuentra aún es estado de 'Presentación Parcial'`)
                     .then( e => {
-                        this.refreshSearch(data);
+                        this.refreshParte(data);
                 });
         })
     }
@@ -212,7 +197,7 @@ export class ParteAgenteListComponent extends ABMListComponent {
                 this.plex.info('info', `Parte actualizado y confirmado correctamente.
                     El parte se encuentra ahora en estado de 'Presentación Total'`)
                     .then( e => {
-                        this.refreshSearch(data);
+                        this.refreshParte(data);
                 });
         })
     }
@@ -231,7 +216,7 @@ export class ParteAgenteListComponent extends ABMListComponent {
             this.plex.info('info', `Parte editado correctamente. Se ha notificado
                 a los responsables de esta actualización.`)
                 .then( e => {
-                    this.refreshSearch(data);
+                    this.refreshParte(data);
             });
         })
     }
@@ -253,17 +238,5 @@ export class ParteAgenteListComponent extends ABMListComponent {
      */
     private enableEdition(enable:boolean){
         this.editionEnabled = enable;
-        // if (enable){
-        //     this.editionEnabled = true;
-        // }
-        // else{
-        //     this.editionEnabled = false;
-        //     if (this.estadoPresentacionConfirmada) {
-        //         // this.itemListComponentRef.instance.editionEnabled = false;
-        //     }
-        //     else{
-        //         // this.itemListComponentRef.instance.editionEnabled = true;
-        //     }
-        // }
     }
 }

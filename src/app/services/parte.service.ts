@@ -52,17 +52,17 @@ export class ParteService {
         return this.server.post(url, object);
     }
 
-    guardar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
+    guardar(object:Parte, partesAgentes: ParteAgente[]): Observable<Parte> {
         const url = `${this.url}/${object._id}/guardar`;
         return this.server.post(url, partesAgentes);
     }
 
-    confirmar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
+    confirmar(object:Parte, partesAgentes: ParteAgente[]): Observable<Parte> {
         const url = `${this.url}/${object._id}/confirmar`;
         return this.server.post(url, partesAgentes);
     }
 
-    editar(object:Parte, partesAgentes: ParteAgente[]): Observable<ParteAgente[]> {
+    editar(object:Parte, partesAgentes: ParteAgente[]): Observable<Parte> {
         const url = `${this.url}/${object._id}/editar`;
         return this.server.post(url, partesAgentes);
     }

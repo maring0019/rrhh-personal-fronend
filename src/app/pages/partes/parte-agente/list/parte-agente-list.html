@@ -2,7 +2,24 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center"><strong></strong></h5>
+                <div *ngIf="parteToUpdate" class="d-flex flex-row justify-content-start">
+                    <div [ngSwitch]="parteToUpdate.estado.nombre"><!-- TODO cambiar por codigo -->
+                        <plex-badge *ngSwitchCase="'Sin presentar'" type="danger" size="sm" title="{{ parteToUpdate.estado.nombre }}">
+                            <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="'Presentación parcial'" type="warning" size="sm" title="{{ parteToUpdate.estado.nombre }}">
+                            <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                        </plex-badge>
+                        <plex-badge *ngSwitchDefault type="success" size="sm" title="{{ parteToUpdate.estado.nombre }}">
+                            <plex-icon name="mdi mdi-clipboard-text"></plex-icon>
+                        </plex-badge>
+                    </div>
+                    <h5 class="align-self-center ml-2">
+                        <strong>Parte {{ parteToUpdate.fecha | fecha:'utc' }} | </strong> Estado: {{ parteToUpdate.estado? parteToUpdate.estado.nombre: 'Sin Definir'}}
+                    </h5>
+                </div>
+                <div *ngIf="!parteToUpdate"></div><!-- Empty space-->
+                
                 <div class="d-flex flex-row justify-content-end align-items-center">
                     <div class="d-flex flex-row justify-content-end align-items-center"
                         *ngIf="parteToUpdate && items && items.length">
