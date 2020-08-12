@@ -20,6 +20,7 @@ export class ParteReporteListComponent extends ABMListComponent {
     public generandoReporte = false; // Flag al momento de generar el reporte
     public htmlReport; // Contenedor para el reporte generado en formato html
     public reportName = 'partes_agentes'; // Id del reporte a llamar en el servicio de reportes
+    public printing:Boolean = false;
 
 
     // list-head options
@@ -100,7 +101,7 @@ export class ParteReporteListComponent extends ABMListComponent {
         return this.parteService;
     }
 
-    public onPrint(){
+    public onPrintableView(){
         this.modalService.open(this.modalId);
         this.generandoReporte = true;
         const params = this.searchParams;
@@ -111,6 +112,18 @@ export class ParteReporteListComponent extends ABMListComponent {
             }, error => {
                 this.generandoReporte = false;
                 console.log('Report error:', JSON.stringify(error));
+            }); 
+    }
+
+    public onPrint(){
+        this.printing = true;
+        this.reportesService.download(this.reportName, this.searchParams)
+            .subscribe(data => {           
+                this.reportesService.descargarArchivo(data);     
+                this.printing = false;
+            }, error => {
+                this.printing = false;
+                console.log('download error:', JSON.stringify(error));
             }); 
     }
 

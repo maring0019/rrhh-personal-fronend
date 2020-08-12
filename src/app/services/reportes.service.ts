@@ -31,7 +31,7 @@ export class ReportesService {
     
     constructor(private server: Server, private http: Http) { }
 
-    download(tipoReporte:string, params?: any): Observable<any> { 
+    public download(tipoReporte:string, params?: any): Observable<any> { 
         const url = this.reportesUrl[tipoReporte];
         let options = this.prepareOptions({ params: params, showError: true });
         options.responseType = ResponseContentType.Blob;
@@ -46,11 +46,23 @@ export class ReportesService {
             .catch(this.handleError)
     }
 
-    show(tipoReporte:string, params?: any): Observable<any> { 
+    public show(tipoReporte:string, params?: any): Observable<any> { 
         const url = this.reportesUrl[tipoReporte];
         let options = this.prepareOptions({ params: params, showError: true });
         options.responseType = ResponseContentType.Text;
         return this.http.get(url, options).catch(this.handleError);
+    }
+
+    public descargarArchivo(data){
+        let url = window.URL.createObjectURL(data.file);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = data.filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
     }
 
     private handleError(error: any) {

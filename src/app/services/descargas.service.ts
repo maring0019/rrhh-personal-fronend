@@ -11,7 +11,7 @@ export class DescargasService {
     private serverUrl= environment.API;
     private baseUrl = '/core/descargas'; // URL to web api
     
-    constructor(private server: Server, private http: Http) { }
+    constructor(private server: Server, private http: Http,) { }
 
     credencialAgente(agenteID: any): Observable<any> { 
         const url = `${this.serverUrl}${this.baseUrl}/agentes/${agenteID}/credencial/download`;
@@ -43,6 +43,10 @@ export class DescargasService {
     }
 
     public descargarArchivo(data){
+        // Estaria bueno quizas crear dinamicamente un componente
+        // tipo dialogo inhabilitando cualquier otra accion hasta
+        // que termine la descarga del documento/archivo
+        // https://malcoded.com/posts/angular-dynamic-components/
         let url = window.URL.createObjectURL(data.file);
         let a = document.createElement('a');
         document.body.appendChild(a);
