@@ -93,7 +93,8 @@ export class MenuService {
             url:'/agentes',
             icono:'mdi-account-multiple-outline',
             color:'color-celeste',
-            style:'solid'
+            style:'solid',
+            permiso: 'agentes:view_agente'
         }, 
         {
             titulo: 'Partes',
@@ -102,7 +103,8 @@ export class MenuService {
             url:'/partes',
             icono:'mdi-clock',
             color:'color-violeta',
-            style:'solid'
+            style:'solid',
+            permiso: 'partes:view_parte'
         }, 
         { 
             titulo: 'Guardias',
@@ -111,7 +113,8 @@ export class MenuService {
             url:'/guardias',
             icono:'mdi-calendar',
             color:'color-rosa',
-            style:'solid'
+            style:'solid',
+            permiso: 'guardias:view_guardia'
         },
         { 
             titulo: 'Reportes',
@@ -120,7 +123,8 @@ export class MenuService {
             url:'/reportes',
             icono:'mdi-file-pdf',
             color:'color-amarillo',
-            style:'solid'
+            style:'solid',
+            permiso: 'reportes:view_reporte'
         },
         { 
             titulo: 'Configuración',
@@ -129,7 +133,8 @@ export class MenuService {
             url:'/configuracion',
             icono:'mdi-settings',
             color:'color-verde',
-            style:'solid'
+            style:'solid',
+            permiso: 'config:view_config'
         }
     ]
 

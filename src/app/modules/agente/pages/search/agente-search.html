@@ -7,6 +7,7 @@
                 </h5>
                 <div class="d-flex flex-row justify-content-end">
                     <plex-button
+                        *ngxPermissionsOnly="'agentes:add_agente'"
                         label="Nuevo Agente"
                         type="info"
                         routerLink="/agentes/registro">

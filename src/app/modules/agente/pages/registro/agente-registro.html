@@ -25,14 +25,16 @@
                             [routerLink]="['/agentes', agente?._id, 'ausentismo']"
                             class="mr-2">
                         </plex-button>
-                        <plex-button
-                            *ngIf="agente?.activo"
-                            title="Editar Agente"
-                            icon="mdi mdi-pencil" 
-                            type="warning"
-                            (click)="onEditar()"
-                            class="mr-2">
-                        </plex-button>
+                        <ng-template [ngxPermissionsOnly]="'agentes:change_agente'">
+                            <plex-button
+                                *ngIf="agente?.activo"
+                                title="Editar Agente"
+                                icon="mdi mdi-pencil" 
+                                type="warning"
+                                (click)="onEditar()"
+                                class="mr-2">
+                            </plex-button>
+                        </ng-template>
                         <plex-button
                             type="danger" 
                             icon="mdi mdi-close" 

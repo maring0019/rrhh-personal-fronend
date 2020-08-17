@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { DropdownItem, Plex } from '@andes/plex';
@@ -6,7 +6,7 @@ import { DropdownItem, Plex } from '@andes/plex';
 import { Agente } from 'src/app/models/Agente';
 import { ModalService } from 'src/app/services/modal.service';
 import { DescargasService } from 'src/app/services/descargas.service';
-
+import { Auth } from 'src/app/services/auth.service';
 
 export interface ActionEvent {
     accion:String;
@@ -40,11 +40,21 @@ export class AgenteItemListadoComponent {
     }
 
     set agentes(agentes: Agente[]) {
+        // Recuperamos los permisos del usuairio logueado
+        if (agentes && agentes.length){
+            Object.keys(this.perms).forEach( perm => {
+                this.auth.check(perm).then( value => {
+                    this.perms[perm]=value});
+            });
+        }
         this.accionesDropdownMenu = [];
-        agentes.map((a,index) => {
+        // Le damos un poco de tiempo a que se evaluen los permisos
+        window.setTimeout(() =>
+            agentes.map((a,index) => {
             let acciones:DropdownItem[] = this.prepareAgenteDropdownActions(a, index);
             this.accionesDropdownMenu.push(acciones);
-        })
+            })
+        )
         this._agentes = agentes;
     }
 
@@ -65,6 +75,7 @@ export class AgenteItemListadoComponent {
     *     - Activar un agente
     */
     @Input() editable: Boolean = false;
+
     
     /**
      * Evento que se emite cuando se selecciona un agente
@@ -87,23 +98,35 @@ export class AgenteItemListadoComponent {
      */
     @Output() change: EventEmitter<Agente> = new EventEmitter<Agente>();
 
+    /**
+     * Listado de permisos requeridos para cada accion extra.
+     * Si el usuario tiene el correspondiente permiso se muestra 
+     * el item de menu. Horrible
+     */
+    public perms = {
+        'agentes:baja_agente' : false, 
+        'agentes:add_historialaboral': false,
+        'agentes:add_nota': false,
+        'agentes:print_credencial': false,
+        'agentes:reactivar_agente':false
+    }
 
     constructor(
         private router: Router,
         private modalService: ModalService,
         protected descargasService: DescargasService,
-        public plex: Plex) {}
-
+        public plex: Plex, private auth: Auth) {}
+    
     prepareAgenteDropdownActions(agente, index):DropdownItem[]{
         let acciones:DropdownItem[]= [];
         if (agente.activo){
-            acciones.push(this.bajaDropdownAction(agente, index));
-            acciones.push(this.historiaLaboralDropdownAction(agente, index));
-            acciones.push(this.notaDropdownAction(agente, index));
-            acciones.push(this.imprimirCredencialDropdownAction(agente, index));
+            if (this.perms['agentes:baja_agente']) acciones.push(this.bajaDropdownAction(agente, index));
+            if (this.perms['agentes:add_historialaboral']) acciones.push(this.historiaLaboralDropdownAction(agente, index));
+            if (this.perms['agentes:add_nota']) acciones.push(this.notaDropdownAction(agente, index));
+            if (this.perms['agentes:print_credencial']) acciones.push(this.imprimirCredencialDropdownAction(agente, index));
         }
         else{
-            acciones.push(this.reactivarDropdownAction(agente, index));
+            if (this.perms['agentes:reactivar_agente']) acciones.push(this.reactivarDropdownAction(agente, index));
         }
         return acciones;
         // [
@@ -191,7 +214,7 @@ export class AgenteItemListadoComponent {
 
     public gotoAgente(agente) {
         if (agente._id){
-            this.router.navigate(['/agentes/registro' , { id: agente._id }]);
+            this.router.navigate(['/agentes/registro', agente._id ]);
         }
         else{
             this.router.navigate(['/agentes/registro']);

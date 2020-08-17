@@ -42,8 +42,9 @@
                 icon="mdi mdi-eye"
                 (click)="gotoAgente(agente)">
             </plex-button>
+            
             <plex-button
-                *ngIf="editable"
+                *ngxPermissionsOnly="'agentes:view_ausentismo'"
                 title="Ver Ausentismo"
                 type="success"
                 size="sm"
@@ -52,12 +53,11 @@
             </plex-button>
             
             <plex-dropdown
-                *ngIf="editable"
+                *ngxPermissionsOnly="['agentes:add_nota', 'agentes:baja_agente', 'agentes:add_historialaboral', 'agentes:print_credencial']"
                 icon="dots-vertical mdi-24px"
                 [right]="true"
                 [items]="accionesDropdownMenu[i]">
             </plex-dropdown>
-
         </plex-item>
     </ng-container>
 </plex-list>

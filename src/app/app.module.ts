@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 // Servicios
 import { TipoSituacionService } from './services/tm/situacion.service';
@@ -403,7 +404,9 @@ const ADMIN_COMPONENTS = [
         PlexModule,
         AuthModule,
 
-        FullCalendarModule
+        FullCalendarModule,
+
+        NgxPermissionsModule.forRoot()
     ],
     providers: [
         Plex,

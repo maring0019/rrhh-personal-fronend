@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Server } from '@andes/shared';
 import { tap, publishReplay, refCount } from 'rxjs/operators';
 import { platform } from 'os';
+import { NgxPermissionsService } from 'ngx-permissions';
 const shiroTrie = require('shiro-trie');
 
 enum Estado { inProgress, active, logout };
@@ -35,11 +36,13 @@ export class Auth {
 
     private session$: Observable<any>;
 
-    constructor(private server: Server) { };
+    constructor(private server: Server, private permissionsService: NgxPermissionsService) { };
 
     private initShiro() {
         this.shiro.reset();
         this.shiro.add(this.permisos);
+        this.permissionsService.flushPermissions();
+        this.permissionsService.loadPermissions(this.permisos);
     }
 
     getToken() {
@@ -69,11 +72,17 @@ export class Auth {
         window.sessionStorage.removeItem('jwt');
     }
 
-    check(string: string): boolean {
-        return this.shiro.check(string);
+    check(string: string): Promise<boolean> {
+        return this.permissionsService.hasPermission(string);
+            // .then((value) => { return value }
+            // ).catch( e => { return false });
+        // return this.shiro.check(string);
     }
 
     getPermissions(string: string): string[] {
+        console.log("Buscando permisos!!");
+        console.log(string)
+        console.log(this.shiro)
         return this.shiro.permissions(string);
     }
 

@@ -49,6 +49,7 @@ import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/lice
 import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component';
 
 import { AuditListComponent } from 'src/app/components/audit/list/audit-list.component';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 
 const routes: Routes = [
     // Inicio
@@ -107,8 +108,28 @@ const routes: Routes = [
 
     // Agentes Busqueda y Registro
     { path: 'agentes', component: AgenteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'agentes/registro', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'agentes/registro/:id', component: AgenteRegistroComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    {
+        path: 'agentes/registro',
+        component: AgenteRegistroComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'agentes:add_agente',
+                redirectTo: '/inicio'
+            }
+        } 
+    },
+    {
+        path: 'agentes/registro/:id',
+        component: AgenteRegistroComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'agentes:view_agente',
+                redirectTo: '/inicio'
+            }
+        } 
+    },
     { 
         path: 'agentes/:agenteId/ausentismo',
         component: AgenteAusentismoComponent,
