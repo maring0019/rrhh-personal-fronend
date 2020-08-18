@@ -60,28 +60,32 @@ export class MenuService {
             subtitulo: 'Partes',
             url: '/partes/recibidos',
             icono: 'mdi-account-multiple-outline',
-            color: 'color-violeta'
+            color: 'color-violeta',
+            permiso: 'partes:procesar_parte'
         }, 
         {
             titulo: 'Partes Diarios',
             subtitulo: 'Partes',
             url: '/partes/agentes',
             icono: 'mdi-account-multiple-outline',
-            color: 'color-violeta'
+            color: 'color-violeta',
+            permiso: 'partes:add_parte'
         }, 
         { 
             titulo: 'Ingresos y Egresos',
             subtitulo: 'Partes',
             url: '/partes/reportes/fichadas',
             icono: 'mdi-account-multiple-outline',
-            color: 'color-violeta'
+            color: 'color-violeta',
+            permiso: 'partes:report_fichadas'
         },
         { 
             titulo: 'Partes Diarios por Agente',
             subtitulo: 'Partes',
             url: '/partes/reportes/partes',
             icono: 'mdi-account-multiple-outline',
-            color: 'color-violeta'
+            color: 'color-violeta',
+            permiso: 'partes:report_partes'
         }
     ]
 
@@ -104,7 +108,7 @@ export class MenuService {
             icono:'mdi-clock',
             color:'color-violeta',
             style:'solid',
-            permiso: 'partes:view_parte'
+            permiso: 'partes:report_fichadas'
         }, 
         { 
             titulo: 'Guardias',

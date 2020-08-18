@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuService } from 'src/app/services/menu.service';
+import { Auth } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -12,11 +13,16 @@ export class PageMenuComponent implements OnInit {
     @Input() title: String =  'Menú Configuración General';
     @Input() menuItem: 'principal' | 'configuracion' | 'partes' = 'configuracion'
     public denied: Boolean = false;
-    public menu;
+    public menu = [];
 
-    constructor(private menuService:MenuService) { }
+    constructor(private menuService:MenuService, public auth: Auth) { }
 
     ngOnInit() {
-        this.menu = this.menuService.getMenuItems(this.menuItem);
+        let menuItems = this.menuService.getMenuItems(this.menuItem);
+        for (const item of menuItems) {    
+            this.auth.check(item.permiso).then( result => {
+                if (result) this.menu.push(item);
+            });
+        }
     }
 }

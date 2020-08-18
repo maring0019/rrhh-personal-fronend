@@ -74,15 +74,10 @@ export class Auth {
 
     check(string: string): Promise<boolean> {
         return this.permissionsService.hasPermission(string);
-            // .then((value) => { return value }
-            // ).catch( e => { return false });
         // return this.shiro.check(string);
     }
 
     getPermissions(string: string): string[] {
-        console.log("Buscando permisos!!");
-        console.log(string)
-        console.log(this.shiro)
         return this.shiro.permissions(string);
     }
 

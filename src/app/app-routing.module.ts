@@ -92,12 +92,73 @@ const routes: Routes = [
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
 
     // Partes
-    { path: 'partes', component: PartesMenuPageComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/recibidos', component: ParteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/recibidos/:id/agentes', component: ParteAgenteListViewComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/agentes', component: ParteAgenteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/reportes/partes', component: ParteReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
-    { path: 'partes/reportes/fichadas', component: FichadaReporteListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+    { 
+        path: 'partes',
+        component: PartesMenuPageComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: ['partes:add_parte', 'partes:procesar_parte', 'partes:report_fichadas', 'partes:report_partes'],
+                redirectTo: '/inicio'
+            }
+        } 
+
+    },
+    {
+        path: 'partes/recibidos',
+        component: ParteListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'partes:procesar_parte',
+                redirectTo: '/inicio'
+            }
+        } 
+    },
+    {
+        path: 'partes/recibidos/:id/agentes',
+        component: ParteAgenteListViewComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'partes:procesar_parte',
+                redirectTo: '/inicio'
+            }
+        } 
+    },
+    {
+        path: 'partes/agentes',
+        component: ParteAgenteListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'partes:add_parte',
+                redirectTo: '/inicio'
+            }
+        }
+    },
+    {
+        path: 'partes/reportes/partes',
+        component: ParteReporteListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'partes:report_partes',
+                redirectTo: '/inicio'
+            }
+        }
+    },
+    {
+        path: 'partes/reportes/fichadas',
+        component: FichadaReporteListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'partes:report_fichadas',
+                redirectTo: '/inicio'
+            }
+        }
+    },
 
      // Guardias
      { path: 'guardias', component: GuardiaListComponent, canActivate: [RoutingNavBar , RoutingGuard] },
@@ -133,6 +194,13 @@ const routes: Routes = [
     { 
         path: 'agentes/:agenteId/ausentismo',
         component: AgenteAusentismoComponent,
+        canActivate: [RoutingNavBar , RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: 'agentes:view_ausentismo',
+                redirectTo: '/inicio'
+            }
+        }, 
         children: [
             {
                 path: '',
@@ -142,7 +210,7 @@ const routes: Routes = [
             {
                 path: 'listado',
                 component: AusentismoSearchComponent,
-                canActivate: [RoutingNavBar , RoutingGuard],
+                
             },
             {
                 path: 'agregar',
