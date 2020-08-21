@@ -8,12 +8,11 @@ import { AgenteService } from 'src/app/services/agente.service';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { FilesService } from 'src/app/services/files.service';
-import { DescargasService } from 'src/app/services/descargas.service';
+import { ReportesService } from 'src/app/services/reportes.service';
 
 import { Articulo } from 'src/app/models/Articulo';
 import { Ausentismo } from 'src/app/models/Ausentismo';
 import { Agente } from 'src/app/models/Agente';
-
 
 @Component({
     selector: 'app-ausentismo-carga',
@@ -29,6 +28,10 @@ export class AusentismoCargaComponent implements OnInit {
     public ausentismoForm: FormGroup;
     public formTitle:String = '';
 
+    // print
+    public printing:Boolean = false;
+    public reportName:string = 'ausentismo_certificado';
+
     constructor(
         protected router:Router,
         protected route: ActivatedRoute,
@@ -37,7 +40,7 @@ export class AusentismoCargaComponent implements OnInit {
         protected articuloService: ArticuloService,
         protected ausentismoService: AusentismoService,
         protected filesService: FilesService,
-        protected descargasService: DescargasService,
+        private reportesService: ReportesService,
         protected plex: Plex){ }
 
     public ngOnInit() {
@@ -137,10 +140,12 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onPrint(){
-        this.descargasService.constanciaCertificado(this.ausentismo._id)
-            .subscribe(data => {                
-                this.descargasService.descargarArchivo(data);
+        this.reportesService.download(this.reportName, {_id:this.ausentismo._id})
+            .subscribe(data => {           
+                this.reportesService.descargarArchivo(data);     
+                this.printing = false;
             }, error => {
+                this.printing = false;
                 console.log('download error:', JSON.stringify(error));
             }); 
     }

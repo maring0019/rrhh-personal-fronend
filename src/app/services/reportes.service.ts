@@ -19,14 +19,18 @@ export class ReportesService {
 
     // Listado de reportes con su respectiva url
     private reportesUrl = {
-            // Reportes
+            // Reportes Generales
             'listado_agentes': `${this.serverUrl}${this.baseUrl}/agentes/listado`,
             'legajos_agentes': `${this.serverUrl}${this.baseUrl}/agentes/legajo`,
             'ausentismo': `${this.serverUrl}${this.baseUrl}/agentes/ausentismo`,
             'ausentismo_totalesxarticulo': `${this.serverUrl}${this.baseUrl}/agentes/ausentismo/totalesporarticulo`,
             'licencias_agentes': `${this.serverUrl}${this.baseUrl}/agentes/licencias`,
             // Partes
-            'partes_agentes': `${this.serverUrl}${this.baseUrl}/agentes/partes` 
+            'partes_agentes': `${this.serverUrl}${this.baseUrl}/agentes/partes`,
+            // Ausentismo
+            'ausentismo_certificado': `${this.serverUrl}${this.baseUrl}/ausentismo/certificado`,
+            // Agentes
+            'agentes_credencial': `${this.serverUrl}${this.baseUrl}/agentes/credencial`,
         }
     
     constructor(private server: Server, private http: Http) { }

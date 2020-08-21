@@ -4,7 +4,7 @@ import { Plex } from '@andes/plex';
 
 import { AgenteService } from 'src/app/services/agente.service';
 import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
-import { DescargasService } from 'src/app/services/descargas.service';
+import { ReportesService } from 'src/app/services/reportes.service';
 
 import { AusentismoSearchFormComponent } from './search-form/ausentismo-search-form.component';
 import { Ausentismo } from 'src/app/models/Ausentismo';
@@ -28,10 +28,14 @@ export class AusentismoSearchComponent implements OnInit {
     ausentismos:Ausentismo[];
     searching = true;
 
+    // Printing
+    public printing:Boolean = false;
+    public reportName:string = 'ausentismo_certificado';
+
     constructor(
         private agenteService:AgenteService,
         private calendarStoreService: CalendarStoreService,
-        protected descargasService: DescargasService,
+        private reportesService: ReportesService,
         private router:Router,
         private route: ActivatedRoute,
         protected plex: Plex){}
@@ -79,11 +83,13 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public printAusentismo(ausentismo){
-        this.descargasService.constanciaCertificado(ausentismo._id)
-        .subscribe(data => {           
-            this.descargasService.descargarArchivo(data);     
-        }, error => {
-            console.log('download error:', JSON.stringify(error));
+        this.reportesService.download(this.reportName, {_id:ausentismo._id})
+            .subscribe(data => {           
+                this.reportesService.descargarArchivo(data);     
+                this.printing = false;
+            }, error => {
+                this.printing = false;
+                console.log('download error:', JSON.stringify(error));
         }); 
     }
 

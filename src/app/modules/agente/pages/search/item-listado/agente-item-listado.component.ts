@@ -1,12 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-
 import { DropdownItem, Plex } from '@andes/plex';
 
-import { Agente } from 'src/app/models/Agente';
 import { ModalService } from 'src/app/services/modal.service';
-import { DescargasService } from 'src/app/services/descargas.service';
 import { Auth } from 'src/app/services/auth.service';
+import { ReportesService } from 'src/app/services/reportes.service';
+
+import { Agente } from 'src/app/models/Agente';
 
 export interface ActionEvent {
     accion:String;
@@ -111,10 +111,14 @@ export class AgenteItemListadoComponent {
         'agentes:reactivar_agente':false
     }
 
+    // print
+    public printing:Boolean = false;
+    public reportName:string = 'agentes_credencial';
+
     constructor(
         private router: Router,
         private modalService: ModalService,
-        protected descargasService: DescargasService,
+        private reportesService: ReportesService,
         public plex: Plex, private auth: Auth) {}
     
     prepareAgenteDropdownActions(agente, index):DropdownItem[]{
@@ -185,13 +189,14 @@ export class AgenteItemListadoComponent {
             icon: 'mdi mdi-printer',
             handler: (() => {
                 this.seleccionarAgente(agente, index);
-                this.descargasService.credencialAgente(agente._id)
-                .subscribe(data => {           
-                    this.descargasService.descargarArchivo(data);     
-                    // this.descargarArchivo(data);
-                }, error => {
-                    console.log('download error:', JSON.stringify(error));
-                }); 
+                this.reportesService.download(this.reportName, {_id:agente._id})
+                    .subscribe(data => {           
+                        this.reportesService.descargarArchivo(data);     
+                        this.printing = false;
+                    }, error => {
+                        this.printing = false;
+                        console.log('download error:', JSON.stringify(error));
+                    }); 
             }) }
         return accion;
     }

@@ -42,7 +42,7 @@ export class FichadaReporteSearchFormComponent extends CRUDSearchFormComponent i
 
     initSearchForm(){
         return this.formBuilder.group({
-            fechaDesde  : [ moment().subtract(2, 'days').toDate()],
+            fechaDesde  : [ moment().toDate()],
             fechaHasta  : [ moment().add(1, 'days').toDate()],
             ubicacion   : [],
             agente      : []
