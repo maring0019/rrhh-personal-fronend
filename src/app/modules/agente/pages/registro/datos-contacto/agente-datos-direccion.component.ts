@@ -55,8 +55,7 @@ export class AgenteDatosDireccionComponent implements OnInit {
             calleIzquierda       : [this.direccion.calleIzquierda],
             calleDerecha         : [this.direccion.calleDerecha],
             calleParalela        : [this.direccion.calleParalela],
-            complementarios      : [this.direccion.complementarios],
-            activo               : [this.direccion.activo]
+            complementarios      : [this.direccion.complementarios]
         });
     }
 

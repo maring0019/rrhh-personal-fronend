@@ -12,7 +12,6 @@ export class Direccion {
     ranking: Number;
     geoReferencia: [Number];
     ultimaActualizacion: Date;
-    activo: Boolean;
     // Info extra complementaria
     calleIzquierda: String;
     calleDerecha: String;
@@ -27,7 +26,6 @@ export class Direccion {
         this.codigoPostal = direccion.codigoPostal || '';
         this.barrio = direccion.barrio || '';
         this.localidad = direccion.localidad;
-        this.activo = direccion.activo;
         this.calleIzquierda = direccion.calleIzquierda || '';
         this.calleDerecha = direccion.calleDerecha || '';
         this.calleParalela = direccion.calleParalela || '';

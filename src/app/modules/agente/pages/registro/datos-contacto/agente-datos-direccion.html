@@ -14,7 +14,8 @@
                     </plex-text>
                 </div>
                 <div class="col-md-12">
-                    <plex-select 
+                    <plex-select
+                        [idField]="'_id'"
                         [data]="provincias"
                         name="provincia"
                         formControlName="provincia"
@@ -27,6 +28,7 @@
                 </div>
                 <div class="col-md-12">
                     <plex-select 
+                        [idField]="'_id'"
                         [data]="localidades"
                         name="localidad"
                         formControlName="localidad"
