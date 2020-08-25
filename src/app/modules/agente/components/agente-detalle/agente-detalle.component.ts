@@ -38,8 +38,6 @@ export class AgenteDetalleComponent implements OnChanges{
     constructor(private router: Router, private agenteService:AgenteService){ }
 
     ngOnChanges(changes:any){
-        // if ((changes['agente'] && !changes['agente'].isFirstChange())){
-        console.log("Cambio el Agente en el detalle");
         if (changes['agente']){
             const agente = changes['agente'].currentValue;
             console.log(agente)

@@ -54,6 +54,7 @@ import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.se
 import { AuditService } from 'src/app/services/audit.service';
 import { NotaService } from 'src/app/services/nota.service';
 import { Auth } from 'src/app/services/auth.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 // Stores
 import { CalendarStoreService } from './stores/calendar.store.service';
@@ -229,6 +230,10 @@ import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/compone
 import { AuditSearchComponent } from 'src/app/components/audit/list/search/audit-search.component';
 import { AuditListComponent } from 'src/app/components/audit/list/audit-list.component';
 
+// Usuarios
+import { UsuarioListComponent } from 'src/app/pages/seguridad/usuario/list/usuario-list.component';
+import { UsuarioSearchComponent } from 'src/app/pages/seguridad/usuario/list/search/usuario-search.component';
+
 
 const ADMIN_COMPONENTS = [
 
@@ -346,6 +351,10 @@ const ADMIN_COMPONENTS = [
         AuditSearchComponent,
         AuditListComponent,
 
+        // Usuarios
+        UsuarioListComponent,
+        UsuarioSearchComponent,
+
         SearchLeyendaComponent,
         ListadoComponent,
         ItemListadoComponent,
@@ -453,6 +462,7 @@ const ADMIN_COMPONENTS = [
         ObjectService,
         AuditService,
         NotaService,
+        UsuarioService,
         
     ],
     bootstrap: [AppComponent],

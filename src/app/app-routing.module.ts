@@ -48,8 +48,11 @@ import { RegimenHorarioCreateUpdateComponent } from 'src/app/modules/tm/componen
 import { LicenciaPeriodoListComponent } from 'src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component';
 import { LicenciaPeriodoCreateUpdateComponent } from 'src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component';
 
+import { UsuarioListComponent } from 'src/app/pages/seguridad/usuario/list/usuario-list.component';
+
 import { AuditListComponent } from 'src/app/components/audit/list/audit-list.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
+
 
 const routes: Routes = [
     // Inicio
@@ -90,6 +93,19 @@ const routes: Routes = [
     { path: 'configuracion/licencia-periodos/editar/:id', component: LicenciaPeriodoCreateUpdateComponent, canActivate: [RoutingNavBar , RoutingGuard] },
     // Reportes
     { path: 'reportes', component: ReporteSearchComponent, canActivate: [RoutingNavBar , RoutingGuard] },
+
+    // Usuarios
+    { 
+        path: 'seguridad/usuarios',
+        component: UsuarioListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: ['seguridad:view_usuario'],
+                redirectTo: '/inicio'
+            }
+        } 
+    },
 
     // Partes
     { 

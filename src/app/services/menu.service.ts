@@ -139,6 +139,16 @@ export class MenuService {
             color:'color-verde',
             style:'solid',
             permiso: 'config:view_config'
+        },
+        { 
+            titulo: 'Usuarios',
+            subtitulo:'',
+            detalle:'',
+            url:'/seguridad/usuarios',
+            icono:'mdi-account-multiple-outline',
+            color:'andes-naranja-claro',
+            style:'solid',
+            permiso: 'seguridad:view_usuario'
         }
     ]
 

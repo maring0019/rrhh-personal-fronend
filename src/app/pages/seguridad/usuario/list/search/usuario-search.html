@@ -1,0 +1,20 @@
+<header>    
+    <app-search-field
+        [searchFields]="['usuario', 'nombre', 'apellido']"
+        (change)="onChangeSearchField($event)">
+    </app-search-field>
+        
+    <!-- <form name="filterForm" [formGroup]="filterForm">
+        <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-4">
+                <plex-select
+                    [data]="opcionesSiNo"
+                    formControlName="descuentaDiasLicencia"
+                    name="descuentaDiasLicencia"
+                    label="Descuenta Dias Licencia?"
+                    (change)="search()">
+                </plex-select>
+            </div>
+        </div>
+    </form> -->
+</header>

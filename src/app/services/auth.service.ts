@@ -4,6 +4,7 @@ import { Server } from '@andes/shared';
 import { tap, publishReplay, refCount } from 'rxjs/operators';
 import { platform } from 'os';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { Usuario } from 'src/app/models/Usuario';
 const shiroTrie = require('shiro-trie');
 
 enum Estado { inProgress, active, logout };
@@ -13,20 +14,13 @@ interface IOrganizacion {
     nombre: string;
 }
 
-interface IUsuario {
-    id: string;
-    nombre: string;
-    apellido: string;
-    documento: string;
-    nombreCompleto: string;
-    username: string;
-}
+
 
 @Injectable()
 export class Auth {
     private shiro = shiroTrie.new();
     public estado: Estado;
-    public usuario: IUsuario;
+    public usuario: Usuario;
     // public organizacion: IOrganizacion;
     public profesional: string; // El profesional aqui es el agente asociado al usuario
     public servicios:any[] = []
@@ -115,24 +109,4 @@ export class Auth {
         }
         return this.session$;
     }
-
-    // organizaciones(): Observable<any> {
-    //     return this.server.get('/auth/organizaciones').pipe(
-    //         tap((data) => {
-    //             this.orgs = data;
-    //         })
-    //     );
-    // }
-
-    // setOrganizacion(org: any): Observable<any> {
-    //     return this.server.post('/auth/v2/organizaciones', { organizacion: org._id }).pipe(
-    //         tap((data) => {
-    //             this.setToken(data.token);
-    //             this.estado = Estado.active;
-    //         })
-    //     );
-    // }
-
-
-
 }
