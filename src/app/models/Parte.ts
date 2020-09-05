@@ -1,12 +1,9 @@
-import { Servicio } from './Servicio';
-import { ParteEstado } from './ParteEstado';
-import { ParteAgente } from './ParteAgente';
-import { localDate } from 'src/app/utils/dates';
-import { UbicacionServicio } from 'src/app/models/UbicacionServicio';
-
+import { ParteEstado } from "./ParteEstado";
+import { ParteAgente } from "./ParteAgente";
+import { localDate } from "src/app/utils/dates";
+import { Ubicacion } from "src/app/models/Ubicacion";
 
 export class Parte {
-
     _id: String;
     fecha: Date;
     procesado: Boolean;
@@ -14,11 +11,10 @@ export class Parte {
     novedades: Boolean;
     estado: ParteEstado;
     fechaEntrega: Date;
-    ubicacion: UbicacionServicio;
+    ubicacion: Ubicacion;
     partesAgentes: ParteAgente[];
-    
-    constructor(parte?)
-    {
+
+    constructor(parte?) {
         parte = parte || {};
         this._id = parte._id;
         this.fecha = localDate(parte.fecha);
@@ -26,14 +22,14 @@ export class Parte {
         this.editadoPostProcesado = parte.editadoPostProcesado;
         this.novedades = parte.novedades;
         this.estado = parte.estado || null;
-        this.ubicacion = parte.ubicacion? new UbicacionServicio(parte.ubicacion): null;
+        this.ubicacion = parte.ubicacion
+            ? new Ubicacion(parte.ubicacion)
+            : null;
         this.partesAgentes = [];
-        if (parte.partesAgentes && parte.partesAgentes.length){
-            parte.partesAgentes.forEach(p => {
+        if (parte.partesAgentes && parte.partesAgentes.length) {
+            parte.partesAgentes.forEach((p) => {
                 this.partesAgentes.push(new ParteAgente(p));
             });
         }
     }
 }
-
-

@@ -1,4 +1,4 @@
-<br>
+<br />
 <form name="datosCargoForm" [formGroup]="datosCargoForm">
     <div class="row">
         <div class="col-md-4">
@@ -10,11 +10,12 @@
                 label="Agrupamiento"
                 placeholder="Seleccione..."
                 [required]="true"
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
             </plex-select>
         </div>
         <div class="col-md-4">
-            <plex-select 
+            <plex-select
                 [idField]="'_id'"
                 [data]="puestos"
                 name="puesto"
@@ -22,7 +23,8 @@
                 label="Puesto/Agrupamiento"
                 placeholder="Seleccione..."
                 [required]="true"
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -34,21 +36,23 @@
                 label="SubPuesto/Función"
                 placeholder="Seleccione..."
                 [required]="true"
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
             </plex-select>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <plex-select
-                [idField]="'_id'" 
+                [idField]="'_id'"
                 [data]="sectores"
                 name="sector"
                 formControlName="sector"
                 label="Lugar de Trabajo/Sector"
                 placeholder="Seleccione..."
                 [required]="true"
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
             </plex-select>
         </div>
         <div class="col-md-4">
@@ -60,7 +64,21 @@
                 label="Servicio"
                 placeholder="Seleccione..."
                 [required]="true"
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
+            </plex-select>
+        </div>
+        <div class="col-md-4">
+            <plex-select
+                [idField]="'_id'"
+                [data]="ubicaciones"
+                name="ubicacion"
+                formControlName="ubicacion"
+                label="Ubicacion/Servicio"
+                placeholder="Seleccione..."
+                [required]="true"
+                [readonly]="!editable"
+            >
             </plex-select>
         </div>
     </div>
@@ -71,7 +89,8 @@
                 formControlName="observaciones"
                 label="Observaciones"
                 placeholder="Ingrese observaciones..."
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
             </plex-text>
         </div>
     </div>
@@ -84,7 +103,8 @@
                 formControlName="esJefeServicio"
                 label="Es Jefe de Servicio?"
                 [readonly]="!editable"
-                (change)=onChangeEsJefeServicio()>
+                (change)="onChangeEsJefeServicio()"
+            >
             </plex-bool>
         </div>
     </div>
@@ -99,7 +119,8 @@
                 label="Servicios a Cargo"
                 placeholder="Seleccione uno o mas servicios..."
                 [required]="false"
-                [readonly]="!editable">
+                [readonly]="!editable"
+            >
             </plex-select>
         </div>
     </div>

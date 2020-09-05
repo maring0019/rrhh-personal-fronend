@@ -1,28 +1,24 @@
-import { IPais } from './IPais';
-import { ILocalidad } from './ILocalidad';
-import { IProvincia } from './IProvincia';
-
 export class Ubicacion {
+    _id: String;
+    codigo: Number;
+    nombre: String;
+    nombreCorto: String;
+    interno: Boolean;
+    tipo: Number; // Es una referencia al codigo del tipo de ubicacion
+    subtipo: Number; // Es una referencia al codigo del subtipo de ubicacion
+    telefono: String;
+    despachoHabilitado: Boolean;
 
-    barrio: String;
-    localidad: ILocalidad;
-    provincia: IProvincia;
-    pais: IPais;
-
-    constructor(ubicacion?){
+    constructor(ubicacion?) {
         ubicacion = ubicacion || {};
-        if (ubicacion.barrio){
-            this.barrio = ubicacion.barrio || null;
-        }
-        if (ubicacion.localidad){
-            this.localidad = ubicacion.localidad || null;
-        }
-        if (ubicacion.provincia){
-            this.provincia = ubicacion.provincia || null;
-        }
-        if (ubicacion.pais){
-            this.pais = ubicacion.pais || null;
-        }
-
+        this._id = ubicacion._id || null;
+        this.codigo = ubicacion.codigo || null;
+        this.nombre = ubicacion.nombre || "";
+        this.nombreCorto = ubicacion.nombreCorto || "";
+        this.interno = ubicacion.interno;
+        this.tipo = ubicacion.tipo;
+        this.subtipo = ubicacion.subtipo;
+        this.telefono = ubicacion.telefono || "";
+        this.despachoHabilitado = ubicacion.despachoHabilitado;
     }
 }

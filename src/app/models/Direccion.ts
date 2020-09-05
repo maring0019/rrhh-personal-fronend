@@ -1,6 +1,4 @@
-import { Ubicacion } from './Ubicacion';
-import { Localidad } from './Localidad';
-
+import { Localidad } from "./Localidad";
 
 export class Direccion {
     _id: String;
@@ -8,7 +6,6 @@ export class Direccion {
     codigoPostal: String;
     barrio: String;
     localidad: Localidad;
-    ubicacion: Ubicacion;
     ranking: Number;
     geoReferencia: [Number];
     ultimaActualizacion: Date;
@@ -18,17 +15,16 @@ export class Direccion {
     calleParalela: String;
     complementarios: String;
 
-    constructor(direccion?)
-    {
+    constructor(direccion?) {
         direccion = direccion || {};
         this._id = direccion._id || null;
-        this.valor = direccion.valor || '';
-        this.codigoPostal = direccion.codigoPostal || '';
-        this.barrio = direccion.barrio || '';
+        this.valor = direccion.valor || "";
+        this.codigoPostal = direccion.codigoPostal || "";
+        this.barrio = direccion.barrio || "";
         this.localidad = direccion.localidad;
-        this.calleIzquierda = direccion.calleIzquierda || '';
-        this.calleDerecha = direccion.calleDerecha || '';
-        this.calleParalela = direccion.calleParalela || '';
-        this.complementarios = direccion.complementarios || '';
+        this.calleIzquierda = direccion.calleIzquierda || "";
+        this.calleDerecha = direccion.calleDerecha || "";
+        this.calleParalela = direccion.calleParalela || "";
+        this.complementarios = direccion.complementarios || "";
     }
 }
