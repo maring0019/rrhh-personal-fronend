@@ -8,18 +8,20 @@
                     type="date"
                     name="fecha"
                     placeholder="Fecha Parte"
-                    (change)="search()">
+                    (change)="search()"
+                >
                 </plex-datetime>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <plex-select
                     [idField]="'_id'"
-                    [data]="servicioOpciones"
+                    [data]="ubicacionOpciones"
                     required
-                    formControlName="servicio"
-                    name="servicio"
+                    formControlName="ubicacion"
+                    name="ubicacion"
                     placeholder="Seleccione Dependencia Administrativa"
-                    (change)="search()">
+                    (change)="search()"
+                >
                 </plex-select>
             </div>
             <!-- <div class="col-md-4">

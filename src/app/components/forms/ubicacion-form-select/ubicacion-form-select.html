@@ -1,11 +1,13 @@
 <div [formGroup]="parent">
     <plex-select
+        [idField]="'_id'"
         [data]="ubicaciones$ | async"
         (change)="onChange($event)"
         name="name"
         [formControlName]="formControlName"
         [placeholder]="placeholder"
         [label]="label"
-        [required]="required">
+        [required]="required"
+    >
     </plex-select>
 </div>
