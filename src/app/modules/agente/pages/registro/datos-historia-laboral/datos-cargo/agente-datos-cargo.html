@@ -99,23 +99,23 @@
         <div class="col-md-4">
             <plex-bool
                 type="slide"
-                name="esJefeServicio"
-                formControlName="esJefeServicio"
+                name="esJefe"
+                formControlName="esJefe"
                 label="Es Jefe de Servicio?"
                 [readonly]="!editable"
-                (change)="onChangeEsJefeServicio()"
+                (change)="onChangeEsJefe()"
             >
             </plex-bool>
         </div>
     </div>
-    <div class="row" *ngIf="cargo?.esJefeServicio">
+    <div class="row" *ngIf="cargo?.esJefe">
         <div class="col-md-12">
             <plex-select
                 [idField]="'_id'"
-                [data]="servicios"
+                [data]="ubicaciones"
                 [multiple]="true"
-                name="jefeServicios"
-                formControlName="jefeServicios"
+                name="jefeUbicaciones"
+                formControlName="jefeUbicaciones"
                 label="Servicios a Cargo"
                 placeholder="Seleccione uno o mas servicios..."
                 [required]="false"

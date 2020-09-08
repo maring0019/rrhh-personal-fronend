@@ -133,7 +133,7 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteService.getByID(this._agenteID).subscribe((data) => {
             if (data) {
                 this.agente = new Agente(data);
-                this.agenteDetalle = new Agente(data);
+                this.agenteDetalle = data; //new Agente(data); Not required anymore
                 this.initValueForms();
             } else {
                 this.plex

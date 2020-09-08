@@ -95,8 +95,8 @@ export class AgenteDatosCargoComponent implements OnInit {
             servicio: [this.cargo.servicio],
             ubicacion: [this.cargo.ubicacion],
             observaciones: [this.cargo.observaciones],
-            esJefeServicio: [this.cargo.esJefeServicio],
-            jefeServicios: [this.cargo.jefeServicios],
+            esJefe: [this.cargo.esJefe],
+            jefeUbicaciones: [this.cargo.jefeUbicaciones],
         });
     }
 
@@ -104,7 +104,7 @@ export class AgenteDatosCargoComponent implements OnInit {
         formUtils.resetForm(this.datosCargoForm, this._form);
     }
 
-    public onChangeEsJefeServicio() {
-        this.cargo.esJefeServicio = !this.cargo.esJefeServicio;
+    public onChangeEsJefe() {
+        this.cargo.esJefe = !this.cargo.esJefe;
     }
 }

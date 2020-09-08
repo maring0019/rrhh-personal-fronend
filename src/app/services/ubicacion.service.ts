@@ -10,7 +10,7 @@ export class UbicacionService {
     constructor(private server: Server) {}
 
     get(params: any): Observable<Ubicacion[]> {
-        return this.server.get(this.baseUrl + "/mock/ubicaciones", {
+        return this.server.get(this.baseUrl + "/hospital", {
             params: params,
             showError: true,
         });
