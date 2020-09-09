@@ -364,8 +364,9 @@ export class AgenteRegistroComponent implements OnInit {
     }
 
     addAgente(agente) {
-        this.agenteService.post(agente).subscribe((data) => {
-            this.saveFiles(data);
+        this.agenteService.post(agente).subscribe((newAgente) => {
+            this.saveFoto(newAgente);
+            this.saveFiles(newAgente);
             this.plex
                 .info("success", "El agente se ingresó correctamente")
                 .then((e) => {
@@ -376,27 +377,13 @@ export class AgenteRegistroComponent implements OnInit {
 
     updateAgente(agente) {
         this.agenteService.put(agente).subscribe((agenteData) => {
-            if (this.datosBasicos.nuevaFotoAgente) {
-                this.agenteService
-                    .postFoto(this._agenteID, this.datosBasicos.nuevaFotoAgente)
-                    .subscribe((data) => {
-                        this.plex
-                            .info(
-                                "success",
-                                "El agente se modificó correctamente"
-                            )
-                            .then((e) => {
-                                this.volverInicio();
-                            });
-                    });
-            } else {
-                this.saveFiles(agenteData);
-                this.plex
-                    .info("success", "El agente se modificó correctamente")
-                    .then((e) => {
-                        this.volverInicio();
-                    });
-            }
+            this.saveFoto(agenteData);
+            this.saveFiles(agenteData);
+            this.plex
+                .info("success", "El agente se modificó correctamente")
+                .then((e) => {
+                    this.volverInicio();
+                });
         });
     }
 
@@ -405,6 +392,14 @@ export class AgenteRegistroComponent implements OnInit {
         this.datosNormaLegal.fileManager.saveFileChanges(
             agente.situacionLaboral.normaLegal
         );
+    }
+
+    private saveFoto(agente) {
+        if (this.datosBasicos.nuevaFotoAgente) {
+            this.agenteService
+                .postFoto(agente._id, this.datosBasicos.nuevaFotoAgente)
+                .subscribe();
+        }
     }
 
     /**
