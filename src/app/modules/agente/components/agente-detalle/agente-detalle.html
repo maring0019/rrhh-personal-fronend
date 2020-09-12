@@ -1,48 +1,48 @@
-
 <ng-container *ngIf="agente">
-<header class="d-flex flex-row justify-content-between subheader">
-    <div>
-        <h5><strong>Agente |</strong> Detalle</h5>
-    </div>
-    <div *ngIf="showActions" class="d-flex flex-row justify-content-end">
-        <plex-button
-            title="Ver Agente Detalle"
-            type="info"
-            size="sm"
-            class="mr-2"
-            icon="mdi mdi-eye"
-            (click)="gotoAgente(agente)">
-        </plex-button>
-        <plex-button
-            title="Cerrar"
-            type="danger"
-            icon="mdi mdi-close"
-            size="sm"
-            (click)="onCerrar()">
-        </plex-button>
-    </div>
-</header>
+    <header class="d-flex flex-row justify-content-between subheader">
+        <div>
+            <h5><strong>Agente |</strong> Detalle</h5>
+        </div>
+        <div *ngIf="showActions" class="d-flex flex-row justify-content-end">
+            <plex-button
+                title="Ver Agente Detalle"
+                type="info"
+                size="sm"
+                class="mr-2"
+                icon="mdi mdi-eye"
+                (click)="gotoAgente(agente)"
+            >
+            </plex-button>
+            <plex-button
+                title="Cerrar"
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="onCerrar()"
+            >
+            </plex-button>
+        </div>
+    </header>
 
     <section class="d-flex flex-row mt-2">
         <div class="d-flex flex-column align-items-center mt-2 mr-4">
-            <app-agente-foto
-                [foto]="foto"
-                [agente]="agente">
-            </app-agente-foto>
+            <app-agente-foto [foto]="foto" [agente]="agente"> </app-agente-foto>
         </div>
         <article class="d-flex flex-column">
             <div class="d-flex flex-row">
-                <plex-badge type="info"
-                    *ngIf="agente.situacionLaboral.situacion && agente.situacionLaboral.situacion.tipoSituacion">
-                    {{ agente.situacionLaboral.situacion.tipoSituacion | title:'nombre' }}
+                <plex-badge
+                    type="info"
+                    *ngIf="agente.situacionLaboral.situacion && agente.situacionLaboral.situacion.tipoSituacion"
+                >
+                    {{ agente.situacionLaboral.situacion.tipoSituacion |
+                    title:'nombre' }}
                 </plex-badge>
                 <plex-badge [type]="agente.activo? 'success': 'danger'">
-                        {{ agente.activo? 'Activo' : 'Baja' }}
+                    {{ agente.activo? 'Activo' : 'Baja' }}
                 </plex-badge>
             </div>
             <h3 class="mt-2 mb-4">
-                {{ agente.nombre }}<br>
-                <strong>{{ agente.apellido }}</strong>
+                <strong> {{ agente.apellido }}</strong>, {{ agente.nombre }}
             </h3>
         </article>
     </section>
@@ -54,19 +54,23 @@
             </div>
             <div class="d-flex flex-column">
                 <b>Fecha de nacimiento</b>
-                <p>{{ agente.fechaNacimiento? (agente.fechaNacimiento | fecha:'utc') : '---' }}</p>
+                <p>
+                    {{ agente.fechaNacimiento? (agente.fechaNacimiento |
+                    fecha:'utc') : '---' }}
+                </p>
             </div>
         </article>
     </section>
 
-    <hr class="white">
+    <hr class="white" />
     <ul>
         <li>
             <plex-accordion>
                 <plex-panel
                     icon="mdi icon-credencial-paciente"
                     tituloPrincipal="Datos Básicos"
-                    tituloSecundario="">
+                    tituloSecundario=""
+                >
                     <div class="d-inline-block mr-4">
                         <strong>Edad</strong>
                         <p>{{ agente.fechaNacimiento | edad }}</p>
@@ -92,10 +96,11 @@
         </li>
         <li>
             <plex-accordion>
-                <plex-panel 
+                <plex-panel
                     icon="mdi icon-marcador"
-                    tituloPrincipal="Domicilio">
-                    <div *ngIf=direccion>
+                    tituloPrincipal="Domicilio"
+                >
+                    <div *ngIf="direccion">
                         <article class="d-inline-block mr-4">
                             <strong>Dirección</strong>
                             <p>{{ direccion.valor | title }}</p>
@@ -103,10 +108,10 @@
                         <article class="d-inline-block mr-4">
                             <strong>Provincia</strong>
                             <p *ngIf="direccion.localidad;else no_content">
-                                {{ direccion.localidad.provincia| title:'nombre'}}
+                                {{ direccion.localidad.provincia|
+                                title:'nombre'}}
                             </p>
                             <ng-template #no_content><p>---</p></ng-template>
-                            
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Localidad</strong>
@@ -118,17 +123,18 @@
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Cod. Postal</strong>
-                            <p> {{ direccion.codigoPostal | title }}</p>
+                            <p>{{ direccion.codigoPostal | title }}</p>
                         </article>
                     </div>
                 </plex-panel>
             </plex-accordion>
         </li>
-        <li> 
-            <plex-accordion >
-                <plex-panel 
+        <li>
+            <plex-accordion>
+                <plex-panel
                     icon="mdi icon-telefono"
-                    tituloPrincipal="Datos de Contacto">
+                    tituloPrincipal="Datos de Contacto"
+                >
                     <ng-container *ngFor="let contacto of contactos">
                         <article class="d-inline-block mr-4">
                             <strong>Tipo de Contacto</strong>
@@ -144,8 +150,12 @@
         </li>
         <li>
             <plex-accordion>
-                 <!-- Educacion -->
-                 <plex-panel icon="mdi icon-estudiante" tituloPrincipal="Educacion" tituloSecundario="">
+                <!-- Educacion -->
+                <plex-panel
+                    icon="mdi icon-estudiante"
+                    tituloPrincipal="Educacion"
+                    tituloSecundario=""
+                >
                     <ng-container *ngFor="let estudio of educacion">
                         <article *ngIf="estudio" class="d-inline-block mr-4">
                             <strong>Nivel</strong>
@@ -160,20 +170,27 @@
             </plex-accordion>
         </li>
         <li>
-            <plex-accordion >
-                <plex-panel 
+            <plex-accordion>
+                <plex-panel
                     icon="mdi icon-hospital"
-                    tituloPrincipal="Situación y Cargo">
+                    tituloPrincipal="Situación y Cargo"
+                >
                     <div *ngIf="situacionLaboral">
                         <article class="d-inline-block mr-4">
                             <strong>Ingreso Hospital</strong>
-                            <p>{{ situacionLaboral.fechaIngresoHospital | fecha:'utc' }}</p>
+                            <p>
+                                {{ situacionLaboral.fechaIngresoHospital |
+                                fecha:'utc' }}
+                            </p>
                         </article>
                     </div>
                     <div *ngIf="situacionLaboral?.situacion">
                         <article class="d-inline-block mr-4">
                             <strong>Situación en Planta</strong>
-                            <p>{{ situacionLaboral.situacion.tipoSituacion | title:'nombre' }}</p>
+                            <p>
+                                {{ situacionLaboral.situacion.tipoSituacion |
+                                title:'nombre' }}
+                            </p>
                         </article>
                     </div>
                     <div *ngIf="cargo">
@@ -186,33 +203,35 @@
             </plex-accordion>
         </li>
         <li>
-            <plex-accordion >
-                <plex-panel 
-                    icon="mdi icon-nodos"
-                    tituloPrincipal="Regímenes">
+            <plex-accordion>
+                <plex-panel icon="mdi icon-nodos" tituloPrincipal="Regímenes">
                     <div *ngIf="regimen">
                         <article class="d-inline-block mr-4">
                             <strong>Régimen Horario</strong>
-                            <p>{{ regimen.regimenHorario | title:'nombre' }} hs.</p>
+                            <p>
+                                {{ regimen.regimenHorario | title:'nombre' }}
+                                hs.
+                            </p>
                         </article>
                         <article class="d-inline-block mr-4">
                             <strong>Dedicación Exclusiva</strong>
-                            <p>{{ regimen.dedicacionExclusiva? 'Si' : 'No' }}</p>
+                            <p>
+                                {{ regimen.dedicacionExclusiva? 'Si' : 'No' }}
+                            </p>
                         </article>
                     </div>
                 </plex-panel>
             </plex-accordion>
         </li>
         <li>
-            <plex-accordion >
-                <plex-panel 
-                    icon="mdi icon-nodos"
-                    tituloPrincipal="Ausentismo">
-                    <app-indicador-licencias 
-                        *ngIf="agente" [agente]="agente">
+            <plex-accordion>
+                <plex-panel icon="mdi icon-nodos" tituloPrincipal="Ausentismo">
+                    <app-indicador-licencias *ngIf="agente" [agente]="agente">
                     </app-indicador-licencias>
                     <app-indicador-licencias-detalle
-                        *ngIf="agente" [agente]="agente">
+                        *ngIf="agente"
+                        [agente]="agente"
+                    >
                     </app-indicador-licencias-detalle>
                 </plex-panel>
             </plex-accordion>
@@ -220,23 +239,28 @@
         <li>
             <plex-accordion>
                 <plex-panel icon="mdi icon-nodos" tituloPrincipal="Notas">
-                    <plex-loader 
+                    <plex-loader
                         *ngIf="!notas"
                         class="d-flex flex-column align-items-center justify-content-center h-75"
-                        type="ball-beat">
+                        type="ball-beat"
+                    >
                     </plex-loader>
-                    <list-item *ngFor="let item of notas; let i=index"
+                    <list-item
+                        *ngFor="let item of notas; let i=index"
                         [item]="item"
                         [itemSelected]="itemSelected"
-                        [botonera]="false">
+                        [botonera]="false"
+                    >
                         <plex-label
-                            class="wp-40" 
+                            class="wp-40"
                             titulo="{{ item.updatedAt | fecha:'diahora' }}"
-                            subtitulo="{{ item.usuario?.apellido }}, {{ item.usuario?.nombre }}">
+                            subtitulo="{{ item.usuario?.apellido }}, {{ item.usuario?.nombre }}"
+                        >
                         </plex-label>
                         <plex-label
-                            class="wp-60" 
-                            titulo="{{ item.titulo | title }}">
+                            class="wp-60"
+                            titulo="{{ item.titulo | title }}"
+                        >
                         </plex-label>
                     </list-item>
                 </plex-panel>
@@ -245,4 +269,3 @@
     </ul>
     <!-- /Layout detalle -->
 </ng-container>
-

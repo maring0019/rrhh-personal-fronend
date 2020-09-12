@@ -29,6 +29,7 @@ import { Cargo } from "src/app/models/Cargo";
 import { SituacionLaboral } from "src/app/models/SituacionLaboral";
 import { Regimen } from "src/app/models/Regimen";
 import { Nota } from "src/app/models/Nota";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: "app-agente-registro",
@@ -301,10 +302,11 @@ export class AgenteRegistroComponent implements OnInit {
      */
     saveAgente() {
         if (this.allFormsValid()) {
-            const agente = this.parseAgente();
             if (this._agenteID) {
+                const agente = this.parseUpdatedAgente();
                 this.updateAgente(agente);
             } else {
+                const agente = this.parseNewAgente();
                 this.addAgente(agente);
             }
         } else {
@@ -315,7 +317,89 @@ export class AgenteRegistroComponent implements OnInit {
         }
     }
 
-    parseAgente(): Agente {
+    parseUpdatedAgente() {
+        let agente: any = formUtils.getDirtyValues(
+            this.datosBasicos.datosBasicosForm
+        );
+        if (agente.estadoCivil) agente.estadoCivil = agente.estadoCivil.id;
+        if (agente.sexo) agente.sexo = agente.sexo.id;
+        // Direccion
+        let direccion = formUtils.getDirtyValues(
+            this.datosDireccion.direccionForm
+        );
+        // Contactos
+        const contactos: Contacto[] = [];
+        this.datosContacto.contactoForms.controls.forEach((form) => {
+            const contacto = new Contacto(form.value);
+            contactos.push(contacto);
+        });
+        // Educacion
+        const estudios: Educacion[] = [];
+        this.datosEducacion.educacionForms.controls.forEach((form) => {
+            if (
+                form.value.educacion &&
+                form.value.educacion.tipoEducacion != null
+            ) {
+                const educacion = new Educacion(form.value.educacion);
+                estudios.push(educacion);
+            }
+        });
+        // Situacion Laboral
+        let situacionLaboral = formUtils.getDirtyValues(
+            this.datosSituacionLaboral.datosGeneralesForm
+        );
+        // Norma Legal
+        let normaLegal = formUtils.getDirtyValues(
+            this.datosNormaLegal.datosNormaLegalForm
+        );
+        // Situacion
+        let situacion = formUtils.getDirtyValues(
+            this.datosSituacion.datosSituacionForm
+        );
+        // Cargo
+        let cargo = formUtils.getDirtyValues(this.datosCargo.datosCargoForm);
+        // Regimen
+        let regimen = formUtils.getDirtyValues(
+            this.datosRegimen.datosRegimenForm
+        );
+
+        agente._id = this._agenteID;
+        agente.contactos = contactos;
+        agente.educacion = estudios;
+        if (direccion) {
+            Object.keys(direccion).forEach((key) => {
+                agente[`direccion.${key}`] = direccion[key];
+            });
+        }
+        if (situacionLaboral) {
+            Object.keys(situacionLaboral).forEach((key) => {
+                agente[`situacionLaboral.${key}`] = situacionLaboral[key];
+            });
+        }
+        if (normaLegal) {
+            Object.keys(normaLegal).forEach((key) => {
+                agente[`situacionLaboral.normaLegal.${key}`] = normaLegal[key];
+            });
+        }
+        if (situacion) {
+            Object.keys(situacion).forEach((key) => {
+                agente[`situacionLaboral.situacion.${key}`] = situacion[key];
+            });
+        }
+        if (cargo) {
+            Object.keys(cargo).forEach((key) => {
+                agente[`situacionLaboral.cargo.${key}`] = cargo[key];
+            });
+        }
+        if (regimen) {
+            Object.keys(regimen).forEach((key) => {
+                agente[`situacionLaboral.regimen.${key}`] = regimen[key];
+            });
+        }
+        return agente;
+    }
+
+    parseNewAgente(): Agente {
         const agente = new Agente(this.datosBasicos.datosBasicosForm.value);
         const direccion = new Direccion(
             this.datosDireccion.direccionForm.value
