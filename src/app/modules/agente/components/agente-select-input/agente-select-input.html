@@ -2,21 +2,23 @@
     <plex-select 
         *ngIf="editable"
         (getData)="onSearchAgentes($event)" 
-        (change)="onChangeAgente($event)" 
+        (change)="onChangeAgenteSelect($event)" 
         label="Agente"
         name="agente"
         formControlName="agente"
-        placeholder="Buscar Agente"
+        placeholder="Buscar/Seleccionar Agente"
         [required]="required"
-        [idField]="'_id'">
+        [idField]="'_id'"
+        [labelField]="'data'">
     </plex-select>
 
     <plex-text
         *ngIf="!editable"
         label="Agente"
         name="agente"
-        formControlName="agente"
-        [required]="true"
+        [(ngModel)]="agenteText"
+        [ngModelOptions]="{standalone: true}"
+        [required]="required"
         [readonly]="true">
     </plex-text>
 </div>

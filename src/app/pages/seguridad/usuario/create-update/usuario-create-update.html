@@ -1,0 +1,117 @@
+<plex-layout main="12">
+    <plex-layout-main>
+
+        <app-crud-header
+            [action]="(object?.id)? 'update':'create'"
+            [titulo]="titulo"
+            [subtitulo]="subtitulo"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+            (history)="onHistoria()">
+        </app-crud-header>
+        
+        <form *ngIf='form' name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-3 col-xs-12 d-flex justify-content-center">
+                    <app-agente-foto
+                        *ngIf="agente"
+                        [agente]="agente"
+                        [editable]="false"
+                        [size]="'md'"
+                        (outputNewFoto)="onValueNewFoto($event)">
+                    </app-agente-foto>
+                    <app-agente-foto
+                        *ngIf="!agente"
+                        [editable]="true"
+                        [size]="'md'"
+                        (outputNewFoto)="onValueNewFoto($event)">
+                    </app-agente-foto>
+                </div>
+                <div class="col-md-9 col-xs-12">
+                    <!-- Habilitar en el futuro si se requiere  
+                        <div class="row">
+                        <div class="col-md-2 col-xs-12 mt-4">
+                            <plex-bool 
+                                type="slide"
+                                label="¿Es Agente?"
+                                [(ngModel)]="esAgente"
+                                [ngModelOptions]="{standalone: true}"
+                                (change)="onChangeEsAgente()">
+                            </plex-bool>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <app-agente-select-input
+                                *ngIf="esAgente"
+                                [agente]="agente"
+                                [form]="form"
+                                [editable]="!object._id"
+                                (change)="onSelectAgente($event)">
+                            </app-agente-select-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <plex-text 
+                                name="usuario" 
+                                formControlName="usuario"
+                                label="Nombre de Usuario"
+                                [required]="true"
+                                [disabled]="esAgente"
+                                placeholder="Ingrese el DNI del usuario">
+                            </plex-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <plex-text 
+                                name="nombre" 
+                                formControlName="nombre"
+                                label="Nombre"
+                                [required]="true"
+                                [disabled]="esAgente"
+                                placeholder="Ingrese nombre de Usuario">
+                            </plex-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <plex-text 
+                                name="apellido" 
+                                formControlName="apellido"
+                                label="Apellido"
+                                [required]="true"
+                                [disabled]="esAgente"
+                                placeholder="Ingrese apellido del Usuario">
+                            </plex-text>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <plex-select 
+                                [data]="authMethodOptions"
+                                label="Metodo de autenticación"
+                                name="authMethod"
+                                formControlName="authMethod"
+                                placeholder="Seleccione el metodo de autenticación"
+                                [required]="true">
+                            </plex-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <plex-bool 
+                                type="slide"
+                                label="¿Usuario activo?"
+                                name="activo"
+                                formControlName="activo">
+                            </plex-bool>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </form>
+
+    </plex-layout-main>
+</plex-layout>
