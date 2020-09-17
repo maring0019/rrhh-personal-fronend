@@ -202,35 +202,35 @@ const routes: Routes = [
     {
         path: "seguridad/usuarios",
         component: UsuarioListComponent,
-        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
-        data: {
-            permissions: {
-                only: ["seguridad:view_usuario"],
-                redirectTo: "/inicio",
-            },
-        },
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: ["seguridad:view_usuario"],
+        //         redirectTo: "/inicio",
+        //     },
+        // },
     },
     {
         path: "seguridad/usuarios/crear",
         component: UsuarioCreateUpdateComponent,
-        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
-        data: {
-            permissions: {
-                only: ["seguridad:view_usuario"],
-                redirectTo: "/inicio",
-            },
-        },
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: ["seguridad:view_usuario"],
+        //         redirectTo: "/inicio",
+        //     },
+        // },
     },
     {
         path: "seguridad/usuarios/editar/:id",
         component: UsuarioCreateUpdateComponent,
-        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
-        data: {
-            permissions: {
-                only: ["seguridad:view_usuario"],
-                redirectTo: "/inicio",
-            },
-        },
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: ["seguridad:view_usuario"],
+        //         redirectTo: "/inicio",
+        //     },
+        // },
     },
 
     // Partes

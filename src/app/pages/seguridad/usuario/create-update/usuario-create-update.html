@@ -1,8 +1,8 @@
-<plex-layout main="12">
+<plex-layout main="8">
     <plex-layout-main>
 
         <app-crud-header
-            [action]="(object?.id)? 'update':'create'"
+            [action]="(object?._id)? 'update':'create'"
             [titulo]="titulo"
             [subtitulo]="subtitulo"
             (save)="onSave()"
@@ -41,7 +41,7 @@
                         </div>
                     </div> -->
                     <div class="row">
-                        <div class="col-md-5 col-xs-12">
+                        <div class="col-md-10 col-xs-12">
                             <app-agente-select-input
                                 *ngIf="esAgente"
                                 [agente]="agente"
@@ -49,30 +49,6 @@
                                 [editable]="!object._id"
                                 (change)="onSelectAgente($event)">
                             </app-agente-select-input>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 col-xs-12">
-                            <plex-text 
-                                name="usuario" 
-                                formControlName="usuario"
-                                label="Nombre de Usuario"
-                                [required]="true"
-                                [disabled]="esAgente"
-                                placeholder="Ingrese el DNI del usuario">
-                            </plex-text>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 col-xs-12">
-                            <plex-text 
-                                name="nombre" 
-                                formControlName="nombre"
-                                label="Nombre"
-                                [required]="true"
-                                [disabled]="esAgente"
-                                placeholder="Ingrese nombre de Usuario">
-                            </plex-text>
                         </div>
                     </div>
                     <div class="row">
@@ -86,8 +62,29 @@
                                 placeholder="Ingrese apellido del Usuario">
                             </plex-text>
                         </div>
+                        <div class="col-md-5 col-xs-12">
+                            <plex-text 
+                                name="nombre" 
+                                formControlName="nombre"
+                                label="Nombre"
+                                [required]="true"
+                                [disabled]="esAgente"
+                                placeholder="Ingrese nombre de Usuario">
+                            </plex-text>
+                        </div>
                     </div>
+                    <hr class="white"/>
                     <div class="row">
+                        <div class="col-md-5 col-xs-12">
+                            <plex-text 
+                                name="usuario" 
+                                formControlName="usuario"
+                                label="Nombre de Usuario"
+                                [required]="true"
+                                [disabled]="esAgente"
+                                placeholder="Ingrese el DNI del usuario">
+                            </plex-text>
+                        </div>
                         <div class="col-md-5 col-xs-12">
                             <plex-select 
                                 [data]="authMethodOptions"
@@ -98,6 +95,9 @@
                                 [required]="true">
                             </plex-select>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                     </div>
                     <div class="row">
                         <div class="col-md-5 col-xs-12">
@@ -112,6 +112,100 @@
                 </div>
             </div>            
         </form>
-
     </plex-layout-main>
+       
+        <plex-layout-sidebar type="invert">
+
+            <ng-container *ngIf="roles">
+                <header class="d-flex flex-row justify-content-between subheader">
+                    <div>
+                        <h5><strong>Roles</strong></h5>
+                    </div>
+                </header>
+    
+                <ul>
+                    <li *ngFor="let rol of roles; let i = index">
+
+                        <div *ngIf="i <= 2" class="d-flex flex-row justify-content-between">
+                            <p>{{ rol.nombre }}</p>
+                            <plex-bool 
+                                type="slide"
+                                [(ngModel)]="rol.hasPerm"
+                                (change)="onChangeRol($event, rol)">
+                            </plex-bool>
+                        </div>
+                        <div *ngIf="i > 2 && verRolesDisponibles" class="d-flex flex-row justify-content-between">
+                            <p>{{ rol.nombre }}</p>
+                            <plex-bool 
+                                type="slide"
+                                [(ngModel)]="rol.hasPerm"
+                                (change)="onChangeRol($event, rol)">
+                            </plex-bool>
+                        </div>
+                    </li>
+                </ul>
+                
+                <div (click)="hideShow()" class="d-flex flex-row justify-content-center">
+                    <p *ngIf="!verRolesDisponibles else verMenos">
+                        <strong>Ver más</strong> <span><plex-icon name="mdi mdi-filter-remove"></plex-icon></span>
+                    </p>
+                    <ng-template #verMenos>
+                        <p><strong>Ver menos</strong> <span><plex-icon name="mdi mdi-filter-remove"></plex-icon></span></p>
+                    </ng-template>
+                </div>
+                
+            </ng-container>
+            
+            <ng-container *ngIf="permisos">
+                <header class="d-flex flex-row justify-content-between subheader">
+                    <div>
+                        <h5><strong>Permisos</strong></h5>
+                    </div>
+                </header>
+    
+                <ul>
+                    <li *ngFor="let perm of permisos">
+                        <plex-accordion>
+                            <plex-panel tituloPrincipal="{{ perm.title }}">
+                                <ng-container *ngIf="perm.levels == 1 else submodule">
+                                    <ul>
+                                        <li *ngFor="let child of perm.childs">
+                                            <div class="d-flex flex-row justify-content-between align-items-start">
+                                                <p>{{ child.title }}</p>
+                                                <plex-bool 
+                                                    type="slide"
+                                                    [(ngModel)]="child.hasPerm">
+                                                </plex-bool>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </ng-container> 
+        
+                                <ng-template #submodule>
+                                    <div *ngFor="let child of perm.childs">
+                                        <header class="d-flex flex-row justify-content-between subheader">
+                                            <div>
+                                                <h5><strong>{{ child.title }}</strong></h5>
+                                            </div>
+                                        </header>
+                                        <ul>
+                                            <li *ngFor="let innerChild of child.childs">
+                                                <div class="d-flex flex-row justify-content-between">
+                                                    <p>{{ innerChild.title }}</p>
+                                                    <plex-bool 
+                                                        type="slide"
+                                                        [(ngModel)]="innerChild.hasPerm">
+                                                    </plex-bool>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </plex-panel>
+                        </plex-accordion>
+                    </li>
+                </ul>
+
+            </ng-container>
+        </plex-layout-sidebar>
 </plex-layout>

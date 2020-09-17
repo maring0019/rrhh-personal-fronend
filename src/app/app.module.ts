@@ -55,6 +55,8 @@ import { AuditService } from "src/app/services/audit.service";
 import { NotaService } from "src/app/services/nota.service";
 import { Auth } from "src/app/services/auth.service";
 import { UsuarioService } from "src/app/services/usuario.service";
+import { PermisoService } from "src/app/services/permiso.service";
+import { RolService } from "src/app/services/rol.service";
 
 // Stores
 import { CalendarStoreService } from "./stores/calendar.store.service";
@@ -459,6 +461,8 @@ const ADMIN_COMPONENTS = [
         AuditService,
         NotaService,
         UsuarioService,
+        PermisoService,
+        RolService,
     ],
     bootstrap: [AppComponent],
     entryComponents: [
