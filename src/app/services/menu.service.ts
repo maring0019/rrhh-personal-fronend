@@ -12,42 +12,49 @@ export class MenuService {
             subtitulo: "Configuración",
             url: "/configuracion/feriados",
             icono: "mdi-account-multiple-outline",
+            permiso: ["config:feriado:view_feriado"],
         },
         {
             titulo: "Artículos",
             subtitulo: "Configuración",
             url: "/configuracion/articulos",
             icono: "mdi-account-multiple-outline",
+            permiso: ["config:articulo:view_articulo"],
         },
         {
             titulo: "Situación Laboral",
             subtitulo: "Configuracion",
             url: "/configuracion/situaciones",
             icono: "mdi-account-multiple-outline",
-        },
-        {
-            titulo: "Periodos Guardia",
-            subtitulo: "Configuracion",
-            url: "/configuracion/guardia-periodos",
-            icono: "mdi-account-multiple-outline",
-        },
-        {
-            titulo: "Lotes Guardias",
-            subtitulo: "Configuracion",
-            url: "/configuracion/guardia-lotes",
-            icono: "mdi-account-multiple-outline",
+            permiso: ["config:agente:view_situacion"],
         },
         {
             titulo: "Regimen Horarios",
             subtitulo: "Configuracion",
             url: "/configuracion/regimen-horarios",
             icono: "mdi-account-multiple-outline",
+            permiso: ["config:regimen:view_regimen"],
         },
         {
             titulo: "Licencias Periodos",
             subtitulo: "Configuracion",
             url: "/configuracion/licencia-periodos",
             icono: "mdi-account-multiple-outline",
+            permiso: ["config:licencia:view_licencia"],
+        },
+        {
+            titulo: "Periodos Guardia",
+            subtitulo: "Configuracion",
+            url: "/configuracion/guardia-periodos",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:guardia:view_periodo"],
+        },
+        {
+            titulo: "Lotes Guardias",
+            subtitulo: "Configuracion",
+            url: "/configuracion/guardia-lotes",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:guardia:view_lote"],
         },
     ];
 
@@ -58,7 +65,7 @@ export class MenuService {
             url: "/partes/recibidos",
             icono: "mdi-account-multiple-outline",
             color: "color-violeta",
-            permiso: "partes:procesar_parte",
+            permiso: ["partes:parte:procesar_parte"],
         },
         {
             titulo: "Partes Diarios",
@@ -66,7 +73,7 @@ export class MenuService {
             url: "/partes/agentes",
             icono: "mdi-account-multiple-outline",
             color: "color-violeta",
-            permiso: "partes:add_parte",
+            permiso: ["partes:parte:add_parte"],
         },
         {
             titulo: "Ingresos y Egresos",
@@ -74,7 +81,7 @@ export class MenuService {
             url: "/partes/reportes/fichadas",
             icono: "mdi-account-multiple-outline",
             color: "color-violeta",
-            permiso: "partes:report_fichadas",
+            permiso: ["partes:reporte:fichadas"],
         },
         {
             titulo: "Partes Diarios por Agente",
@@ -82,7 +89,7 @@ export class MenuService {
             url: "/partes/reportes/partes",
             icono: "mdi-account-multiple-outline",
             color: "color-violeta",
-            permiso: "partes:report_partes",
+            permiso: ["partes:reporte:partes"],
         },
     ];
 
@@ -95,7 +102,7 @@ export class MenuService {
             icono: "mdi-account-multiple-outline",
             color: "color-celeste",
             style: "solid",
-            permiso: "agentes:view_agente",
+            permiso: ["agentes:agente:view_agente"],
         },
         {
             titulo: "Partes",
@@ -105,7 +112,13 @@ export class MenuService {
             icono: "mdi-clock",
             color: "color-violeta",
             style: "solid",
-            permiso: "partes:report_fichadas",
+            permiso: [
+                "partes:parte:add_parte",
+                "partes:parte:view_parte",
+                "partes:parte:procesar_parte",
+                "partes:reporte:fichadas",
+                "partes:reporte:partes",
+            ],
         },
         {
             titulo: "Guardias",
@@ -115,7 +128,7 @@ export class MenuService {
             icono: "mdi-calendar",
             color: "color-rosa",
             style: "solid",
-            permiso: "guardias:view_guardia",
+            permiso: ["guardias:guardia:view_guardia"],
         },
         {
             titulo: "Reportes",
@@ -125,7 +138,13 @@ export class MenuService {
             icono: "mdi-file-pdf",
             color: "color-amarillo",
             style: "solid",
-            permiso: "reportes:view_reporte",
+            permiso: [
+                "reportes:agente:legajo_agentes",
+                "reportes:agente:listado_agentes",
+                "reportes:ausentismo:ausentismo",
+                "reportes:ausentismo:ausentismo_totales",
+                "reportes:ausentismo:licencias",
+            ],
         },
         {
             titulo: "Configuración",
@@ -135,7 +154,12 @@ export class MenuService {
             icono: "mdi-settings",
             color: "color-verde",
             style: "solid",
-            permiso: "config:view_config",
+            permiso: [
+                "config:articulo:view_articulo",
+                "config:feriado:view_feriado",
+                "config:licencia:view_licencia",
+                "config:regimen:view_regimen",
+            ],
         },
         {
             titulo: "Usuarios",
@@ -145,7 +169,10 @@ export class MenuService {
             icono: "mdi-account-multiple-outline",
             color: "andes-naranja-claro",
             style: "solid",
-            permiso: "seguridad:seguridad-usuarios:view_usuario",
+            permiso: [
+                "seguridad:usuario:view_usuario",
+                "seguridad:rol:view_rol",
+            ],
         },
     ];
 

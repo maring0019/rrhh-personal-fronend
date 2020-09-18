@@ -3,13 +3,6 @@
         <section>
             <plex-box>
                 <div class="text-center">
-                    <!-- <section class="contenedor-marca-h">
-                        <div svgLogo></div>
-                        <div class="bloque-texto">
-                            <div svgAcronimo></div>
-                            <h5 class="suffix-provincia">{{ provincia }} </h5>
-                        </div>
-                    </section> -->
                     <div *ngIf="menu" class="andes-inicio row">
                         <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let item of menu">
                             <app-block-menu
@@ -79,24 +72,11 @@
 
                     </div>
         
-                    <div *ngIf="denied" class="row">
-                        <div class="col">
-                            <div class="boton color-amarillo">
-                                <i class="icono mdi mdi-alert"></i>
-                                <div class="titulo">ATENCIÓN</div>
-                                <div class="subtitulo">PERMISOS DE APLICACIONES</div>
-                                <div class="detalle">Ud. no posee permisos para ningún módulo de ANDES</div>
-                            </div>
-                        </div>
-                    </div> -->
+                   -->
         
                 </div>
             </plex-box>
         </section>
          
     </plex-layout-main>
-    <!-- <plex-layout-sidebar type="invert">
-        <router-outlet>  
-        </router-outlet>
-    </plex-layout-sidebar> -->
 </plex-layout>

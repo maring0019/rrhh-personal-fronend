@@ -241,10 +241,10 @@ const routes: Routes = [
         data: {
             permissions: {
                 only: [
-                    "partes:add_parte",
-                    "partes:procesar_parte",
-                    "partes:report_fichadas",
-                    "partes:report_partes",
+                    "partes:parte:add_parte",
+                    "partes:parte:procesar_parte",
+                    "partes:reporte:fichadas",
+                    "partes:reporte:partes",
                 ],
                 redirectTo: "/inicio",
             },
@@ -256,7 +256,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "partes:procesar_parte",
+                only: "partes:parte:procesar_parte",
                 redirectTo: "/inicio",
             },
         },
@@ -267,7 +267,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "partes:procesar_parte",
+                only: "partes:parte:procesar_parte",
                 redirectTo: "/inicio",
             },
         },
@@ -278,7 +278,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "partes:add_parte",
+                only: "partes:parte:add_parte",
                 redirectTo: "/inicio",
             },
         },
@@ -289,7 +289,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "partes:report_partes",
+                only: "partes:reporte:partes",
                 redirectTo: "/inicio",
             },
         },
@@ -300,7 +300,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "partes:report_fichadas",
+                only: "partes:reporte:fichadas",
                 redirectTo: "/inicio",
             },
         },
@@ -340,7 +340,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "agentes:add_agente",
+                only: "agentes:agente:add_agente",
                 redirectTo: "/inicio",
             },
         },
@@ -351,7 +351,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "agentes:view_agente",
+                only: "agentes:agente:view_agente",
                 redirectTo: "/inicio",
             },
         },
@@ -362,7 +362,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         data: {
             permissions: {
-                only: "agentes:view_ausentismo",
+                only: "agentes:ausentismo:view_ausentismo",
                 redirectTo: "/inicio",
             },
         },
