@@ -18,7 +18,7 @@
                             type="info"
                             (click)="onHistory()">
                         </plex-button>
-                        <ng-template [ngxPermissionsOnly]="'agentes:change_agente'">
+                        <ng-template [ngxPermissionsOnly]="'agentes:agente:change_agente'">
                             <plex-button
                             title="Ver Ausencias"
                             icon="clock"
@@ -27,7 +27,7 @@
                             class="mr-2">
                         </plex-button>
                         </ng-template>
-                        <ng-template [ngxPermissionsOnly]="'agentes:view_ausentismo'">
+                        <ng-template [ngxPermissionsOnly]="'agentes:ausentismo:view_ausentismo'">
                             <plex-button
                                 *ngIf="agente?.activo"
                                 title="Editar Agente"

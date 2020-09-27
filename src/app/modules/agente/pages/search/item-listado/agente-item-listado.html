@@ -51,9 +51,11 @@
                 icon="clock"
                 (click)="gotoAusenciasAgente(agente)">Editar
             </plex-button>
-            
+            <!-- Si tiene alguno de los permisos se muestran el icono-->
             <plex-dropdown
-                *ngxPermissionsOnly="['agentes:add_nota', 'agentes:baja_agente', 'agentes:add_historialaboral', 'agentes:print_credencial']"
+                *ngxPermissionsOnly="['agentes:nota:add_nota', 'agentes:agente:baja_agente',
+                                     'agentes:historia:add_historialaboral', 'agentes:agente:print_credencial',
+                                     'agentes:agente:reactivar_agente']"
                 icon="dots-vertical mdi-24px"
                 [right]="true"
                 [items]="accionesDropdownMenu[i]">
