@@ -1,0 +1,16 @@
+<div [formGroup]="form">
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesAgrupamiento | async" name="agrupamiento" formControlName="agrupamiento"
+                label="Agrupar por" placeholder="Seleccione una opción de agrupamiento" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesOrdenamiento | async" name="ordenamiento" formControlName="ordenamiento"
+                label="Ordenar por" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+</div>

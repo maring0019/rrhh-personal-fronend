@@ -2,9 +2,15 @@ import { FormGroup, FormGroupDirective } from "@angular/forms";
 
 export function markFormAsInvalid(form: FormGroup) {
     Object.keys(form.controls).forEach((field) => {
-        const control = form.get(field);
-        control.markAsTouched({ onlySelf: true });
+        markFieldAsInvalid(form, field);
+        // const control = form.get(field);
+        // control.markAsTouched({ onlySelf: true });
     });
+}
+
+export function markFieldAsInvalid(form: FormGroup, field: string) {
+    const control = form.get(field);
+    control.markAsTouched({ onlySelf: true });
 }
 
 /**

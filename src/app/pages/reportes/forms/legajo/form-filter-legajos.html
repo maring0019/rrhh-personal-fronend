@@ -1,0 +1,9 @@
+<div [formGroup]="form">
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesOrdenamiento | async" name="ordenamiento" formControlName="ordenamiento"
+                label="Ordenar por" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+</div>

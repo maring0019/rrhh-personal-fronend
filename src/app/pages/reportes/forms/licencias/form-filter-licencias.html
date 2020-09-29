@@ -1,0 +1,36 @@
+<div [formGroup]="form">
+    <div class="row">
+        <div class="col-md-3">
+            <plex-float
+                name="anioDesde"
+                formControlName="anioDesde"
+                label="Año Desde"
+                [required]="true">
+            </plex-float>
+        </div>
+        <div class="col-md-3">
+            <plex-float
+                name="anioHasta"
+                formControlName="anioHasta"
+                label="Año Hasta"
+                [required]="true">
+            </plex-float>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesAgrupamiento | async" name="agrupamiento" formControlName="agrupamiento"
+                label="Agrupar por" placeholder="Seleccione una opción de agrupamiento" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesOrdenamiento | async" name="ordenamiento" formControlName="ordenamiento"
+                label="Ordenar por" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+</div>

@@ -29,7 +29,6 @@ import { Cargo } from "src/app/models/Cargo";
 import { SituacionLaboral } from "src/app/models/SituacionLaboral";
 import { Regimen } from "src/app/models/Regimen";
 import { Nota } from "src/app/models/Nota";
-import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: "app-agente-registro",

@@ -36,6 +36,7 @@ export class ReporteSearchComponent implements OnInit {
             formUtils.markFormAsInvalid(this.agenteFiltersComponent.form);
             return;
         }
+        if (!this.tipoReporteComponent.allFormsValid()) return;
         this.prepareSearchParams();
         const tipoReporte = this.getTipoReporte();
         this.generandoReporte = true;

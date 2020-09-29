@@ -22,7 +22,29 @@
             <h5>Opciones del  Reporte</h5>
         </div>
     </header>
-    <div class="row" *ngIf="showAnios">
+
+    <app-form-filter-legajos
+        *ngIf="showFilterForm == 'legajos_agentes'"
+        [form]="form">
+    </app-form-filter-legajos>
+
+    <app-form-filter-list-agentes
+        *ngIf="showFilterForm == 'listado_agentes'"
+        [form]="form">
+    </app-form-filter-list-agentes>
+
+    <app-form-filter-ausentismo
+        *ngIf="showFilterForm == 'ausentismo'"
+        [form]="form"> 
+    </app-form-filter-ausentismo>
+
+    <app-form-filter-licencias
+        *ngIf="showFilterForm == 'licencias_agentes'"
+        [form]="form">
+    </app-form-filter-licencias>
+
+
+    <!-- <div class="row" *ngIf="showAnios">
         <div class="col-md-3">
             <plex-float
                 name="anioDesde"
@@ -39,8 +61,8 @@
                 [required]="true">
             </plex-float>
         </div>
-    </div>
-    <div class="row" *ngIf="showPeriodos">
+    </div> -->
+    <!-- <div class="row" *ngIf="showPeriodos">
         <div class="col-md-3">
             <plex-datetime
                 type="date"
@@ -57,8 +79,8 @@
                 formControlName="fechaHasta">
             </plex-datetime>
         </div>
-    </div>
-    <div class="row" *ngIf="showArticulos">
+    </div> -->
+    <!-- <div class="row" *ngIf="showArticulos">
         <div class="col-md-6">
             <plex-select 
                 [data]="opcionesArticulos"
@@ -70,8 +92,8 @@
                 placeholder="Seleccione articulos">
             </plex-select>
         </div>
-    </div>
-    <div class="row" *ngIf="showAgrupamiento">
+    </div> -->
+    <!-- <div class="row" *ngIf="showAgrupamiento">
         <div class="col-md-6">
             <plex-select 
                 [data]="$opcionesAgrupamiento | async"
@@ -93,7 +115,7 @@
                 [required]="true">
             </plex-select>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="row">
             <div class="col-md-6">
                 <plex-radio 

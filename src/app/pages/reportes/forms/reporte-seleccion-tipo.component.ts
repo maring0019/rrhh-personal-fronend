@@ -1,34 +1,39 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
-import { ArticuloService } from "src/app/services/articulo.service";
-import { ReportesService } from "src/app/services/reportes.service";
+import { FormFilterAusentismo } from "src/app/pages/reportes/forms/ausentismo/form-filter-ausentismo.component";
+import { FormFilterListAgentes } from "src/app/pages/reportes/forms/list-agente/form-filter-list-agentes.component";
+import { FormFilterLegajos } from "src/app/pages/reportes/forms/legajo/form-filter-legajos.component";
+import { FormFilterLicencias } from "src/app/pages/reportes/forms/licencias/form-filter-licencias.component";
 
 @Component({
     selector: "app-reporte-seleccion-tipo",
     templateUrl: "./reporte-seleccion-tipo.html",
 })
 export class ReporteSeleccionTipoComponent implements OnInit {
+    @ViewChild(FormFilterAusentismo) formAusentismo: FormFilterAusentismo;
+    @ViewChild(FormFilterListAgentes) formListAgentes: FormFilterListAgentes;
+    @ViewChild(FormFilterLegajos) formLegajo: FormFilterLegajos;
+    @ViewChild(FormFilterLicencias) formLicencias: FormFilterLicencias;
+
     public form: FormGroup;
 
-    // Opciones de visualizacion
-    public showAnios;
-    public showPeriodos;
-    public showArticulos;
-    public showAgrupamiento;
+    // Identifica los filtros a buscar de acuerdo al reporte seleccionado
+    public showFilterForm: String = "legajos_agentes";
 
-    // Form select options
+    // Parent form select options
     public opcionesTiposReportes;
-    public opcionesArticulos = [];
-    public $opcionesAgrupamiento = this.reportesService.getOpcionesAgrupamiento();
-    public $opcionesOrdenamiento = this.reportesService.getOpcionesOrdenamiento();
     public opcionesVisualizacion = [];
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private articuloService: ArticuloService,
-        private reportesService: ReportesService
-    ) {}
+    public filterFormsNames = {
+        legajos_agentes: "formLegajo",
+        listado_agentes: "formListAgentes",
+        ausentismo: "formAusentismo",
+        ausentismo_totalesxarticulo: "formAusentismo",
+        licencias_agentes: "formLicencias",
+    };
+
+    constructor(private formBuilder: FormBuilder) {}
 
     ngOnInit() {
         this.initFormSelectOptions();
@@ -36,182 +41,57 @@ export class ReporteSeleccionTipoComponent implements OnInit {
     }
 
     private initFormSelectOptions() {
+        // prettier-ignore
         this.opcionesTiposReportes = [
             { id: "listado_agentes", nombre: "Listado de Agentes" },
             { id: "legajos_agentes", nombre: "Legajos de Agentes" },
             { id: "ausentismo", nombre: "Ausentismo" },
-            {
-                id: "ausentismo_totalesxarticulo",
-                nombre: "Ausentismo - Totales por artículo",
-            },
+            { id: "ausentismo_totalesxarticulo", nombre: "Ausentismo - Totales por artículo" },
             { id: "licencias_agentes", nombre: "Licencias" },
         ];
+    }
 
-        this.articuloService.get({}).subscribe((data) => {
-            this.opcionesArticulos = data;
-        });
+    private getFilterForm(formName) {
+        let key = this.filterFormsNames[formName];
+        return this[key];
     }
 
     initForm() {
+        // prettier-ignore
         return this.formBuilder.group({
-            reporte: [{ id: "legajos_agentes", nombre: "Legajos de Agentes" }],
-            agrupamiento: [
-                {
-                    id: "situacionLaboral.cargo.sector.nombre",
-                    nombre: "Lugar de Trabajo",
-                },
-            ],
-            ordenamiento: [{ id: "numero", nombre: "Número de Legajo" }],
-            fechaDesde: [],
-            fechaHasta: [],
-            anioDesde: [],
-            anioHasta: [],
-            articulos: [],
+            reporte      : [{ id: "legajos_agentes", nombre: "Legajos de Agentes" }],
+            agrupamiento : [{ id: "situacionLaboral.cargo.sector.nombre", nombre: "Lugar de Trabajo" }],
+            ordenamiento : [{ id: "numero", nombre: "Número de Legajo" }],
+            fechaDesde   : [],
+            fechaHasta   : [],
+            anioDesde    : [],
+            anioHasta    : [],
+            articulos    : [],
             visualizacion: [],
         });
     }
 
     public onChangeTipoReporte(e) {
-        // Debemos actualizar las opciones de filtrado en el form
+        // Actualizamos la variable de control que determina que
+        // filtros mostrar de acuerdo al reporte selecccionado
         if (!e.value) return;
-        switch (e.value.id) {
-            case "legajos_agentes":
-                this.showAnios = false;
-                this.showPeriodos = false;
-                this.showArticulos = false;
-                this.showAgrupamiento = false;
-                break;
-            case "listado_agentes":
-                this.showAnios = false;
-                this.showPeriodos = false;
-                this.showArticulos = false;
-                this.showAgrupamiento = true;
-                break;
-            case "ausentismo":
-                this.showAnios = false;
-                this.showPeriodos = true;
-                this.showArticulos = true;
-                this.showAgrupamiento = true;
-                break;
-            case "ausentismo_totalesxarticulo":
-                this.showAnios = false;
-                this.showPeriodos = true;
-                this.showArticulos = true;
-                this.showAgrupamiento = true;
-                break;
-            case "licencias_agentes":
-                this.showAnios = true;
-                this.showPeriodos = false;
-                this.showArticulos = false;
-                this.showAgrupamiento = true;
-                break;
-        }
+        this.showFilterForm = e.value.id;
     }
 
-    prepareSearchParams() {
+    public prepareSearchParams() {
         let params: any = {};
-        let form = this.form.value;
-        // Filters
+        const form = this.form.value;
         if (form.reporte) {
-            switch (form.reporte.id) {
-                case "legajos_agentes":
-                    params = this.prepareLegajoSearchParams();
-                    break;
-                case "listado_agentes":
-                    params = this.prepareListadoSearchParams();
-                    break;
-                case "ausentismo":
-                    params = this.prepareAusentismoSearchParams();
-                    break;
-                case "ausentismo_totalesxarticulo":
-                    params = this.prepareAusentismoSearchParams();
-                    break;
-                case "licencias_agentes":
-                    params = this.prepareLicenciasSearchParams();
-                    break;
-            }
+            params = this.getFilterForm(form.reporte.id).prepareSearchParams();
         }
         return params;
     }
 
-    prepareLegajoSearchParams() {
-        let params: any = {};
-        let form = this.form.value;
-        // Sorting
-        if (form.ordenamiento) {
-            params["sort"] = form.ordenamiento.id;
+    public allFormsValid() {
+        const form = this.form.value;
+        if (form.reporte) {
+            return this.getFilterForm(form.reporte.id).isValid();
         }
-        return params;
-    }
-
-    prepareListadoSearchParams() {
-        let params: any = {};
-        let form = this.form.value;
-        // Agrupamiento
-        if (form.agrupamiento) {
-            params["$group"] = form.agrupamiento.id;
-        }
-        // Sorting
-        if (form.ordenamiento) {
-            params["sort"] = form.ordenamiento.id;
-        }
-        return params;
-    }
-
-    prepareAusentismoSearchParams() {
-        let params: any = {};
-        let form = this.form.value;
-        if (form.fechaDesde) {
-            params["fechaDesde"] = this.parseDate(form.fechaDesde);
-        }
-        if (form.fechaHasta) {
-            params["fechaHasta"] = this.parseDate(form.fechaHasta);
-        }
-        if (form.articulos) {
-            params["articulos"] = form.articulos.map((e) => e._id).join();
-        }
-        // Agrupamiento
-        if (form.agrupamiento) {
-            params["$group"] = form.agrupamiento.id;
-        }
-        // Sorting
-        if (form.ordenamiento) {
-            params["sort"] = form.ordenamiento.id;
-        }
-        return params;
-    }
-
-    private prepareLicenciasSearchParams() {
-        let params: any = {};
-        let form = this.form.value;
-        if (form.anioDesde && form.anioHasta) {
-            params["anios"] = this.parseAnios(
-                form.anioDesde,
-                form.anioHasta
-            ).join();
-        }
-        // Agrupamiento
-        if (form.agrupamiento) {
-            params["$group"] = form.agrupamiento.id;
-        }
-        // Sorting
-        if (form.ordenamiento) {
-            params["sort"] = form.ordenamiento.id;
-        }
-        return params;
-    }
-
-    // TODO Implementar en otro lugar
-    private parseDate(date) {
-        return moment(date).format("YYYY-MM-DD");
-    }
-
-    private parseAnios(desde, hasta) {
-        let anios = [];
-        while (desde <= hasta) {
-            anios.push(desde);
-            desde = desde + 1;
-        }
-        return anios;
+        return true;
     }
 }

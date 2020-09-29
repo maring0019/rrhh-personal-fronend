@@ -1,0 +1,45 @@
+<div [formGroup]="form">
+    <div class="row">
+        <div class="col-md-3">
+            <plex-datetime 
+                required="true"
+                type="date"
+                label="Periodo Desde"
+                name="fechaDesde"
+                formControlName="fechaDesde">
+            </plex-datetime>
+        </div>
+        <div class="col-md-3">
+            <plex-datetime
+                required="true"
+                type="date"
+                label="Periodo Hasta"
+                name="fechaHasta"
+                formControlName="fechaHasta">
+            </plex-datetime>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesArticulos | async" [labelField]="'codigo + descripcion'" [multiple]="true" name="articulos"
+                formControlName="articulos" label="Articulos" placeholder="Seleccione articulos">
+            </plex-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesAgrupamiento | async" name="agrupamiento" formControlName="agrupamiento"
+                label="Agrupar por" placeholder="Seleccione una opción de agrupamiento" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <plex-select [data]="$opcionesOrdenamiento | async" name="ordenamiento" formControlName="ordenamiento"
+                label="Ordenar por" [required]="true">
+            </plex-select>
+        </div>
+    </div>
+</div>
