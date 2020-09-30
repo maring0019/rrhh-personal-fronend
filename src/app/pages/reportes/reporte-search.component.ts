@@ -5,6 +5,7 @@ import { ReporteSeleccionTipoComponent } from "./forms/reporte-seleccion-tipo.co
 
 import { ReportesService } from "src/app/services/reportes.service";
 import { ModalService } from "src/app/services/modal.service";
+import { ReporteSeleccionFiltros } from "src/app/pages/reportes/forms/reporte-seleccion-filtros.component";
 
 @Component({
     selector: "app-reporte-search",
@@ -18,9 +19,9 @@ export class ReporteSearchComponent implements OnInit {
     // previos para utilizar en la impresion
     public reportQueryParams;
 
-    @ViewChild("agenteFilters")
-    agenteFiltersComponent: ReporteAgenteFiltersComponent;
-    // @ViewChild('propiedadesFilters') datosDireccion: AgenteDatosDireccionComponent;
+    // prettier-ignore
+    @ViewChild("agenteFilters") agenteFiltersComponent: ReporteAgenteFiltersComponent;
+    @ViewChild("propiedadesFilters") filtrosExtras: ReporteSeleccionFiltros;
     @ViewChild("tipoReporte")
     tipoReporteComponent: ReporteSeleccionTipoComponent;
 
@@ -88,12 +89,17 @@ export class ReporteSearchComponent implements OnInit {
 
     private prepareSearchParams() {
         const filtros_paso_1 = this.agenteFiltersComponent.prepareSearchParams();
-        const filtros_paso_2 = this.tipoReporteComponent.prepareSearchParams();
-        let queryParams = { ...filtros_paso_1, ...filtros_paso_2 };
+        const filtros_paso_2 = this.filtrosExtras.prepareSearchParams();
+        const filtros_paso_3 = this.tipoReporteComponent.prepareSearchParams();
+        let queryParams = {
+            ...filtros_paso_1,
+            ...filtros_paso_2,
+            ...filtros_paso_3,
+        };
         // console.log("Filtros!!!!!");
         // console.log(filtros_paso_1);
         // console.log(filtros_paso_2);
-        // console.log(queryParams);
+        console.log(queryParams);
         this.reportQueryParams = queryParams;
     }
 

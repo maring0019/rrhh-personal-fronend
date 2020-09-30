@@ -183,6 +183,7 @@ import { ArticuloCreateUpdateComponent } from "./modules/tm/components/articulo/
 import { ReporteSearchComponent } from "./pages/reportes/reporte-search.component";
 import { ReporteAgenteFiltersComponent } from "./pages/reportes/forms/reporte-agente-filters.component";
 import { ReporteSeleccionTipoComponent } from "./pages/reportes/forms/reporte-seleccion-tipo.component";
+import { ReporteSeleccionFiltros } from "src/app/pages/reportes/forms/reporte-seleccion-filtros.component";
 import { FormFilterAusentismo } from "src/app/pages/reportes/forms/ausentismo/form-filter-ausentismo.component";
 import { FormFilterListAgentes } from "src/app/pages/reportes/forms/list-agente/form-filter-list-agentes.component";
 import { FormFilterLegajos } from "src/app/pages/reportes/forms/legajo/form-filter-legajos.component";
@@ -389,6 +390,7 @@ const ADMIN_COMPONENTS = [
         ReporteSearchComponent,
         ReporteAgenteFiltersComponent,
         ReporteSeleccionTipoComponent,
+        ReporteSeleccionFiltros,
         FormFilterAusentismo,
         FormFilterListAgentes,
         FormFilterLegajos,

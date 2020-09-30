@@ -67,19 +67,20 @@ export class AgenteDatosBasicosComponent implements OnInit, AfterViewInit {
     }
 
     createDatosBasicosForm() {
+        // prettier-ignore
         return this.formBuilder.group({
-            _id: [this.agente._id],
-            numero: [this.agente.numero],
-            nombre: [this.agente.nombre],
-            apellido: [this.agente.apellido],
-            documento: [this.agente.documento],
-            cuil: [this.agente.cuil],
+            _id          : [this.agente._id],
+            numero       : [this.agente.numero],
+            nombre       : [this.agente.nombre],
+            apellido     : [this.agente.apellido],
+            documento    : [this.agente.documento],
+            cuil         : [this.agente.cuil],
             fechaNacimiento: [this.agente.fechaNacimiento],
-            sexo: [this.agente.sexo],
-            genero: [this.agente.genero],
-            estadoCivil: [this.agente.estadoCivil],
-            nacionalidad: [this.agente.nacionalidad],
-            activo: [this.agente.activo],
+            sexo         : [this.agente.sexo],
+            genero       : [this.agente.genero],
+            estadoCivil  : [this.agente.estadoCivil],
+            nacionalidad : [this.agente.nacionalidad],
+            activo       : [this.agente.activo],
         });
     }
 

@@ -1,0 +1,232 @@
+<form name="form" [formGroup]="form">
+    <plex-tabs>
+        <plex-tab label="Personales">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <plex-select
+                            [data]="estadosCivil"
+                            name="estadoCivil"
+                            formControlName="estadoCivil"
+                            label="Estado Civil"
+                            placeholder="Estado Civil">
+                        </plex-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <plex-select
+                            [idField]="'_id'"
+                            [data]="$paises | async"
+                            name="nacionalidad"
+                            formControlName="nacionalidad"
+                            label="Nacionalidad"
+                            placeholder="Nacionalidad">
+                        </plex-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <plex-select
+                            [data]="sexos"
+                            name="sexo"
+                            formControlName="sexo"
+                            label="Sexo"
+                            placeholder="Sexo"
+                            [required]="false">
+                        </plex-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <plex-datetime
+                            class="input-sm"
+                            type="date"
+                            label="Fecha de nacimiento Desde"
+                            name="nacimientoDesde"
+                            formControlName="nacimientoDesde"
+                            [required]="false">
+                        </plex-datetime>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <plex-datetime
+                            class="input-sm"
+                            type="date"
+                            label="Fecha de nacimiento Hasta"
+                            name="nacimientoHasta"
+                            formControlName="nacimientoHasta"
+                            [required]="false">
+                        </plex-datetime>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+        </plex-tab>
+        
+        <plex-tab label="Domicilio"> <!-- Filtros Domicilio-->
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$localidades | async"
+                        name="localidad" 
+                        formControlName="localidad"
+                        label="Localidad"
+                        placeholder="Localidad">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$provincias | async"
+                        name="provincia"
+                        formControlName="provincia"
+                        label="Provincia"
+                        placeholder="Provincia">
+                    </plex-select>
+                </div>
+            </div>
+        </plex-tab>
+        <plex-tab label="Educación">
+            <div>
+
+            </div>
+        </plex-tab>
+        
+        <plex-tab label="Situación"> <!-- Filtros Situacion-->
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-datetime
+                        class="input-sm"
+                        type="date"
+                        label="Fecha de Ingreso al Estado Desde"
+                        name="ingresoEstadoDesde"
+                        formControlName="ingresoEstadoDesde"
+                        [required]="false">
+                    </plex-datetime>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <plex-datetime
+                        class="input-sm"
+                        type="date"
+                        label="Fecha de Ingreso al Estado Hasta"
+                        name="ingresoEstadoHasta"
+                        formControlName="ingresoEstadoHasta"
+                        [required]="false">
+                    </plex-datetime>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$tipoSituaciones | async"
+                        name="situacion"
+                        formControlName="situacion"
+                        label="Situación en Planta"
+                        placeholder="Situación en Planta">
+                    </plex-select>
+                </div>
+            </div>
+        </plex-tab>
+        
+        <plex-tab label="Cargo"> <!-- Filtros Cargo-->
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$tipoNormaLegales | async"
+                        name="tipoNorma"
+                        formControlName="tipoNorma"
+                        label="Tipo de Norma Legal"
+                        placeholder="Tipo de Norma Legal">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$puestos | async"
+                        name="puesto"
+                        formControlName="puesto"
+                        label="Agrupamiento"
+                        placeholder="Agrupamiento">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$subpuestos | async"
+                        name="subpuesto"
+                        formControlName="subpuesto"
+                        label="Función"
+                        placeholder="Función">
+                    </plex-select>
+                </div>
+            </div>
+        </plex-tab>
+        <plex-tab label="Regimenes">
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [idField]="'_id'"
+                        [data]="$regimenes | async"
+                        name="regimenHorario"
+                        formControlName="regimenHorario"
+                        label="Regimen Horario"
+                        placeholder="Sin Especificar">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [data]="opcionesSiNo"
+                        name="dedicacionExclusiva"
+                        formControlName="dedicacionExclusiva"
+                        label="Posee Dedicación Exclusiva"
+                        placeholder="Sin Especificar">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [data]="opcionesSiNo"
+                        name="tiempoPleno"
+                        formControlName="tiempoPleno"
+                        label="Posee Tiempo Pleno"
+                        placeholder="Sin Especificar">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [data]="opcionesSiNo"
+                        name="guardiasActivas"
+                        formControlName="guardiasActivas"
+                        label="Realiza guardias activas"
+                        placeholder="Sin Especificar">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <plex-select
+                        [data]="opcionesSiNo"
+                        name="guardiasPasivas"
+                        formControlName="guardiasPasivas"
+                        label="Realiza guardias pasivas"
+                        placeholder="Sin Especificar">
+                    </plex-select>
+                </div>
+            </div>
+        </plex-tab>
+    </plex-tabs>
+</form>
