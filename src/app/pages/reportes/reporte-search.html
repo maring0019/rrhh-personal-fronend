@@ -22,12 +22,12 @@
             </section>
         </header>
         
-        <plex-loader *ngIf="generandoReporte"
+        <!-- <plex-loader *ngIf="generandoReporte"
             class="d-flex flex-column align-items-center justify-content-center h-75"
             type="ball-beat">
-        </plex-loader>
+        </plex-loader> -->
         
-        <plex-tabs *ngIf="!generandoReporte">
+        <plex-tabs>
             <plex-tab label="1. SELECCION DE AGENTES">
                 <div>
                     <app-reporte-agente-filters #agenteFilters></app-reporte-agente-filters>

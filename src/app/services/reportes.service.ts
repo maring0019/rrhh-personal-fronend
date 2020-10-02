@@ -76,12 +76,17 @@ export class ReportesService {
     }
 
     public getOpcionesAgrupamiento() {
-        let url = `${this.baseUrl}/opcionesAgrupamiento`;
+        let url = `${this.baseUrl}/opciones-agrupamiento`;
         return this.server.get(url, { showLoader: false });
     }
 
     public getOpcionesOrdenamiento() {
-        let url = `${this.baseUrl}/opcionesOrdenamiento`;
+        let url = `${this.baseUrl}/opciones-ordenamiento`;
+        return this.server.get(url, { showLoader: false });
+    }
+
+    public getOpcionesVisualizacion() {
+        let url = `${this.baseUrl}/opciones-visualizacion`;
         return this.server.get(url, { showLoader: false });
     }
 

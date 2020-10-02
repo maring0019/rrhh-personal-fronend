@@ -12,6 +12,7 @@ export class FormFilterListAgentes {
 
     public $opcionesAgrupamiento = this.reportesService.getOpcionesAgrupamiento();
     public $opcionesOrdenamiento = this.reportesService.getOpcionesOrdenamiento();
+    public $opcionesVisualizacion = this.reportesService.getOpcionesVisualizacion();
 
     constructor(private reportesService: ReportesService) {}
 
@@ -21,6 +22,12 @@ export class FormFilterListAgentes {
         // Agrupamiento
         if (form.agrupamiento) {
             params["$group"] = form.agrupamiento.id;
+        }
+        // Opciones de visualizacion
+        if (form.visualizacion) {
+            params["fields"] = form.visualizacion.map((e) => {
+                return e.id;
+            });
         }
         // Sorting
         if (form.ordenamiento) {

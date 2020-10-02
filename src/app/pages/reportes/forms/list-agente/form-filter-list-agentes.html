@@ -1,16 +1,46 @@
+<br>
 <div [formGroup]="form">
     <div class="row">
         <div class="col-md-6">
-            <plex-select [data]="$opcionesAgrupamiento | async" name="agrupamiento" formControlName="agrupamiento"
-                label="Agrupar por" placeholder="Seleccione una opción de agrupamiento" [required]="true">
-            </plex-select>
+            <header class="d-flex flex-row justify-content-between subheader">
+                <div>
+                    <h5>Opciones del Reporte</h5>
+                </div>
+            </header>
+            <div class="row">
+                <div class="col-md-8">
+                    <plex-select [data]="$opcionesAgrupamiento | async" name="agrupamiento" formControlName="agrupamiento"
+                        label="Agrupar por" placeholder="Seleccione una opción de agrupamiento" [required]="true">
+                    </plex-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <plex-select [data]="$opcionesOrdenamiento | async" name="ordenamiento" formControlName="ordenamiento"
+                        label="Ordenar por" [required]="true">
+                    </plex-select>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
-            <plex-select [data]="$opcionesOrdenamiento | async" name="ordenamiento" formControlName="ordenamiento"
-                label="Ordenar por" [required]="true">
-            </plex-select>
+            <header class="d-flex flex-row justify-content-between subheader">
+                <div>
+                    <h5>Opciones de Visualización</h5>
+                </div>
+            </header>
+            <div class="row">
+                <div class="col-md-8">
+                    <plex-select
+                        [data]="$opcionesVisualizacion | async"
+                        [multiple]="true"
+                        name="visualizacion"
+                        formControlName="visualizacion"
+                        label="Mostrar los siguientes datos adicionales"
+                        placeholder="Seleccione las opciones de Visualización">
+                    </plex-select>
+                </div>
+            </div>
         </div>
     </div>
+    
 </div>

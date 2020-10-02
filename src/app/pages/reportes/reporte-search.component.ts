@@ -96,10 +96,7 @@ export class ReporteSearchComponent implements OnInit {
             ...filtros_paso_2,
             ...filtros_paso_3,
         };
-        // console.log("Filtros!!!!!");
-        // console.log(filtros_paso_1);
-        // console.log(filtros_paso_2);
-        console.log(queryParams);
+        // console.log(queryParams);
         this.reportQueryParams = queryParams;
     }
 
