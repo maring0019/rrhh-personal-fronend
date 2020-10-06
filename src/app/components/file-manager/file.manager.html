@@ -18,7 +18,7 @@
 
 <ng-container *ngFor="let file of files; let idx=index">
     <div class="item-row">
-        <div class="item-column">
+        <div class="item-column" [ngClass]="size">
             <div class="d-flex flex-row justify-content-start">
                 <plex-icon name="file"></plex-icon>
                 <plex-label 
