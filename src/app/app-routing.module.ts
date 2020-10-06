@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginPage } from "./pages/login/login.page";
+import { LogoutComponent } from "src/app/pages/logout/logout.component";
 import { RoutingGuard, RoutingNavBar } from "./app-guard";
 
 // Components
@@ -395,6 +396,11 @@ const routes: Routes = [
     },
 
     { path: "login", component: LoginPage, canActivate: [RoutingNavBar] },
+    {
+        path: "logout",
+        component: LogoutComponent,
+        canActivate: [RoutingNavBar],
+    },
 
     // Ruteos hijos
     // { path: 'inicio', component: HomePage,

@@ -63,6 +63,7 @@ import { CalendarStoreService } from "./stores/calendar.store.service";
 
 // Pages
 import { LoginPage } from "./pages/login/login.page";
+import { LogoutComponent } from "src/app/pages/logout/logout.component";
 import { ConfiguracionMenuPageComponent } from "./pages/home/configuracion-menu.page";
 import { HomeMenuPageComponent } from "./pages/home/home-menu.page";
 import { PartesMenuPageComponent } from "./pages/home/partes-menu.page";
@@ -274,6 +275,7 @@ const ADMIN_COMPONENTS = [
     declarations: [
         AppComponent,
         LoginPage,
+        LogoutComponent,
         HomeMenuPageComponent,
         ConfiguracionMenuPageComponent,
         PartesMenuPageComponent,
