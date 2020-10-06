@@ -21,7 +21,7 @@
 
         /* z-index must be higher than .jw-modal-background */
         z-index: 1050;
-        
+
         /* enables scrolling for tall modals */
         overflow: auto;
 
@@ -45,8 +45,8 @@
         left: 0;
 
         /* semi-transparent black  */
-        background-color:rgba(0, 0, 0, 0.4);
-        
+        background-color: rgba(0, 0, 0, 0.4);
+
         /* z-index must be below .jw-modal and above everything else  */
         z-index: 1030;
     }
@@ -57,42 +57,43 @@ body.jw-modal-open {
     overflow: hidden;
 }
 
-
 $gap: 5px;
 
-
-::ng-deep { 
+::ng-deep {
     .item-row {
-      border: 1px solid #eee;
-      display: flex;
-      flex-wrap: wrap;
-      padding: 10px $gap/2;
-      cursor: pointer;
+        border: 1px solid #eee;
+        display: flex;
+        justify-content: space-between !important;
+        flex-wrap: wrap;
+        padding: 10px $gap/2;
+        cursor: pointer;
 
-      plex-dropdown {
-        text-indent: 1px;
-      }
+        plex-dropdown {
+            text-indent: 1px;
+        }
     }
 
     .item-row-selected {
-      background-color: #00a1dfb0;
-      // opacity: 0.2;
-      outline: none;
-      border: 2px solid;
-      box-shadow: 0 0 10px #00a1df;
-      
-      .badge-info {
-        color: #fff;
-      }
+        background-color: #00a1dfb0;
+        // opacity: 0.2;
+        outline: none;
+        border: 2px solid;
+        box-shadow: 0 0 10px #00a1df;
+
+        .badge-info {
+            color: #fff;
+        }
     }
 
-    .item.row, .item-column, .item-column-full{
-      margin: $gap/2;
-      padding-left: 10px;
+    .item.row,
+    .item-column,
+    .item-column-full {
+        margin: $gap/2;
+        padding-left: 10px;
     }
 
     .item-column {
-      flex: 0 0 calc(100% - #{$gap});
+        flex: 0 0 calc(100% - #{$gap});
     }
 
     .item-column.sm {
@@ -105,31 +106,30 @@ $gap: 5px;
         text-indent: 10px;
     }
 
-    .item-column { 
-      flex: 0 0 calc(80% - #{$gap});
-      min-height: 30px;
-    }
-    
-    .item-botonera {
-      flex: 0 0 calc(20% - #{$gap});
-      text-indent: 10px;
+    .item-column {
+        flex: 0 0 calc(80% - #{$gap});
+        min-height: 30px;
     }
 
-    .item-column-full{
-      flex: 0 0 calc(100% - #{$gap});
-      min-height: 30px;
+    .item-botonera {
+        flex: 0 0 calc(20% - #{$gap});
+        text-indent: 10px;
+    }
+
+    .item-column-full {
+        flex: 0 0 calc(100% - #{$gap});
+        min-height: 30px;
     }
 
     @for $i from 1 to 100 {
-      .wp-#{$i} {
-        width: 0% + $i;
-      }
+        .wp-#{$i} {
+            width: 0% + $i;
+        }
     }
+}
 
-  }
-
-  /* Listados plex-item */
-  ::ng-deep div.item-list plex-label {
+/* Listados plex-item */
+::ng-deep div.item-list plex-label {
     min-height: 45px !important;
 }
 

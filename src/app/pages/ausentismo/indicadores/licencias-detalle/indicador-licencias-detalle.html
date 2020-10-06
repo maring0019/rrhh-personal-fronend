@@ -26,14 +26,17 @@
     [item]="item"
     [itemSelected]="itemSelected"
     [actions]="editable? ['edit']:[]"
+    [size]="'sm'"
+    [botonera]="editable"
     (edit)="onItemEdit($event)">
     <plex-label
+        class="{{ editable? 'wp-40':'wp-60' }}" 
         titulo="{{ item.vigencia }}">
     </plex-label>
-    <plex-badge type="info">
+    <plex-badge type="info" class="wp-30">
         {{ item.intervalos[0]?.totales}} Asig.
     </plex-badge>
-    <plex-badge type="success">
-        {{ item.intervalos[0]?.ejecutadas}} Toma.
+    <plex-badge type="success" class="wp-30">
+        {{ (item.intervalos[0]?.ejecutadas)? item.intervalos[0].ejecutadas: '--' }} Toma.
     </plex-badge>
 </list-item>
