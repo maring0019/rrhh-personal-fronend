@@ -40,15 +40,15 @@ export class FormFilterLicencias {
 
     public isValid() {
         let _isValid = true;
-        // const form = this.form.value;
-        // if (!form.fechaDesde) {
-        //     formUtils.markFieldAsInvalid(this.form, "fechaDesde");
-        //     _isValid = false;
-        // }
-        // if (!form.fechaHasta) {
-        //     formUtils.markFieldAsInvalid(this.form, "fechaHasta");
-        //     _isValid = false;
-        // }
+        const form = this.form.value;
+        if (!form.anioDesde) {
+            formUtils.markFieldAsInvalid(this.form, "anioDesde");
+            _isValid = false;
+        }
+        if (!form.anioHasta) {
+            formUtils.markFieldAsInvalid(this.form, "anioHasta");
+            _isValid = false;
+        }
         return _isValid;
     }
 
