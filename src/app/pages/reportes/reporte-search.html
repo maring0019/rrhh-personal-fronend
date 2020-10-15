@@ -58,10 +58,6 @@
                 <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
             </div>
         </header>
-        <app-search-leyenda 
-            *ngIf="searched && agentes && !agentes.length"
-            [header]="'No se encontraron resultados!'">
-        </app-search-leyenda>
         <section *ngIf="generandoReporte"
             class="d-flex flex-column align-items-center justify-content-center h-75">
             <div class="d-flex flex-column text-center text-muted">
