@@ -22,10 +22,12 @@ export class ReporteSeleccionTipoComponent implements OnInit {
     public showFilterForm: String = "legajos_agentes";
 
     // Parent form select options
-    public opcionesTiposReportes;
+    public opcionesTipoReporte;
     public opcionesVisualizacion = [];
 
     public filterFormsNames = {
+        // Observar que la key de cada form declarado aqui debe ser el
+        // id de un tipo de reporte valido (ver opcionesTipoReporte)
         legajos_agentes: "formLegajo",
         listado_agentes: "formListAgentes",
         ausentismo: "formAusentismo",
@@ -37,12 +39,12 @@ export class ReporteSeleccionTipoComponent implements OnInit {
 
     ngOnInit() {
         this.initFormSelectOptions();
-        this.form = this.initForm();
+        this.initForm();
     }
 
     private initFormSelectOptions() {
         // prettier-ignore
-        this.opcionesTiposReportes = [
+        this.opcionesTipoReporte = [
             { id: "listado_agentes", nombre: "Listado de Agentes" },
             { id: "legajos_agentes", nombre: "Legajos de Agentes" },
             { id: "ausentismo", nombre: "Ausentismo" },
@@ -58,7 +60,7 @@ export class ReporteSeleccionTipoComponent implements OnInit {
 
     initForm() {
         // prettier-ignore
-        return this.formBuilder.group({
+        this.form = this.formBuilder.group({
             reporte      : [{ id: "legajos_agentes", nombre: "Legajos de Agentes" }],
             agrupamiento : [{ id: "situacionLaboral.cargo.sector.nombre", nombre: "Lugar de Trabajo" }],
             ordenamiento : [{ id: "numero", nombre: "Número de Legajo" }],
@@ -83,6 +85,7 @@ export class ReporteSeleccionTipoComponent implements OnInit {
         const form = this.form.value;
         if (form.reporte) {
             params = this.getFilterForm(form.reporte.id).prepareSearchParams();
+            params["tipoReporte"] = form.reporte.id;
         }
         return params;
     }

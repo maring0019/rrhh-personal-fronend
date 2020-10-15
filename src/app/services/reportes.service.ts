@@ -6,7 +6,8 @@ import {
     URLSearchParams,
     Headers,
 } from "@angular/http";
-import { Observable } from "rxjs/Observable";
+// import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs/Rx";
 
 import { Server } from "@andes/shared";
 import { environment } from "src/environments/environment";
@@ -22,14 +23,7 @@ export class ReportesService {
     private serverUrl = environment.API;
     private baseUrl = "/modules/reportes"; // URL to web api
 
-    // Listado de reportes con su respectiva url
     private reportesUrl = {
-        // Reportes Generales
-        listado_agentes: `${this.serverUrl}${this.baseUrl}/agentes/listado`,
-        legajos_agentes: `${this.serverUrl}${this.baseUrl}/agentes/legajo`,
-        ausentismo: `${this.serverUrl}${this.baseUrl}/agentes/ausentismo`,
-        ausentismo_totalesxarticulo: `${this.serverUrl}${this.baseUrl}/agentes/ausentismo/totalesporarticulo`,
-        licencias_agentes: `${this.serverUrl}${this.baseUrl}/agentes/licencias`,
         // Partes
         partes_agentes: `${this.serverUrl}${this.baseUrl}/agentes/partes`,
         // Ausentismo
@@ -56,8 +50,31 @@ export class ReportesService {
             .catch(this.handleError);
     }
 
+    public print(params?: any): Observable<any> {
+        const url = `${this.serverUrl}${this.baseUrl}/print`;
+        let options = this.prepareOptions({ params: params, showError: true });
+        options.responseType = ResponseContentType.Blob;
+        // const options = new RequestOptions({responseType: ResponseContentType.Blob });
+        return this.http
+            .get(url, options)
+            .map((res) => {
+                return {
+                    filename: "reporte.pdf",
+                    file: res.blob(),
+                };
+            })
+            .catch(this.handleError);
+    }
+
+    public view(params?: any): Observable<any> {
+        const url = `${this.serverUrl}${this.baseUrl}/view`;
+        let options = this.prepareOptions({ params: params, showError: true });
+        options.responseType = ResponseContentType.Text;
+        return this.http.get(url, options).catch(this.handleError);
+    }
+
     public show(tipoReporte: string, params?: any): Observable<any> {
-        const url = this.reportesUrl[tipoReporte];
+        const url = `${this.serverUrl}${this.baseUrl}/print`; //  this.reportesUrl[tipoReporte];
         let options = this.prepareOptions({ params: params, showError: true });
         options.responseType = ResponseContentType.Text;
         return this.http.get(url, options).catch(this.handleError);
@@ -73,6 +90,11 @@ export class ReportesService {
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove();
+    }
+
+    public getOpcionesTipoReportes() {
+        let url = `${this.baseUrl}/opciones-tipo-reporte`;
+        return this.server.get(url, { showLoader: false });
     }
 
     public getOpcionesAgrupamiento() {
@@ -91,8 +113,9 @@ export class ReportesService {
     }
 
     private handleError(error: any) {
-        let errMsg = error.message
-            ? error.message
+        const errorBody = JSON.parse(error._body);
+        let errMsg = errorBody.message
+            ? errorBody.message
             : error.status
             ? `${error.status} - ${error.statusText}`
             : "Server error";

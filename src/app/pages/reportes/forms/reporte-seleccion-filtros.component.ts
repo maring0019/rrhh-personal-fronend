@@ -7,7 +7,6 @@ import { ProvinciaService } from "src/app/services/provincia.service";
 import { LocalidadService } from "src/app/services/localidad.service";
 import { TipoSituacionService } from "src/app/services/tm/situacion.service";
 import { TipoNormaLegalService } from "src/app/services/tipo-norma-legal.service";
-import { AgrupamientoService } from "src/app/services/agrupamiento.service";
 import { PuestoService } from "src/app/services/puesto.service";
 import { SubPuestoService } from "src/app/services/subpuesto.service";
 import { RegimenHorarioService } from "src/app/services/regimen-horario.service";

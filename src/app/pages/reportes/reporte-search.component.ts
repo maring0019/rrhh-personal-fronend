@@ -6,6 +6,7 @@ import { ReporteSeleccionTipoComponent } from "./forms/reporte-seleccion-tipo.co
 import { ReportesService } from "src/app/services/reportes.service";
 import { ModalService } from "src/app/services/modal.service";
 import { ReporteSeleccionFiltros } from "src/app/pages/reportes/forms/reporte-seleccion-filtros.component";
+import { Plex } from "@andes/plex";
 
 @Component({
     selector: "app-reporte-search",
@@ -15,8 +16,6 @@ export class ReporteSearchComponent implements OnInit {
     public generandoReporte = false; // Flag al momento de generar el reporte
     public htmlReport; // Contenedor para el reporte generado en formato html
 
-    // TODO ver porque se resetean los forms y no se pueden recuperar los valores
-    // previos para utilizar en la impresion
     public reportQueryParams;
 
     // prettier-ignore
@@ -27,7 +26,8 @@ export class ReporteSearchComponent implements OnInit {
 
     constructor(
         private reportesService: ReportesService,
-        private modalService: ModalService
+        private modalService: ModalService,
+        private plex: Plex
     ) {}
 
     public ngOnInit() {}
@@ -38,22 +38,21 @@ export class ReporteSearchComponent implements OnInit {
             return;
         }
         if (!this.tipoReporteComponent.allFormsValid()) return;
+
         this.prepareSearchParams();
-        const tipoReporte = this.getTipoReporte();
         this.generandoReporte = true;
-        this.reportesService
-            .show(tipoReporte, this.reportQueryParams)
-            .subscribe(
-                (data) => {
-                    this.generandoReporte = false;
-                    this.htmlReport = data._body;
-                    this.modalService.open("modal-show-results");
-                },
-                (error) => {
-                    this.generandoReporte = false;
-                    console.log("Report error:", JSON.stringify(error));
-                }
-            );
+        this.modalService.open("modal-show-results");
+        this.reportesService.view(this.reportQueryParams).subscribe(
+            (data) => {
+                this.generandoReporte = false;
+                this.htmlReport = data._body;
+            },
+            (error) => {
+                this.generandoReporte = false;
+                this.modalService.close("modal-show-results");
+                this.plex.info("danger", error);
+            }
+        );
     }
 
     private allFormsValid() {
@@ -63,28 +62,20 @@ export class ReporteSearchComponent implements OnInit {
     }
 
     public onPrint() {
-        const tipoReporte = this.getTipoReporte();
         this.generandoReporte = true;
-        this.reportesService
-            .download(tipoReporte, this.reportQueryParams)
-            .subscribe(
-                (data) => {
-                    this.descargarArchivo(data);
-                },
-                (error) => {
-                    this.generandoReporte = false;
-                    console.log("download error:", JSON.stringify(error));
-                }
-            );
+        this.reportesService.print(this.reportQueryParams).subscribe(
+            (data) => {
+                this.descargarArchivo(data);
+            },
+            (error) => {
+                this.generandoReporte = false;
+                this.plex.info("danger", error);
+            }
+        );
     }
 
     public onCloseModal() {
         this.modalService.close("modal-show-results");
-    }
-
-    private getTipoReporte() {
-        const form = this.tipoReporteComponent.form.value;
-        if (form.reporte) return form.reporte.id;
     }
 
     private prepareSearchParams() {
