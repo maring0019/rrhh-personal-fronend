@@ -40,7 +40,9 @@ export class AgenteItemListadoComponent {
     }
 
     set agentes(agentes: Agente[]) {
-        // Recuperamos los permisos del usuairio logueado
+        // Recuperamos los permisos del usuario logueado
+        // y actualizamos las acciones extras permitidas
+        // que podrá realizar el usuario
         if (agentes && agentes.length) {
             Object.keys(this.perms).forEach((perm) => {
                 this.auth.check(perm).then((value) => {
@@ -52,7 +54,7 @@ export class AgenteItemListadoComponent {
         // Le damos un poco de tiempo a que se evaluen los permisos
         window.setTimeout(() =>
             agentes.map((a, index) => {
-                let acciones: DropdownItem[] = this.prepareAgenteDropdownActions(
+                let acciones: DropdownItem[] = this.prepareDropdownActions(
                     a,
                     index
                 );
@@ -105,8 +107,9 @@ export class AgenteItemListadoComponent {
 
     /**
      * Listado de permisos requeridos para cada accion extra.
-     * Si el usuario tiene el correspondiente permiso se muestra
-     * el item de menu. Horrible
+     * Si el usuario logueado tiene el correspondiente permiso
+     * se muestra el item de menu. Los valores se actualizan
+     * cuando se instancia este componente.
      */
     public perms = {
         "agentes:agente:baja_agente": false,
@@ -128,7 +131,7 @@ export class AgenteItemListadoComponent {
         private auth: Auth
     ) {}
 
-    prepareAgenteDropdownActions(agente, index): DropdownItem[] {
+    prepareDropdownActions(agente, index): DropdownItem[] {
         let acciones: DropdownItem[] = [];
         if (agente.activo) {
             if (this.perms["agentes:agente:baja_agente"])

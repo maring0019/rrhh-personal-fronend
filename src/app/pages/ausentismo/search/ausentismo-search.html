@@ -71,6 +71,7 @@
     <app-ausentismo-listado
         *ngIf="ausentismos"
         [items]="ausentismos"
+        [editable]="agente?.activo"
         (selected)="seleccionarAusentismo($event)"
         (edit)="editarAusentismo($event)"
         (delete)="eliminarAusentismo($event)"

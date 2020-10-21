@@ -4,6 +4,7 @@ import { Ausentismo as Item } from 'src/app/models/Ausentismo';
 import { CalendarStoreService } from 'src/app/stores/calendar.store.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DropdownItem } from '@andes/plex';
+import { Auth } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class AusentismoListadoComponent {
     public listado: Item[]; // Contiene un listado plano de items
     public accionesDropdownMenu = [];
 
+    @Input()
+    editable: Boolean;
+
     /**
      * Listado de items para mostrar. Acepta una lista de items
      *
@@ -27,15 +31,29 @@ export class AusentismoListadoComponent {
         return this._items;
     }
 
-    set items(value: Item[]) {
+    set items(items: Item[]) {
+        // Recuperamos los permisos del usuario logueado
+        // y actualizamos las acciones extras permitidas
+        // que podrá realizar el usuario
+        if (items && items.length) {
+            Object.keys(this.perms).forEach((perm) => {
+                this.auth.check(perm).then((value) => {
+                    this.perms[perm] = value;
+                });
+            });
+        }
         this.accionesDropdownMenu = [];
-        value.map((a,index) => {
-            let acciones:DropdownItem[] = this.prepareAusentismoDropdownActions(a, index);
-            this.accionesDropdownMenu.push(acciones);
-        })
-        this._items = value;
-        if (value && value.length) {
-            this.listado = value;
+         // Le damos un poco de tiempo a que se evaluen los permisos
+         window.setTimeout(() =>
+            items.map((a,index) => {
+                let acciones:DropdownItem[] = this.prepareDropdownActions(a, index);
+                this.accionesDropdownMenu.push(acciones);
+            })
+        );
+        
+        this._items = items;
+        if (items && items.length) {
+            this.listado = items;
         } else {
             this.listado = [];
         }
@@ -63,8 +81,18 @@ export class AusentismoListadoComponent {
     @Output() hover: EventEmitter<Item> = new EventEmitter<Item>();
 
     storeSubscription: Subscription;
+
+    /**
+     * Listado de permisos requeridos para cada accion extra.
+     * Si el usuario logueado tiene el correspondiente permiso
+     * se muestra el item de menu. Los valores se actualizan
+     * cuando se instancia este componente.
+     */
+    public perms = {
+        "agentes:ausentismo:delete_ausentismo": false,
+    };
     
-    constructor(private calendarStoreService: CalendarStoreService) {
+    constructor(private calendarStoreService: CalendarStoreService, private auth: Auth) {
         this.subscribeAusentismoSelectionChanges();
     }
 
@@ -118,9 +146,11 @@ export class AusentismoListadoComponent {
         this.delete.emit(item);
     }
 
-    private prepareAusentismoDropdownActions(item, index):DropdownItem[]{
-        let acciones:DropdownItem[]= [];
-        acciones.push(this.bajaDropdownAction(item, index));
+    private prepareDropdownActions(item, index):DropdownItem[]{
+        let acciones: DropdownItem[] = [];
+        if (this.perms["agentes:ausentismo:delete_ausentismo"])
+                acciones.push(this.bajaDropdownAction(item, index));
+        
         acciones.push(this.printDropdownAction(item, index))
         return acciones;
     }

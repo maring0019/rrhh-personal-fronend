@@ -380,7 +380,13 @@ const routes: Routes = [
             {
                 path: "agregar",
                 component: AusentismoCargaComponent,
-                canActivate: [RoutingNavBar, RoutingGuard],
+                canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+                data: {
+                    permissions: {
+                        only: "agentes:ausentismo:add_ausentismo",
+                        redirectTo: "/inicio",
+                    },
+                },
             },
             {
                 path: "indicadores",
@@ -390,7 +396,13 @@ const routes: Routes = [
             {
                 path: ":ausentismoId/editar",
                 component: AusentismoCargaComponent,
-                canActivate: [RoutingNavBar, RoutingGuard],
+                canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+                data: {
+                    permissions: {
+                        only: "agentes:ausentismo:change_ausentismo",
+                        redirectTo: "/inicio",
+                    },
+                },
             },
         ],
     },

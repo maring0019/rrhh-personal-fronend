@@ -10,12 +10,14 @@
                 </app-header-calendar>
             </div>
             <div class="col-3">
-                <plex-button
-                    *ngIf="agente?.activo"
-                    type="info"
-                    label="Cargar Ausentismo"
-                    (click)="onCargarAusentismo()">
-                </plex-button>
+                <ng-template [ngxPermissionsOnly]="'agentes:ausentismo:add_ausentismo'">
+                    <plex-button
+                        *ngIf="agente?.activo"
+                        type="info"
+                        label="Cargar Ausentismo"
+                        (click)="onCargarAusentismo()">
+                    </plex-button>
+                </ng-template>
             </div>
         </div>
         

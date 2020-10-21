@@ -15,14 +15,19 @@
                 <plex-badge type="info">
                         {{ item.cantidadDias }} DÍAS
                 </plex-badge>
-                <plex-button
-                    title="Editar Ausentismo"
-                    size="sm"
-                    type="warning"
-                    icon="mdi mdi-pencil"
-                    (click)="editItem(item)">
-                </plex-button>
+                <ng-template [ngxPermissionsOnly]="'agentes:ausentismo:change_ausentismo'">
+                    <plex-button 
+                        *ngIf="editable"
+                        title="Editar Ausentismo"
+                        size="sm"
+                        type="warning"
+                        icon="mdi mdi-pencil"
+                        (click)="editItem(item)">
+                    </plex-button>
+                </ng-template>
+                
                 <plex-dropdown
+                    *ngIf="editable"
                     title="Acciones Extras"
                     icon="dots-vertical"
                     [type]="'sm btn-info'"
