@@ -70,30 +70,23 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild("tabs") agenteTabs: PlexTabsComponent;
 
     @HostBinding("class.plex-layout") layout = true;
-    // Datos para los formularios
+    
+    // Input para los componentes de los tabs
     public agente: Agente;
-    public direccion: Direccion;
-    public contactos: Contacto[];
-    public educacion: Educacion[];
-    public situacionLaboral: SituacionLaboral;
-    public normaLegal: NormaLegal;
-    public situacion: Situacion;
-    public cargo: Cargo;
-    public regimen: Regimen;
     public notas: Nota[];
 
     // Variable de control para determinar si se puede puede editar
     // los datos de un agente. En el caso de un alta siempre es true
     public isEditable: boolean = true;
 
-    // Datos a mostrar del agente en el panel lateral. Los cambios en
-    // los formularios son aplicados inmediatamente a este objeto
-    public agenteDetalle: Agente;
-
     private _agenteID: any; // To keep track of agente on edit
 
     // Variable de control para confirmar que el usuario desea editar
-    private edicionConfirmada: Boolean = false;
+    private edicionConfirmada: boolean = false;
+
+    // Variable de control interna para saber si alertar sobre un cambio
+    // (en la historia laboral) o no cuando se modifican datos del cargo 
+    private cargo: Cargo;
 
     // Identifica que tabs presentan errores al momento de validar
     public tabsStatus = {
@@ -133,8 +126,12 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteService.getByID(this._agenteID).subscribe((data) => {
             if (data) {
                 this.agente = new Agente(data);
-                this.agenteDetalle = data; //new Agente(data); Not required anymore
-                this.initValueForms();
+                this.agenteService
+                    .getNotas(this._agenteID)
+                    .subscribe((notas) => {
+                        this.notas = notas;
+                });
+                this.cargo = new Cargo(this.agente.situacionLaboral.cargo);
             } else {
                 this.plex
                     .info("info", "El agente que desea editar no existe!")
@@ -147,70 +144,54 @@ export class AgenteRegistroComponent implements OnInit {
 
     private prepareDataForCreate() {
         this.agente = new Agente();
-        this.agenteDetalle = new Agente();
-        this.initValueForms();
-    }
-
-    initValueForms() {
-        this.direccion = this.agente.direccion;
-        this.contactos = this.agente.contactos;
-        this.educacion = this.agente.educacion;
-        this.situacionLaboral = this.agente.situacionLaboral;
-        this.normaLegal = this.agente.situacionLaboral.normaLegal;
-        this.situacion = this.agente.situacionLaboral.situacion;
-        this.cargo = this.agente.situacionLaboral.cargo;
-        this.regimen = this.agente.situacionLaboral.regimen;
-        if (this._agenteID)
-            this.agenteService.getNotas(this._agenteID).subscribe((notas) => {
-                this.notas = notas;
-            });
+        
     }
 
     onValueChangeAgente(obj: Agente) {
-        Object.assign(this.agenteDetalle, obj);
         this.validateTab();
     }
 
     onValueChangeDireccion(obj: Direccion) {
-        this.agenteDetalle.direccion = obj;
         this.validateTab();
     }
 
     onValueChangeContactos(contactos: Contacto[]) {
-        this.agenteDetalle.contactos = contactos;
         this.validateTab();
     }
 
     onValueChangeEducacion(educacion: Educacion[]) {
-        this.agenteDetalle.educacion = educacion;
         this.validateTab();
     }
 
     onValueChangeSituacionLaboral(obj: SituacionLaboral) {
-        this.agenteDetalle.situacionLaboral = obj;
         this.validateTab();
     }
 
     onValueChangeSituacion(obj: Situacion) {
-        this.agenteDetalle.situacionLaboral.situacion = obj;
         this.confirmarEdicion();
         this.validateTab();
     }
 
     onValueChangeNormaLegal(obj: NormaLegal) {
-        this.agenteDetalle.situacionLaboral.normaLegal = obj;
         this.confirmarEdicion();
         this.validateTab();
     }
 
     onValueChangeCargo(obj: Cargo) {
-        this.agenteDetalle.situacionLaboral.cargo = obj;
-        this.confirmarEdicion();
+        if (this._agenteID && !this.edicionConfirmada) {
+            if (this.cargo.agrupamiento != obj.agrupamiento ||
+                this.cargo.puesto != obj.puesto ||
+                this.cargo.subpuesto != obj.subpuesto ||
+                this.cargo.sector != obj.sector ||
+                this.cargo.ubicacion != obj.ubicacion) {
+                    this.confirmarEdicion();
+            }
+            this.cargo = new Cargo(obj);
+        }
         this.validateTab();
     }
 
     onValueChangeRegimen(obj: Regimen) {
-        this.agenteDetalle.situacionLaboral.regimen = obj;
         this.confirmarEdicion();
         this.validateTab();
     }

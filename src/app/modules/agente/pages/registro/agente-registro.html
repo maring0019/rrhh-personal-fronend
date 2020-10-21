@@ -67,71 +67,71 @@
                 </div>
             </plex-tab>
             <plex-tab label="DOMICILIO" [color]="tabsStatus.domicilio">
-                <div *ngIf="direccion">
+                <div *ngIf="agente?.direccion">
                     <agente-datos-direccion 
-                        [direccion]="direccion"
+                        [direccion]="agente.direccion"
                         [editable]="isEditable"
                         (outputDireccion)='onValueChangeDireccion($event)'>
                     </agente-datos-direccion>
                 </div>
             </plex-tab>
             <plex-tab label="CONTACTO" [color]="tabsStatus.contacto">
-                <div *ngIf="contactos">
+                <div *ngIf="agente?.contactos">
                     <agente-datos-contacto 
-                        [contactos]="contactos"
+                        [contactos]="agente.contactos"
                         [editable]="isEditable"
                         (outputContactos)='onValueChangeContactos($event)'>
                     </agente-datos-contacto>
                 </div>
             </plex-tab>
             <plex-tab label="EDUCACIÓN" [color]="tabsStatus.educacion">
-                <div *ngIf="educacion">
+                <div *ngIf="agente?.educacion">
                     <agente-datos-educacion 
-                        [educacion]="educacion"
+                        [educacion]="agente.educacion"
                         [editable]="isEditable"
                         (outputEducacion)='onValueChangeEducacion($event)'>
                     </agente-datos-educacion>
                 </div>
             </plex-tab>
             <plex-tab label="DATOS LABORALES" [color]="tabsStatus.datosLaborales">
-                <div *ngIf="situacionLaboral">
+                <div *ngIf="agente?.situacionLaboral">
                     <agente-datos-generales
-                        [situacionLaboral]="situacionLaboral"
+                        [situacionLaboral]="agente.situacionLaboral"
                         [editable]="isEditable"
                         (change)='onValueChangeSituacionLaboral($event)'>
                     </agente-datos-generales>
                 </div>
                 <h5 class="subheader mt-4">Norma Legal</h5>
-                <div *ngIf="normaLegal">
+                <div *ngIf="agente?.situacionLaboral?.normaLegal">
                     <agente-datos-norma-legal
-                        [normaLegal]="normaLegal"
+                        [normaLegal]="agente.situacionLaboral.normaLegal"
                         [editable]="isEditable"
                         (change)='onValueChangeNormaLegal($event)'>
                     </agente-datos-norma-legal>
                 </div>
             </plex-tab>
             <plex-tab label="SITUACIÓN" [color]="tabsStatus.situacion">
-                <div *ngIf="situacion">
+                <div *ngIf="agente?.situacionLaboral?.situacion">
                     <agente-datos-situacion
-                        [situacion]="situacion"
+                        [situacion]="agente.situacionLaboral.situacion"
                         [editable]="isEditable"
                         (outputSituacion)='onValueChangeSituacion($event)'>
                     </agente-datos-situacion>
                 </div>
             </plex-tab>
             <plex-tab label="CARGO" [color]="tabsStatus.cargo">
-                <div *ngIf="cargo">
+                <div *ngIf="agente?.situacionLaboral?.cargo">
                     <agente-datos-cargo
-                        [cargo]="cargo"
+                        [cargo]="agente.situacionLaboral.cargo"
                         [editable]="isEditable"
                         (outputCargo)='onValueChangeCargo($event)'>
                     </agente-datos-cargo>
                 </div>
             </plex-tab>
             <plex-tab label="REGÍMENES" [color]="tabsStatus.regimenes">
-                <div *ngIf="regimen">
+                <div *ngIf="agente?.situacionLaboral?.regimen">
                     <agente-datos-regimen
-                        [regimen]="regimen"
+                        [regimen]="agente.situacionLaboral.regimen"
                         [editable]="isEditable"
                         (outputRegimen)='onValueChangeRegimen($event)'>
                     </agente-datos-regimen>
@@ -186,15 +186,4 @@
             </div> -->
         </plex-tabs>
     </plex-layout-main>
-    <!-- <plex-layout-sidebar type="invert">
-        <app-agente-detalle *ngIf="agenteDetalle"
-            [agente]="agenteDetalle"
-            [foto]="agenteDetalle.foto"
-            [direccion]="agenteDetalle.direccion"
-            [contactos]="agenteDetalle.contactos"
-            [educacion]="agenteDetalle.educacion"
-            [situacion]="agenteDetalle.situacionLaboral?.situacion"
-            [regimen]="agenteDetalle.situacionLaboral?.regimen">
-        </app-agente-detalle>
-    </plex-layout-sidebar> -->
 </plex-layout>

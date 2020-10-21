@@ -88,14 +88,14 @@ export class AgenteDatosCargoComponent implements OnInit {
 
     createDatosCargoForm() {
         return this.formBuilder.group({
-            agrupamiento: [this.cargo.agrupamiento],
-            puesto: [this.cargo.puesto],
-            subpuesto: [this.cargo.subpuesto],
-            sector: [this.cargo.sector],
-            servicio: [this.cargo.servicio],
-            ubicacion: [this.cargo.ubicacion],
-            observaciones: [this.cargo.observaciones],
-            esJefe: [this.cargo.esJefe],
+            agrupamiento   : [this.cargo.agrupamiento],
+            puesto         : [this.cargo.puesto],
+            subpuesto      : [this.cargo.subpuesto],
+            sector         : [this.cargo.sector],
+            servicio       : [this.cargo.servicio],
+            ubicacion      : [this.cargo.ubicacion],
+            observaciones  : [this.cargo.observaciones],
+            esJefe         : [this.cargo.esJefe],
             jefeUbicaciones: [this.cargo.jefeUbicaciones],
         });
     }
