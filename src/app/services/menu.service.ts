@@ -162,10 +162,10 @@ export class MenuService {
             ],
         },
         {
-            titulo: "Usuarios",
+            titulo: "Seguridad",
             subtitulo: "",
             detalle: "",
-            url: "/seguridad/usuarios",
+            url: "/seguridad",
             icono: "mdi-account-multiple-outline",
             color: "andes-naranja-claro",
             style: "solid",
@@ -176,9 +176,29 @@ export class MenuService {
         },
     ];
 
+    private menuSeguridad = [
+        {
+            titulo: "Usuarios",
+            subtitulo: "Seguridad",
+            url: "/seguridad/usuarios",
+            icono: "mdi-account-multiple-outline",
+            color: "andes-naranja-claro",
+            permiso: ["seguridad:usuario:view_usuario"],
+        },
+        {
+            titulo: "Roles",
+            subtitulo: "Seguridad",
+            url: "/seguridad/roles",
+            icono: "mdi-account-multiple-outline",
+            color: "andes-naranja-claro",
+            permiso: ["seguridad:rol:view_rol"],
+        }
+    ];
+
     private menuItems = {
         configuracion: this.menuConfiguracion,
         partes: this.menuPartes,
         principal: this.menuPrincipal,
+        seguridad: this.menuSeguridad
     };
 }

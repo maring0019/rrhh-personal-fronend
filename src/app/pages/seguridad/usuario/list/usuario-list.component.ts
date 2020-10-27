@@ -60,6 +60,6 @@ export class UsuarioListComponent extends ABMListComponent {
     }
 
     public cancel() {
-        this.router.navigate(["/inicio"]);
+        this.router.navigate(["/seguridad"]);
     }
 }

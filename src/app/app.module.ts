@@ -67,6 +67,7 @@ import { LogoutComponent } from "src/app/pages/logout/logout.component";
 import { ConfiguracionMenuPageComponent } from "./pages/home/configuracion-menu.page";
 import { HomeMenuPageComponent } from "./pages/home/home-menu.page";
 import { PartesMenuPageComponent } from "./pages/home/partes-menu.page";
+import { SeguridadMenuPageComponent } from 'src/app/pages/home/seguridad-menu.page';
 
 import { RoutingGuard, RoutingNavBar } from "./app-guard";
 
@@ -235,10 +236,14 @@ import { LicenciaPeriodoCreateUpdateComponent } from "src/app/modules/tm/compone
 import { AuditSearchComponent } from "src/app/components/audit/list/search/audit-search.component";
 import { AuditListComponent } from "src/app/components/audit/list/audit-list.component";
 
-// Usuarios
+// Seguridad
 import { UsuarioListComponent } from "src/app/pages/seguridad/usuario/list/usuario-list.component";
 import { UsuarioSearchComponent } from "src/app/pages/seguridad/usuario/list/search/usuario-search.component";
 import { UsuarioCreateUpdateComponent } from "src/app/pages/seguridad/usuario/create-update/usuario-create-update.component";
+import { RolSearchComponent } from 'src/app/pages/seguridad/rol/list/search/rol-search.component';
+import { RolListComponent } from 'src/app/pages/seguridad/rol/list/rol-list.component';
+import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-update/rol-create-update.component';
+import { PermisoListComponent } from 'src/app/pages/seguridad/permiso/permiso-list.component';
 
 const ADMIN_COMPONENTS = [
     FeriadoListComponent,
@@ -279,6 +284,7 @@ const ADMIN_COMPONENTS = [
         HomeMenuPageComponent,
         ConfiguracionMenuPageComponent,
         PartesMenuPageComponent,
+        SeguridadMenuPageComponent,
 
         AgenteRegistroComponent,
         AgenteDatosBasicosComponent,
@@ -356,10 +362,14 @@ const ADMIN_COMPONENTS = [
         AuditSearchComponent,
         AuditListComponent,
 
-        // Usuarios
+        // Seguridad
         UsuarioListComponent,
         UsuarioSearchComponent,
         UsuarioCreateUpdateComponent,
+        RolListComponent,
+        RolSearchComponent,
+        RolCreateUpdateComponent,
+        PermisoListComponent,
 
         SearchLeyendaComponent,
         ListadoComponent,

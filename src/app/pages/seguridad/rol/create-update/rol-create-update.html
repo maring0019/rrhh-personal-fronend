@@ -1,0 +1,57 @@
+<plex-layout main="8">
+    <plex-layout-main>
+        <app-crud-header
+            [action]="(object?._id)? 'update':'create'"
+            [titulo]="titulo"
+            [subtitulo]="subtitulo"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+            (history)="onHistoria()">
+        </app-crud-header>
+        
+        <form *ngIf='form' name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-text 
+                        name="nombre"
+                        formControlName="nombre"
+                        label="Nombre del Rol"
+                        [required]="true"
+                        placeholder="Ingrese un nombre para el rol">
+                    </plex-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-text
+                        name="codename"
+                        formControlName="codename"
+                        label="Codename"
+                        [required]="true"
+                        placeholder="Ingrese un codigo alfanumerico para el rol (Ej. rol_admin)">
+                    </plex-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-text 
+                        name="descripcion" 
+                        formControlName="descripcion"
+                        label="Descripción"
+                        [required]="false"
+                        placeholder="Ingrese un texto descriptivo para el Rol"
+                        multiline="true">
+                    </plex-text>
+                </div>
+            </div>
+        </form>
+    </plex-layout-main>
+
+    <plex-layout-sidebar type="invert">
+        <app-permiso-list
+            *ngIf="object"
+            [permisosGranted]="object.permisos"
+            (permisosChanged)="onPermisosChanged($event)">
+        </app-permiso-list>
+    </plex-layout-sidebar>
+</plex-layout>

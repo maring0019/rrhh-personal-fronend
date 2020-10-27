@@ -7,9 +7,8 @@ import { Auth } from "src/app/services/auth.service";
     templateUrl: "page-menu.html",
 })
 export class PageMenuComponent implements OnInit {
-    @Input() title: String = "Menú Configuración General";
-    @Input() menuItem: "principal" | "configuracion" | "partes" =
-        "configuracion";
+    @Input() title: String = "";
+    @Input() menuItem: "principal" | "configuracion" | "partes";
     public denied: Boolean = false;
     public menu = [];
 

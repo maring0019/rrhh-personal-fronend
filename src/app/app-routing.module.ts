@@ -23,10 +23,12 @@ import { FichadaReporteListComponent } from "src/app/pages/partes/reportes/ficha
 import { GuardiaCreateUpdateComponent } from "./pages/guardias/guardia-servicio/create-update/guardia-create-update.component";
 import { GuardiaListComponent } from "src/app/pages/guardias/guardia-servicio/list/guardia-list.component";
 
+// Menus pages
 import { AgenteAusentismoComponent } from "./pages/ausentismo/agente-ausentismo.component";
 import { HomeMenuPageComponent } from "src/app/pages/home/home-menu.page";
 import { ConfiguracionMenuPageComponent } from "src/app/pages/home/configuracion-menu.page";
 import { PartesMenuPageComponent } from "src/app/pages/home/partes-menu.page";
+import { SeguridadMenuPageComponent } from 'src/app/pages/home/seguridad-menu.page';
 
 // TM
 import { FeriadoListComponent } from "./modules/tm/components/feriados/list/feriado-list.component";
@@ -50,10 +52,14 @@ import { LicenciaPeriodoListComponent } from "src/app/modules/tm/components/lice
 import { LicenciaPeriodoCreateUpdateComponent } from "src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component";
 
 import { UsuarioListComponent } from "src/app/pages/seguridad/usuario/list/usuario-list.component";
+import { UsuarioCreateUpdateComponent } from "src/app/pages/seguridad/usuario/create-update/usuario-create-update.component";
+
+import { RolListComponent } from 'src/app/pages/seguridad/rol/list/rol-list.component';
+import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-update/rol-create-update.component';
 
 import { AuditListComponent } from "src/app/components/audit/list/audit-list.component";
 import { NgxPermissionsGuard } from "ngx-permissions";
-import { UsuarioCreateUpdateComponent } from "src/app/pages/seguridad/usuario/create-update/usuario-create-update.component";
+
 
 const routes: Routes = [
     // Inicio
@@ -201,15 +207,26 @@ const routes: Routes = [
 
     // Usuarios
     {
+        path: "seguridad",
+        component: SeguridadMenuPageComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: ["seguridad:usuario:view_usuario", "seguridad:rol:view_rol",],
+                redirectTo: "/inicio",
+            },
+        },
+    },
+    {
         path: "seguridad/usuarios",
         component: UsuarioListComponent,
-        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
-        // data: {
-        //     permissions: {
-        //         only: ["seguridad:view_usuario"],
-        //         redirectTo: "/inicio",
-        //     },
-        // },
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: ["seguridad:usuario:view_usuario"],
+                redirectTo: "/inicio",
+            },
+        },
     },
     {
         path: "seguridad/usuarios/crear",
@@ -225,6 +242,40 @@ const routes: Routes = [
     {
         path: "seguridad/usuarios/editar/:id",
         component: UsuarioCreateUpdateComponent,
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: ["seguridad:view_usuario"],
+        //         redirectTo: "/inicio",
+        //     },
+        // },
+    },
+
+    {
+        path: "seguridad/roles",
+        component: RolListComponent,
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: ["seguridad:usuario:view_usuario"],
+        //         redirectTo: "/inicio",
+        //     },
+        // },
+    },
+    {
+        path: "seguridad/roles/crear",
+        component: RolCreateUpdateComponent,
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: ["seguridad:view_usuario"],
+        //         redirectTo: "/inicio",
+        //     },
+        // },
+    },
+        {
+        path: "seguridad/roles/editar/:id",
+        component: RolCreateUpdateComponent,
         // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
         // data: {
         //     permissions: {

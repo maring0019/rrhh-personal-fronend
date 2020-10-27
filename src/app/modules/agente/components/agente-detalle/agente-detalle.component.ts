@@ -40,7 +40,6 @@ export class AgenteDetalleComponent implements OnChanges{
     ngOnChanges(changes:any){
         if (changes['agente']){
             const agente = changes['agente'].currentValue;
-            console.log(agente)
             this.agenteService.getNotas(agente._id).subscribe(notas => this.notas = notas);
         } 
     }

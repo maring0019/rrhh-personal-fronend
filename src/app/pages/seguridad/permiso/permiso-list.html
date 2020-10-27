@@ -1,0 +1,52 @@
+<ng-container *ngIf="permisosAll">
+    <header class="d-flex flex-row justify-content-between subheader">
+        <div>
+            <h5><strong>Permisos</strong></h5>
+        </div>
+    </header>
+
+    <ul class="panel-permisos">
+        <li *ngFor="let perm of permisosAll">
+            <plex-accordion>
+                <plex-panel tituloPrincipal="{{ perm.title }}">
+                    <ng-container *ngIf="perm.levels == 1 else submodule">
+                        <ul>
+                            <li *ngFor="let child of perm.childs" class="permiso">
+                                <div class="d-flex flex-row justify-content-between align-items-start">
+                                    <p>{{ child.title }}</p>
+                                    <plex-bool
+                                        type="slide"
+                                        [(ngModel)]="child.hasPerm"
+                                        (change)="onChangePermiso($event, child)">
+                                    </plex-bool>
+                                </div>
+                            </li>
+                        </ul>
+                    </ng-container>
+
+                    <ng-template #submodule>
+                        <div *ngFor="let child of perm.childs">
+                            <header class="d-flex flex-row justify-content-between subheader">
+                                <div>
+                                    <h5><strong>{{ child.title }}</strong></h5>
+                                </div>
+                            </header>
+                            <ul>
+                                <li *ngFor="let innerChild of child.childs" class="permiso">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <p>{{ innerChild.title }}</p>
+                                        <plex-bool
+                                            type="slide"
+                                            [(ngModel)]="innerChild.hasPerm"
+                                            (change)="onChangePermiso($event, innerChild)">
+                                        </plex-bool>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-template>
+                </plex-panel>
+            </plex-accordion>
+        </li>
+    </ul>
+</ng-container>

@@ -1,6 +1,5 @@
 <plex-layout main="8">
     <plex-layout-main>
-
         <app-crud-header
             [action]="(object?._id)? 'update':'create'"
             [titulo]="titulo"
@@ -113,16 +112,13 @@
             </div>            
         </form>
     </plex-layout-main>
-       
         <plex-layout-sidebar type="invert">
-
             <ng-container *ngIf="roles">
                 <header class="d-flex flex-row justify-content-between subheader">
                     <div>
                         <h5><strong>Roles</strong></h5>
                     </div>
                 </header>
-    
                 <ul>
                     <li *ngFor="let rol of roles; let i = index">
 
@@ -153,59 +149,13 @@
                         <p><strong>Ver menos</strong> <span><plex-icon name="mdi mdi-filter-remove"></plex-icon></span></p>
                     </ng-template>
                 </div>
-                
             </ng-container>
-            
-            <ng-container *ngIf="permisos">
-                <header class="d-flex flex-row justify-content-between subheader">
-                    <div>
-                        <h5><strong>Permisos</strong></h5>
-                    </div>
-                </header>
-    
-                <ul>
-                    <li *ngFor="let perm of permisos">
-                        <plex-accordion>
-                            <plex-panel tituloPrincipal="{{ perm.title }}">
-                                <ng-container *ngIf="perm.levels == 1 else submodule">
-                                    <ul>
-                                        <li *ngFor="let child of perm.childs">
-                                            <div class="d-flex flex-row justify-content-between align-items-start">
-                                                <p>{{ child.title }}</p>
-                                                <plex-bool 
-                                                    type="slide"
-                                                    [(ngModel)]="child.hasPerm">
-                                                </plex-bool>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </ng-container> 
-        
-                                <ng-template #submodule>
-                                    <div *ngFor="let child of perm.childs">
-                                        <header class="d-flex flex-row justify-content-between subheader">
-                                            <div>
-                                                <h5><strong>{{ child.title }}</strong></h5>
-                                            </div>
-                                        </header>
-                                        <ul>
-                                            <li *ngFor="let innerChild of child.childs">
-                                                <div class="d-flex flex-row justify-content-between">
-                                                    <p>{{ innerChild.title }}</p>
-                                                    <plex-bool 
-                                                        type="slide"
-                                                        [(ngModel)]="innerChild.hasPerm">
-                                                    </plex-bool>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ng-template>
-                            </plex-panel>
-                        </plex-accordion>
-                    </li>
-                </ul>
 
-            </ng-container>
+            <app-permiso-list
+                *ngIf="object"
+                [permisosGranted]="permisosGranted"
+                [permisosRevoked]="permisosRevoked"
+                (permisosChanged)="onPermisosChanged($event)">
+            </app-permiso-list>
         </plex-layout-sidebar>
 </plex-layout>

@@ -10,7 +10,6 @@ import { ABMCreateUpdateComponent } from "src/app/modules/tm/components/crud/abm
 import { ObjectService } from "src/app/services/tm/object.service";
 import { UsuarioService } from "src/app/services/usuario.service";
 import { AgenteService } from "src/app/services/agente.service";
-import { PermisoService } from "src/app/services/permiso.service";
 import { RolService } from "src/app/services/rol.service";
 
 import { Usuario } from "src/app/models/Usuario";
@@ -31,12 +30,22 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
         { id: "password", nombre: "password" },
     ];
 
-    permisos$ = this.permisoService.get({});
     roles$ = this.rolService.get({});
 
-    public permisos: any;
+    // Listados para comunicar permisos otorgados o revocados
+    // al componente hijo PermisoListComponent
+    public permisosGranted: String[];
+    public permisosRevoked: String[] = [];
+    
+    // Listado con todos los roles disponibles. Cada elemento
+    // del listado indica ademas si el rol esta 'seleccionado'
     public roles: any = [];
+    
+    // Variable de control para ocultar/mostrar info
     public verRolesDisponibles: Boolean = false;
+    
+    // Listado final de permisos seleccionados
+    public permisosSelected: String[];
 
     constructor(
         protected router: Router,
@@ -47,7 +56,6 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
         protected objectService: ObjectService,
         private usuarioService: UsuarioService,
         private agenteService: AgenteService,
-        private permisoService: PermisoService,
         private rolService: RolService
     ) {
         super(router, route, location, plex, formBuilder, objectService);
@@ -60,64 +68,32 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
     protected prepareDataForUpdate() {
         combineLatest(
             this.objectService.getByID(this.dataService, this._objectID),
-            this.permisos$,
             this.roles$,
-            (object, permisos, roles) => ({ object, permisos, roles })
+            (object, roles) => ({ object, roles })
         ).subscribe((result) => {
-            const usuario = result.object;
+            this.object = result.object;
+            this.permisosGranted = this.object.permisos;
+            this.roles = result.roles;
             // Identificacion de roles asignados al usuario
             for (const rol of result.roles) {
-                rol.hasPerm = usuario.roles.includes(rol.codename);
+                rol.hasPerm = this.object.roles.includes(rol.codename);
             }
 
-            // Identificacion de permisos asignados al usuario
-            for (const perm of result.permisos) {
-                let permiso = perm.key;
-                if (perm.levels == 1) {
-                    for (const child of perm.childs) {
-                        permiso = `${perm.key}:${child.key}`;
-                        child.hasPerm = usuario.permisos.includes(permiso);
-                        child.keyPerm = permiso;
-                    }
-                } else {
-                    for (const child of perm.childs) {
-                        for (const innerChild of child.childs) {
-                            permiso = `${perm.key}:${child.key}:${innerChild.key}`;
-                            innerChild.hasPerm = usuario.permisos.includes(
-                                permiso
-                            );
-                            innerChild.keyPerm = permiso;
-                        }
-                    }
-                }
-            }
-            this.roles = result.roles;
-            this.permisos = result.permisos;
-        });
-
-        this.objectService
-            .getByID(this.dataService, this._objectID)
-            .subscribe((data) => {
-                if (data) {
-                    // Ademas del usuario, necesitamos el agente
+            // Ademas del usuario, necesitamos el agente
+            if (this.object) {
                     this.agenteService
-                        .search({ documento: data.usuario })
+                        .search({ documento: this.object.usuario })
                         .subscribe((agentes) => {
-                            if (agentes.length == 1) {
-                                this.agente = agentes[0];
-                                this.object = data;
-                            } else {
-                                this.object = data;
-                            }
+                            if (agentes.length == 1) this.agente = agentes[0];
                         });
-                } else {
-                    this.plex
-                        .info("info", "El objeto que desea editar no existe!")
-                        .then((e) => {
-                            this.location.back();
-                        });
-                }
-            });
+            } else {
+                this.plex
+                    .info("info", "El objeto que desea editar no existe!")
+                    .then((e) => {
+                        this.location.back();
+                    });
+            }
+        });
     }
 
     protected initForm() {
@@ -139,6 +115,12 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
         this.patchFormValues();
     }
 
+    /**
+     * Cuando se selecciona o quita un rol, se deben notificar
+     * los permisos que el mismo otorga/revoca.
+     * @param event slice (yes or no)
+     * @param rol 
+     */
     public onChangeRol(event, rol) {
         const grantPerms = event.value; // yes or no
         let permisos = rol.permisos.slice();
@@ -152,28 +134,18 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
                 }
             }
         }
-        this.updatePermisos(permisos, grantPerms);
-    }
-
-    public updatePermisos(controlList, grantPerm) {
-        for (const perm of this.permisos) {
-            if (perm.levels == 1) {
-                for (const child of perm.childs) {
-                    if (controlList.includes(child.keyPerm)) {
-                        child.hasPerm = grantPerm;
-                    }
-                }
-            } else {
-                for (const child of perm.childs) {
-                    for (const innerChild of child.childs) {
-                        if (controlList.includes(innerChild.keyPerm)) {
-                            innerChild.hasPerm = grantPerm;
-                        }
-                    }
-                }
-            }
+        if (grantPerms) {
+            this.permisosGranted = permisos;
+        }
+        else {
+            this.permisosRevoked = permisos;
         }
     }
+
+    public onPermisosChanged(permisos) {
+        this.permisosSelected = permisos;
+    }
+
 
     public hideShow() {
         this.verRolesDisponibles = !this.verRolesDisponibles;
@@ -214,29 +186,12 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     protected preUpdate(object) {
         object = new Usuario(object);
-        object.permisos = this.collectPermisos();
+        object.permisos = this.permisosSelected;
         object.roles = this.collectRoles();
         return object;
     }
 
-    private collectPermisos() {
-        let permisos = [];
-        for (const perm of this.permisos) {
-            if (perm.levels == 1) {
-                for (const child of perm.childs) {
-                    if (child.hasPerm) permisos.push(child.keyPerm);
-                }
-            } else {
-                for (const child of perm.childs) {
-                    for (const innerChild of child.childs) {
-                        if (innerChild.hasPerm)
-                            permisos.push(innerChild.keyPerm);
-                    }
-                }
-            }
-        }
-        return permisos;
-    }
+ 
 
     private collectRoles() {
         let _roles = [];
