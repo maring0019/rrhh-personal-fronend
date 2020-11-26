@@ -7,6 +7,7 @@ import { Auth } from "src/app/services/auth.service";
 import { ReportesService } from "src/app/services/reportes.service";
 
 import { Agente } from "src/app/models/Agente";
+import { AgenteService } from "src/app/services/agente.service";
 
 export interface ActionEvent {
     accion: String;
@@ -53,9 +54,9 @@ export class AgenteItemListadoComponent {
         this.accionesDropdownMenu = [];
         // Le damos un poco de tiempo a que se evaluen los permisos
         window.setTimeout(() =>
-            agentes.map((a, index) => {
+            agentes.map((agente, index) => {
                 let acciones: DropdownItem[] = this.prepareDropdownActions(
-                    a,
+                    agente,
                     index
                 );
                 this.accionesDropdownMenu.push(acciones);
@@ -95,9 +96,8 @@ export class AgenteItemListadoComponent {
     /**
      * Evento que se emite cuando el mouse está sobre un agente
      */
-    @Output() accion: EventEmitter<ActionEvent> = new EventEmitter<
-        ActionEvent
-    >();
+    @Output()
+    accion: EventEmitter<ActionEvent> = new EventEmitter<ActionEvent>();
 
     /**
      * Evento que se emite cuando cambia el estado del agente (producto
@@ -117,6 +117,7 @@ export class AgenteItemListadoComponent {
         "agentes:nota:add_nota": false,
         "agentes:agente:print_credencial": false,
         "agentes:agente:reactivar_agente": false,
+        "agentes:agente:view_fichado": false,
     };
 
     // print
@@ -127,6 +128,7 @@ export class AgenteItemListadoComponent {
         private router: Router,
         private modalService: ModalService,
         private reportesService: ReportesService,
+        private agenteService: AgenteService,
         public plex: Plex,
         private auth: Auth
     ) {}
@@ -134,6 +136,9 @@ export class AgenteItemListadoComponent {
     prepareDropdownActions(agente, index): DropdownItem[] {
         let acciones: DropdownItem[] = [];
         if (agente.activo) {
+            if (this.perms["agentes:agente:view_fichado"])
+                acciones.push(this.statusFichadoDropdownAction(agente, index));
+
             if (this.perms["agentes:agente:baja_agente"])
                 acciones.push(this.bajaDropdownAction(agente, index));
 
@@ -158,6 +163,18 @@ export class AgenteItemListadoComponent {
         // { label: 'Ir a ruta inexistente', icon: 'pencil', route: '/ruta-rota' },
         // { label: 'Item con handler', icon: 'eye     ', handler: (() => { alert('Este es un handler'); }) }
         // ];
+    }
+
+    private statusFichadoDropdownAction(agente, index) {
+        let accion = {
+            label: "Ver habilitación fichado",
+            icon: "mdi mdi-eye",
+            handler: () => {
+                this.seleccionarAgente(agente, index);
+                this.handleFichadoConsultar(agente);
+            },
+        };
+        return accion;
     }
 
     private reactivarDropdownAction(agente, index) {
@@ -268,7 +285,6 @@ export class AgenteItemListadoComponent {
 
     public onSuccessBaja(e) {
         this.modalService.close("modal-baja-agente");
-        this.plex.info("success", "El agente se dió de baja correctamente");
         // Refresh del agente del listado, y acciones disponibles de su menu
         this.agenteSeleccionado.activo = false;
         this.accionesDropdownMenu[this.idxAgenteSeleccionado] = [
@@ -277,6 +293,11 @@ export class AgenteItemListadoComponent {
                 this.idxAgenteSeleccionado
             ),
         ];
+        // Luego de dar de baja, consultamos si desea inhabilitar el fichaje
+        const title =
+            "El agente se dió de baja correctamente ¿Desea también inhabilitarlo para fichar?";
+        const subtitle = "Operación Exitosa";
+        this.handleFichadoInhabilitar(title, subtitle, this.agenteSeleccionado);
         this.change.emit(this.agenteSeleccionado);
     }
 
@@ -288,7 +309,6 @@ export class AgenteItemListadoComponent {
 
     public onSuccessReactivar(e) {
         this.modalService.close("modal-reactivar-agente");
-        this.plex.info("success", "El agente se reactivó correctamente");
         // Refresh del agente del listado, y acciones disponibles de su menu
         this.agenteSeleccionado.activo = true;
         this.accionesDropdownMenu[this.idxAgenteSeleccionado] = [
@@ -297,6 +317,11 @@ export class AgenteItemListadoComponent {
                 this.idxAgenteSeleccionado
             ),
         ];
+        // Luego de la reactivacion, consultamos si desea habilitar el fichaje
+        const title =
+            "El agente se reactivó correctamente ¿Desea habilitarlo para fichar?";
+        const subtitle = "Operación Exitosa";
+        this.handleFichadoHabilitar(title, subtitle, this.agenteSeleccionado);
         this.change.emit(this.agenteSeleccionado);
     }
 
@@ -320,5 +345,75 @@ export class AgenteItemListadoComponent {
         this.modalService.close("modal-nota-create");
         this.plex.info("success", "Se ingresó correctamente la Nota creada.");
         this.change.emit(this.agenteSeleccionado);
+    }
+
+    private handleFichadoConsultar(agente) {
+        this.agenteService.fichadoConsultar(agente).subscribe(
+            (result) => {
+                if (result && result.status) {
+                    const title =
+                        "Agente habilitado para fichar ¿Desea inhabilitarlo para fichar?";
+                    const subtitle = "Confirmación";
+                    this.handleFichadoInhabilitar(title, subtitle, agente);
+                } else {
+                    const title =
+                        "Agente sin habilitación para fichar ¿Desea habilitarlo para fichar?";
+                    const subtitle = "Confirmación";
+                    this.handleFichadoHabilitar(title, subtitle, agente);
+                }
+            },
+            (err) => {
+                this.plex.info(
+                    "danger",
+                    `No se pudo consultar si el agente esta habilitado para fichar. ${err}`
+                );
+            }
+        );
+    }
+
+    private handleFichadoHabilitar(title, subtitle, agente) {
+        this.plex
+            .confirm(title, subtitle, "Confirmar", "Cancelar")
+            .then((confirm) => {
+                if (confirm) {
+                    this.agenteService.fichadoHabilitar(agente).subscribe(
+                        (result) => {
+                            this.plex.info(
+                                "success",
+                                "Agente habilitado correctamente"
+                            );
+                        },
+                        (err) => {
+                            this.plex.info(
+                                "danger",
+                                `No se pudo habilitar al agente. ${err}`
+                            );
+                        }
+                    );
+                }
+            });
+    }
+
+    private handleFichadoInhabilitar(title, subttitle, agente) {
+        this.plex
+            .confirm(title, subttitle, "Confirmar", "Cancelar")
+            .then((confirm) => {
+                if (confirm) {
+                    this.agenteService.fichadoInhabilitar(agente).subscribe(
+                        (result) => {
+                            this.plex.info(
+                                "success",
+                                "Agente inhabilitado correctamente"
+                            );
+                        },
+                        (err) => {
+                            this.plex.info(
+                                "danger",
+                                `No se pudo inhabilitar al agente. ${err}`
+                            );
+                        }
+                    );
+                }
+            });
     }
 }

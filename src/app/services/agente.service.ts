@@ -70,6 +70,21 @@ export class AgenteService {
         return this.server.put(url, reactivacion);
     }
 
+    fichadoHabilitar(agente: Agente): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agente._id}/fichado/habilitar`;
+        return this.server.put(url, {});
+    }
+
+    fichadoInhabilitar(agente: Agente): Observable<Agente> {
+        const url = `${this.agenteUrl}/${agente._id}/fichado/inhabilitar`;
+        return this.server.put(url, {});
+    }
+
+    fichadoConsultar(agente: Agente): Observable<any> {
+        const url = `${this.agenteUrl}/${agente._id}/fichado/consultar`;
+        return this.server.get(url);
+    }
+
     addHistoriaLaboral(
         agente: Agente,
         situacion: SituacionLaboral

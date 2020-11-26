@@ -70,7 +70,7 @@ export class AgenteRegistroComponent implements OnInit {
     @ViewChild("tabs") agenteTabs: PlexTabsComponent;
 
     @HostBinding("class.plex-layout") layout = true;
-    
+
     // Input para los componentes de los tabs
     public agente: Agente;
     public notas: Nota[];
@@ -85,7 +85,7 @@ export class AgenteRegistroComponent implements OnInit {
     private edicionConfirmada: boolean = false;
 
     // Variable de control interna para saber si alertar sobre un cambio
-    // (en la historia laboral) o no cuando se modifican datos del cargo 
+    // (en la historia laboral) o no cuando se modifican datos del cargo
     private cargo: Cargo;
 
     // Identifica que tabs presentan errores al momento de validar
@@ -130,7 +130,7 @@ export class AgenteRegistroComponent implements OnInit {
                     .getNotas(this._agenteID)
                     .subscribe((notas) => {
                         this.notas = notas;
-                });
+                    });
                 this.cargo = new Cargo(this.agente.situacionLaboral.cargo);
             } else {
                 this.plex
@@ -144,7 +144,6 @@ export class AgenteRegistroComponent implements OnInit {
 
     private prepareDataForCreate() {
         this.agente = new Agente();
-        
     }
 
     onValueChangeAgente(obj: Agente) {
@@ -179,12 +178,14 @@ export class AgenteRegistroComponent implements OnInit {
 
     onValueChangeCargo(obj: Cargo) {
         if (this._agenteID && !this.edicionConfirmada) {
-            if (this.cargo.agrupamiento != obj.agrupamiento ||
+            if (
+                this.cargo.agrupamiento != obj.agrupamiento ||
                 this.cargo.puesto != obj.puesto ||
                 this.cargo.subpuesto != obj.subpuesto ||
                 this.cargo.sector != obj.sector ||
-                this.cargo.ubicacion != obj.ubicacion) {
-                    this.confirmarEdicion();
+                this.cargo.ubicacion != obj.ubicacion
+            ) {
+                this.confirmarEdicion();
             }
             this.cargo = new Cargo(obj);
         }
@@ -431,12 +432,46 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteService.post(agente).subscribe((newAgente) => {
             this.saveFoto(newAgente);
             this.saveFiles(newAgente);
-            this.plex
-                .info("success", "El agente se ingresó correctamente")
-                .then((e) => {
-                    this.volverInicio();
-                });
+            this.handleFichadoHabilitar(newAgente);
         });
+    }
+
+    private handleFichadoHabilitar(agente) {
+        this.plex
+            .confirm(
+                "El agente se ingresó correctamente ¿Desea también habilitarlo para fichar?",
+                `Operación Exitosa`,
+                "Confirmar",
+                "Cancelar"
+            )
+            .then((confirm) => {
+                if (confirm) {
+                    this.agenteService.fichadoHabilitar(agente).subscribe(
+                        (result) => {
+                            this.plex
+                                .info(
+                                    "success",
+                                    "Agente habilitado correctamente"
+                                )
+                                .then((e) => {
+                                    this.volverInicio();
+                                });
+                        },
+                        (err) => {
+                            this.plex
+                                .info(
+                                    "danger",
+                                    `No se pudo habilitar al agente. ${err}`
+                                )
+                                .then((e) => {
+                                    this.volverInicio();
+                                });
+                        }
+                    );
+                } else {
+                    this.volverInicio();
+                }
+            });
     }
 
     updateAgente(agente) {
