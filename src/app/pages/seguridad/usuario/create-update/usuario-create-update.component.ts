@@ -34,8 +34,8 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
 
     // Listados para comunicar permisos otorgados o revocados
     // al componente hijo PermisoListComponent
-    public permisosGranted: String[];
-    public permisosRevoked: String[] = [];
+    public permisosGranted: string[];
+    public permisosRevoked: string[] = [];
     
     // Listado con todos los roles disponibles. Cada elemento
     // del listado indica ademas si el rol esta 'seleccionado'
@@ -45,7 +45,7 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
     public verRolesDisponibles: Boolean = false;
     
     // Listado final de permisos seleccionados
-    public permisosSelected: String[];
+    public permisosSelected: string[];
 
     constructor(
         protected router: Router,
@@ -94,6 +94,14 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
                     });
             }
         });
+    }
+
+
+    protected prepareDataForCreate(){
+        this.roles$.subscribe(results => {
+            this.roles = results;
+        })
+        this.object = {};
     }
 
     protected initForm() {
@@ -173,16 +181,6 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
         });
     }
 
-    protected add(object) {
-        let objToAdd = this.preAdd(object);
-        this.objectService.post(this.dataService, objToAdd).subscribe(
-            (data) => {
-                // formUtils.resetForm(this.form, this._form);
-                this.onSuccess(data);
-            },
-            (error) => this.onError(error)
-        );
-    }
 
     protected preUpdate(object) {
         object = new Usuario(object);
@@ -191,7 +189,27 @@ export class UsuarioCreateUpdateComponent extends ABMCreateUpdateComponent {
         return object;
     }
 
- 
+    protected preAdd(object) {
+        let usuario = new Usuario(object);
+        usuario.usuario = object.usuario;
+        usuario.permisos = this.permisosSelected;
+        usuario.roles = this.collectRoles();
+        return usuario;
+    }
+
+    public onSuccess(obj:any){
+        this.plex
+        .info(
+            "info",
+            `Operación Exitosa`
+        )
+        .then((e) => {
+            this.location.back();
+        });
+    }
+
+    public onError(obj:any){
+    }
 
     private collectRoles() {
         let _roles = [];
