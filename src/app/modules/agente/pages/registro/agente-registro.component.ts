@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, HostBinding, ViewChild } from "@angular/core";
-
 import { ActivatedRoute, Router, ParamMap } from "@angular/router";
+
 import { Plex } from "@andes/plex";
 
 import { AgenteService } from "src/app/services/agente.service";
@@ -105,13 +106,14 @@ export class AgenteRegistroComponent implements OnInit {
 
     constructor(
         private agenteService: AgenteService,
-        private route: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         private router: Router,
+        private location: Location,
         public plex: Plex
     ) {}
 
     ngOnInit() {
-        this.route.paramMap.subscribe((params: ParamMap) => {
+        this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
             this._agenteID = params.get("id");
             if (this._agenteID) {
                 this.prepareDataForUpdate();
@@ -522,6 +524,10 @@ export class AgenteRegistroComponent implements OnInit {
     }
 
     // Button Actions
+
+    public onCancelar(){
+        this.location.back()
+    }
 
     public onEditar() {
         this.isEditable = true;

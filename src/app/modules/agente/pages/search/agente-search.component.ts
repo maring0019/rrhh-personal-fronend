@@ -76,7 +76,6 @@ export class AgenteSearchComponent implements OnInit {
     }
 
     public onChangeAgente(agente){
-        console.log("Cambio el agente:", agente);
         this.agenteSeleccionado = {... agente};
     }
     

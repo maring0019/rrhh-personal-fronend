@@ -41,7 +41,7 @@
                             type="danger" 
                             icon="mdi mdi-close" 
                             title="Cerrar"
-                            routerLink="/agentes">
+                            (click)="onCancelar()">
                         </plex-button>
                     </div>
                     <div *ngIf="isEditable">
@@ -50,7 +50,7 @@
                             class="mx-2"
                             label="Cancelar"
                             type="danger"
-                            routerLink="/agentes">
+                            (click)="onCancelar()">
                         </plex-button>
                     </div>
                 </div>

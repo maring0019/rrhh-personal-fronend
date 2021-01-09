@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Plex } from '@andes/plex';
@@ -38,6 +39,7 @@ export class AusentismoSearchComponent implements OnInit {
         private reportesService: ReportesService,
         private router:Router,
         private route: ActivatedRoute,
+        private location: Location,
         protected plex: Plex){}
     
     public ngOnInit() {
@@ -111,5 +113,9 @@ export class AusentismoSearchComponent implements OnInit {
 
     waitingResultados(event:any){
         this.searching = true;
+    }
+
+    public onClose(){
+        this.location.back()
     }
 }

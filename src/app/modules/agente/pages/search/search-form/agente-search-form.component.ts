@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 
 import { AgenteService } from 'src/app/services/agente.service';
 import { TipoSituacionService } from 'src/app/services/tm/situacion.service';
@@ -18,7 +18,7 @@ import { getAgenteSearchParams } from 'src/app/utils/searchUtils';
 export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     public searchForm: FormGroup;
     private timeoutHandle: number;
-    public textoLibre: string = null;
+    public searchedText: string = null;
     public autoFocus = 0;
     public mostrarMasOpciones = false;
 
@@ -31,18 +31,22 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     @Output() searchEnd: EventEmitter<Agente[]> = new EventEmitter<Agente[]>();
     @Output() searchClear: EventEmitter<any> = new EventEmitter<any>();
 
-
+    
     constructor(
         private router: Router,
+        private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
         private agenteService: AgenteService,
-        private tipoSituacionService: TipoSituacionService) {
+        private tipoSituacionService: TipoSituacionService
+    ) {
+        this.searchedText = this.activatedRoute.snapshot.queryParams.search || "";
     }
 
     public ngOnInit() {
         this.autoFocus = this.autoFocus + 1;
         this.initFormSelectOptions();
         this.searchForm = this.initSearchForm();
+        this.buscar(null);
     }
 
     initFormSelectOptions(){
@@ -57,7 +61,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
 
     initSearchForm(){
         return this.formBuilder.group({
-            textoLibre  : [],
+            textoLibre  : this.searchedText,
             situacion   : [],
             estado      : [],
         });
@@ -92,7 +96,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
     public buscar($event) {
         // Error en Plex, ejecuta un change cuando el input pierde el
         // foco porque detecta que cambia el valor
-        if ($event.type) {
+        if ($event && $event.type) {
             return;
         }
         this.prepareSearchParams();
@@ -122,6 +126,26 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
             this.searchClear.emit();
         }
     }
+
+    public applyFilter($event) {
+ 
+		this.buscar($event);
+		this.applyFilterToRoute();
+ 
+    }
+    
+    private applyFilterToRoute() {
+		this.router.navigate(
+			['/agentes',],
+			{
+                queryParams: { search: this.searchForm.value.textoLibre },
+				relativeTo: this.activatedRoute,
+				// NOTE: By using the replaceUrl option, we don't increase the Browser's
+				// history depth with every filtering keystroke. 
+				replaceUrl: true
+			}
+		);
+	}
 
     public altaAgente(){
         this.router.navigate(['/agentes/registro']);
