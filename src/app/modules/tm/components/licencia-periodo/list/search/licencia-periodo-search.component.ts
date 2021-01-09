@@ -24,15 +24,15 @@ export class LicenciaPeriodoSearchComponent extends ABMSearchComponent {
     public onChange(){
         this.searchExpresion = {};
         let textoLibre = this.searchText? this.searchText.trim(): "";
-        if (textoLibre && textoLibre.length >= 4){
+        if (textoLibre && textoLibre.length >= 3){
             const searchTerms = textoLibre.split(" ");
             let andFilters = [];
             for (let exp of searchTerms) {
                 const orFilters = {"$or":[
-                    {"agente.nombre"   :{"$regex": exp, "$options":"i"}},
-                    {"agente.apellido" :{"$regex": exp, "$options":"i"}},
-                    {"agente.documento":{"$regex": exp, "$options":"i"}},
-                    {"agente.numero":{"$regex": exp, "$options":"i"}},
+                    {"agente.nombre"   :{"$regex": `${exp}`, "$options":"i"}},
+                    {"agente.apellido" :{"$regex": `^${exp}`, "$options":"i"}},
+                    {"agente.documento":{"$regex": `^${exp}`, "$options":"i"}},
+                    {"agente.numero"   :{"$regex": `^${exp}`, "$options":"i"}},
                 ]}
                 andFilters.push(orFilters);
             }

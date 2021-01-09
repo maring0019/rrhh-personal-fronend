@@ -7,6 +7,7 @@ import { Agente } from 'src/app/models/Agente';
 import { TipoSituacion } from 'src/app/models/TipoSituacion';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { isEmpty } from 'src/app/utils/formUtils';
+import { getAgenteSearchParams } from 'src/app/utils/searchUtils';
 
 
 @Component({
@@ -70,20 +71,7 @@ export class AgenteSearchFormComponent implements OnInit, OnDestroy {
         let params:any = {};
         let form = this.searchForm.value;
         let textoLibre = form.textoLibre? form.textoLibre.trim(): "";
-        if (textoLibre && textoLibre.length >= 4){
-            const exps = textoLibre.split(" ");
-            let andFilters = [];
-            for (let exp of exps) {
-                const orFilters = {"$or":[
-                    {"nombre"   :{"$regex": exp, "$options":"i"}},
-                    {"apellido" :{"$regex": exp, "$options":"i"}},
-                    {"documento":{"$regex": exp, "$options":"i"}},
-                    {"numero":{"$regex": exp, "$options":"i"}},
-                ]}
-                andFilters.push(orFilters);
-            }
-            params['filter'] = JSON.stringify({"$and" : andFilters})
-        }
+        params = getAgenteSearchParams(params, textoLibre);
         if (form.estado){
             if (form.estado.id == 'activo'){
                 params['activo'] = true;

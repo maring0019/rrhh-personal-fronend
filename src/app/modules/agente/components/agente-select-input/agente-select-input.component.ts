@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { AgenteService } from "src/app/services/agente.service";
 import { FormGroup } from "@angular/forms";
 import { Agente } from "src/app/models/Agente";
+import { getAgenteSearchParams } from 'src/app/utils/searchUtils';
 
 @Component({
     selector: "app-agente-select-input",
@@ -30,27 +31,13 @@ export class AgenteSelectInputComponent implements OnInit {
     public onSearchAgentes(event) {
         let params: any = {};
         let textoLibre = event.query ? event.query.trim() : "";
-        if (textoLibre && textoLibre.length >= 4) {
+        if (textoLibre && textoLibre.length >= 3) {
             // Cancela la búsqueda anterior
             if (this.timeoutHandle) {
                 window.clearTimeout(this.timeoutHandle);
             }
             // Preparamos los nuevos filtros
-            const exps = textoLibre.split(" ");
-            let andFilters = [];
-            for (let exp of exps) {
-                const orFilters = {
-                    $or: [
-                        { nombre: { $regex: exp, $options: "i" } },
-                        { apellido: { $regex: exp, $options: "i" } },
-                        { documento: { $regex: exp, $options: "i" } },
-                        { numero: { $regex: exp, $options: "i" } },
-                    ],
-                };
-                andFilters.push(orFilters);
-            }
-            params["filter"] = JSON.stringify({ $and: andFilters });
-
+            params = getAgenteSearchParams(params, textoLibre);
             this.timeoutHandle = window.setTimeout(() => {
                 this.timeoutHandle = null;
                 this.agenteService.search(params).subscribe(

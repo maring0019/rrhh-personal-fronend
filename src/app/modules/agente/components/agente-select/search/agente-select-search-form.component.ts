@@ -1,9 +1,9 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { isEmpty } from 'src/app/utils/formUtils';
 
 import { AgenteService } from 'src/app/services/agente.service';
 import { Agente } from 'src/app/models/Agente';
+import { getAgenteSearchParams } from 'src/app/utils/searchUtils';
 
 
 @Component({
@@ -55,15 +55,8 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy, OnCha
     private prepareSearchParams(){
         let params:any = {};
         let form = this.searchForm.value;
-        if (form.textoLibre && form.textoLibre.length >= 4){
-            const exp = form.textoLibre;
-            params['filter'] = JSON.stringify(
-                {"$or":[
-                    {"nombre"   :{"$regex": exp, "$options":"i"}},
-                    {"apellido" :{"$regex": exp, "$options":"i"}},
-                    {"documento":{"$regex": exp, "$options":"i"}},
-                ]}) 
-        }
+        let textoLibre = form.textoLibre? form.textoLibre.trim(): "";
+        params = getAgenteSearchParams(params, textoLibre);
         return {...params,...this.searchParams};
     }
 
