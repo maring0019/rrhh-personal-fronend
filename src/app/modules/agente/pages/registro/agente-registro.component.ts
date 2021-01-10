@@ -138,7 +138,7 @@ export class AgenteRegistroComponent implements OnInit {
                 this.plex
                     .info("info", "El agente que desea editar no existe!")
                     .then((e) => {
-                        this.volverInicio();
+                        this.returnToPrevPage();
                     });
             }
         });
@@ -200,7 +200,7 @@ export class AgenteRegistroComponent implements OnInit {
     }
 
     onValueChangeHistoriaLaboral(e) {
-        this.volverInicio();
+        this.returnToPrevPage();
     }
 
     /**
@@ -456,7 +456,7 @@ export class AgenteRegistroComponent implements OnInit {
                                     "Agente habilitado correctamente"
                                 )
                                 .then((e) => {
-                                    this.volverInicio();
+                                    this.returnToPrevPage();
                                 });
                         },
                         (err) => {
@@ -466,12 +466,12 @@ export class AgenteRegistroComponent implements OnInit {
                                     `No se pudo habilitar al agente. ${err}`
                                 )
                                 .then((e) => {
-                                    this.volverInicio();
+                                    this.returnToPrevPage();
                                 });
                         }
                     );
                 } else {
-                    this.volverInicio();
+                    this.returnToPrevPage();
                 }
             });
     }
@@ -483,7 +483,7 @@ export class AgenteRegistroComponent implements OnInit {
             this.plex
                 .info("success", "El agente se modificó correctamente")
                 .then((e) => {
-                    this.volverInicio();
+                    this.returnToPrevPage();
                 });
         });
     }
@@ -523,12 +523,6 @@ export class AgenteRegistroComponent implements OnInit {
         }
     }
 
-    // Button Actions
-
-    public onCancelar(){
-        this.location.back()
-    }
-
     public onEditar() {
         this.isEditable = true;
     }
@@ -557,7 +551,7 @@ export class AgenteRegistroComponent implements OnInit {
         }
     }
 
-    volverInicio() {
-        this.router.navigate(["/agentes"]);
+    public returnToPrevPage() {
+        this.location.back()
     }
 }
