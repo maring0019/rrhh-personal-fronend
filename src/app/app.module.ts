@@ -93,6 +93,7 @@ import { AgenteItemListadoComponent } from "./modules/agente/pages/search/item-l
 // Agente Detalle
 import { AgenteFotoComponent } from "./modules/agente/components/imagen-foto/agente-foto.component";
 import { AgenteDetalleComponent } from "./modules/agente/components/agente-detalle/agente-detalle.component";
+import { AgenteDetalleHeaderComponent } from './modules/agente/components/agente-detalle/header/agente-detalle-header-component';
 
 // Agente Baja/Reactivar
 import { AgenteBajaComponent } from "src/app/modules/agente/components/agente-baja/agente-baja.component";
@@ -311,6 +312,7 @@ const ADMIN_COMPONENTS = [
         AgenteFotoComponent,
         AgenteItemListadoComponent,
         AgenteDetalleComponent,
+        AgenteDetalleHeaderComponent,
         AgenteBajaComponent,
         AgenteBajaFormComponent,
         AgenteReactivarComponent,

@@ -8,6 +8,8 @@
         <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onClose()">Cerrar</plex-button>
     </div>
 </header>
+<app-agente-detalle-header *ngIf="agente" [agente]="agente"></app-agente-detalle-header>
+
 <app-ausentismo-carga-add
     *ngIf="!ausentismo && agente"
     [agente]="agente"

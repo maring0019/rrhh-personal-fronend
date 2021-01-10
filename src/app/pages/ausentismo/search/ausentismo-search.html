@@ -28,28 +28,7 @@
         </plex-button>
     </div>
 </header>
-<section class="d-flex flex-row mt-2" *ngIf="agente">
-    <div class="d-flex flex-column align-items-center mt-2 mr-4">
-        <app-agente-foto
-            [foto]="agente.foto"
-            [agente]="agente">
-        </app-agente-foto>
-    </div>
-    <article class="d-flex flex-column">
-        <div class="d-flex flex-row">
-            <plex-badge type="info">
-                {{ agente.situacionLaboral.situacion? (agente.situacionLaboral.situacion.tipoSituacion | title:'nombre') : 'Sin Situacion'}}
-            </plex-badge>
-            <plex-badge [type]="agente.activo? 'success': 'danger'">
-                    {{ agente.activo? 'Activo' : 'Baja' }}
-            </plex-badge>
-        </div>
-        <h3 class="mt-2 mb-4">
-            {{ agente.nombre }}<br>
-            <strong>{{ agente.apellido }}</strong>
-        </h3>
-    </article>
-</section>
+<app-agente-detalle-header *ngIf="agente" [agente]="agente"></app-agente-detalle-header>
 <app-ausentismo-search-form
     *ngIf="agente"
     [agente]="agente"

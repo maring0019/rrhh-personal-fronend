@@ -1,0 +1,33 @@
+<section class="d-flex flex-row mt-2">
+    <div class="d-flex flex-column align-items-center mt-2 mr-4">
+        <app-agente-foto [foto]="foto" [agente]="agente"> </app-agente-foto>
+    </div>
+    <article class="d-flex flex-column">
+        <div class="d-flex flex-row">
+            <plex-badge
+                type="info"
+                *ngIf="agente.situacionLaboral.situacion && agente.situacionLaboral.situacion.tipoSituacion"
+            >
+                {{ agente.situacionLaboral.situacion.tipoSituacion |
+                title:'nombre' }}
+            </plex-badge>
+            <plex-badge [type]="agente.activo? 'success': 'danger'">
+                {{ agente.activo? 'Activo' : 'Baja' }}
+            </plex-badge>
+        </div>
+        <h3 class="mt-2 mb-2">
+            <strong> {{ agente.apellido }}</strong>, {{ agente.nombre }}
+        </h3>
+        <section>
+            <article class="d-flex flex-row">
+                <div class="d-flex flex-row mr-4">
+                    <b>Documento</b>
+                <div class="ml-2 mb-2">
+                    <p>{{ agente.documento | title }}</p>
+                </div>
+                </div>
+            </article>
+        </section>
+    </article>
+</section>
+<hr class="white" />
