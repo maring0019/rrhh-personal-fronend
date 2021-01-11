@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -34,13 +35,14 @@ export class AusentismoCargaComponent implements OnInit {
 
     constructor(
         protected router:Router,
-        protected route: ActivatedRoute,
+        protected route: ActivatedRoute, 
         protected formBuilder: FormBuilder,
         protected agenteService:AgenteService,
         protected articuloService: ArticuloService,
         protected ausentismoService: AusentismoService,
         protected filesService: FilesService,
         private reportesService: ReportesService,
+        private location: Location,
         protected plex: Plex){ }
 
     public ngOnInit() {
@@ -136,7 +138,7 @@ export class AusentismoCargaComponent implements OnInit {
     }
 
     public onClose(){
-        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausentismo/listado`);
+        this.location.back();
     }
 
     public onPrint(){

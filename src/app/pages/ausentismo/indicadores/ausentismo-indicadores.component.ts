@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component,  OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -16,6 +17,7 @@ export class AusentismoIndicadoresComponent implements OnInit {
 
     constructor(
         protected router:Router,
+        private location: Location,
         private agenteService:AgenteService,
         private route: ActivatedRoute){}
 
@@ -60,7 +62,7 @@ export class AusentismoIndicadoresComponent implements OnInit {
     }
 
     public onClose(){
-        this.router.navigateByUrl(`/agentes/${this.agente._id}/ausentismo/listado`);
+        this.location.back();
     }
 
 }
