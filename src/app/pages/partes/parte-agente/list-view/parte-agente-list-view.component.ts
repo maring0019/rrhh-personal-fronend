@@ -34,7 +34,7 @@ export class ParteAgenteListViewComponent implements OnInit {
         [
             {
                 id: 'agente',
-                title: 'Agente',
+                title: 'Agentito',
                 size: '15'
             },
             {
@@ -92,6 +92,17 @@ export class ParteAgenteListViewComponent implements OnInit {
 
     public onCancel(){
         this.location.back();
+    }
+
+    public procesarParte(obj){
+        this.parteService.procesar(obj)
+            .subscribe(data=>{
+                this.plex.info('info', 'Parte procesado correctamente')
+                    .then( e => {
+                        this.onCancel();
+                });
+            },
+            err=>{})
     }
 
     private searchParteDiario(){

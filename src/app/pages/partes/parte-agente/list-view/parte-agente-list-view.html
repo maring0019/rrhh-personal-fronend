@@ -1,10 +1,25 @@
 <plex-layout main="12">
     <plex-layout-main>
         <header class="d-flex flex-row justify-content-between subheader">
-            <div>
-                <h5><strong>Partes Diarios Recibidos</strong> | {{ parte?.ubicacion.nombre }} ({{parte?.fecha | fecha:'utc' }}) </h5>
+            <div class="d-flex flex-row align-items-top">
+                <h5>
+                    <strong>Partes Diarios Recibidos</strong> | {{ parte?.ubicacion.nombre }} ({{parte?.fecha | fecha:'utc' }})
+                </h5>
+                <plex-badge
+                    type="success"
+                    class="ml-2"
+                    *ngIf="parte && parte.procesado">
+                    Procesado
+                </plex-badge>
             </div>
             <div class="d-flex flex-row justify-content-end">
+                <plex-button
+                        *ngIf="parte && !parte.procesado"
+                        class="mr-2"
+                        label="Procesar Parte"
+                        type="info"
+                        (click)="procesarParte(parte)">
+                    </plex-button>
                 <plex-button type="danger" icon="mdi mdi-close"  (click)="onCancel()">Cerrar</plex-button>
             </div>
         </header>
