@@ -34,7 +34,7 @@ export class ParteAgenteListViewComponent implements OnInit {
         [
             {
                 id: 'agente',
-                title: 'Agentito',
+                title: 'Agente',
                 size: '15'
             },
             {
