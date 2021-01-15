@@ -130,8 +130,12 @@ export class ParteAgenteListViewComponent implements OnInit {
     }
 
     public canAddAusentismo(obj){
-        // Fix this. Revisar validez de las condiciones
-        return (!obj.ausencia && obj.justificacion && obj.justificacion.nombre == "Ausente con aviso")
+        if (this.parte && this.parte.procesado){
+            return false;
+        }
+        else {
+            return !this.isJornadaLaboralOK(obj);
+        }
     }
 
     public hasInconsistencias(obj){
@@ -139,9 +143,13 @@ export class ParteAgenteListViewComponent implements OnInit {
         if (!obj.fichadas && !obj.ausencia && obj.justificacion && obj.justificacion.nombre != "Sin novedad") return true;
         if (!obj.fichadas && obj.ausencia && obj.justificacion && obj.justificacion.nombre == "Inasistencia justificada") return true;
         if (obj.fichadas && (!obj.fichadas.entrada || !obj.fichadas.salida) &&
-            obj.justificacion && (obj.justificacion.nombre == "Presente" || obj.justificacion.nombre == "Cumplió jornada laboral")
+            this.isJornadaLaboralOK(obj)
             ) return true
         return false;
+    }
+
+    private isJornadaLaboralOK(obj){
+        return obj.justificacion && (obj.justificacion.nombre == "Presente" || obj.justificacion.nombre == "Cumplió jornada laboral");
     }
 
     public accionToDo(obj, index){
