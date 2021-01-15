@@ -305,13 +305,14 @@ const routes: Routes = [
     {
         path: "partes/recibidos",
         component: ParteListComponent,
-        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
-        data: {
-            permissions: {
-                only: "partes:parte:procesar_parte",
-                redirectTo: "/inicio",
-            },
-        },
+        canActivate: [RoutingNavBar, RoutingGuard],
+        // canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        // data: {
+        //     permissions: {
+        //         only: "partes:parte:procesar_parte",
+        //         redirectTo: "/inicio",
+        //     },
+        // },
     },
     {
         path: "partes/recibidos/:id/agentes",

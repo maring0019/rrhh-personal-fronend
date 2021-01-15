@@ -58,15 +58,39 @@ export abstract class ABMSearchComponent implements OnInit {
     }
 
     protected prepareSearchParams(){
-        let params = this.searchFilterFormParameters; // Hook para personalizar los filtros 
+        let params = this.searchFilterFormParameters; // Hook para personalizar los filtros. See get searchFilterFormParameters..
         // Objeto final de busqueda (searchField + searchFilters)
         params = {...this.searchTextFieldParameters,...params};
         return params;
     }
 
+    /**
+     * Hook para actualizar los query params de la URL actual. Es un intento
+     * por preservar en la URL los filtros aplicados en el form de busqueda.
+     * De esta forma cuando se navega de  nuevo hacia la pagina de busqueda,
+     * es posible recuperar los parametros aplicados previamente y aplicarlos
+     * al formulario. Es decir simulamos mantener la busqueda previamente realizada.
+     * En el sistema existen varios ejemplos de uso. Ver por ejemplo el componente
+     * ParteSearchFormComponent
+     */
+    protected applyFilterToRoute() {}
+
    
+    /**
+     * Este metodo define el ciclo de ejecucion principal de una busqueda. Basicamente
+     * se aplica en tres pasos. Cada paso se puede personalizar por completo realizando
+     * un override del metodo, o bien es posible realizar pequeñas adaptaciones utilizando
+     * los 'hooks' provistos para tal fin.
+     * Algo importante a tener en cuenta es que la busqueda no se realiza aqui. El 
+     * componente solo es responsable de recuperar todos los filtros de busqueda y emitir
+     * un objeto json con los mismos.  
+     */
     public search(){
+        // Paso 1. Preparacion de los filtros/parametros de busqueda
         const searchParams = this.prepareSearchParams();
+        // Paso 2. Opcional. Ver uso para preservar filtros de busquedas en las urls
+        this.applyFilterToRoute();
+        // Paso 3. Emision de los filtros/parametros aplicados
         this.change.emit(searchParams);
     }
 

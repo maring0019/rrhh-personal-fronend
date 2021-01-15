@@ -56,3 +56,14 @@ export function isWeekday(date:Date) {
     const day = date.getDay();
     return day==0 || day ==6;
 }
+
+export function parseStrToDate(date, defaultDate=null, format="YYYY-MM-DD"){
+    try {
+        return moment(date).format(format);    
+    } catch (error) {
+        if (defaultDate) return defaultDate;
+        throw error;
+    }
+    
+
+}

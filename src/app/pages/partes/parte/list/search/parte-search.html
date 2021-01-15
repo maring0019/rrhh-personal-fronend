@@ -30,6 +30,7 @@
         <div class="row" *ngIf="mostrarMasOpciones">
             <div class="col-md-3">
                 <plex-select
+                    [idField]="'_id'"
                     [data]="parteEstadoOpciones$ | async"
                     formControlName="estado"
                     name="estado"
