@@ -19,6 +19,7 @@ import { Articulo } from 'src/app/models/Articulo';
 })
 export class AusentismoCargaAddComponent implements OnInit, OnChanges {
     @Input() agente: Agente;
+    @Input() ausentismo: Ausentismo;
     
     @Output() onSuccess: EventEmitter<Ausentismo> = new EventEmitter<Ausentismo>();
     @Output() onErrors: EventEmitter<any> = new EventEmitter<any>();
@@ -65,6 +66,8 @@ export class AusentismoCargaAddComponent implements OnInit, OnChanges {
     }
 
     initAusentismoForm(){
+        // TODO Ver como utilizar el ausentismo pasado por parametro!
+        // const ausentismo = new Ausentismo({fechaDesde:new Date(), fechaHasta:new Date()});
         const ausentismo = new Ausentismo();
         this.ausentismoForm = this.formBuilder.group({
             _id               : [ausentismo._id],
@@ -82,7 +85,7 @@ export class AusentismoCargaAddComponent implements OnInit, OnChanges {
         const rangeSelection = this.calendarStoreService.selectionRange;
         if (rangeSelection){
             this.ausentismoForm.patchValue({ fechaDesde:rangeSelection.fechaDesde});
-            this.ausentismoForm.patchValue({ fechaHasta: getYesterday(rangeSelection.fechaHasta)  });
+            this.ausentismoForm.patchValue({ fechaHasta: getYesterday(rangeSelection.fechaHasta) });
         }
     }
 

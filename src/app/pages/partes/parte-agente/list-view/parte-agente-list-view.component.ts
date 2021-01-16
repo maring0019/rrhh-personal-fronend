@@ -130,7 +130,7 @@ export class ParteAgenteListViewComponent implements OnInit {
     }
 
     public canAddAusentismo(obj){
-        if (this.parte && this.parte.procesado){
+        if (this.parte && this.parte.procesado || obj.ausencia){
             return false;
         }
         else {

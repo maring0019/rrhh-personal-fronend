@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
@@ -13,7 +13,7 @@ import { AgenteDatosNormaLegalComponent } from 'src/app/modules/agente/pages/reg
     templateUrl: './agente-reactivar-form.html'
   })
 
-export class AgenteReactivarFormComponent implements OnInit, OnChanges {
+export class AgenteReactivarFormComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() agente: Agente;
     @Input() item: HistoriaAgenteReactivacion = new HistoriaAgenteReactivacion();
     @Input() editable: Boolean = true;
@@ -30,6 +30,10 @@ export class AgenteReactivarFormComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initComponentData();
+    }
+
+    ngAfterViewInit() {
+        formUtils.patchFormDates(this.form, ['fecha']);
     }
 
     ngOnChanges(changes:any){

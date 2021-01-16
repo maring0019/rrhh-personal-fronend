@@ -16,6 +16,7 @@ import { Agente } from "src/app/models/Agente";
 import * as enumerados from "src/app/models/enumerados";
 import { getCuilCuit } from "src/app/utils/cuilGenerator";
 import { PlexTextComponent } from "@andes/plex/src/lib/text/text.component";
+import { patchFormDates } from 'src/app/utils/formUtils';
 
 @Component({
     selector: "agente-datos-basicos",
@@ -56,14 +57,7 @@ export class AgenteDatosBasicosComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        // Patch para poder visualizar correctamente la fecha de nacimiento
-        // y colocar el focus en el campo apellido al inicializar
-        window.setTimeout(() => {
-            this.datosBasicosForm.patchValue({
-                fechaNacimiento: this.datosBasicosForm.value.fechaNacimiento,
-            });
-            this.apellidoField.autoFocus = this.autoFocus + 1;
-        }, 1000);
+        patchFormDates(this.datosBasicosForm, ['fechaNacimiento']);
     }
 
     createDatosBasicosForm() {

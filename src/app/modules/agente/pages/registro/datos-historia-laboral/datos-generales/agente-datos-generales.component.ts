@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SituacionLaboral } from 'src/app/models/SituacionLaboral';
+import { patchFormDates } from 'src/app/utils/formUtils';
 
 @Component({
     selector: 'agente-datos-generales',
     templateUrl: './agente-datos-generales.html',
 })
-export class AgenteDatosGeneralesComponent implements OnInit {
+export class AgenteDatosGeneralesComponent implements OnInit, AfterViewInit {
     @Input() situacionLaboral: SituacionLaboral;
     @Input() editable: boolean = false;
     @Output() change: EventEmitter<SituacionLaboral> = new EventEmitter<SituacionLaboral>();
@@ -22,6 +23,11 @@ export class AgenteDatosGeneralesComponent implements OnInit {
             this.change.emit(this.datosGeneralesForm.value);
         });
     }
+
+    ngAfterViewInit() {
+        patchFormDates(this.datosGeneralesForm, ['fechaIngresoEstado', 'fechaIngresoHospital', 'antiguedadVacaciones', 'antiguedadPago']);
+    }
+
 
     createDatosGeneralesForm()
     {

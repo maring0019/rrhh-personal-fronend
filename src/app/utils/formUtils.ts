@@ -49,3 +49,32 @@ export function getDirtyValues(cg: FormGroup) {
     });
     return dirtyValues;
 }
+
+/**
+ * Patch para poder visualizar correctamente las fechas cuando se trabaja con reactive forms
+ * y se inicializan con valores por default. Si no se provee un listado de campos tipo fecha,
+ * intentamos determinar los campos fecha programaticamente y hacemos el patch de los mismos.
+ * La forma mas practica de utilizarlo es implementando la interface AfterViewInit de algun
+ * componente que lo requiera e invocar el mismo.
+ * @param form formulario que contiene campos tipo Date
+ * @param dateFields listado con los nombres de los campos de tipo Date
+ */
+export function patchFormDates(form:FormGroup, dateFields:string[]=[]){
+    const fieldsToPatch = {};
+    if (dateFields && dateFields.length){
+        for (const dateKey of dateFields) {
+            fieldsToPatch[dateKey] = form.value[dateKey];
+        }
+    }
+    else{
+        Object.keys(form.value).forEach((key) => {
+            if (form.value[key] instanceof Date){
+                fieldsToPatch[key] = form.value[key];
+            }        
+        });
+    }
+
+    window.setTimeout(() => {
+        form.patchValue(fieldsToPatch, {emitEvent:false})
+    }, 1000);
+}

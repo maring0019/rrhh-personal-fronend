@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -7,6 +7,7 @@ import { Plex } from '@andes/plex';
 import { ABMCreateUpdateComponent } from '../../crud/abm-create-update.component';
 import { ObjectService } from 'src/app/services/tm/object.service';
 import { FeriadoService } from 'src/app/services/feriado.service';
+import { patchFormDates } from 'src/app/utils/formUtils';
 
 @Component({
     selector: 'app-feriado-create-update',

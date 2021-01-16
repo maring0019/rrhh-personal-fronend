@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
@@ -11,7 +11,7 @@ import { FileManagerComponent } from 'src/app/components/file-manager/file.manag
     selector: 'agente-datos-norma-legal',
     templateUrl: './agente-datos-norma-legal.html'
 })
-export class AgenteDatosNormaLegalComponent implements OnInit, OnChanges {
+export class AgenteDatosNormaLegalComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() normaLegal: NormaLegal;
     @Input() editable: boolean = false;
     @Output() change: EventEmitter<NormaLegal> = new EventEmitter<NormaLegal>();
@@ -32,6 +32,10 @@ export class AgenteDatosNormaLegalComponent implements OnInit, OnChanges {
         this.datosNormaLegalForm.valueChanges.subscribe(() => {
             this.change.emit(this.datosNormaLegalForm.value);
         });
+    }
+
+    ngAfterViewInit() {
+        formUtils.patchFormDates(this.datosNormaLegalForm, ['fechaNormaLegal']);
     }
 
     ngOnChanges(changes:any){

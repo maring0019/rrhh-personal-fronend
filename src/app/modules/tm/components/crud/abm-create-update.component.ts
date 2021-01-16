@@ -51,7 +51,12 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
 
     public ngOnInit() {
         // Cuando este disponible el objeto inicializamos el form
-        this.object$.subscribe(data => { if (data) this.form = this.initForm()} );
+        this.object$.subscribe(data => { 
+            if (data) {
+                this.form = this.initForm();
+                this.patchDateFormFields();
+            }
+        } );
        
         // Preparacion del objeto para editar o crear
         this.route.paramMap.subscribe((params: ParamMap) => {
@@ -63,7 +68,13 @@ export abstract class ABMCreateUpdateComponent implements OnInit {
                 this.prepareDataForCreate();
             }
         });
+    }
 
+    /**
+     * Override this method if required
+     */
+    protected patchDateFormFields(){
+        formUtils.patchFormDates(this.form);
     }
 
     protected get paramIdName(){

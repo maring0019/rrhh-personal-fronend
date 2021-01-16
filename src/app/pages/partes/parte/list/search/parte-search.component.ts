@@ -4,7 +4,6 @@ import { FormBuilder } from '@angular/forms';
 import { ABMSearchComponent } from 'src/app/modules/tm/components/crud/abm-search.component';
 import { ParteEstadoService } from 'src/app/services/parte-estado.service';
 import { parseStrToDate } from 'src/app/utils/dates';
-import { TransitionCheckState } from '@angular/material';
 
 @Component({
     selector: 'app-parte-search-form',
@@ -45,7 +44,7 @@ export class ParteSearchFormComponent extends ABMSearchComponent implements Afte
     }
 
     ngAfterViewInit(){
-        // Parche para visualizar correctamente la fecha en el reactive form
+        // No utilizamos la utilidad patchFormDates porque necesitamos ejecutar posteriormente una busqueda
         window.setTimeout(() => {
             if (this.filterForm){
                 this.filterForm.patchValue({ 
