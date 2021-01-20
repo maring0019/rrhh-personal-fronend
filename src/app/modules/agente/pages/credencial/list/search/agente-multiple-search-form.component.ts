@@ -20,11 +20,6 @@ export class AgenteMultipleSearchFormComponent extends ABMSearchComponent {
     }
 
     protected prepareSearchParams(){
-        // let params = this.searchFilterFormParameters; // Hook para personalizar los filtros. See get searchFilterFormParameters..
-        // // Objeto final de busqueda (searchField + searchFilters)
-        // params = {...this.searchTextFieldParameters,...params};
-        // return params;
-        
         let params:any = {};
         let form = this.filterForm.value;
         let textoLibre = form.searchText? form.searchText.trim(): "";
