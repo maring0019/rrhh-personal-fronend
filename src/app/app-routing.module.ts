@@ -7,6 +7,7 @@ import { RoutingGuard, RoutingNavBar } from "./app-guard";
 // Components
 import { AgenteRegistroComponent } from "../app/modules/agente/pages/registro/agente-registro.component";
 import { AgenteSearchComponent } from "./modules/agente/pages/search/agente-search.component";
+import { AgenteMultipleSelectionListComponent } from './modules/agente/pages/credencial/list/agente-multiple-selection-list.component';
 
 import { AusentismoSearchComponent } from "./pages/ausentismo/search/ausentismo-search.component";
 import { AusentismoCargaComponent } from "./pages/ausentismo/create-update/ausentismo-carga.component";
@@ -382,6 +383,12 @@ const routes: Routes = [
     },
 
     // Agentes Busqueda y Registro
+    {
+        path: "agentes/credenciales",
+        component: AgenteMultipleSelectionListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
     {
         path: "agentes",
         component: AgenteSearchComponent,

@@ -1,0 +1,48 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5><strong>Agentes Seleccionados</strong></h5>
+    </div>
+    <plex-button
+        [disabled]="!items || !items.length"
+        label="Imprimir"
+        type="success"
+        size="sm"
+        class="mr-2"
+        icon="mdi mdi-printer"
+        (click)="onActionCall()">
+    </plex-button>
+</header>
+
+<app-search-leyenda
+    *ngIf="items && !items.length"
+    [header]="'No se ha seleccionado ningún agente aún!'">
+</app-search-leyenda>
+
+<list-item *ngFor="let item of items; let i=index"
+    [item]="item"
+    [actions]="['delete']"
+    [confirmDelete]="false"
+    (delete)="onItemDelete($event)">
+    <!-- <app-agente-foto
+        class="mt-2 mb-2 wp-25"
+        [agente]="item"
+        [style.cursor]="'pointer'">
+    </app-agente-foto> -->
+    <plex-label
+        class="wp-25"
+        titulo="D.U {{ item.documento }}"
+        subtitulo="Leg. {{ item.numero }}"
+        [tituloBold]="true"
+        [style.cursor]="'pointer'">
+    </plex-label>
+    <plex-label class="wp-50" titulo="{{ item.apellido }}, {{ item.nombre }}"></plex-label>
+    <plex-button
+        *ngIf="deleteEnabled"
+        title="Eliminar"
+        type="danger"
+        icon="mdi mdi-close"
+        size="sm"
+        (click)="deleteItem(item)"
+        [disabled]="!editable">
+    </plex-button>          
+</list-item>

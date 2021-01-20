@@ -89,6 +89,9 @@ import { AgenteSearchComponent } from "./modules/agente/pages/search/agente-sear
 import { AgenteSearchFormComponent } from "./modules/agente/pages/search/search-form/agente-search-form.component";
 import { SearchLeyendaComponent } from "./modules/agente/components/search-leyenda/search-leyenda.component";
 import { AgenteItemListadoComponent } from "./modules/agente/pages/search/item-listado/agente-item-listado.component";
+import { AgenteMultipleSelectionListComponent } from './modules/agente/pages/credencial/list/agente-multiple-selection-list.component';
+import { AgenteMultipleSearchFormComponent } from './modules/agente/pages/credencial/list/search/agente-multiple-search-form.component';
+import { AgentePrintListComponent } from './modules/agente/pages/credencial/impresion/agente-print-list.component';
 
 // Agente Detalle
 import { AgenteFotoComponent } from "./modules/agente/components/imagen-foto/agente-foto.component";
@@ -246,6 +249,7 @@ import { RolListComponent } from 'src/app/pages/seguridad/rol/list/rol-list.comp
 import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-update/rol-create-update.component';
 import { PermisoListComponent } from 'src/app/pages/seguridad/permiso/permiso-list.component';
 
+
 const ADMIN_COMPONENTS = [
     FeriadoListComponent,
     FeriadoSearchComponent,
@@ -301,6 +305,10 @@ const ADMIN_COMPONENTS = [
         AgenteNotasListComponent,
         AgenteNotasCreateUpdateComponent,
         AgenteNotasFormComponent,
+
+        AgenteMultipleSelectionListComponent,
+        AgenteMultipleSearchFormComponent,
+        AgentePrintListComponent,
 
         HistoriaLaboralCreateComponent,
         HistoriaLaboralFormComponent,

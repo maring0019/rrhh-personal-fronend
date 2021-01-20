@@ -1,0 +1,38 @@
+<header>    
+    <form name="filterForm" [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-8">
+                <plex-text
+                    formControlName="searchText"
+                    name="searchText"
+                    (change)="search()"
+                    [debounce]="1000"
+                    [autoFocus]="autoFocus"
+                    placeholder="Ingrese un parámetro de búsqueda. (Nombre, Apellido, DNI o CUIL)">
+                </plex-text>
+            </div>
+            <!-- <div class="col-md-1">
+                <plex-button
+                    type="primary"
+                    [icon]="mostrarMasOpciones ? 'mdi mdi-filter-remove' : 'mdi mdi-filter-outline'"
+                    (click)="mostrarMasOpciones = !mostrarMasOpciones">
+                </plex-button>
+            </div> -->
+        </div>
+    </form>
+    
+        
+    <!-- <form name="filterForm" [formGroup]="filterForm">
+        <div class="row" *ngIf="mostrarMasOpciones">
+            <div class="col-md-4">
+                <plex-select
+                    [data]="opcionesSiNo"
+                    formControlName="descuentaDiasLicencia"
+                    name="descuentaDiasLicencia"
+                    label="Descuenta Dias Licencia?"
+                    (change)="search()">
+                </plex-select>
+            </div>
+        </div>
+    </form> -->
+</header>

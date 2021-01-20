@@ -1,0 +1,68 @@
+<plex-layout main="8">
+
+    <plex-layout-main>
+        <app-crud-header 
+            [titulo]="'Agentes. Selección'"
+            [canCreateObject]="false"
+            (cancel)="cancel()">
+        </app-crud-header>
+        
+        <app-agente-multiple-search-form
+            (change)="search($event)">
+        </app-agente-multiple-search-form>
+
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
+        <app-search-leyenda
+            *ngIf="searched && items && !items.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            (selectionChange)="onItemSelectionChanged($event)">
+            <app-agente-foto
+                class="mt-2 mb-2 wp-20"
+                [agente]="item"
+                [style.cursor]="'pointer'">
+            </app-agente-foto>
+            <plex-label
+                class="wp-20"
+                titulo="D.U {{ item.documento }}"
+                subtitulo="Leg. {{ item.numero }}"
+                [tituloBold]="true"
+                [style.cursor]="'pointer'">
+            </plex-label>
+            <plex-label class="wp-30" titulo="{{ item.apellido }}, {{ item.nombre }}"></plex-label>          
+        </list-item>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="showMoreResultados()">
+            </plex-button>
+        </div> 
+    </plex-layout-main>   
+    
+    <plex-layout-sidebar type="invert">
+        <app-agente-print-list
+            [items]="agentesSeleccionados"
+            (remove)="onPrintableItemRemove($event)"
+            (action)="printCredenciales()">
+        </app-agente-print-list>
+    </plex-layout-sidebar>
+
+</plex-layout>

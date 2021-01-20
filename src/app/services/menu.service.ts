@@ -47,14 +47,14 @@ export class MenuService {
             subtitulo: "Configuracion",
             url: "/configuracion/guardia-periodos",
             icono: "mdi-account-multiple-outline",
-            permiso: ["config:guardia:view_periodo"],
+            permiso: ["config:guardia_periodo:view_periodo"],
         },
         {
             titulo: "Lotes Guardias",
             subtitulo: "Configuracion",
             url: "/configuracion/guardia-lotes",
             icono: "mdi-account-multiple-outline",
-            permiso: ["config:guardia:view_lote"],
+            permiso: ["config:guardia_lote:view_lote"],
         },
     ];
 

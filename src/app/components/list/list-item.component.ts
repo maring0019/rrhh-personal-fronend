@@ -16,6 +16,7 @@ export class ListItemComponent implements OnInit {
     @Input() editable: Boolean = true;
     @Input() item: any;
     @Input() itemSelected: any;
+    @Input() confirmDelete: Boolean = true;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter<any>();
     @Output() view: EventEmitter<any> = new EventEmitter<any>();
@@ -57,7 +58,8 @@ export class ListItemComponent implements OnInit {
 
     public deleteItem(item) {
         this.itemSelected = item;
-        this.plex
+        if (this.confirmDelete) {
+            this.plex
             .confirm(
                 `Se va a eliminar el item seleccionado.
             ¿Desea Continuar?`
@@ -65,5 +67,9 @@ export class ListItemComponent implements OnInit {
             .then((confirm) => {
                 if (confirm) this.delete.emit(item);
             });
+        }
+        else{
+            this.delete.emit(item)
+        }
     }
 }
