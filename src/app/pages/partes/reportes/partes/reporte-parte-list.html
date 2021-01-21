@@ -83,6 +83,11 @@
                 <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
             </div>
         </header>
+        <plex-loader 
+            *ngIf="generandoReporte"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
         <div *ngIf="htmlReport" [innerHTML]="htmlReport | sanitizeHtml"></div>
     </div>
 </jw-modal>

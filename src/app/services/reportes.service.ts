@@ -74,7 +74,7 @@ export class ReportesService {
     }
 
     public show(tipoReporte: string, params?: any): Observable<any> {
-        const url = `${this.serverUrl}${this.baseUrl}/print`; //  this.reportesUrl[tipoReporte];
+        const url = this.reportesUrl[tipoReporte];
         let options = this.prepareOptions({ params: params, showError: true });
         options.responseType = ResponseContentType.Text;
         return this.http.get(url, options).catch(this.handleError);
