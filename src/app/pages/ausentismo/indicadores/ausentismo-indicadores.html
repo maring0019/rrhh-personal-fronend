@@ -14,9 +14,9 @@
     [agente]="agente">
 </app-indicador-licencias>
 <br>
-<!--Este componente se puede parametrizar como [editable]="true",
-    pero aun queda resolver la implementacion de la edicion -->
+
 <app-indicador-licencias-detalle
     *ngIf="agente?._id"
-    [agente]="agente">
+    [agente]="agente"
+    [editable]="true">
 </app-indicador-licencias-detalle>

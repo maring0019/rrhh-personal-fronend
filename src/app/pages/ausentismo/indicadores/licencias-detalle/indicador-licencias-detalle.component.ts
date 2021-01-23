@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
 import { AusentismoService } from 'src/app/services/ausentismo.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class IndicadorLicenciasDetalleComponent {
     
     public indicadores;
 
-    constructor(private ausentismoService:AusentismoService){}
+    constructor(private ausentismoService:AusentismoService, private router: Router){}
 
     initIndicadores(agente:Agente){
         this.ausentismoService.getLicenciasByAgente(agente._id)
@@ -27,7 +28,6 @@ export class IndicadorLicenciasDetalleComponent {
     }
 
     public onItemEdit(item){
-        console.log('Vamos a editar');
-        console.log(item);
+        this.router.navigate(['configuracion','licencia-periodos','editar', item._id]);
     }
 }
