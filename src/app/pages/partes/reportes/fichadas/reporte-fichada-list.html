@@ -1,0 +1,76 @@
+<plex-layout main="12">
+
+    <plex-layout-main>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>{{ titulo }}</strong></h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">    
+                <plex-button
+                        *ngIf="objects && objects.length"
+                        class="mr-2"
+                        label="Imprimir"
+                        type="info"
+                        (click)="onPrintableView()">
+                    </plex-button>
+                <plex-button
+                    class="mx-2"
+                    type="danger"
+                    icon="mdi mdi-close"
+                    title="Cerrar"
+                    (click)="onCerrar()">
+                </plex-button>
+            </div>
+        </header>
+        <ng-template #searchForm></ng-template>
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+        <app-search-leyenda
+            *ngIf="searched && objects && !objects.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <ng-template #itemList></ng-template>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="onShowMoreResultados()">
+            </plex-button>
+        </div>
+        
+    </plex-layout-main>   
+</plex-layout>
+
+<jw-modal id="{{modalId}}">
+    <div>
+        <header class="d-flex flex-row justify-content-between subheader">
+            <div>
+                <h5><strong>Resultados | </strong>{{ titulo }}</h5>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <plex-loader 
+                    *ngIf="printing"
+                    class="mr-2"
+                    type="ball-beat">
+                </plex-loader>
+                <plex-button *ngIf="!printing" class="mr-2" type="primary" icon="mdi mdi-printer" size="sm" (click)="onPrint()"></plex-button>
+                <plex-button type="danger" icon="mdi mdi-close" size="sm" (click)="onCloseModal()">Cerrar</plex-button>
+            </div>
+        </header>
+        <plex-loader 
+            *ngIf="generandoReporte"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+        <div *ngIf="htmlReport" [innerHTML]="htmlReport | sanitizeHtml"></div>
+    </div>
+</jw-modal>
+

@@ -26,6 +26,7 @@ export class ReportesService {
     private reportesUrl = {
         // Partes
         partes_agentes: `${this.serverUrl}${this.baseUrl}/agentes/partes`,
+        fichadas_agentes: `${this.serverUrl}${this.baseUrl}/agentes/fichadas`,
         // Ausentismo
         ausentismo_certificado: `${this.serverUrl}${this.baseUrl}/ausentismo/certificado`,
         // Agentes
