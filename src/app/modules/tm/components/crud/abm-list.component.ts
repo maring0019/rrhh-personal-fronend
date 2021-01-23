@@ -116,9 +116,17 @@ export abstract class ABMListComponent implements OnInit {
             )
     }
 
+    /**
+     * Return actual url. Be careful when using with queryParams.
+     * Override this method if required
+     */
+    public getItemActionsBaseUrl(){
+        return this.router.url;
+    }
+
     public onItemEdit(obj:any){
         this.itemSelected = obj;
-        this.router.navigate([this.router.url+'/editar/'+obj._id]);
+        this.router.navigate([this.getItemActionsBaseUrl(), 'editar', obj._id]);
     }
 
 
@@ -135,7 +143,7 @@ export abstract class ABMListComponent implements OnInit {
     // GLOBAL HEADER ACTIONS
    
     public createItem(){
-        this.router.navigate([this.router.url+'/crear']);
+        this.router.navigate([this.getItemActionsBaseUrl(), 'crear']);
     }
 
     public cancel(){

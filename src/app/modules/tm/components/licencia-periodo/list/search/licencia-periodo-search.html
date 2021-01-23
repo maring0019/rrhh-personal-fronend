@@ -1,14 +1,15 @@
 <header>
-    <div class="row">
-        <div class="col-md-8">
-            <plex-text
-                name="searchText"
-                [(ngModel)]="searchText"
-                [debounce]="1000"
-                [autoFocus]="autoFocus"
-                (change)="onChange()"
-                placeholder="Ingrese un parámetro de búsqueda">
-            </plex-text>
+    <form name="filterForm" [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-8">
+                <plex-text
+                    formControlName="searchText"
+                    name="searchText"
+                    (change)="search()"
+                    [autoFocus]="autoFocus"
+                    placeholder="Ingrese un parámetro de búsqueda">
+                </plex-text>
+            </div>
         </div>
-    </div>
+    </form>
 </header>

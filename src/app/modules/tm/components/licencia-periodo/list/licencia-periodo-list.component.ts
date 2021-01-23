@@ -55,4 +55,8 @@ export class LicenciaPeriodoListComponent extends ABMListComponent {
         return this.indicadorService;
     }
 
+    public getItemActionsBaseUrl(){
+        return 'configuracion/licencia-periodos';
+    }
+
 }

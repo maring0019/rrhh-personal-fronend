@@ -2,6 +2,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ABMSearchComponent } from 'src/app/modules/tm/components/crud/abm-search.component';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-licencia-periodo-search',
@@ -11,20 +13,31 @@ export class LicenciaPeriodoSearchComponent extends ABMSearchComponent {
     
     public autoFocus = 0;
     public searchText:String;  // User input value
-    private searchExpresion:any;
 
-    constructor(protected formBuilder: FormBuilder) {
+    constructor(protected formBuilder: FormBuilder,
+        private activatedRoute: ActivatedRoute,
+        private router: Router) {
         super(formBuilder)
+        // Intentamos recuperar cualquier queryparam existente previo para
+        // inicializar el form de busqueda y aplicar los filtros al ingresar
+        // al ingresar a la pagina
+        const queryParams = this.activatedRoute.snapshot.queryParams;
+        this.searchText = queryParams.search || "";
     }
 
     ngOnInit() {
-        this.autoFocus = this.autoFocus + 1;
+        this.initFilterForm();
+        this.search();
     }
+    
 
-    public onChange(){
-        this.searchExpresion = {};
-        let textoLibre = this.searchText? this.searchText.trim(): "";
+    protected prepareSearchParams(){
+        let params = {};
+        let form = this.filterForm.value;
+        let textoLibre = form.searchText? form.searchText.trim(): "";
         if (textoLibre && textoLibre.length >= 3){
+            // Los filtros son similares a la busqueda por agente pero no 
+            // identicos. Por eso replicamos todo (see getAgenteSearchParams())
             const searchTerms = textoLibre.split(" ");
             let andFilters = [];
             for (let exp of searchTerms) {
@@ -36,8 +49,28 @@ export class LicenciaPeriodoSearchComponent extends ABMSearchComponent {
                 ]}
                 andFilters.push(orFilters);
             }
-            this.searchExpresion['filter'] = JSON.stringify({"$and" : andFilters})
+            params['filter'] = JSON.stringify({"$and" : andFilters})
         }
-        this.change.emit(this.searchExpresion);
+        return params
+    }
+
+    initFilterForm(){
+        this.filterForm = this.formBuilder.group({
+            searchText  : this.searchText,
+        });
+    }
+
+    protected applyFilterToRoute() {
+        const form = this.filterForm.value;
+		this.router.navigate(
+			['/configuracion/licencia-periodos',],
+			{
+                queryParams: { search: form.searchText },
+				relativeTo: this.activatedRoute,
+				// NOTE: By using the replaceUrl option, we don't increase the Browser's
+				// history depth with every filtering keystroke. 
+				replaceUrl: true
+			}
+		);
     }
 }
