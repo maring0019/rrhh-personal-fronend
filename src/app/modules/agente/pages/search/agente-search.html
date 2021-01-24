@@ -9,13 +9,20 @@
                     <plex-button
                         *ngxPermissionsOnly="'agentes:agente:add_agente'"
                         label="Nuevo Agente"
+                        class="mr-2"
                         type="info"
                         routerLink="/agentes/registro">
                     </plex-button>
                     <plex-button
+                        icon="mdi mdi-printer"
+                        type="warning"
+                        class="mr-2"
+                        title="Imprimir Credenciales"
+                        routerLink="/agentes/credenciales">
+                    </plex-button>
+                    <plex-button
                         icon="mdi mdi-close"
                         type="danger"
-                        class="mx-2"
                         title="Cerrar"
                         routerLink="/inicio">
                     </plex-button>

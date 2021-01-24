@@ -116,6 +116,6 @@ export class AusentismoSearchComponent implements OnInit {
     }
 
     public onClose(){
-        this.location.back()
+        this.location.back();
     }
 }

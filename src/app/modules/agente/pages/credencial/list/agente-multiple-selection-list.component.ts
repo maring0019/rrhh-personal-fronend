@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -42,7 +43,8 @@ export class AgenteMultipleSelectionListComponent extends ABMListComponent {
         protected router: Router,
         protected objectService: ObjectService,
         private agenteService: AgenteService,
-        private reportesService: ReportesService,) {
+        private reportesService: ReportesService,
+        private location: Location) {
             super(router, objectService);
          }
 
@@ -96,6 +98,10 @@ export class AgenteMultipleSelectionListComponent extends ABMListComponent {
                     );
                 }
             );
+    }
+
+    public cancel(){
+        this.location.back();
     }
 
 }

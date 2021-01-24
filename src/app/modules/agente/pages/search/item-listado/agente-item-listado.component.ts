@@ -232,7 +232,7 @@ export class AgenteItemListadoComponent {
             handler: () => {
                 this.seleccionarAgente(agente, index);
                 this.reportesService
-                    .download(this.reportName, { _id: agente._id })
+                    .download(this.reportName, { _ids: [agente._id] })
                     .subscribe(
                         (data) => {
                             this.reportesService.descargarArchivo(data);
