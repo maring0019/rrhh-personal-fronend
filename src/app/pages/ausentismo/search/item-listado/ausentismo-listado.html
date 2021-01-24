@@ -15,6 +15,13 @@
                 <plex-badge type="info">
                         {{ item.cantidadDias }} DÍAS
                 </plex-badge>
+                <plex-button 
+                    *ngIf="item.adjuntos && item.adjuntos.length"
+                    title="Tiene ajuntos"
+                    size="sm"
+                    type="success"
+                    icon="file">
+                </plex-button>
                 <ng-template [ngxPermissionsOnly]="'agentes:ausentismo:change_ausentismo'">
                     <plex-button 
                         *ngIf="editable"
