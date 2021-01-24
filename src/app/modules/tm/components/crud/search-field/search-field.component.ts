@@ -32,19 +32,7 @@ export class SearchFieldComponent {
                 andFilters.push(orFilters);
             }
             
-            this.searchExpresion['filter'] = JSON.stringify({"$and" : andFilters})
-
-            // let searchExpressions = [];
-            // for (const searchFieldName of this.searchFields) {
-            //     searchExpressions.push({ [searchFieldName] :{"$regex": this.searchText, "$options":"i"}})
-            // }
-            // if (searchExpressions.length == 1) {
-            //     this.searchExpresion['filter'] = JSON.stringify(searchExpressions[0]); 
-            // }
-            // else{
-            //     this.searchExpresion['filter'] = JSON.stringify(
-            //         {"$or": searchExpressions }) 
-            // }    
+            this.searchExpresion['filter'] = JSON.stringify({"$and" : andFilters}); 
         }
         this.change.emit(this.searchExpresion);
     }

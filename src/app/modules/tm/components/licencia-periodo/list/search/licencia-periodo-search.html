@@ -7,6 +7,7 @@
                     name="searchText"
                     (change)="search()"
                     [autoFocus]="autoFocus"
+                    [debounce]="1000"
                     placeholder="Ingrese un parámetro de búsqueda">
                 </plex-text>
             </div>

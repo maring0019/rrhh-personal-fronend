@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ABMSearchComponent } from 'src/app/modules/tm/components/crud/abm-search.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { splitSearchText } from 'src/app/utils/searchUtils';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class LicenciaPeriodoSearchComponent extends ABMSearchComponent {
         if (textoLibre && textoLibre.length >= 3){
             // Los filtros son similares a la busqueda por agente pero no 
             // identicos. Por eso replicamos todo (see getAgenteSearchParams())
-            const searchTerms = textoLibre.split(" ");
+            const searchTerms = splitSearchText(textoLibre);
+
             let andFilters = [];
             for (let exp of searchTerms) {
                 const orFilters = {"$or":[
