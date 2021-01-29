@@ -65,4 +65,13 @@ export class AusentismoIndicadoresComponent implements OnInit {
         this.location.back();
     }
 
+    public onNuevo(){
+        this.router.navigate(
+			['/configuracion/licencia-periodos/crear',],
+			{
+                queryParams: { agente_id: this.agente._id },
+			}
+        )
+    }
+
 }
