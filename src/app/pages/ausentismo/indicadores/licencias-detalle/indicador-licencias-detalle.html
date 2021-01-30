@@ -1,27 +1,3 @@
-<!-- <ng-container *ngFor="let item of indicadores">
-    <div class="item-row">
-        <div class="item-column">
-            <div class="d-flex flex-row justify-content-start">
-                <plex-label
-                    titulo="Periodo {{ item.vigencia }}">
-                </plex-label>
-            </div>    
-        </div>
-        <div class="item-column item-botonera">
-            <div class="d-flex flex-row justify-content-end">
-                <plex-badge type="info">
-                    {{ item.intervalos[0]?.totales}} Asig.
-                </plex-badge>
-                <plex-badge type="success">
-                    {{ item.intervalos[0]?.ejecutadas}} Toma.
-                </plex-badge>
-            </div>
-        </div>
-    </div>
-</ng-container>
-
-<br><br><br> -->
-
 <list-item *ngFor="let item of indicadores; let i=index"
     [item]="item"
     [itemSelected]="itemSelected"
@@ -34,9 +10,12 @@
         titulo="{{ item.vigencia }}">
     </plex-label>
     <plex-badge type="info" class="wp-30">
-        {{ item.intervalos[0]?.totales}} Asig.
+        {{ licenciasAsignadas(item) }} Asig.
     </plex-badge>
     <plex-badge type="success" class="wp-30">
-        {{ (item.intervalos[0]?.ejecutadas)? item.intervalos[0].ejecutadas: '--' }} Toma.
+        {{ licenciasTomadas(item) }} Toma.
+    </plex-badge>
+    <plex-badge type="warning" class="wp-30">
+        {{ licenciasDisponibles(item) }} Disp.
     </plex-badge>
 </list-item>

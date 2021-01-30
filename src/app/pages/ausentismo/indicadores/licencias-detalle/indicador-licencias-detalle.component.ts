@@ -30,4 +30,19 @@ export class IndicadorLicenciasDetalleComponent {
     public onItemEdit(item){
         this.router.navigate(['configuracion','licencia-periodos','editar', item._id]);
     }
+
+    public licenciasAsignadas(item){
+        return item.intervalos[0]? item.intervalos[0].totales:0;
+    }
+
+    public licenciasTomadas(item){
+        if (item.intervalos[0]){
+            return item.intervalos[0].ejecutadas? item.intervalos[0].ejecutadas:0;
+        }
+        return 0
+    }
+
+    public licenciasDisponibles(item){
+        return this.licenciasAsignadas(item) - this.licenciasTomadas(item);
+    }
 }
