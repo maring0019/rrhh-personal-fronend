@@ -19,6 +19,33 @@
             </plex-datetime>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <plex-bool
+                [ngModelOptions]="{standalone: true}"
+                class="mr-4"
+                type="slide"
+                label="Año Actual"
+                [(ngModel)]="periodoSeleccion[0]"
+                (change)="onChangedPeriodoSeleccion(0)">
+            </plex-bool>
+            <plex-bool
+                [ngModelOptions]="{standalone: true}"
+                class="mr-4"
+                type="slide"
+                label="Mes Actual"
+                [(ngModel)]="periodoSeleccion[1]"
+                (change)="onChangedPeriodoSeleccion(1)">
+            </plex-bool>
+            <plex-bool
+                [ngModelOptions]="{standalone: true}"
+                type="slide"
+                label="Solo Hoy"
+                [(ngModel)]="periodoSeleccion[2]"
+                (change)="onChangedPeriodoSeleccion(2)">
+            </plex-bool>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6">

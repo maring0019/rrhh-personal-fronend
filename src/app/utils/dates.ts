@@ -64,6 +64,18 @@ export function parseStrToDate(date, defaultDate=null, format="YYYY-MM-DD"){
         if (defaultDate) return defaultDate;
         throw error;
     }
-    
+}
 
+export function get_current_month_range(){           
+    const curr_date = new Date();
+    const first_day = new Date(curr_date.getFullYear(), curr_date.getMonth(), 1); 
+    const last_day = new Date(curr_date.getFullYear(), curr_date.getMonth() + 1, 0);
+    return {fechaDesde: first_day, fechaHasta: last_day}
+}
+
+export function get_current_year_range(){           
+    const curr_date = new Date();
+    const first_day = new Date(curr_date.getFullYear(), 0, 1); 
+    const last_day = new Date(curr_date.getFullYear(), 11, 31);
+    return {fechaDesde: first_day, fechaHasta: last_day}
 }
