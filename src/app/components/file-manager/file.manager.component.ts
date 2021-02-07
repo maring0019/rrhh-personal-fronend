@@ -20,7 +20,8 @@ export class FileManagerComponent implements OnInit {
     @Input() subtitle:String = '';
     @Input() editable:Boolean = true;
 
-    @Output() filesChanged:EventEmitter<any> = new EventEmitter<any>(); // Notifica 
+    @Output() filesChanged:EventEmitter<any> = new EventEmitter<any>(); // Notifica todos los cambios a la vez
+    @Output() fileUploaded:EventEmitter<any> = new EventEmitter<any>(); // Notifica el ultimo archivo adjuntado 
 
     @ViewChild('dynamicUploaderStatus', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
     componentRef:any;
@@ -119,6 +120,7 @@ export class FileManagerComponent implements OnInit {
      */
     addFileToAttach(fileUploaded){
         this.filesToAttach.push(fileUploaded);
+        this.fileUploaded.emit(fileUploaded)
         this.filesChanged.emit();
     }
 

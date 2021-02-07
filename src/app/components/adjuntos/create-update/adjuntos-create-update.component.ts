@@ -81,4 +81,17 @@ export class AdjuntosCreateUpdateComponent {
         this.cancel.emit();
     }
 
+    /**
+     * Al subir un arhivo intentamos utilizar el nombre del archivo
+     * como sugerencia para el titulo del objeto adjunto
+     * @param file archivo adjunto
+     */
+    public onFileUploaded(file){
+        if (file) {
+            const filename = file.filename;
+            if (! this.adjuntoFormComponent.form.value["titulo"])
+                this.adjuntoFormComponent.form.patchValue({ titulo: filename })
+        }
+    }
+
 }

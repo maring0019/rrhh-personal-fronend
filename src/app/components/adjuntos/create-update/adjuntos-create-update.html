@@ -46,7 +46,8 @@
             [title]="'Archivos'"
             [size]="'sm'"
             [filesOwner]="item"
-            [editable]="editable">
+            [editable]="editable"
+            (fileUploaded)="onFileUploaded($event)">
         </app-file-manager>
     </div>
 </div>
