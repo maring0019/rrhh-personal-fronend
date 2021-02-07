@@ -1,0 +1,24 @@
+<form name="form" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <plex-text
+                name="titulo"
+                formControlName="titulo"
+                label="Titulo"
+                placeholder="Ingrese un título para el adjunto"
+                required
+                [readonly]="!editable">
+            </plex-text>
+        </div>
+        <div class="col-md-12 col-xs-12 mh-25">
+            <plex-text
+                name="detalle"
+                formControlName="detalle"
+                label="Detalle"
+                placeholder="Ingrese detalles extra para el adjunto (opcional)"
+                [readonly]="!editable"
+                multiline="true">
+            </plex-text>
+        </div>
+    </div>
+</form>

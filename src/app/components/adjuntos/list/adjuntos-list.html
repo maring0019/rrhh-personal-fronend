@@ -1,0 +1,46 @@
+<header class="d-flex flex-row justify-content-between subheader">
+    <div>
+        <h5 class="align-self-center">
+            Archivos Adjuntos
+        </h5>
+    </div>
+    <div class="d-flex flex-row justify-content-end">
+        <plex-button
+            *ngIf="object"
+            title="Nuevo Adjunto"
+            titlePosition="left"
+            type="primary btn-sm"
+            icon="plus"
+            (click)="onItemCreate()"
+            [disabled]="!editable">
+        </plex-button>
+    </div>
+</header>
+
+<list-item *ngFor="let item of items; let i=index"
+    [item]="item"
+    [itemSelected]="itemSelected"
+    [actions]="['view', 'edit', 'delete', 'history']"
+    (selectionChange)="onItemSelectionChanged($event)"
+    (view)="onItemView($event)"
+    (edit)="onItemEdit($event)"
+    (history)="onItemHistory($event)"
+    (delete)="onItemDelete($event)">
+    <plex-label
+        class="wp-20" 
+        titulo="{{ item.updatedAt | fecha:'diahora' }}">
+    </plex-label>
+    <plex-label
+        class="wp-80" 
+        titulo="{{ item.titulo | title }}">
+    </plex-label>
+</list-item>
+
+<app-leyenda
+    *ngIf="!items?.length"
+    [header]="'No hay adjuntos aún!'">
+</app-leyenda>
+
+<jw-modal id="{{ modal_id }}">
+    <ng-template #createUpdateDynamicComponent></ng-template>
+</jw-modal>

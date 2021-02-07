@@ -139,11 +139,19 @@
             </plex-tab>
             <plex-tab label="ADJUNTOS">
                 <br>
-                <app-file-manager
+                <div class="mt-4">
+                    <app-adjuntos-list
+                        *ngIf="adjuntos"
+                        [object]="agente"
+                        [adjuntos]="adjuntos"
+                        [editable]="isEditable">
+                    </app-adjuntos-list>
+                </div>
+                <!-- <app-file-manager
                     *ngIf="agente"
                     [filesOwner]="agente"
                     [editable]="isEditable">
-                </app-file-manager>
+                </app-file-manager> -->
             </plex-tab>
 
             <plex-tab label="HISTORIA LABORAL" *ngIf="agente?._id">

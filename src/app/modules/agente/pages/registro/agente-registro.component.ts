@@ -30,6 +30,7 @@ import { Cargo } from "src/app/models/Cargo";
 import { SituacionLaboral } from "src/app/models/SituacionLaboral";
 import { Regimen } from "src/app/models/Regimen";
 import { Nota } from "src/app/models/Nota";
+import { Adjunto } from 'src/app/models/Adjunto';
 
 @Component({
     selector: "app-agente-registro",
@@ -75,6 +76,7 @@ export class AgenteRegistroComponent implements OnInit {
     // Input para los componentes de los tabs
     public agente: Agente;
     public notas: Nota[];
+    public adjuntos: Adjunto[];
 
     // Variable de control para determinar si se puede puede editar
     // los datos de un agente. En el caso de un alta siempre es true
@@ -128,6 +130,13 @@ export class AgenteRegistroComponent implements OnInit {
         this.agenteService.getByID(this._agenteID).subscribe((data) => {
             if (data) {
                 this.agente = new Agente(data);
+                // Cargamos los adjuntos del agente
+                this.agenteService
+                    .getAdjuntos(this._agenteID)
+                    .subscribe((adjuntos) => {
+                        this.adjuntos = adjuntos;
+                    });
+                // Cargamos las notas del agente
                 this.agenteService
                     .getNotas(this._agenteID)
                     .subscribe((notas) => {

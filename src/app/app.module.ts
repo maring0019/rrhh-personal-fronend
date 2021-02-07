@@ -57,6 +57,7 @@ import { Auth } from "src/app/services/auth.service";
 import { UsuarioService } from "src/app/services/usuario.service";
 import { PermisoService } from "src/app/services/permiso.service";
 import { RolService } from "src/app/services/rol.service";
+import { AdjuntoService } from './services/adjunto.service';
 
 // Stores
 import { CalendarStoreService } from "./stores/calendar.store.service";
@@ -154,6 +155,10 @@ import { PageMenuComponent } from "src/app/components/menu/page-menu.component";
 import { CrudHeaderComponent } from "./modules/tm/components/crud/header/header.component";
 import { SearchFieldComponent } from "./modules/tm/components/crud/search-field/search-field.component";
 import { ColorPickerComponent } from "src/app/components/color-picker/color-picker.component";
+import { AdjuntosListComponent } from './components/adjuntos/list/adjuntos-list.component';
+import { AdjuntosCreateUpdateComponent } from './components/adjuntos/create-update/adjuntos-create-update.component';
+import { AdjuntosFormComponent } from './components/adjuntos/create-update/adjuntos-form.component';
+
 
 // Pipes
 import { FechaPipe } from "./pipes/fecha.pipe";
@@ -400,6 +405,9 @@ const ADMIN_COMPONENTS = [
         CrudHeaderComponent,
         SearchFieldComponent,
         ColorPickerComponent,
+        AdjuntosListComponent,
+        AdjuntosCreateUpdateComponent,
+        AdjuntosFormComponent,
         // Tablas Maestras,
         ...ADMIN_COMPONENTS,
 
@@ -495,6 +503,7 @@ const ADMIN_COMPONENTS = [
         UsuarioService,
         PermisoService,
         RolService,
+        AdjuntoService,
     ],
     bootstrap: [AppComponent],
     entryComponents: [
@@ -511,6 +520,7 @@ const ADMIN_COMPONENTS = [
         HistoriaLaboralFormComponent,
         AgenteReactivarFormComponent,
         AgenteNotasCreateUpdateComponent,
+        AdjuntosCreateUpdateComponent,
         ...ADMIN_COMPONENTS,
     ],
 })

@@ -133,6 +133,11 @@ export class AgenteService {
         return this.server.get(url);
     }
 
+    getAdjuntos(agenteId): Observable<any[]> {
+        const url = `${this.agenteUrl}/${agenteId}/adjuntos`;
+        return this.server.get(url);
+    }
+
     getServiciosComoJefe(agenteId): Observable<any[]> {
         const url = `${this.agenteUrl}/${agenteId}/servicios`;
         return this.server.get(url);
