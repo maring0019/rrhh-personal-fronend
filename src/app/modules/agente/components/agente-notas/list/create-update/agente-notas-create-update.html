@@ -53,5 +53,13 @@
             [item]="item"
             [editable]="editable">
         </app-agente-notas-form>
+        <div class="mt-4 mb-4"></div>
+        <app-file-manager
+            *ngIf="item"
+            [title]="'Adjuntos'"
+            [size]="'sm'"
+            [filesOwner]="item"
+            [editable]="editable">
+        </app-file-manager>
     </div>
 </div>

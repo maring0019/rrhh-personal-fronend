@@ -54,9 +54,5 @@ export class AgenteDatosHistoriaLaboralComponent implements OnInit {
         });
     }
 
-    onValueChangeSituacion(obj: Situacion){
-        
-        // console.log('CHANGING SITUACION!!!!')
-        // console.log(obj);
-    }
+    onValueChangeSituacion(obj: Situacion){}
 }

@@ -6,6 +6,7 @@ import { Nota } from 'src/app/models/Nota';
 
 import { NotaService } from 'src/app/services/nota.service';
 import { AgenteNotasFormComponent } from 'src/app/modules/agente/components/agente-notas/list/create-update/agente-notas-form.component';
+import { FileManagerComponent } from 'src/app/components/file-manager/file.manager.component';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class AgenteNotasCreateUpdateComponent {
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(AgenteNotasFormComponent) notaFormComponent: AgenteNotasFormComponent;
+    @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
+
      
     @HostBinding('class.plex-layout') layout = true;
     
@@ -57,6 +60,8 @@ export class AgenteNotasCreateUpdateComponent {
     addNota(nota:any){
         this.notaService.post(nota)
             .subscribe( nota => {
+                // Try to save files
+                this.fileManager.saveFileChanges(nota);
                 this.notaFormComponent.resetForms();
                 this.success.emit(nota);
         }, errors => this.error.emit(errors))
@@ -65,6 +70,8 @@ export class AgenteNotasCreateUpdateComponent {
     updateNota(nota:any){
         this.notaService.put(nota)
             .subscribe( nota => {
+                // Try to save files
+                this.fileManager.saveFileChanges(nota);
                 this.notaFormComponent.resetForms();
                 this.success.emit(nota);
         }, errors => this.error.emit(errors))
