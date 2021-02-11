@@ -4,14 +4,13 @@ import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { pairwise, startWith } from 'rxjs/operators';
 
-import { Auth } from '@andes/auth';
 import  *  as formUtils from 'src/app/utils/formUtils';
 import * as enumerados from 'src/app/models/enumerados';
 import { Guardia } from 'src/app/models/Guardia';
 
 import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
-import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
+import { Auth } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -35,14 +34,13 @@ export class GuardiaFormComponent implements OnInit {
     // Form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
     public periodoOpciones$ = this.guardiaPeriodoService.get({});
-    public servicioOpciones$ = this.servicioService.getByUserID({ userID : this.authService.usuario._id });
+    public servicioOpciones = this.authService.servicios;
     public categoriaOpciones$ = this.categoriaService.get({});
 
     
     constructor(
         public formBuilder: FormBuilder,
         private authService: Auth,
-        private servicioService: UbicacionService,
         private categoriaService: AgrupamientoService,
         private guardiaPeriodoService: GuardiaPeriodoService
     ){}

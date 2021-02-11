@@ -13,7 +13,8 @@
             </div>
             <div class="col-md-3">
                 <plex-select
-                    [data]="servicioOpciones$ | async"
+                    [idField]="'_id'"
+                    [data]="servicioOpciones"
                     formControlName="servicio"
                     name="servicio"
                     label="Servicio"
@@ -23,6 +24,7 @@
             </div>
             <div class="col-md-3">
                 <plex-select
+                    [idField]="'_id'"
                     [data]="categoriaOpciones$ | async"
                     formControlName="categoria"
                     name="categoria"

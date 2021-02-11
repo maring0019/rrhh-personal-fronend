@@ -5,9 +5,9 @@ import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list
 
 import * as enumerados from 'src/app/models/enumerados';
 import { GuardiaService } from 'src/app/services/guardia.service';
-import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
 import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
+import { Auth } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -19,15 +19,14 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
     //Search form options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
     public periodoOpciones$ = this.guardiaPeriodoService.get({});
-    // public servicioOpciones$ = this.servicioService.getByUserID({ userID : this.authService.usuario.id });
-    public servicioOpciones$ = this.servicioService.getByUserID({});
+    public servicioOpciones = this.authService.servicios;
     public categoriaOpciones$ = this.categoriaService.get({});
     
 
     constructor(
         formBuilder: FormBuilder,
         private objectService: GuardiaService,
-        private servicioService: UbicacionService,
+        private authService: Auth,
         private categoriaService: AgrupamientoService,
         private guardiaPeriodoService: GuardiaPeriodoService) {
             super(formBuilder);
