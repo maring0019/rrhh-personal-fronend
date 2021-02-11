@@ -137,7 +137,7 @@
                     </agente-datos-regimen>
                 </div>
             </plex-tab>
-            <plex-tab label="ADJUNTOS">
+            <plex-tab label="ADJUNTOS" *ngIf="adjuntos">
                 <br>
                 <div class="mt-4">
                     <app-adjuntos-list
@@ -147,11 +147,6 @@
                         [editable]="isEditable">
                     </app-adjuntos-list>
                 </div>
-                <!-- <app-file-manager
-                    *ngIf="agente"
-                    [filesOwner]="agente"
-                    [editable]="isEditable">
-                </app-file-manager> -->
             </plex-tab>
 
             <plex-tab label="HISTORIA LABORAL" *ngIf="agente?._id">

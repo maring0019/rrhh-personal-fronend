@@ -16,7 +16,6 @@ import { AgenteDatosSituacionComponent } from "./datos-historia-laboral/datos-si
 import { AgenteDatosNormaLegalComponent } from "./datos-historia-laboral/datos-norma-legal/agente-datos-norma-legal.component";
 import { AgenteDatosCargoComponent } from "./datos-historia-laboral/datos-cargo/agente-datos-cargo.component";
 import { AgenteDatosRegimenComponent } from "./datos-historia-laboral/datos-regimen/agente-datos-regimen.component";
-import { FileManagerComponent } from "src/app/components/file-manager/file.manager.component";
 import { HistoriaLaboralListComponent } from "src/app/modules/agente/components/agente-historia-laboral/historia-laboral-list.component";
 import { PlexTabsComponent } from "@andes/plex/src/lib/tabs/tabs.component";
 
@@ -63,8 +62,6 @@ export class AgenteRegistroComponent implements OnInit {
 
     @ViewChild(AgenteDatosRegimenComponent)
     datosRegimen: AgenteDatosRegimenComponent;
-
-    @ViewChild(FileManagerComponent) fileManager: FileManagerComponent;
 
     @ViewChild(HistoriaLaboralListComponent)
     datosHistoriaLaboral: HistoriaLaboralListComponent;
@@ -498,7 +495,6 @@ export class AgenteRegistroComponent implements OnInit {
     }
 
     private saveFiles(agente) {
-        this.fileManager.saveFileChanges(agente);
         this.datosNormaLegal.fileManager.saveFileChanges(
             agente.situacionLaboral.normaLegal
         );
