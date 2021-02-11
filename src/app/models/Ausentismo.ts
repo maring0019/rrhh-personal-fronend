@@ -29,9 +29,9 @@ export class Ausentismo {
         this.fechaDesde = ausentismo.fechaDesde;
         this.fechaHasta = ausentismo.fechaHasta;
         this.cantidadDias = ausentismo.cantidadDias;
+        this.extra = ausentismo.extra || '';
         this.observacion = ausentismo.observacion || '';
         this.ausencias = ausentismo.ausencias || [];
-        // this.ausencias = ausentismo.ausencias.length || [];
         this.adjuntos = ausentismo.adjuntos;
     }
 }
