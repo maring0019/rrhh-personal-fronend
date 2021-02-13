@@ -27,28 +27,35 @@
                 </plex-badge>
             </div>
             <div>
-                <plex-button
-                    title="Exportar a CSV"
-                    type="success"
-                    size="sm"
-                    icon="mdi mdi-file-excel"
-                    (click)="onExportar(object)">
-                </plex-button>
-                <plex-button
-                    *ngIf="object.estado == 1 && canValidarGuardia"
-                    title="Validar Guardia"
-                    type="info"
-                    size="sm"
-                    icon="mdi mdi-eye"
-                    (click)="onValidar(object)">
-                </plex-button>
-                <plex-button
-                    title="Editar Guardia"
-                    type="warning"
-                    size="sm"
-                    icon="mdi mdi-pencil"
-                    (click)="onNavigate(object)">
-                </plex-button>
+                <ng-template [ngxPermissionsOnly]="'guardias:guardia:exportar_csv'">
+                    <plex-button
+                        title="Exportar a CSV"
+                        type="success"
+                        size="sm"
+                        icon="mdi mdi-file-excel"
+                        (click)="onExportar(object)">
+                    </plex-button>
+                </ng-template>
+                <ng-template [ngxPermissionsOnly]="'guardias:guardia:procesar_guardia'">
+                    <plex-button
+                        *ngIf="object.estado == 1"
+                        title="Procesar Guardia"
+                        type="info"
+                        size="sm"
+                        icon="mdi mdi-eye"
+                        (click)="onProcesar(object)">
+                    </plex-button>
+                </ng-template>
+                <ng-template [ngxPermissionsOnly]="'guardias:guardia:change_guardia'">
+                    <plex-button
+                        title="Editar Guardia"
+                        type="warning"
+                        size="sm"
+                        icon="mdi mdi-pencil"
+                        (click)="onNavigate(object)">
+                    </plex-button>
+                </ng-template>
+                
             </div>
                 
         </plex-item>

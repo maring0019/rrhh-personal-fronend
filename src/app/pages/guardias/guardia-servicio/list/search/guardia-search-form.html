@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-md-3">
                 <plex-select
+                    [idField]="'_id'"
                     [data]="periodoOpciones$ | async"
                     formControlName="periodo"
                     name="periodo"

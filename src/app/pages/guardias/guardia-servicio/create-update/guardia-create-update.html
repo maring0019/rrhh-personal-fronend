@@ -10,9 +10,33 @@
                         {{ (isEditable)? 'Edición de planilla (Guardia sin Confirmar)' : 'Detalle de planilla (Guardia Confirmada)' }}
                     </h5>
                 <div class="d-flex flex-row justify-content-end"> 
-                    <plex-button *ngIf="puedeGuardar" label="Guardar" type="success" (click)="onGuardar()" class="mx-2" title="Guardar y Continuar Editando"></plex-button>
-                    <plex-button *ngIf="puedeConfirmar" label="Confirmar Guardia" type="warning" (click)="onConfirmar()" title="Guardar y Confirmar"></plex-button>
-                    <plex-button *ngIf="puedeValidar" label="Validar" type="success" (click)="onValidar()" class="mx-2" title="Guardar y Validar"></plex-button>
+                    <ng-template [ngxPermissionsOnly]="'guardias:guardia:add_guardia'">
+                        <plex-button 
+                            *ngIf="guardia && puedeGuardar"
+                            label="Guardar"
+                            type="success"
+                            (click)="onGuardar()"
+                            class="mx-2" title="Guardar y Continuar Editando">
+                        </plex-button>
+                    
+                        <plex-button
+                            *ngIf="guardia && puedeConfirmar" 
+                            label="Confirmar Guardia" 
+                            type="warning" 
+                            (click)="onConfirmar()"
+                            title="Guardar y Confirmar">
+                        </plex-button>
+                    </ng-template>
+                    <ng-template [ngxPermissionsOnly]="'guardias:guardia:procesar_guardia'">
+                        <plex-button 
+                            *ngIf="guardia && puedeProcesar"
+                            label="Procesar"
+                            type="success" 
+                            (click)="onProcesar()"
+                            class="mx-2" title="Procesar y Guardar">
+                        </plex-button>
+                    </ng-template>
+                        
                     <plex-button icon="mdi mdi-close" type="danger" (click)="onCerrar()" class="mx-2" title="Cerrar"></plex-button>
                     
                 </div>

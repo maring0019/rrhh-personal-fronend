@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
 
-import { DropdownItem, Plex } from '@andes/plex';
+import { Plex } from '@andes/plex';
 import { CRUDItemListComponent } from 'src/app/modules/tm/components/crud/list/item/crud-item-list.component';
 
 import { GuardiaService } from 'src/app/services/guardia.service';
@@ -13,8 +13,6 @@ import { GuardiaService } from 'src/app/services/guardia.service';
     templateUrl: './guardia-item-list.html',
 })
 export class GuardiaItemListComponent extends CRUDItemListComponent{
-
-    public canValidarGuardia: boolean = true;
     
     constructor(
             public router: Router,
@@ -26,13 +24,13 @@ export class GuardiaItemListComponent extends CRUDItemListComponent{
 
     public onNavigate(objeto) {
         if (objeto._id){
-            this.router.navigate([this.router.url+'/editar/' + objeto._id]);
+            this.router.navigate(['guardias/editar/' + objeto._id]);
         }
     }
 
-    public onValidar(objeto) {
+    public onProcesar(objeto) {
         if (objeto._id){
-            this.router.navigate([this.router.url+'/validar/' + objeto._id]);
+            this.router.navigate(['guardias/procesar/' + objeto._id]);
         }
     }
 

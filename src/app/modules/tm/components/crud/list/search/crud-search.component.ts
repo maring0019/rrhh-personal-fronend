@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
     public searchForm: FormGroup;
-    private timeoutHandle: number;
+    protected timeoutHandle: number;
     public autoFocus = 0;
     public mostrarMasOpciones = false;
 
@@ -95,6 +95,17 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
             this.searchClear.emit();
         }
     }
+
+    /**
+     * Hook para actualizar los query params de la URL actual. Es un intento
+     * por preservar en la URL los filtros aplicados en el form de busqueda.
+     * De esta forma cuando se navega de  nuevo hacia la pagina de busqueda,
+     * es posible recuperar los parametros aplicados previamente y aplicarlos
+     * al formulario. Es decir simulamos mantener la busqueda previamente realizada.
+     * En el sistema existen varios ejemplos de uso. Ver por ejemplo el componente
+     * ParteSearchFormComponent
+     */
+    protected applyFilterToRoute() {}
 
 
     ngOnDestroy(): void {

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Auth } from '@andes/auth';
@@ -23,13 +24,6 @@ import { GuardiaPeriodo } from 'src/app/models/GuardiaPeriodos';
 export class GuardiaCreateUpdateComponent implements OnInit {
     @ViewChild("guardiaForm") guardiaForm: GuardiaFormComponent;
 
-    // Permisos
-    public puedeGuardar: Boolean;
-    public puedeConfirmar: Boolean;
-    public puedeValidar: Boolean;
-    public puedeEditarPlanilla: Boolean;
-    public puedeAgregarAgente: Boolean;
-
     public isEditable = true;
     public guardia: Guardia;
     public generandoPlanilla: Boolean; // Bandera
@@ -37,6 +31,27 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     public get agenteSearchParams() {
         return this._extraSearchParams;
     }
+
+    // Permisos
+    public get puedeProcesar():Boolean{
+        return (this.guardia && this.guardia.estado == '1');
+    } 
+    public get puedeGuardar():Boolean{
+        return (this.guardia && !this.guardia.estado || this.guardia.estado == '0');
+    }
+
+    public get puedeConfirmar():Boolean{
+        return this.puedeGuardar;
+    }
+
+    public get puedeAgregarAgente():Boolean{
+        return (this.guardia && !this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1');
+    }
+
+    public get puedeEditarPlanilla():Boolean{
+        return this.puedeAgregarAgente;
+    }
+
 
     /**
      * Contiene los valores reales de los parametros extras a utilizar
@@ -50,6 +65,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        protected location: Location,
         private plex: Plex,
         private authService: Auth,
         private guardiaService: GuardiaService,
@@ -58,11 +74,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         {}
 
     ngOnInit(){
-        console.log('Vamos a probar la seguridad')
-        console.log('Usuario');
-        console.log(this.authService.usuario)
-        console.log('Permisos');
-        console.log(this.authService.getPermissions('guardia:guardia:?'));
         this.route.paramMap.subscribe((params: ParamMap) => {
             this._objectID = params.get('id');
             if (this._objectID){
@@ -90,19 +101,15 @@ export class GuardiaCreateUpdateComponent implements OnInit {
             })
     }
 
-    private hasPerm(permiso:string){
-        return true;
-    }
-
     /**
      * Metodo temporal para determinar las acciones disponibles
      */
     private preparePermisos(){
-        this.puedeValidar = this.guardia.estado == '1' && this.hasPerm('puedeValidar');
-        this.puedeGuardar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeGuardar');
-        this.puedeConfirmar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeConfirmar');
-        this.puedeEditarPlanilla =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
-        this.puedeAgregarAgente =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
+        // this.puedeValidar = this.guardia.estado == '1' && this.hasPerm('puedeValidar');
+        // this.puedeGuardar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeGuardar');
+        //this.puedeConfirmar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeConfirmar');
+        // this.puedeEditarPlanilla =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
+        //this.puedeAgregarAgente =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
     }
 
     
@@ -299,14 +306,14 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
     }
 
-    public async onValidar(){
+    public async onProcesar(){
         if (await this.isGuardiaFormValid()){
             return this.updateGuardia('validar');
         }
     }
 
     public onCerrar(){
-        this.router.navigate(['/guardias']);
+        this.location.back();
     }
 
     /**
@@ -356,7 +363,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
             case 'validar':
                 this.guardiaService.putAndValidar(this.guardia)
                     .subscribe( guardia => {
-                        this.infoValidarOk(guardia);
+                        this.infoProcesarOk(guardia);
                     });
                 break;
         }
@@ -364,13 +371,12 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     private infoGuardarOk(guardia){
         this.plex
-            .info('success', `Guardia guardada correctamente. 
+            .info('success', `Guardia Sin Confirmar guardada correctamente. 
                     Puede continuar editando la información ingresada hasta
                     confirmar definitivamente los datos para ser evaluados 
                     por el Dpto. de Gestión de Personal.`)
             .then( confirm => {
-                this.router.navigate(['/guardias/editar/' + guardia._id]);
-                this.ngOnInit();
+                this.location.back();
             });
     }
 
@@ -378,15 +384,15 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.plex
             .info('success', `Guardia guardada y confirmada correctamente.`)
             .then( confirm => { 
-                this.router.navigate(['/guardias']);
+                this.location.back();
             });
     }
 
-    private infoValidarOk(guardia){
+    private infoProcesarOk(guardia){
         this.plex
-            .info('success', `Guardia guardada y validada correctamente.`)
-            .then( confirm => { 
-                this.router.navigate(['/guardias']);
+            .info('success', `Guardia procesada correctamente.`)
+            .then( confirm => {
+                this.location.back();
             });
     }
 
