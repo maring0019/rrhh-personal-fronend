@@ -39,8 +39,8 @@ export class GuardiaService {
         return this.server.put(url, object);
     }
 
-    putAndValidar(object: Guardia): Observable<Guardia> {
-        const url = `${this.url}/${object._id}/validar`;
+    putAndProcesar(object: Guardia): Observable<Guardia> {
+        const url = `${this.url}/${object._id}/procesar`;
         return this.server.put(url, object);
     }
 

@@ -46,7 +46,7 @@ export abstract class CRUDSearchFormComponent implements OnInit, OnDestroy {
 
     abstract initFormSelectOptions();
 
-    abstract initSearchForm():FormGroup; // {  return this.formBuilder.group({}) }
+    abstract initSearchForm(); // {  return this.formBuilder.group({}) }
 
     abstract search(searchParams);
 

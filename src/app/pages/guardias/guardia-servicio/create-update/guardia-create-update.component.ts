@@ -88,7 +88,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     private prepareDataForCreate(){
         this.guardia = new Guardia();
-        this.preparePermisos();
     }
 
     private prepareDataForUpdate(){
@@ -96,23 +95,11 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.guardiaService.getByID(this._objectID)
             .subscribe(data => {
                 this.guardia = new Guardia(data);
-                this.preparePermisos();
                 if (this.guardia.estado == '0') this.isEditable = true;
             })
     }
 
-    /**
-     * Metodo temporal para determinar las acciones disponibles
-     */
-    private preparePermisos(){
-        // this.puedeValidar = this.guardia.estado == '1' && this.hasPerm('puedeValidar');
-        // this.puedeGuardar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeGuardar');
-        //this.puedeConfirmar = (!this.guardia.estado || this.guardia.estado == '0') && this.hasPerm('puedeConfirmar');
-        // this.puedeEditarPlanilla =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
-        //this.puedeAgregarAgente =  (!this.guardia.estado || this.guardia.estado == '0' || this.guardia.estado == '1') && this.hasPerm('');
-    }
 
-    
     /**
      * Metodo que se ejecuta ante los cambios realizados en el formulario del
      * encabezado. Todos los cambios impactan sobre el modelo guardia (this.guardia)
@@ -361,7 +348,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                     });
                 break;
             case 'validar':
-                this.guardiaService.putAndValidar(this.guardia)
+                this.guardiaService.putAndProcesar(this.guardia)
                     .subscribe( guardia => {
                         this.infoProcesarOk(guardia);
                     });

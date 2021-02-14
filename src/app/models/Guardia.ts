@@ -39,19 +39,27 @@ export class Guardia {
     lote: GuardiaLote;
     planilla: ItemGuardiaPlanilla[];
     estado: String;
-    fechaEntrega: Date;
+    // fechaHoraEntrega: Date;
     responsableEntrega: {    // Agente Jefe de Servicio
         _id: String,
         nombre: String,
         apellido: String
     };
     validado: Boolean;
-    responsableValidacion: { // Agente de Gestion de Personal
+    responsableProcesamiento: { // Agente de Gestion de Personal
         _id: String,
         nombre: String,
         apellido: String
     }; 
-    fechaValidacion: Date;
+    // fechaHoraProcesamiento: Date;
+
+    get fechaHoraEntrega():Date{
+        return localDate(this.fechaHoraEntrega);
+    }
+
+    get fechaHoraProcesamiento():Date{
+        return localDate(this.fechaHoraProcesamiento);
+    }
     
     get guardiasPorDia():Number[]{
         let totales = [];
@@ -81,11 +89,9 @@ export class Guardia {
         }
         
         this.estado = guardia.estado ;
-        this.fechaEntrega = localDate(guardia.fechaEntrega);
         this.responsableEntrega = guardia.responsableEntrega;
         this.validado = guardia.validado;
-        this.responsableValidacion = guardia.responsableValidacion;
-        this.fechaValidacion = localDate(guardia.fechaValidacion);
+        this.responsableProcesamiento = guardia.responsableProcesamiento;
     }
 
 }

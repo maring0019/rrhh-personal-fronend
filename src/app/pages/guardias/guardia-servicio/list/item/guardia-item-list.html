@@ -1,36 +1,39 @@
 <plex-list [striped]="true" [fullWidth]="true" *ngIf="objects && objects.length">
     <plex-heading [layout]="layout">
-        <label>Lote</label>
         <label>Periodo</label>
         <label>Servicio</label>
-        <label>Categoría</label>
-        <label>Tipo de Guardia</label>
+        <label>Lote</label>
+        <label>Categoría/Guardia</label>
         <label>Estado</label>
+        <label>F. Entrega</label>
         <label></label>
     </plex-heading>
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
-            <plex-label titulo="{{object.lote?.numero | title }}" [tituloBold]="true"></plex-label>
             <plex-label titulo="{{object.periodo.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.lote?.servicio.nombre | title }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.lote?.categoria.nombre | title }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.lote?.tipoGuardia | title }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.lote?.numero | title }}" [tituloBold]="false"></plex-label>
+            <plex-label
+                titulo="{{object.lote?.categoria.nombre | title }}/{{object.lote?.tipoGuardia | title }}"
+                [tituloBold]="false">
+            </plex-label>
             <div [ngSwitch]="object.estado">
-                <plex-badge *ngSwitchCase="0" type="danger" size="sm">
+                <plex-badge *ngSwitchCase="0" type="warning" size="sm">
                     <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
                 </plex-badge>
-                <plex-badge *ngSwitchCase="1" type="warning" size="sm">
-                    <plex-icon name="mdi mdi-clipboard-text" title="Confirmado"></plex-icon>
+                <plex-badge *ngSwitchCase="1" type="danger" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Confirmada"></plex-icon>
                 </plex-badge>
                 <plex-badge *ngSwitchDefault type="success" size="sm">
-                    <plex-icon name="mdi mdi-clipboard-text" title="Validado"></plex-icon>
+                    <plex-icon name="mdi mdi-clipboard-text" title="Procesada"></plex-icon>
                 </plex-badge>
             </div>
+            <plex-label titulo="{{object.fechaHoraEntrega | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
             <div>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:exportar_csv'">
                     <plex-button
                         title="Exportar a CSV"
-                        type="success"
+                        type="warning"
                         size="sm"
                         icon="mdi mdi-file-excel"
                         (click)="onExportar(object)">
@@ -38,20 +41,31 @@
                 </ng-template>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:procesar_guardia'">
                     <plex-button
-                        *ngIf="object.estado == 1"
+                        *ngIf="object.estado && object.estado == 1"
                         title="Procesar Guardia"
-                        type="info"
+                        type="success"
                         size="sm"
-                        icon="mdi mdi-eye"
+                        icon="mdi mdi-play"
                         (click)="onProcesar(object)">
                     </plex-button>
                 </ng-template>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:change_guardia'">
                     <plex-button
+                        *ngIf="!object.estado || object.estado == 0"
                         title="Editar Guardia"
                         type="warning"
                         size="sm"
                         icon="mdi mdi-pencil"
+                        (click)="onNavigate(object)">
+                    </plex-button>
+                </ng-template>
+                <ng-template [ngxPermissionsOnly]="'guardias:guardia:view_guardia'">
+                    <plex-button
+                        *ngIf="object.estado && object.estado == 2"
+                        title="Ver Guardia"
+                        type="info"
+                        size="sm"
+                        icon="mdi mdi-eye"
                         (click)="onNavigate(object)">
                     </plex-button>
                 </ng-template>

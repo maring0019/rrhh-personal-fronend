@@ -1,5 +1,5 @@
 <header>
-    <form name="searchForm" [formGroup]="searchForm">
+    <form *ngIf="searchForm" name="searchForm" [formGroup]="searchForm">
         <div class="row">
             <div class="col-md-3">
                 <plex-select
@@ -23,7 +23,7 @@
                     (change)="buscar($event)">
                 </plex-select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <plex-select
                     [idField]="'_id'"
                     [data]="categoriaOpciones$ | async"
@@ -34,13 +34,23 @@
                     (change)="buscar($event)">
                 </plex-select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <plex-select
                     [data]="tipoGuardiaOpciones"
                     formControlName="tipoGuardia"
                     name="tipoGuardia"
                     label="Tipo de Guardia"
                     placeholder="Seleccione un tipo de guardia"
+                    (change)="buscar($event)">
+                </plex-select>
+            </div>
+            <div class="col-md-2">
+                <plex-select
+                    [data]="estadoOpciones"
+                    formControlName="estado"
+                    name="estado"
+                    label="Estado"
+                    placeholder="Seleccione un estado"
                     (change)="buscar($event)">
                 </plex-select>
             </div>

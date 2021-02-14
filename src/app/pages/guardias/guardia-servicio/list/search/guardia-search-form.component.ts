@@ -1,5 +1,8 @@
+import { BehaviorSubject } from 'rxjs';
+
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
 
@@ -7,8 +10,8 @@ import * as enumerados from 'src/app/models/enumerados';
 import { GuardiaService } from 'src/app/services/guardia.service';
 import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
 import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
+import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { Auth } from 'src/app/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -17,12 +20,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    //Search form options
+    // Search form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
     public periodoOpciones$ = this.guardiaPeriodoService.get({});
-    public servicioOpciones = this.authService.servicios;
+    public servicioOpciones = []
     public categoriaOpciones$ = this.categoriaService.get({});
-    public _serviciosAllowed; // 
+    public estadoOpciones = [];
+    public serviciosAllowed; // Id de los servicios del jefe de servicio
     
     // Default search form values. Se usa en conjunto con los queryParams
     // para preservar las busquedas previas cuando se navega hacia atras
@@ -30,68 +34,62 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
     public servicio;
     public categoria;
     public tipoGuardia;
+    public estado;
+
+    // Estas estructuras nos notificaran cuando el formulario este listo 
+    protected _form = new BehaviorSubject(null);
+    readonly form$ = this._form.asObservable();
+
+    public get form(){
+        return this._form.getValue();
+    }
+    
+    public set form(val){
+        this._form.next(val);
+    }
+
+    // Permisos especiales. Si el usuario logueado dispone de este permiso podra
+    // operar libremente en el modulo. Caso contrario estará restringido a los 
+    // servicios disponibles como jefe de servicio/dpto/etc.    
+    public canProcesarGuardia:Boolean = false;
 
     constructor(
         formBuilder: FormBuilder,
         private objectService: GuardiaService,
         private authService: Auth,
         private categoriaService: AgrupamientoService,
+        private ubicacionService: UbicacionService,
         private guardiaPeriodoService: GuardiaPeriodoService,
         private activatedRoute: ActivatedRoute,
         private router: Router) {
             super(formBuilder);
+            
             // Intentamos recuperar cualquier queryparam existente previo para
             // inicializar el form de busqueda y aplicar los filtros al ingresar
             // al ingresar a la pagina
             const queryParams = this.activatedRoute.snapshot.queryParams;
-            
             this.periodo = (queryParams.periodo)? {_id: queryParams.periodo} : null;
             this.categoria = (queryParams.categoria)? {_id: queryParams.categoria} : null;
             this.tipoGuardia = (queryParams.tipoGuardia)? {id: queryParams.tipoGuardia} : null;
             this.servicio = (queryParams.servicio)? {_id:queryParams.servicio}: null;
+            this.estado = (queryParams.estado)? {id:queryParams.estado}: null;
     }
-
-    // ngOnInit() {
-    //     super.ngOnInit();
-    // }
 
     public async ngOnInit() {
         this.autoFocus = this.autoFocus + 1;
-        // 1. Inicializacion de las opciones de filtrado disponible en el
-        // formulario de busqueda.
-        this.initFormSelectOptions();
-        // 2. Inicializacion del formulario a utilizar para las busquedas
-        this.searchForm = this.initSearchForm();
-        // 3. Por defecto siempre realizamos una busqueda al inicio
-        await this.buscar();
+        this.canProcesarGuardia = await this.authService.check('guardias:guardia:procesar_guardia');
+        this.getServiciosAllowed();
+        this.initFormSelectOptions()
+        this.initSearchForm();
+        
+        // Cuando este disponible el formulario de busqueda realizamos la busqueda
+        this.form$.subscribe(data => { 
+            if (data) {
+                this.searchForm = data;
+                this.buscar();
+            }
+        } );
     }
-
-    public async buscar($event?) {
-        // Error en Plex, ejecuta un change cuando el input pierde el
-        // foco porque detecta que cambia el valor
-        if ($event && $event.type) {
-            return;
-        }
-        // await this.prepareSearchParams();
-        // Cancela la búsqueda anterior
-        if (this.timeoutHandle) {
-            window.clearTimeout(this.timeoutHandle);
-        }
-        // Inicia búsqueda
-        let searchParams = await this.prepareSearchParams();
-        this.applyFilterToRoute();
-        // if (!isEmpty(searchParams)) {
-        if (true){
-            this.timeoutHandle = window.setTimeout(() => {
-                this.searchStart.emit();
-                this.timeoutHandle = null;
-                this.search(searchParams);
-            }, 1000);
-        } else {
-            this.searchClear.emit();
-        }
-    }
-
 
     ngAfterViewInit(){
     }
@@ -101,17 +99,73 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
     }
 
     initFormSelectOptions(){
+        this.estadoOpciones = [
+            { id: 0, nombre: 'Sin Confirmar' },
+            { id: 1, nombre: 'Confirmada'},
+            { id: 2, nombre: 'Procesada'}
+        ]
 
+        if (this.canProcesarGuardia){
+            this.ubicacionService.get({}).subscribe(servicios =>
+                this.servicioOpciones = servicios)
+        }
+        
+        if (this.serviciosAllowed && this.serviciosAllowed.length){
+            this.servicioOpciones = this.serviciosAllowed;
+        }        
     }
 
     initSearchForm(){
-        return this.formBuilder.group({
+        let form = {
             periodo       : [this.periodo],
             servicio      : [this.servicio],
             categoria     : [this.categoria],
-            tipoGuardia   : [this.tipoGuardia]
-        });
+            tipoGuardia   : [this.tipoGuardia],
+            estado        : [this.estado]
+        }
+
+        if (this.periodo || this.servicio || this.categoria || this.tipoGuardia || this.estado){
+            // Si se aplicó algun filtro previamente no modificamos el form
+            this.form = this.formBuilder.group(form);
+        }
+        else{
+            // Filtramos las confirmadas por defecto
+            this.form = this.formBuilder.group({...form, estado: [{id:1}]});
+            // Sino aplicamos por defecto el filtro por periodo (el ultimo)
+            // Si es necesario este ordenamiento por default, descomentar.
+            // this.periodoOpciones$.subscribe(
+            //     periodos => {
+            //         this.periodo = periodos.length? {_id: periodos[0]._id}: null;
+            //         this.form = this.formBuilder.group({...form, periodo: [this.periodo] });
+            //     }
+            // );    
+        }
+
     }
+
+    public async buscar($event?) {
+        // Error en Plex, ejecuta un change cuando el input pierde el
+        // foco porque detecta que cambia el valor
+        if ($event && $event.type) {
+            return;
+        }
+
+        // Cancela la búsqueda anterior
+        if (this.timeoutHandle) {
+            window.clearTimeout(this.timeoutHandle);
+        }
+        // Recuperamos filtros aplicados
+        let searchParams = this.prepareSearchParams();
+        // Actualizamos la url para mantener el estado de los filtros
+        this.applyFilterToRoute();
+        // Realizamos la nueva busqueda
+        this.timeoutHandle = window.setTimeout(() => {
+            this.searchStart.emit();
+            this.timeoutHandle = null;
+            this.search(searchParams);
+        }, 1000);    
+    }
+
 
     applyFilterToRoute() {
         const form = this.searchForm.value;
@@ -122,6 +176,7 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
                     periodo: (form.periodo)? form.periodo._id: null,
                     categoria: (form.categoria)? form.categoria._id:null,
                     tipoGuardia: (form.tipoGuardia)? form.tipoGuardia.id:null,
+                    estado: (form.estado)? form.estado.id:null,
                     servicio: (form.servicio)? form.servicio._id:null,
                     servicioCodigo:  (form.servicio)? form.servicio.codigo:null},
 				relativeTo: this.activatedRoute,
@@ -138,30 +193,19 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
      * Caso contrario solo puede visualizar las guardias de su servicio/s
      */
     async getServiciosAllowed(){
-        if (this._serviciosAllowed) return this._serviciosAllowed;
+        if (this.serviciosAllowed) return this.serviciosAllowed;
         
-        this._serviciosAllowed = [];
-        if (!await this.authService.check('guardias:guardia:procesar_guardia')){
-            this._serviciosAllowed = this.authService.servicios.map(i=>i._id)
-        }
-        return this._serviciosAllowed;
+        this.serviciosAllowed = (!this.canProcesarGuardia)? this.authService.servicios: [];
+        return this.serviciosAllowed;
     }
 
-    async prepareSearchParams(){
+    prepareSearchParams(){
         let params:any = {};
         if (this.searchForm.valid){
             let form = this.searchForm.value;
-            // if (form.estado){   // Filtro por estado del parte
-            //     params['estado.id'] = form.estado.id;
-            // }
-            // if (form.procesado){
-            //     if (form.procesado.id == 'si'){
-            //         params['procesado'] = true;
-            //     }
-            //     else{
-            //         params['procesado!'] = true;
-            //     }
-            // }
+            if (form.estado){ 
+                params['estado'] = form.estado.id;
+            }
             if (form.periodo){
                 params['periodo._id'] = form.periodo._id;
             }
@@ -170,7 +214,19 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
                 params['lote.servicio._id'] = form.servicio._id
             }
             else{
-                params['lote.servicio._id'] = await this.getServiciosAllowed();
+                if (!this.canProcesarGuardia){
+                    // Debe ser un jefe de servicio
+                    if (this.serviciosAllowed && this.serviciosAllowed.length) {
+                        params['lote.servicio._id'] = this.serviciosAllowed.map(i=>i._id);
+                    }
+                    else{
+                        // Si el jefe de servicio no tiene servicios asignados entonces
+                        // simulamos una consulta fallida, para no recuperar datos. 
+                        // TODO Proteger desde el back para mayor seguridad
+                        params['lote.servicio._id'] = -99;
+                    }
+                }
+                
             }
             if (form.categoria){
                 params['lote.categoria._id'] = form.categoria._id;

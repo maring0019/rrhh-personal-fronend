@@ -377,7 +377,7 @@ const routes: Routes = [
         canActivate: [RoutingNavBar, RoutingGuard],
     },
     {
-        path: "guardias/validar/:id",
+        path: "guardias/procesar/:id",
         component: GuardiaCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
