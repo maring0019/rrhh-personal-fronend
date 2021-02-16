@@ -81,8 +81,7 @@ export class AgenteMultipleSelectionListComponent extends ABMListComponent {
         return list.filter(elem => elem._id != item._id)
     }
 
-    public printCredenciales(){
-        
+    public printCredenciales(){     
         this.reportesService
             .download(this.reportName, { _ids: this.agentesSeleccionados.map(i=>i._id) })
             .subscribe(

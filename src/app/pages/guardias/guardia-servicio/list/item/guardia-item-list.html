@@ -2,19 +2,19 @@
     <plex-heading [layout]="layout">
         <label>Periodo</label>
         <label>Servicio</label>
-        <label>Lote</label>
         <label>Categoría/Guardia</label>
         <label>Estado</label>
         <label>F. Entrega</label>
+        <label>F. Procesamiento</label>
         <label></label>
     </plex-heading>
     <ng-container *ngFor="let object of objects; let i=index">
         <plex-item [layout]="layout">
             <plex-label titulo="{{object.periodo.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label titulo="{{object.lote?.servicio.nombre | title }}" [tituloBold]="false"></plex-label>
-            <plex-label titulo="{{object.lote?.numero | title }}" [tituloBold]="false"></plex-label>
             <plex-label
                 titulo="{{object.lote?.categoria.nombre | title }}/{{object.lote?.tipoGuardia | title }}"
+                subtitulo="Lote: {{object.lote?.numero | title }}"
                 [tituloBold]="false">
             </plex-label>
             <div [ngSwitch]="object.estado">
@@ -29,6 +29,7 @@
                 </plex-badge>
             </div>
             <plex-label titulo="{{object.fechaHoraEntrega | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
+            <plex-label titulo="{{object.fechaHoraProcesamiento | fecha:'diahora' }}" [tituloBold]="false"></plex-label>
             <div>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:exportar_csv'">
                     <plex-button

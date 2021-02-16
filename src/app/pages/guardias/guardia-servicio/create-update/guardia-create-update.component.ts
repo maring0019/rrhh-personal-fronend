@@ -1,11 +1,12 @@
+import 'rxjs/add/operator/toPromise';
+
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Auth } from '@andes/auth';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Plex } from '@andes/plex';
 
-import 'rxjs/add/operator/toPromise';
 import  *  as formUtils from 'src/app/utils/formUtils';
+import { GuardiaFormComponent } from './form/guardia-form.component';
 
 import { ModalService } from 'src/app/services/modal.service';
 import { GuardiaService } from 'src/app/services/guardia.service';
@@ -13,7 +14,6 @@ import { GuardiaLoteService } from 'src/app/services/guardia-lote.service';
 
 import { Agente } from 'src/app/models/Agente';
 import { Guardia, ItemGuardiaPlanilla } from 'src/app/models/Guardia';
-import { GuardiaFormComponent } from './form/guardia-form.component';
 import { GuardiaPeriodo } from 'src/app/models/GuardiaPeriodos';
 
 
@@ -62,12 +62,12 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     
     private _objectID:any; // To keep track of object on update
 
+    private agentesSeleccionados = []; // 
+
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
         protected location: Location,
         private plex: Plex,
-        private authService: Auth,
         private guardiaService: GuardiaService,
         private guardiaLoteService: GuardiaLoteService,
         private modalService: ModalService)
@@ -95,10 +95,23 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.guardiaService.getByID(this._objectID)
             .subscribe(data => {
                 this.guardia = new Guardia(data);
+                // Actualizamos los agentes seleccionados. Este paso solo
+                // es para evitar cargar agentes previamente cargados
+                for (const item of this.guardia.planilla) {
+                    this.agentesSeleccionados.push(item.agente);   
+                }
+                // Verificamos si la guardia es editable
                 if (this.guardia.estado == '0') this.isEditable = true;
             })
     }
+    
+    private remoteItemFromList(list, item){
+        return list.filter(elem => elem._id != item._id);
+    }
 
+    public onRemoveItemPlanilla(item){
+        this.agentesSeleccionados = this.remoteItemFromList(this.agentesSeleccionados, item.agente);
+    }
 
     /**
      * Metodo que se ejecuta ante los cambios realizados en el formulario del
@@ -109,7 +122,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      *  
      * @param newValue unicamente tiene informacion del ultimo campo modificado
      */
-    public onChangedGuardiaForm(newValue:any){
+    public async onChangedGuardiaForm(newValue:any){
         if (this.guardia.planilla.length > 0 ){
             this.plex.confirm(
                 `Se van perder los datos ingresados en la planilla.
@@ -133,11 +146,13 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
         else{
             this.actualizarGuardia(newValue);
+            await this.isLoteValido();
+            await this.isGuardiaUnique();
         }
     }
 
     
-    private async actualizarGuardia( changedValue:any ){
+    private actualizarGuardia(changedValue:any){
         this.guardia.planilla = [];
         if ('periodo' in changedValue) {
             this.generandoPlanilla = true;
@@ -154,20 +169,39 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                 if (key == 'tipoGuardia') this.guardia.lote.tipoGuardia = changedValue[key]? changedValue[key].id: null;
             });
         }
-        // Si estan todos los datos presentes del lote entonces validamos que
-        // realmente existe un lote con esos datos
-        if (this.guardia.lote.servicio && this.guardia.lote.categoria && this.guardia.lote.tipoGuardia){
-            const lote = await this.findLoteGuardia();
-            if (lote){
-                this.guardia.lote = lote;
-            }
-            else{
-                this.infoLoteInvalido();
-            }
-        }
         window.setTimeout(() => {
-             this.generandoPlanilla = false;
-        }, 500);
+            this.generandoPlanilla = false;
+       }, 500);
+    }
+
+    private async isLoteValido(){
+        if (this.guardia.lote.servicio && this.guardia.lote.categoria && this.guardia.lote.tipoGuardia){   
+            const lote = await this.findLoteGuardia();
+            if (!lote){
+                this.infoLoteInvalido()
+                return false;
+            }
+            // Asignamos a la guardia el lote valido encontrado.
+            this.guardia.lote = lote;
+            return true;
+        }
+    }
+
+    private async isGuardiaUnique(){
+        if (this.guardia.lote.servicio && this.guardia.lote.categoria && this.guardia.lote.tipoGuardia){
+            const guardiaExistente = await this.findGuardia();
+            if (guardiaExistente && !this._objectID ){
+                this.infoGuardiaDuplicada();
+                return false;
+            }
+
+            if (guardiaExistente && this._objectID && guardiaExistente._id != this._objectID){
+                this.infoGuardiaDuplicada();
+                return false;
+            }
+            return true;
+        }
+
     }
 
     /**
@@ -183,17 +217,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
             this.plex.info('danger', 'Debe completar todos los datos obligatorios del encabezado');
             return false;
         }
-        // Validamos tambien la existencia del lote
-        const loteSearchParams = {
-            'servicio._id': form.value.servicio._id,
-            'categoria._id': form.value.categoria._id,
-            'tipoGuardia': form.value.tipoGuardia.id
-        }
-        const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
-        if (!response.length){
-            this.infoLoteInvalido();
-            return false;
-        }
         return true;
     }
 
@@ -206,6 +229,17 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }      
         const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
         return (response.length)? response[0]:null;
+    }
+
+    private async findGuardia(){
+        const searchParams = {
+            'periodo._id': this.guardia.periodo._id,
+            'lote.servicio._id': this.guardia.lote.servicio._id,
+            'lote.categoria._id': this.guardia.lote.categoria._id,
+            'lote.tipoGuardia': this.guardia.lote.tipoGuardia
+        } 
+        const response = await this.guardiaService.get(searchParams).toPromise();
+        return (response.length)? response[0]:null;        
     }
 
     /**
@@ -235,6 +269,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * contabiliza los dias de guardia del agente.
      */
     public onAddAgenteSelected(agentes:Agente[]){
+        this.agentesSeleccionados = this.agentesSeleccionados.concat(agentes);
         agentes.forEach(agente => {
             if (!this.guardia.planilla.some(e => e.agente._id === agente._id)){
                 // Si el agente seleccionado aun no pertenece a la planilla
@@ -252,8 +287,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                 }));
             }      
         });
-         
-        this.closeModal();
     }
 
     /**
@@ -273,7 +306,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * guardia, o guardar una guardia existente que ha sido modificada.
      */
     public async onGuardar(){
-        if (await this.isGuardiaFormValid()){
+        if (await this.isGuardiaFormValid() && await this.isLoteValido() && await this.isGuardiaUnique()){
             return this._objectID? this.updateGuardia('guardar'): this.addGuardia('guardar');
         }
         
@@ -283,7 +316,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * Idem que guardar pero con la accion 'Confirmar'
      */
     public async onConfirmar(){
-        if (await this.isGuardiaFormValid()){
+        if (await this.isGuardiaFormValid() && await this.isLoteValido() && await this.isGuardiaUnique()){
             this.plex.confirm(`Al confirmar se habilita al Dpto. de Gestión de Personal
                 a realizar las validaciones correspondientes para su aprobación final.
                 Durante esta etapa no podrá volver a editar la información ingresada.`)
@@ -312,7 +345,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * @param actionType  'guardar', 'confirmar'
      */
     private addGuardia(actionType:String){
-        // TODO Como asignamos el agente.  this.guardia.responsableEntrega = this.authService.usuario;
         if (actionType == 'guardar'){
             this.guardiaService.post(this.guardia)
                 .subscribe( guardia => {
@@ -387,6 +419,11 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         this.plex.info('danger', `Lote Inválido. Verifique que el Servicio, 
                                     Categoría y Tipo de Guardia pertenezcan
                                     a un Lote existente.`);
+    }
+
+
+    private infoGuardiaDuplicada(){
+        this.plex.info('danger', `Guardia Duplicada. Los datos ingresados no podran ser almacenados.`);
     }
 
 

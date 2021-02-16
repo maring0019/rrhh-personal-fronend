@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Guardia } from 'src/app/models/Guardia';
 
@@ -11,6 +11,8 @@ export class GuardiaPlanillaComponent implements OnInit {
 
     @Input() guardia: Guardia;
     @Input() editable: Boolean = true;
+
+    @Output() deleted: EventEmitter<any> = new EventEmitter<any>();
 
     ngOnInit(){
 
@@ -36,8 +38,9 @@ export class GuardiaPlanillaComponent implements OnInit {
         }
     }
 
-    onRemoveAgente(item, index){
+    onRemoveItemPlanilla(item, index){
         if (this.editable) this.guardia.planilla.splice(index, 1);
+        this.deleted.emit(item);
     }
 
 }

@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -18,7 +18,7 @@ import { Auth } from 'src/app/services/auth.service';
     selector: 'app-guardia-search-form',
     templateUrl: 'guardia-search-form.html',
 })
-export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implements OnInit, OnDestroy {
 
     // Search form select options
     public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
@@ -89,9 +89,6 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
                 this.buscar();
             }
         } );
-    }
-
-    ngAfterViewInit(){
     }
 
     ngOnDestroy(){
@@ -190,7 +187,9 @@ export class GuardiaSearchFormComponent extends CRUDSearchFormComponent implemen
     /**
      * Si el usuario tiene otorgado el permiso para procesar guardias, entonces
      * esta autorizado a visualizar todas las guardias de todos los servicios.
-     * Caso contrario solo puede visualizar las guardias de su servicio/s
+     * Caso contrario solo puede visualizar las guardias de su servicio/s. Este
+     * metodo debe ser llamado luego de haber determinado si el usuario puede
+     * procesar una guardia.
      */
     async getServiciosAllowed(){
         if (this.serviciosAllowed) return this.serviciosAllowed;

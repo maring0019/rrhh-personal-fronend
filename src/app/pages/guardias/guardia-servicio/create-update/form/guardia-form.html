@@ -9,7 +9,8 @@
                     name="periodo"
                     label="Periodo"
                     placeholder="Seleccione periodo"
-                    [required]="true">
+                    [required]="true"
+                    [readonly]="!editable">
                 </plex-select>
             </div>
             <div class="col-md-3">
@@ -20,7 +21,8 @@
                     name="servicio"
                     label="Servicio"
                     placeholder="Seleccione servicio"
-                    [required]="true">
+                    [required]="true"
+                    [readonly]="!editable">
                 </plex-select>
             </div>
             <div class="col-md-3">
@@ -31,7 +33,8 @@
                     name="categoria"
                     label="Categoría"
                     placeholder="Seleccione categoría"
-                    [required]="true">
+                    [required]="true"
+                    [readonly]="!editable">
                 </plex-select>
             </div>
             <div class="col-md-3">
@@ -41,7 +44,8 @@
                     name="tipoGuardia"
                     label="Tipo de Guardia"
                     placeholder="Seleccione un tipo de guardia"
-                    [required]="true">
+                    [required]="true"
+                    [readonly]="!editable">
                 </plex-select>
             </div>
         </div>

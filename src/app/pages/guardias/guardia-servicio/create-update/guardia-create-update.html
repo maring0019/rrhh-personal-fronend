@@ -48,6 +48,7 @@
             *ngIf="guardia"
             #guardiaForm
             [guardia]="guardia"
+            [editable]='isEditable'
             (changed)="onChangedGuardiaForm($event)">
         </app-guardia-form>
         <br>
@@ -69,7 +70,8 @@
         <ng-container *ngIf="!generandoPlanilla && guardia?.periodo">
             <app-guardia-planilla
                 [guardia]="guardia"
-                [editable]="puedeEditarPlanilla">
+                [editable]="puedeEditarPlanilla"
+                (deleted)="onRemoveItemPlanilla($event)">
             </app-guardia-planilla>  
             <br>
             <div class="d-flex flex-row justify-content-end">
@@ -89,6 +91,7 @@
             <app-agente-select
                 *ngIf="agenteSearchParams"
                 [searchParams]="agenteSearchParams"
+                [agentesExclude]="agentesSeleccionados"
                 (cancel)="onAddAgenteCancel()"
                 (selected)="onAddAgenteSelected($event)">
             </app-agente-select>
