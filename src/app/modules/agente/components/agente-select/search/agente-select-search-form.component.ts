@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AgenteService } from 'src/app/services/agente.service';
 import { Agente } from 'src/app/models/Agente';
 import { getAgenteSearchParams } from 'src/app/utils/searchUtils';
+import { isEmpty } from 'src/app/utils/formUtils';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy, OnCha
     public ngOnInit() {
         this.autoFocus = this.autoFocus + 1;
         this.searchForm = this.initSearchForm();
-        this.buscar({});
+        // this.buscar({});
     }
 
     public ngOnChanges(changes:any){
@@ -76,7 +77,7 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy, OnCha
         }
         // Inicia búsqueda
         let searchParams = this.prepareSearchParams();
-        // if (!isEmpty(searchParams)) {
+        if (!isEmpty(searchParams)) {
             this.timeoutHandle = window.setTimeout(() => {
                 this.searchStart.emit();
                 this.timeoutHandle = null;
@@ -92,8 +93,8 @@ export class AgenteSelectSearchFormComponent implements OnInit, OnDestroy, OnCha
                     }
                 );
             }, 1000);
-        // } else {
-        //     this.searchClear.emit();
-        // }
+        } else {
+             this.searchClear.emit();
+        }
     }
 }

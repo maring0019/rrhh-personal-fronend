@@ -90,7 +90,6 @@
         <jw-modal id="modal-add-agente">
             <app-agente-select
                 *ngIf="agenteSearchParams"
-                [searchParams]="agenteSearchParams"
                 [agentesExclude]="agentesSeleccionados"
                 (cancel)="onAddAgenteCancel()"
                 (selected)="onAddAgenteSelected($event)">
