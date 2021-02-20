@@ -43,18 +43,25 @@ export class MenuService {
             permiso: ["config:licencia:view_licencia"],
         },
         {
-            titulo: "Periodos Guardia",
+            titulo: "Guardias - Periodos",
             subtitulo: "Configuracion",
             url: "/configuracion/guardia-periodos",
             icono: "mdi-account-multiple-outline",
             permiso: ["config:guardia_periodo:view_periodo"],
         },
         {
-            titulo: "Lotes Guardias",
+            titulo: "Guardias - Lotes",
             subtitulo: "Configuracion",
             url: "/configuracion/guardia-lotes",
             icono: "mdi-account-multiple-outline",
             permiso: ["config:guardia_lote:view_lote"],
+        },
+        {
+            titulo: "Recargo - Turnos",
+            subtitulo: "Configuracion",
+            url: "/configuracion/recargo-turnos",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:recargo_turno:view_turno"],
         },
     ];
 

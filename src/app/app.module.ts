@@ -58,6 +58,7 @@ import { UsuarioService } from "src/app/services/usuario.service";
 import { PermisoService } from "src/app/services/permiso.service";
 import { RolService } from "src/app/services/rol.service";
 import { AdjuntoService } from './services/adjunto.service';
+import { RecargoTurnoService } from './services/recargo-turno.service';
 
 // Stores
 import { CalendarStoreService } from "./stores/calendar.store.service";
@@ -222,6 +223,8 @@ import { GuardiaItemListComponent } from "src/app/pages/guardias/guardia-servici
 import { GuardiaSearchFormComponent } from "src/app/pages/guardias/guardia-servicio/list/search/guardia-search-form.component";
 import { RangeDirective } from "./directives/range";
 
+// Recargos
+
 import { AgenteSelectComponent } from "src/app/modules/agente/components/agente-select/agente-select.component";
 import { AgenteSelectSearchFormComponent } from "src/app/modules/agente/components/agente-select/search/agente-select-search-form.component";
 import { AgenteSelectInputComponent } from "src/app/modules/agente/components/agente-select-input/agente-select-input.component";
@@ -240,6 +243,9 @@ import { RegimenHorarioCreateUpdateComponent } from "./modules/tm/components/reg
 import { LicenciaPeriodoSearchComponent } from "src/app/modules/tm/components/licencia-periodo/list/search/licencia-periodo-search.component";
 import { LicenciaPeriodoListComponent } from "src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component";
 import { LicenciaPeriodoCreateUpdateComponent } from "src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component";
+import { RecargoTurnoListComponent } from './modules/tm/components/recargo-turnos/list/recargo-turno-list.component';
+import { RecargoTurnoSearchComponent } from './modules/tm/components/recargo-turnos/list/search/recargo-turno-search.component';
+import { RecargoTurnoCreateUpdateComponent } from './modules/tm/components/recargo-turnos/create-update/recargo-turno-create-update.component';
 
 // Auditoria
 import { AuditSearchComponent } from "src/app/components/audit/list/search/audit-search.component";
@@ -373,6 +379,11 @@ const ADMIN_COMPONENTS = [
         GuardiaItemListComponent,
         GuardiaSearchFormComponent,
 
+        // Recargos
+        RecargoTurnoListComponent,
+        RecargoTurnoSearchComponent,
+        RecargoTurnoCreateUpdateComponent,
+
         // Auditoria
         AuditSearchComponent,
         AuditListComponent,
@@ -504,6 +515,7 @@ const ADMIN_COMPONENTS = [
         PermisoService,
         RolService,
         AdjuntoService,
+        RecargoTurnoService
     ],
     bootstrap: [AppComponent],
     entryComponents: [

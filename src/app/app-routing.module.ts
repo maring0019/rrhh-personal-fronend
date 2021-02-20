@@ -61,6 +61,9 @@ import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-upd
 import { AuditListComponent } from "src/app/components/audit/list/audit-list.component";
 import { NgxPermissionsGuard } from "ngx-permissions";
 
+import { RecargoTurnoListComponent } from './modules/tm/components/recargo-turnos/list/recargo-turno-list.component';
+import { RecargoTurnoCreateUpdateComponent } from './modules/tm/components/recargo-turnos/create-update/recargo-turno-create-update.component';
+
 
 const routes: Routes = [
     // Inicio
@@ -181,6 +184,22 @@ const routes: Routes = [
     {
         path: "configuracion/guardia-lotes/editar/:id",
         component: GuardiaLotesCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    // Configuracion Recargos
+    {
+        path: "configuracion/recargo-turnos",
+        component: RecargoTurnoListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/recargo-turnos/crear",
+        component: RecargoTurnoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/recargo-turnos/editar/:id",
+        component: RecargoTurnoCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
 
