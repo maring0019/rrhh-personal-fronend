@@ -63,6 +63,8 @@ import { NgxPermissionsGuard } from "ngx-permissions";
 
 import { RecargoTurnoListComponent } from './modules/tm/components/recargo-turnos/list/recargo-turno-list.component';
 import { RecargoTurnoCreateUpdateComponent } from './modules/tm/components/recargo-turnos/create-update/recargo-turno-create-update.component';
+import { RecargoJustificacionListComponent } from './modules/tm/components/recargo-justificacion/list/recargo-justificacion-list.component';
+import { RecargoJustificacionCreateUpdateComponent } from './modules/tm/components/recargo-justificacion/create-update/recargo-justificacion-create-update.component';
 
 
 const routes: Routes = [
@@ -202,6 +204,22 @@ const routes: Routes = [
         component: RecargoTurnoCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
+    {
+        path: "configuracion/recargo-justificaciones",
+        component: RecargoJustificacionListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/recargo-justificaciones/crear",
+        component: RecargoJustificacionCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/recargo-justificaciones/editar/:id",
+        component: RecargoJustificacionCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
 
     {
         path: "configuracion/licencia-periodos",

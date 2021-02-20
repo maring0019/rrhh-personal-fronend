@@ -63,6 +63,13 @@ export class MenuService {
             icono: "mdi-account-multiple-outline",
             permiso: ["config:recargo_turno:view_turno"],
         },
+        {
+            titulo: "Recargo - Justificaciones",
+            subtitulo: "Configuracion",
+            url: "/configuracion/recargo-justificaciones",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:recargo_justificacion:view_justificacion"],
+        },
     ];
 
     private menuPartes = [

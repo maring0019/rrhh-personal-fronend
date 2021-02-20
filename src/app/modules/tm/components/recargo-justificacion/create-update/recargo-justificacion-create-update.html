@@ -1,0 +1,39 @@
+<plex-layout main="12">
+    <plex-layout-main>
+
+        <app-crud-header
+            [action]="(object?.id)? 'update':'create'"
+            [titulo]="titulo"
+            [subtitulo]="subtitulo"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+            (history)="onHistoria()">
+        </app-crud-header>
+        
+        <form *ngIf='form' name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-text 
+                        name="nombre" 
+                        formControlName="nombre"
+                        label="Nombre"
+                        [required]="true"
+                        placeholder="Ingrese nombre para la justificación">
+                    </plex-text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-text 
+                        name="observaciones" 
+                        formControlName="observaciones"
+                        label="Observaciones"
+                        [required]="false"
+                        placeholder="Ingrese una descripción u observaciones">
+                    </plex-text>
+                </div>
+            </div>
+        </form>
+
+    </plex-layout-main>
+</plex-layout>
