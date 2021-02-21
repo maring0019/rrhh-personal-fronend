@@ -1,0 +1,47 @@
+<header>
+    <form *ngIf="filterForm" name="filterForm" [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-2">
+                <plex-select
+                    [data]="mesOpciones"
+                    formControlName="mes"
+                    name="mes"
+                    label="Mes"
+                    placeholder="Seleccione..."
+                    (change)="search()">
+                </plex-select>
+            </div>
+            <div class="col-md-2">
+                <plex-select
+                    [data]="anioOpciones"
+                    formControlName="anio"
+                    name="anio"
+                    label="Año"
+                    placeholder="Seleccione..."
+                    (change)="search()">
+                </plex-select>
+            </div>
+            <div class="col-md-4">
+                <plex-select
+                    [idField]="'_id'"
+                    [data]="servicioOpciones"
+                    formControlName="servicio"
+                    name="servicio"
+                    label="Servicio"
+                    placeholder="Seleccione servicio"
+                    (change)="search($event)">
+                </plex-select>
+            </div>
+            <div class="col-md-2">
+                <plex-select
+                    [data]="estadoOpciones"
+                    formControlName="estado"
+                    name="estado"
+                    label="Estado"
+                    placeholder="Seleccione un estado"
+                    (change)="search($event)">
+                </plex-select>
+            </div>
+        </div>    
+    </form>
+</header>

@@ -145,6 +145,16 @@ export class MenuService {
             permiso: ["guardias:guardia:view_guardia"],
         },
         {
+            titulo: "Recargos",
+            subtitulo: "",
+            detalle: "",
+            url: "/recargos",
+            icono: "mdi-calendar",
+            color: "color-verde-oscuro",
+            style: "solid",
+            permiso: ["recargos:recargo:view_recargo"],
+        },
+        {
             titulo: "Reportes",
             subtitulo: "",
             detalle: "",

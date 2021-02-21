@@ -60,6 +60,7 @@ import { RolService } from "src/app/services/rol.service";
 import { AdjuntoService } from './services/adjunto.service';
 import { RecargoTurnoService } from './services/recargo-turno.service';
 import { RecargoJustificacionService } from './services/recargo-justificacion.service';
+import { RecargoService } from './services/recargo.service';
 
 // Stores
 import { CalendarStoreService } from "./stores/calendar.store.service";
@@ -225,6 +226,8 @@ import { GuardiaSearchFormComponent } from "src/app/pages/guardias/guardia-servi
 import { RangeDirective } from "./directives/range";
 
 // Recargos
+import { RecargoListComponent } from './pages/recargos/list/recargo-list.component';
+import { RecargoSearchFormComponent } from './pages/recargos/list/search/recargo-search.component';
 
 import { AgenteSelectComponent } from "src/app/modules/agente/components/agente-select/agente-select.component";
 import { AgenteSelectSearchFormComponent } from "src/app/modules/agente/components/agente-select/search/agente-select-search-form.component";
@@ -294,6 +297,13 @@ const ADMIN_COMPONENTS = [
     LicenciaPeriodoListComponent,
     LicenciaPeriodoSearchComponent,
     LicenciaPeriodoCreateUpdateComponent,
+
+    RecargoTurnoListComponent,
+    RecargoTurnoSearchComponent,
+    RecargoTurnoCreateUpdateComponent,
+    RecargoJustificacionListComponent,
+    RecargoJustificacionSearchComponent,
+    RecargoJustificacionCreateUpdateComponent,
 ];
 
 @NgModule({
@@ -384,12 +394,8 @@ const ADMIN_COMPONENTS = [
         GuardiaSearchFormComponent,
 
         // Recargos
-        RecargoTurnoListComponent,
-        RecargoTurnoSearchComponent,
-        RecargoTurnoCreateUpdateComponent,
-        RecargoJustificacionListComponent,
-        RecargoJustificacionSearchComponent,
-        RecargoJustificacionCreateUpdateComponent,
+        RecargoListComponent,
+        RecargoSearchFormComponent,
 
         // Auditoria
         AuditSearchComponent,
@@ -523,7 +529,8 @@ const ADMIN_COMPONENTS = [
         RolService,
         AdjuntoService,
         RecargoTurnoService,
-        RecargoJustificacionService
+        RecargoJustificacionService,
+        RecargoService,
     ],
     bootstrap: [AppComponent],
     entryComponents: [

@@ -51,7 +51,6 @@ export class Guardia {
         nombre: String,
         apellido: String
     }; 
-    // fechaHoraProcesamiento: Date;
 
     get fechaHoraEntrega():Date{
         return localDate(this.fechaHoraEntrega);

@@ -1,0 +1,65 @@
+<plex-layout main="12">
+
+    <plex-layout-main>
+        <app-crud-header 
+            [titulo]="'Recargos'"
+            [canCreateObject]="canCreateObject"
+            (cancel)="cancel()">
+        </app-crud-header>
+        
+        <app-recargo-search-form
+            (change)="search($event)">
+        </app-recargo-search-form>
+
+        <br>
+        
+        <plex-loader 
+            *ngIf="searching"
+            class="d-flex flex-column align-items-center justify-content-center h-75"
+            type="ball-beat">
+        </plex-loader>
+
+        <app-search-leyenda
+            *ngIf="searched && items && !items.length"
+            [header]="'No se encontraron resultados!'">
+        </app-search-leyenda>
+
+        <list-head
+            *ngIf="searched && items && items.length"
+            [columnDef]="columnDef">
+        </list-head>
+        
+        <list-item *ngFor="let item of items; let i=index"
+            [item]="item"
+            [itemSelected]="itemSelected"
+            [actions]="['edit', 'view']"
+            (view)="onItemView($event)"
+            (edit)="onItemEdit($event)"
+            (selectionChange)="onItemSelectionChanged($event)">
+            <plex-label class="wp-20" titulo="{{item.mes | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-20" titulo="{{item.anio | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-40" titulo="{{item.ubicacion.nombre | title }}" [tituloBold]="false"></plex-label>
+            <div class="wp-20" [ngSwitch]="item.estado">
+                <plex-badge *ngSwitchCase="0" type="warning" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchCase="1" type="danger" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Confirmada"></plex-icon>
+                </plex-badge>
+                <plex-badge *ngSwitchDefault type="success" size="sm">
+                    <plex-icon name="mdi mdi-clipboard-text" title="Procesada"></plex-icon>
+                </plex-badge>
+            </div>
+        </list-item>
+        
+        <div class="d-flex justify-content-center mt-4">
+            <plex-button
+                *ngIf="showMore"
+                label="Mostrar más resultados"
+                type="info"
+                (click)="showMoreResultados()">
+            </plex-button>
+        </div>
+               
+    </plex-layout-main>   
+</plex-layout>

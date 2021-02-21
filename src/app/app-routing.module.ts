@@ -46,6 +46,11 @@ import { GuardiaPeriodoCreateUpdateComponent } from "src/app/modules/tm/componen
 import { GuardiaLotesListComponent } from "src/app/modules/tm/components/guardia-lotes/list/guardia-lotes-list.component";
 import { GuardiaLotesCreateUpdateComponent } from "src/app/modules/tm/components/guardia-lotes/create-update/guardia-lotes-create-update.component";
 
+import { RecargoTurnoListComponent } from './modules/tm/components/recargo-turnos/list/recargo-turno-list.component';
+import { RecargoTurnoCreateUpdateComponent } from './modules/tm/components/recargo-turnos/create-update/recargo-turno-create-update.component';
+import { RecargoJustificacionListComponent } from './modules/tm/components/recargo-justificacion/list/recargo-justificacion-list.component';
+import { RecargoJustificacionCreateUpdateComponent } from './modules/tm/components/recargo-justificacion/create-update/recargo-justificacion-create-update.component';
+
 import { RegimenHorarioListComponent } from "src/app/modules/tm/components/regimen-horario/list/regimen-horario-list.component";
 import { RegimenHorarioCreateUpdateComponent } from "src/app/modules/tm/components/regimen-horario/create-update/regimen-horario-create-update.component";
 
@@ -61,10 +66,7 @@ import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-upd
 import { AuditListComponent } from "src/app/components/audit/list/audit-list.component";
 import { NgxPermissionsGuard } from "ngx-permissions";
 
-import { RecargoTurnoListComponent } from './modules/tm/components/recargo-turnos/list/recargo-turno-list.component';
-import { RecargoTurnoCreateUpdateComponent } from './modules/tm/components/recargo-turnos/create-update/recargo-turno-create-update.component';
-import { RecargoJustificacionListComponent } from './modules/tm/components/recargo-justificacion/list/recargo-justificacion-list.component';
-import { RecargoJustificacionCreateUpdateComponent } from './modules/tm/components/recargo-justificacion/create-update/recargo-justificacion-create-update.component';
+import { RecargoListComponent } from './pages/recargos/list/recargo-list.component';
 
 
 const routes: Routes = [
@@ -417,6 +419,23 @@ const routes: Routes = [
         path: "guardias/procesar/:id",
         component: GuardiaCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
+    // Recargos
+    {
+        path: "recargos",
+        component: RecargoListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: [
+                    "recargos:recargo:view_recargo",
+                    "recargos:recargo:add_recargo",
+                    "recargos:recargo:procesar_recargo",
+                ],
+                redirectTo: "/inicio",
+            },
+        },
     },
 
     // Agentes Busqueda y Registro
