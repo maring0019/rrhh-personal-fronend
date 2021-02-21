@@ -6,7 +6,7 @@ export class Recargo {
     mes: Number;
     anio: Number;
     servicio: Ubicacion;
-    // planilla: ItemGuardiaPlanilla[];
+    planilla: any[];
     estado: String;
     responsableEntrega: {    // Agente Jefe de Servicio
         _id: String,
@@ -34,7 +34,7 @@ export class Recargo {
         this.mes = recargo.mes;
         this.anio = recargo.anio;
         this.servicio = recargo.servicio? new Ubicacion(recargo.servicio): null;
-        // this.planilla = [];
+        this.planilla = [];
         // if (recargo.planilla && recargo.planilla.length){
         //     recargo.planilla.forEach(e => {
         //         this.planilla.push(new ItemGuardiaPlanilla(e));

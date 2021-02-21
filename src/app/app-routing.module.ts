@@ -24,6 +24,9 @@ import { FichadaReporteListComponent } from "src/app/pages/partes/reportes/ficha
 import { GuardiaCreateUpdateComponent } from "./pages/guardias/guardia-servicio/create-update/guardia-create-update.component";
 import { GuardiaListComponent } from "src/app/pages/guardias/guardia-servicio/list/guardia-list.component";
 
+import { RecargoListComponent } from './pages/recargos/list/recargo-list.component';
+import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/recargo-create-update.component';
+
 // Menus pages
 import { AgenteAusentismoComponent } from "./pages/ausentismo/agente-ausentismo.component";
 import { HomeMenuPageComponent } from "src/app/pages/home/home-menu.page";
@@ -65,8 +68,6 @@ import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-upd
 
 import { AuditListComponent } from "src/app/components/audit/list/audit-list.component";
 import { NgxPermissionsGuard } from "ngx-permissions";
-
-import { RecargoListComponent } from './pages/recargos/list/recargo-list.component';
 
 
 const routes: Routes = [
@@ -436,6 +437,16 @@ const routes: Routes = [
                 redirectTo: "/inicio",
             },
         },
+    },
+    {
+        path: "recargos/crear",
+        component: RecargoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "recargos/editar/:id",
+        component: RecargoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
     },
 
     // Agentes Busqueda y Registro

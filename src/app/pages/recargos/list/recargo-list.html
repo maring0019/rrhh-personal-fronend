@@ -4,7 +4,8 @@
         <app-crud-header 
             [titulo]="'Recargos'"
             [canCreateObject]="canCreateObject"
-            (cancel)="cancel()">
+            (cancel)="cancel()"
+            (create)="createItem()">
         </app-crud-header>
         
         <app-recargo-search-form

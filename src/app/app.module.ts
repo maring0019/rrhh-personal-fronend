@@ -228,6 +228,9 @@ import { RangeDirective } from "./directives/range";
 // Recargos
 import { RecargoListComponent } from './pages/recargos/list/recargo-list.component';
 import { RecargoSearchFormComponent } from './pages/recargos/list/search/recargo-search.component';
+import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/recargo-create-update.component';
+import { RecargoFormComponent } from './pages/recargos/create-update/form/recargo-form.component';
+
 
 import { AgenteSelectComponent } from "src/app/modules/agente/components/agente-select/agente-select.component";
 import { AgenteSelectSearchFormComponent } from "src/app/modules/agente/components/agente-select/search/agente-select-search-form.component";
@@ -266,7 +269,6 @@ import { RolSearchComponent } from 'src/app/pages/seguridad/rol/list/search/rol-
 import { RolListComponent } from 'src/app/pages/seguridad/rol/list/rol-list.component';
 import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-update/rol-create-update.component';
 import { PermisoListComponent } from 'src/app/pages/seguridad/permiso/permiso-list.component';
-
 
 const ADMIN_COMPONENTS = [
     FeriadoListComponent,
@@ -396,6 +398,8 @@ const ADMIN_COMPONENTS = [
         // Recargos
         RecargoListComponent,
         RecargoSearchFormComponent,
+        RecargoCreateUpdateComponent,
+        RecargoFormComponent,
 
         // Auditoria
         AuditSearchComponent,

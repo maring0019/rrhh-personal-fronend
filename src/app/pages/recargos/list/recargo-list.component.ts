@@ -62,4 +62,8 @@ export class RecargoListComponent extends ABMListComponent {
         this.router.navigate(['/inicio']);
     }
 
+    public createItem(){
+        this.router.navigate(['recargos/crear']);
+    }
+
 }
