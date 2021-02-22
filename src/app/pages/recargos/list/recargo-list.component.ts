@@ -66,4 +66,18 @@ export class RecargoListComponent extends ABMListComponent {
         this.router.navigate(['recargos/crear']);
     }
 
+    public onItemEdit(item){
+        // this.itemSelected = item;
+        this.router.navigate(['recargos/editar', item._id]);
+    }
+
+    public onItemView(item){
+        // this.itemSelected = item;
+        this.router.navigate(['recargos/editar', item._id]);
+    }
+
+    public onItemProcesar(item){
+        
+    }
+
 }

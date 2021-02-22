@@ -148,14 +148,15 @@ export class RecargoCreateUpdateComponent implements OnInit {
 
     
     private actualizarRecargo(changedValue:any){
+        console.log("changedValue", changedValue)
         this.recargo.planilla = [];
         if ('mes' in changedValue || 'anio' in changedValue) {
             this.generandoPlanilla = true;
             // Creamos una nueva instancia del periodo para regenerar el 
             // rango de fechas nuevamente.
             // TODO Ver esto para recargos
-            this.recargo.mes = ('mes' in changedValue)? changedValue.mes:this.recargo.mes; //new GuardiaPeriodo(changedValue.periodo); 
-            this.recargo.anio = ('anio' in changedValue)? changedValue.anio:this.recargo.anio;
+            this.recargo.mes = ('mes' in changedValue)? changedValue.mes.id:this.recargo.mes; //new GuardiaPeriodo(changedValue.periodo); 
+            this.recargo.anio = ('anio' in changedValue)? changedValue.anio.id:this.recargo.anio;
         }
         else{
             // Actualizamos los datos del recargo con el valor modificado
