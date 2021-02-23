@@ -230,6 +230,7 @@ import { RecargoListComponent } from './pages/recargos/list/recargo-list.compone
 import { RecargoSearchFormComponent } from './pages/recargos/list/search/recargo-search.component';
 import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/recargo-create-update.component';
 import { RecargoFormComponent } from './pages/recargos/create-update/form/recargo-form.component';
+import { RecargoPlanillaComponent } from './pages/recargos/create-update/planilla/recargo-planilla.component';
 
 
 import { AgenteSelectComponent } from "src/app/modules/agente/components/agente-select/agente-select.component";
@@ -400,6 +401,7 @@ const ADMIN_COMPONENTS = [
         RecargoSearchFormComponent,
         RecargoCreateUpdateComponent,
         RecargoFormComponent,
+        RecargoPlanillaComponent,
 
         // Auditoria
         AuditSearchComponent,

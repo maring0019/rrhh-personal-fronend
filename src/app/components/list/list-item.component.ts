@@ -72,4 +72,10 @@ export class ListItemComponent implements OnInit {
             this.delete.emit(item)
         }
     }
+
+    public highlightItemSelected(item){
+        if (this.itemSelected) return this.itemSelected._id == item._id
+
+        return false;
+    }
 }

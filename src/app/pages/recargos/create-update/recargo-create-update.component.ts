@@ -12,8 +12,7 @@ import { ModalService } from 'src/app/services/modal.service';
 import { RecargoService } from 'src/app/services/recargo.service';
 
 import { Agente } from 'src/app/models/Agente';
-import { ItemGuardiaPlanilla } from 'src/app/models/Guardia';
-import { Recargo } from 'src/app/models/Recargo';
+import { Recargo, RecargoItemPlanilla } from 'src/app/models/Recargo';
 
 @Component({
     selector: 'app-recargo-create-update',
@@ -60,7 +59,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
     
     private _objectID:any; // To keep track of object on update
 
-    private agentesSeleccionados = []; // 
+    public agentesSeleccionados = []; // 
 
     constructor(
         private route: ActivatedRoute,
@@ -148,14 +147,10 @@ export class RecargoCreateUpdateComponent implements OnInit {
 
     
     private actualizarRecargo(changedValue:any){
-        console.log("changedValue", changedValue)
         this.recargo.planilla = [];
         if ('mes' in changedValue || 'anio' in changedValue) {
             this.generandoPlanilla = true;
-            // Creamos una nueva instancia del periodo para regenerar el 
-            // rango de fechas nuevamente.
-            // TODO Ver esto para recargos
-            this.recargo.mes = ('mes' in changedValue)? changedValue.mes.id:this.recargo.mes; //new GuardiaPeriodo(changedValue.periodo); 
+            this.recargo.mes = ('mes' in changedValue)? changedValue.mes.id:this.recargo.mes; 
             this.recargo.anio = ('anio' in changedValue)? changedValue.anio.id:this.recargo.anio;
         }
         else{
@@ -217,18 +212,18 @@ export class RecargoCreateUpdateComponent implements OnInit {
     public async onAddAgente(){
         const form = this.recargoForm.form;
         if ( await this.isRecargoFormValid()) {
-            this._extraSearchParams = {
-                'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
-                'situacionLaboral.cargo.agrupamiento._id': form.value.categoria._id,
-                'activo': true
-            }
+            // this._extraSearchParams = {
+            //     'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
+            //     'situacionLaboral.cargo.agrupamiento._id': form.value.categoria._id,
+            //     'activo': true
+            // }
             this.modalService.open('modal-add-agente');
         }
     }
 
     /**
      * Una vez seleccionado el/los agentes se crea una/s instancia/s de
-     * ItemRecargoPlanilla para agregar al listado general de recargos.
+     * RecargoItemPlanilla para agregar al listado general de recargos.
      */
     public onAddAgenteSelected(agentes:Agente[]){
         this.agentesSeleccionados = this.agentesSeleccionados.concat(agentes);
@@ -236,7 +231,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
             if (!this.recargo.planilla.some(e => e.agente._id === agente._id)){
                 // Si el agente seleccionado aun no pertenece a la planilla
                 // lo incorporamos
-                this.recargo.planilla.push( new ItemGuardiaPlanilla({
+                this.recargo.planilla.push( new RecargoItemPlanilla({
                     agente: 
                         {
                             _id: agente._id,
@@ -244,8 +239,9 @@ export class RecargoCreateUpdateComponent implements OnInit {
                             apellido: agente.apellido,
                             numero: agente.numero
                         },
-                    diasGuardia: [],
-                    totalDias: 0
+                }));
+                this.recargo.planilla.push( new RecargoItemPlanilla({
+                    total:0
                 }));
             }      
         });
