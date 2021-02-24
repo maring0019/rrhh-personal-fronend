@@ -105,8 +105,9 @@ export class RecargoCreateUpdateComponent implements OnInit {
         return list.filter(elem => elem._id != item._id);
     }
 
-    public onRemoveItemPlanilla(item){
-        this.agentesSeleccionados = this.remoteItemFromList(this.agentesSeleccionados, item.agente);
+    public onRemoveItemPlanilla(event){
+        this.recargo.planilla.splice(event.index, 1);
+        this.agentesSeleccionados = this.remoteItemFromList(this.agentesSeleccionados, event.item.agente);
     }
 
     /**
@@ -232,16 +233,18 @@ export class RecargoCreateUpdateComponent implements OnInit {
                 // Si el agente seleccionado aun no pertenece a la planilla
                 // lo incorporamos
                 this.recargo.planilla.push( new RecargoItemPlanilla({
-                    agente: 
-                        {
-                            _id: agente._id,
-                            nombre: agente.nombre,
-                            apellido: agente.apellido,
-                            numero: agente.numero
-                        },
-                }));
-                this.recargo.planilla.push( new RecargoItemPlanilla({
-                    total:0
+                    agente: {
+                        _id: agente._id,
+                        nombre: agente.nombre,
+                        apellido: agente.apellido,
+                        numero: agente.numero
+                    },
+                    items:[{
+                        fecha: new Date(),
+                        turno: null,
+                        justificacion: null,
+                        observaciones: ""
+                    }]
                 }));
             }      
         });
@@ -376,13 +379,5 @@ export class RecargoCreateUpdateComponent implements OnInit {
     private infoRecargoDuplicado(){
         this.plex.info('danger', `Recargo Duplicado. Los datos ingresados no podran ser almacenados.`);
     }
-
-
-
-    
-    //TODO: 
-    //   Ver como calcular los dias de un agente en otraaaas planillas para el mismo periodo?
-    //   Incluir info de las ausencias!!!!
-    
 
 }

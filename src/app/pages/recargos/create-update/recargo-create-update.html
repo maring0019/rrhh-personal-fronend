@@ -69,7 +69,8 @@
         <!-- Planilla de recargos por agente -->
         <ng-container *ngIf="!generandoPlanilla && recargo?.planilla">
             <app-recargo-planilla
-                [recargo]="recargo">
+                [recargo]="recargo"
+                (deleted)="onRemoveItemPlanilla($event)">
             </app-recargo-planilla>
             <br>
             <div class="d-flex flex-row justify-content-end">

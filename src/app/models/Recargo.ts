@@ -3,6 +3,24 @@ import { Ubicacion } from './Ubicacion';
 import { RecargoTurno } from './RecargoTurno';
 import { RecargoJustificacion } from './RecargoJustificacion';
 
+export class ItemPlanilla {
+    private _agenteID: String;
+    fecha: Date;
+    turno: RecargoTurno;
+    justificacion: RecargoJustificacion;
+    observaciones: String;
+
+    constructor(agente, item?)
+    {
+        item = item || {};
+        this._agenteID = agente._id;
+        this.fecha = item.fecha? item.fecha : null;
+        this.turno = item.turno? item.turno : null;
+        this.justificacion = item.justificacion? item.justificacion : null;
+        this.observaciones = item.observaciones;
+    }
+}
+
 
 export class RecargoItemPlanilla {
     agente: {
@@ -11,30 +29,18 @@ export class RecargoItemPlanilla {
         apellido: String,
         numero: String
     };
-    fecha: Date;
-    turno: RecargoTurno;
-    justificacion: RecargoJustificacion;
-    observaciones: String;
-    total: Number;
-
-    // get totalDias(){
-    //     return this.diasGuardia
-    //         .reduce((sum, dia) => {
-    //             if (dia && dia.diaCompleto) return sum + 1;
-    //             if (dia && !dia.diaCompleto) return sum + 0.5;
-    //             return sum }
-    //         , 0); // sum es el acumulador, se inicializa en 0
-    // }
+    items: ItemPlanilla[]
 
     constructor(item?)
     {
         item = item || {};
         this.agente = item.agente? item.agente : null;
-        this.fecha = item.fecha? item.fecha : null;
-        this.turno = item.turno? item.turno : null;
-        this.justificacion = item.justificacion? item.justificacion : null;
-        this.observaciones = item.observaciones;
-        this.total = item.total;
+        this.items = [];
+        if (item.items && item.items.length){
+            item.items.forEach(elem => {
+                this.items.push(new ItemPlanilla(this.agente, elem));
+            });
+        }      
     }
 }
 

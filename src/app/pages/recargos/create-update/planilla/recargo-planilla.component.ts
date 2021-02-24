@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Recargo } from 'src/app/models/Recargo';
+import { Recargo, ItemPlanilla } from 'src/app/models/Recargo';
 import { RecargoJustificacionService } from 'src/app/services/recargo-justificacion.service';
 import { RecargoTurnoService } from 'src/app/services/recargo-turno.service';
 
@@ -14,6 +14,7 @@ export class RecargoPlanillaComponent implements OnInit {
     @Input() editable: Boolean = true;
 
     @Output() deleted: EventEmitter<any> = new EventEmitter<any>();
+    @Output() itemAdded: EventEmitter<any> = new EventEmitter<any>();
 
     public justificacionOpciones = [];
     public turnoOpciones = [];
@@ -68,14 +69,22 @@ export class RecargoPlanillaComponent implements OnInit {
             })
     }
 
+    public addItem(agente, index){
+        agente.items.push(new ItemPlanilla(agente))
+        this.itemAdded.emit({item:agente, index:index})
+
+    }
+
+    public deleteItem(item, innerIndex, outterIndex){
+        item.items.splice(innerIndex, 1);
+        if (!item.items.length) this.deleted.emit({item:item, index:outterIndex});
+    }
 
     // TODO
-    // Agregar fila vacia
-    // Permitir agregar agente entre lineas
-    // Totalizar
-    // Permitir quitar item de la lista
-    // Guardar
-    // Ver que pasa con las fechas
     // Validar entre lineas
+    // Procesar
+    // Permitir vista edicion. Deshabilitar componentes
+    // Imprimir reporte
+
 
 }
