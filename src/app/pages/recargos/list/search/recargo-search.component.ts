@@ -7,6 +7,7 @@ import { ABMSearchComponent } from 'src/app/modules/tm/components/crud/abm-searc
 
 import { Auth } from 'src/app/services/auth.service';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
+import { getMesesOptions, getAniosOptions } from 'src/app/models/enumerados';
 
 
 @Component({
@@ -16,8 +17,8 @@ import { UbicacionService } from 'src/app/services/ubicacion.service';
 export class RecargoSearchFormComponent extends ABMSearchComponent{
 
     // Search form select options
-    public anioOpciones = [];
-    public mesOpciones = [];
+    public anioOpciones = getAniosOptions();
+    public mesOpciones = getMesesOptions();
     public servicioOpciones = []
     public estadoOpciones = [];
     public serviciosAllowed; // Id de los servicios del jefe de servicio
@@ -93,17 +94,6 @@ export class RecargoSearchFormComponent extends ABMSearchComponent{
     }
 
     initFilterFormSelectOptions(){
-        this.mesOpciones = [
-            { id: 1, nombre: 'Enero' },
-            { id: 2, nombre: 'Febrero'},
-            { id: 3, nombre: 'Marzo'}
-        ]
-        this.anioOpciones = [
-            { id: 2020, nombre: '2020' },
-            { id: 2021, nombre: '2021'},
-            { id: 2022, nombre: '2022'}
-
-        ]
         this.estadoOpciones = [
             { id: 0, nombre: 'Sin Confirmar' },
             { id: 1, nombre: 'Confirmada'},
@@ -166,7 +156,7 @@ export class RecargoSearchFormComponent extends ABMSearchComponent{
                 params['estado'] = form.estado.id;
             }
             if (form.mes){
-                params['mes'] = form.mes.id;
+                params['mes.id'] = form.mes.id;
             }
             if (form.anio){
                 params['anio'] = form.anio.id;

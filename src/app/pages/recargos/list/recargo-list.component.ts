@@ -6,6 +6,7 @@ import { ABMListComponent } from 'src/app/modules/tm/components/crud/abm-list.co
 import { ObjectService } from 'src/app/services/tm/object.service';
 import { RecargoService } from 'src/app/services/recargo.service';
 import { Auth } from 'src/app/services/auth.service';
+import { ReportesService } from 'src/app/services/reportes.service';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { Auth } from 'src/app/services/auth.service';
 export class RecargoListComponent extends ABMListComponent {
 
     public modelName = 'recargo';
+    public reportName = 'recargos';
+    public printing = false;
 
     public columnDef =
     [
@@ -46,6 +49,7 @@ export class RecargoListComponent extends ABMListComponent {
         protected objectService: ObjectService,
         private recargoService: RecargoService,
         private authService: Auth,
+        private reportesService: ReportesService,
         public plex: Plex) {
             super(router, objectService);
          }
@@ -67,17 +71,27 @@ export class RecargoListComponent extends ABMListComponent {
     }
 
     public onItemEdit(item){
-        // this.itemSelected = item;
         this.router.navigate(['recargos/editar', item._id]);
     }
 
     public onItemView(item){
-        // this.itemSelected = item;
         this.router.navigate(['recargos/editar', item._id]);
     }
 
     public onItemProcesar(item){
-        
+        this.router.navigate(['recargos/editar', item._id]);
+    }
+
+    public onItemImprimir(item){
+        this.printing = true;
+        this.reportesService.print({ tipoReporte:this.reportName, _id:item._id })
+            .subscribe(data => {           
+                this.reportesService.descargarArchivo(data);     
+                this.printing = false;
+            }, error => {
+                this.printing = false;
+                console.log('download error:', JSON.stringify(error));
+            }); 
     }
 
 }

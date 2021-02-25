@@ -448,6 +448,11 @@ const routes: Routes = [
         component: RecargoCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
+    {
+        path: "recargos/procesar/:id",
+        component: RecargoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
 
     // Agentes Busqueda y Registro
     {

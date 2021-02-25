@@ -46,7 +46,10 @@ export class RecargoItemPlanilla {
 
 export class Recargo {
     _id: String;
-    mes: Number;
+    mes: {
+        id: Number,
+        nombre: String
+    };
     anio: Number;
     servicio: Ubicacion;
     planilla: RecargoItemPlanilla[];

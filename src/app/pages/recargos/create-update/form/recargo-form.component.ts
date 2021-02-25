@@ -9,6 +9,7 @@ import  *  as formUtils from 'src/app/utils/formUtils';
 import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
 import { Auth } from 'src/app/services/auth.service';
 import { Recargo } from 'src/app/models/Recargo';
+import { getMesesOptions, getAniosOptions } from 'src/app/models/enumerados';
 
 
 @Component({
@@ -30,17 +31,8 @@ export class RecargoFormComponent implements OnInit {
     public form: FormGroup;
 
     // Form select options
-    public mesOpciones = [
-        { id: 1, nombre: 'Enero' },
-        { id: 2, nombre: 'Febrero'},
-        { id: 3, nombre: 'Marzo'}
-    ];
-    public anioOpciones = [
-        { id: 2020, nombre: '2020' },
-        { id: 2021, nombre: '2021'},
-        { id: 2022, nombre: '2022'}
-
-    ];
+    public mesOpciones = getMesesOptions();
+    public anioOpciones = getAniosOptions();
     public servicioOpciones = this.authService.servicios;
     
     constructor(

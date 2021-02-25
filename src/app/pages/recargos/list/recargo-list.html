@@ -35,7 +35,7 @@
             [itemSelected]="itemSelected"
             [botonera]="false"
             (selectionChange)="onItemSelectionChanged($event)">
-            <plex-label class="wp-20" titulo="{{item.mes | title }}" [tituloBold]="false"></plex-label>
+            <plex-label class="wp-20" titulo="{{item.mes?.nombre | title }}" [tituloBold]="false"></plex-label>
             <plex-label class="wp-20" titulo="{{item.anio | title }}" [tituloBold]="false"></plex-label>
             <plex-label class="wp-40" titulo="{{item.servicio?.nombre | title }}" [tituloBold]="false"></plex-label>
             <div class="wp-20" [ngSwitch]="item.estado">
@@ -54,6 +54,15 @@
             </div>
             <div class="item-column item-botonera">
                 <div class="d-flex flex-row justify-content-end align-items-center"> 
+                    <ng-template [ngxPermissionsOnly]="'recargos:recargo:imprimir'">
+                        <plex-button
+                            title="Imprimir"
+                            type="warning"
+                            size="sm"
+                            icon="mdi mdi-printer"
+                            (click)="onItemImprimir(item)">
+                        </plex-button>
+                    </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:view_recargo'">
                         <plex-button
                             *ngIf="item.estado && item.estado == 2"

@@ -151,7 +151,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
         this.recargo.planilla = [];
         if ('mes' in changedValue || 'anio' in changedValue) {
             this.generandoPlanilla = true;
-            this.recargo.mes = ('mes' in changedValue)? changedValue.mes.id:this.recargo.mes; 
+            this.recargo.mes = ('mes' in changedValue)? changedValue.mes:this.recargo.mes; 
             this.recargo.anio = ('anio' in changedValue)? changedValue.anio.id:this.recargo.anio;
         }
         else{
@@ -199,7 +199,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
     private async findRecargo(){
         const searchParams = {
             'anio': this.recargo.anio,
-            'mes': this.recargo.mes,
+            'mes.id': this.recargo.mes.id,
             'servicio._id': this.recargo.servicio._id,
         } 
         const response = await this.recargoService.get(searchParams).toPromise();

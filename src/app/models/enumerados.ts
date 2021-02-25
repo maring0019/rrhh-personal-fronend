@@ -2,6 +2,8 @@
  * TODO: Document THIS
  */
 
+import { abort } from 'process';
+
 export enum Sexo {
     'femenino',
     'masculino',
@@ -179,5 +181,34 @@ export function getObjEstadoCivil() {
         };
     });
     return salida;
+}
+
+export function getMesesOptions(){
+    return [
+        { id: 1, nombre: 'Enero' },
+        { id: 2, nombre: 'Febrero'},
+        { id: 3, nombre: 'Marzo'},
+        { id: 4, nombre: 'Abril' },
+        { id: 5, nombre: 'Mayo'},
+        { id: 6, nombre: 'Junio'},
+        { id: 7, nombre: 'Julio' },
+        { id: 8, nombre: 'Agosto'},
+        { id: 9, nombre: 'Septiembre'},
+        { id: 10, nombre: 'Octubre' },
+        { id: 11, nombre: 'Noviembre'},
+        { id: 12, nombre: 'Diciembre'}
+    ];
+}
+
+export function getAniosOptions(){
+    const anioActual = new Date().getFullYear();
+    return [
+        { id: anioActual, nombre: ''+anioActual },
+        { id: anioActual - 1, nombre: ''+(anioActual - 1)},
+        { id: anioActual - 2, nombre: ''+(anioActual - 2)}
+
+    ]
+
+    // const aniosPrevios = 
 }
 
