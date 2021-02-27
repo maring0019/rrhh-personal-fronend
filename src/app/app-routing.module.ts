@@ -27,6 +27,8 @@ import { GuardiaListComponent } from "src/app/pages/guardias/guardia-servicio/li
 import { RecargoListComponent } from './pages/recargos/list/recargo-list.component';
 import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/recargo-create-update.component';
 
+import { HoraExtraListComponent } from './pages/horas-extras/list/hora-extra-list.component';
+
 // Menus pages
 import { AgenteAusentismoComponent } from "./pages/ausentismo/agente-ausentismo.component";
 import { HomeMenuPageComponent } from "src/app/pages/home/home-menu.page";
@@ -452,6 +454,23 @@ const routes: Routes = [
         path: "recargos/procesar/:id",
         component: RecargoCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
+     // Horas Extras
+    {
+        path: "horasextras",
+        component: HoraExtraListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard, NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: [
+                    "horas_extras:hora_extra:view_hora_extra",
+                    "horas_extras:hora_extra:add_hora_extra",
+                    "horas_extras:hora_extra:procesar_hora_extra",
+                ],
+                redirectTo: "/inicio",
+            },
+        },
     },
 
     // Agentes Busqueda y Registro

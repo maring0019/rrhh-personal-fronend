@@ -155,6 +155,16 @@ export class MenuService {
             permiso: ["recargos:recargo:view_recargo"],
         },
         {
+            titulo: "Horas Extras",
+            subtitulo: "",
+            detalle: "",
+            url: "/horasextras",
+            icono: "mdi-calendar",
+            color: "color-salmon",
+            style: "solid",
+            permiso: ["horas_extras:hora_extra:view_hora_extra"],
+        },
+        {
             titulo: "Reportes",
             subtitulo: "",
             detalle: "",

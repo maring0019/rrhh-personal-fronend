@@ -61,6 +61,7 @@ import { AdjuntoService } from './services/adjunto.service';
 import { RecargoTurnoService } from './services/recargo-turno.service';
 import { RecargoJustificacionService } from './services/recargo-justificacion.service';
 import { RecargoService } from './services/recargo.service';
+import { HoraExtraService } from './services/horas-extras.service';
 
 // Stores
 import { CalendarStoreService } from "./stores/calendar.store.service";
@@ -232,6 +233,9 @@ import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/rec
 import { RecargoFormComponent } from './pages/recargos/create-update/form/recargo-form.component';
 import { RecargoPlanillaComponent } from './pages/recargos/create-update/planilla/recargo-planilla.component';
 
+// Horas Extras
+import { HoraExtraSearchFormComponent } from './pages/horas-extras/list/search/hora-extra-search.component';
+import { HoraExtraListComponent } from './pages/horas-extras/list/hora-extra-list.component';
 
 import { AgenteSelectComponent } from "src/app/modules/agente/components/agente-select/agente-select.component";
 import { AgenteSelectSearchFormComponent } from "src/app/modules/agente/components/agente-select/search/agente-select-search-form.component";
@@ -270,6 +274,7 @@ import { RolSearchComponent } from 'src/app/pages/seguridad/rol/list/search/rol-
 import { RolListComponent } from 'src/app/pages/seguridad/rol/list/rol-list.component';
 import { RolCreateUpdateComponent } from 'src/app/pages/seguridad/rol/create-update/rol-create-update.component';
 import { PermisoListComponent } from 'src/app/pages/seguridad/permiso/permiso-list.component';
+
 
 const ADMIN_COMPONENTS = [
     FeriadoListComponent,
@@ -402,6 +407,13 @@ const ADMIN_COMPONENTS = [
         RecargoCreateUpdateComponent,
         RecargoFormComponent,
         RecargoPlanillaComponent,
+
+        // Horas Extras
+        HoraExtraListComponent,
+        HoraExtraSearchFormComponent,
+        // RecargoCreateUpdateComponent,
+        // RecargoFormComponent,
+        // RecargoPlanillaComponent,
 
         // Auditoria
         AuditSearchComponent,
@@ -537,6 +549,7 @@ const ADMIN_COMPONENTS = [
         RecargoTurnoService,
         RecargoJustificacionService,
         RecargoService,
+        HoraExtraService
     ],
     bootstrap: [AppComponent],
     entryComponents: [
