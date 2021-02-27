@@ -1,0 +1,45 @@
+<list-head
+    [columnDef]="columnDef"
+    [botonera]="true">
+</list-head>
+<list-item *ngFor="let item of horaExtra.planilla; let j=index"
+    [item]="item"
+    [actions]="[]"
+    [botonera]="false">
+    <plex-label
+        class="wp-30" 
+        titulo="{{ item.agente?.apellido }}, {{ item.agente?.nombre }}" subtitulo="Nro: {{ item.agente?.numero }}" 
+        [tituloBold]="true">
+    </plex-label>
+    <plex-int 
+        class="wp-15 mr-4"
+        name="horas_simmples" 
+        [(ngModel)]="item.horasSimples"
+        placeholder="">
+    </plex-int>
+    <plex-int 
+        class="wp-15 mr-4"
+        name="horas_semidobles" 
+        [(ngModel)]="item.horasSemiDobles"
+        placeholder="">
+    </plex-int>
+    <plex-int 
+        class="wp-15 mr-4"
+        name="horas_dobles" 
+        [(ngModel)]="item.horasDobles"
+        placeholder="">
+    </plex-int>
+    <plex-label class="wp-15" titulo="{{ item.horasTotales }}" [tituloBold]="true"></plex-label>
+    
+    <div class="item-column item-botonera">
+        <div class="d-flex flex-row justify-content-end align-items-center"> 
+            <plex-button
+                title="Eliminar"
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="deleteItem(item, j)">
+            </plex-button>
+        </div>
+    </div>    
+</list-item>

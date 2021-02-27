@@ -9,9 +9,16 @@ export class HoraExtraItemPlanilla {
         apellido: String,
         numero: String
     };
-    horasSimples: Number;
-    horasSemiDobles: Number;
-    horasDobles: Number;
+    horasSimples: number;
+    horasSemiDobles: number;
+    horasDobles: number;
+
+    get horasTotales():number{
+        const hsSimples = this.horasSimples? this.horasSimples:0;
+        const hsDobles = this.horasDobles? this.horasDobles:0;
+        const hsSemiDobles = this.horasSemiDobles? this.horasSemiDobles:0;
+        return hsSimples + hsSemiDobles + hsDobles
+    }
 
     constructor(item?)
     {

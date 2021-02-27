@@ -7,17 +7,17 @@ import { pairwise, startWith } from 'rxjs/operators';
 import  *  as formUtils from 'src/app/utils/formUtils';
 
 import { Auth } from 'src/app/services/auth.service';
-import { Recargo } from 'src/app/models/Recargo';
 import { getMesesOptions, getAniosOptions } from 'src/app/models/enumerados';
+import { HoraExtra } from 'src/app/models/HoraExtra';
 
 
 @Component({
-    selector: 'app-recargo-form',
-    templateUrl: './recargo-form.html'
+    selector: 'app-hora-extra-form',
+    templateUrl: './hora-extra-form.html'
   })
-export class RecargoFormComponent implements OnInit {
+export class HoraExtraFormComponent implements OnInit {
     
-    @Input() recargo: Recargo;
+    @Input() horaExtra: HoraExtra;
     @Input() editable: Boolean = true;
     
     @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
@@ -68,10 +68,10 @@ export class RecargoFormComponent implements OnInit {
 
     private initForm(){
         return this.formBuilder.group({
-            _id       : [this.recargo._id],
-            mes       : [this.recargo.mes],
-            anio      : [this.recargo.anio],
-            servicio  : [this.recargo.servicio],
+            _id       : [this.horaExtra._id],
+            mes       : [this.horaExtra.mes],
+            anio      : [this.horaExtra.anio],
+            servicio  : [this.horaExtra.servicio],
         });
     }
     

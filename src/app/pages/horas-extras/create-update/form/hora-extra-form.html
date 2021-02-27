@@ -1,0 +1,40 @@
+<header>
+    <form name="form" [formGroup]="form">
+        <div class="row">
+            <div class="col-md-3">
+                <plex-select
+                    [data]="mesOpciones"
+                    formControlName="mes"
+                    name="mes"
+                    label="Mes"
+                    placeholder="Seleccione..."
+                    [required]="true"
+                    [readonly]="!editable">
+                </plex-select>
+            </div>
+            <div class="col-md-3">
+                <plex-select
+                    [data]="anioOpciones"
+                    formControlName="anio"
+                    name="anio"
+                    label="Año"
+                    placeholder="Seleccione..."
+                    [required]="true"
+                    [readonly]="!editable">
+                </plex-select>
+            </div>
+            <div class="col-md-4">
+                <plex-select
+                    [idField]="'_id'"
+                    [data]="servicioOpciones"
+                    formControlName="servicio"
+                    name="servicio"
+                    label="Servicio"
+                    placeholder="Seleccione servicio"
+                    [required]="true"
+                    [readonly]="!editable">
+                </plex-select>
+            </div>
+        </div>
+    </form>
+</header>

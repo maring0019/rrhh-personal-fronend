@@ -2,35 +2,35 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!recargo?._id">
-                    <strong>Recargos |</strong> Alta nueva planilla
+                <h5 class="align-self-center" *ngIf="!horaExtra?._id">
+                    <strong>Horas Extras |</strong> Alta nueva planilla
                 </h5>
-                <h5 class="align-self-center" *ngIf="recargo?._id">
-                        <strong>Recargos |</strong>
-                        {{ (isEditable)? 'Edición de planilla (Recargo sin Confirmar)' : 'Detalle de planilla (Recargo Confirmado)' }}
+                <h5 class="align-self-center" *ngIf="horaExtra?._id">
+                        <strong>Horas Extras |</strong>
+                        {{ (isEditable)? 'Edición de planilla (Horas Extras sin Confirmar)' : 'Detalle de planilla (Horas Extras Confirmadas)' }}
                     </h5>
                 <div class="d-flex flex-row justify-content-end"> 
-                    <ng-template [ngxPermissionsOnly]="'recargos:recargo:add_recargo'">
+                    <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:add_hora_extra'">
                         <plex-button 
-                            *ngIf="recargo && puedeGuardar"
+                            *ngIf="horaExtra && puedeGuardar"
                             label="Guardar"
                             type="success"
                             (click)="onGuardar()"
                             class="mx-2" title="Guardar y Continuar Editando">
                         </plex-button>
                     </ng-template>
-                    <ng-template [ngxPermissionsOnly]="'recargos:recargo:confirmar_recargo'">
+                    <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:confirmar_hora_extra'">
                         <plex-button
-                            *ngIf="recargo && puedeConfirmar" 
-                            label="Confirmar Recargo" 
+                            *ngIf="horaExtra && puedeConfirmar" 
+                            label="Confirmar Horas Extras" 
                             type="warning" 
                             (click)="onConfirmar()"
                             title="Guardar y Confirmar">
                         </plex-button>
                     </ng-template>
-                    <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
+                    <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:procesar_hora_extra'">
                         <plex-button 
-                            *ngIf="recargo && puedeProcesar"
+                            *ngIf="horaExtra && puedeProcesar"
                             label="Procesar"
                             type="success" 
                             (click)="onProcesar()"
@@ -44,14 +44,14 @@
             </section>
         </header>
         
-        <!-- Formulario Encabezado del Recargo -->
-        <app-recargo-form
-            *ngIf="recargo"
-            #recargoForm
-            [recargo]="recargo"
+        <!-- Formulario Encabezado del Horas Extras -->
+        <app-hora-extra-form
+            *ngIf="horaExtra"
+            #formComponent
+            [horaExtra]="horaExtra"
             [editable]='isEditable'
-            (changed)="onChangedRecargoForm($event)">
-        </app-recargo-form>
+            (changed)="onChangedHoraExtraForm($event)">
+        </app-hora-extra-form>
         <br>
         
         <!-- Feedback para el usuario. Indica que se generando la planilla -->
@@ -62,17 +62,17 @@
         </plex-loader>
 
         <!-- <app-search-leyenda
-            *ngIf="!recargo?.mes || !recargo?.anio"
+            *ngIf="!horaExtra?.mes || !horaExtra?.anio"
             [header]="'Seleccione un periodo para comenzar a trabajar!'"
             [subHeader]="' - '">
         </app-search-leyenda> -->
         <br>
-        <!-- Planilla de recargos por agente -->
-        <ng-container *ngIf="!generandoPlanilla && recargo?.planilla">
-            <app-recargo-planilla
-                [recargo]="recargo"
+        <!-- Planilla de horaExtras por agente -->
+        <ng-container *ngIf="!generandoPlanilla && horaExtra?.planilla">
+            <app-hora-extra-planilla
+                [horaExtra]="horaExtra"
                 (deleted)="onRemoveItemPlanilla($event)">
-            </app-recargo-planilla>
+            </app-hora-extra-planilla>
             <br>
             <div class="d-flex flex-row justify-content-end">
                 <div *ngIf="puedeAgregarAgente">

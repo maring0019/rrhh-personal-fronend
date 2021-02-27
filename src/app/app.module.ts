@@ -236,6 +236,9 @@ import { RecargoPlanillaComponent } from './pages/recargos/create-update/planill
 // Horas Extras
 import { HoraExtraSearchFormComponent } from './pages/horas-extras/list/search/hora-extra-search.component';
 import { HoraExtraListComponent } from './pages/horas-extras/list/hora-extra-list.component';
+import { HoraExtraFormComponent } from './pages/horas-extras/create-update/form/hora-extra-form.component';
+import { HoraExtraCreateUpdateComponent } from './pages/horas-extras/create-update/hora-extra-create-update.component';
+import { HoraExtraPlanillaComponent } from './pages/horas-extras/create-update/planilla/hora-extra-planilla.component';
 
 import { AgenteSelectComponent } from "src/app/modules/agente/components/agente-select/agente-select.component";
 import { AgenteSelectSearchFormComponent } from "src/app/modules/agente/components/agente-select/search/agente-select-search-form.component";
@@ -411,9 +414,9 @@ const ADMIN_COMPONENTS = [
         // Horas Extras
         HoraExtraListComponent,
         HoraExtraSearchFormComponent,
-        // RecargoCreateUpdateComponent,
-        // RecargoFormComponent,
-        // RecargoPlanillaComponent,
+        HoraExtraCreateUpdateComponent,
+        HoraExtraFormComponent,
+        HoraExtraPlanillaComponent,
 
         // Auditoria
         AuditSearchComponent,

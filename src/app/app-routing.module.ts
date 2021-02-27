@@ -28,6 +28,7 @@ import { RecargoListComponent } from './pages/recargos/list/recargo-list.compone
 import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/recargo-create-update.component';
 
 import { HoraExtraListComponent } from './pages/horas-extras/list/hora-extra-list.component';
+import { HoraExtraCreateUpdateComponent } from './pages/horas-extras/create-update/hora-extra-create-update.component';
 
 // Menus pages
 import { AgenteAusentismoComponent } from "./pages/ausentismo/agente-ausentismo.component";
@@ -471,6 +472,21 @@ const routes: Routes = [
                 redirectTo: "/inicio",
             },
         },
+    },
+    {
+        path: "horasextras/crear",
+        component: HoraExtraCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "horasextras/editar/:id",
+        component: HoraExtraCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "horasextras/procesar/:id",
+        component: HoraExtraCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
     },
 
     // Agentes Busqueda y Registro
