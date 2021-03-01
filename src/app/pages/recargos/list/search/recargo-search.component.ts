@@ -97,7 +97,8 @@ export class RecargoSearchFormComponent extends ABMSearchComponent{
         this.estadoOpciones = [
             { id: 0, nombre: 'Sin Confirmar' },
             { id: 1, nombre: 'Confirmada'},
-            { id: 2, nombre: 'Procesada'}
+            { id: 2, nombre: 'Parcialmente Procesada'},
+            { id: 3, nombre: 'Procesada'}
         ]
 
         if (this.canProcesarRecargo){

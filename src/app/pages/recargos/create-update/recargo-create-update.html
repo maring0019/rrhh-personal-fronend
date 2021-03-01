@@ -7,7 +7,7 @@
                 </h5>
                 <h5 class="align-self-center" *ngIf="recargo?._id">
                         <strong>Recargos |</strong>
-                        {{ (isEditable)? 'Edición de planilla (Recargo sin Confirmar)' : 'Detalle de planilla (Recargo Confirmado)' }}
+                        {{ title }}
                     </h5>
                 <div class="d-flex flex-row justify-content-end"> 
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:add_recargo'">
@@ -29,13 +29,13 @@
                         </plex-button>
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
-                        <plex-button 
+                        <!-- <plex-button 
                             *ngIf="recargo && puedeProcesar"
                             label="Procesar"
                             type="success" 
                             (click)="onProcesar()"
                             class="mx-2" title="Procesar y Guardar">
-                        </plex-button>
+                        </plex-button> -->
                     </ng-template>
                         
                     <plex-button icon="mdi mdi-close" type="danger" (click)="onCerrar()" class="mx-2" title="Cerrar"></plex-button>
@@ -71,7 +71,8 @@
         <ng-container *ngIf="!generandoPlanilla && recargo?.planilla">
             <app-recargo-planilla
                 [recargo]="recargo"
-                (deleted)="onRemoveItemPlanilla($event)">
+                (deleted)="onRemoveItemPlanilla($event)"
+                (procesar)="onProcesarParcialmente($event)">
             </app-recargo-planilla>
             <br>
             <div class="d-flex flex-row justify-content-end">

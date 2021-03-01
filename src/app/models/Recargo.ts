@@ -30,6 +30,19 @@ export class RecargoItemPlanilla {
         numero: String
     };
     items: ItemPlanilla[]
+    procesado: Boolean;
+
+    get hsNormales():number {
+        return (this.hsTotales<=7)? this.hsTotales:7; 
+    }
+
+    get hsExcedidos():number {
+        return (this.hsTotales > 7)?  this.hsTotales-7: 0; 
+    }
+
+    get hsTotales():number {
+        return this.items.length;
+    }
 
     constructor(item?)
     {
@@ -40,7 +53,8 @@ export class RecargoItemPlanilla {
             item.items.forEach(elem => {
                 this.items.push(new ItemPlanilla(this.agente, elem));
             });
-        }      
+        };
+        this.procesado = item.procesado; 
     }
 }
 

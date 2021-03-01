@@ -21,6 +21,11 @@ export class RecargoService extends GenericService<Recargo> {
         return this.server.put(url, object);
     }
 
+    putAndProcesarParcialmente(object: Recargo): Observable<Recargo> {
+        const url = `${this.url}/${object._id}/procesar-parcialmente`;
+        return this.server.put(url, object);
+    }
+
     postAndConfirmar(object: Recargo): Observable<Recargo> {
         let url = `${this.url}/confirmar`;
         return this.server.post(url, object);

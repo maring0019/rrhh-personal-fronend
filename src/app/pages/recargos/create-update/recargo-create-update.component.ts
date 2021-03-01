@@ -24,29 +24,58 @@ export class RecargoCreateUpdateComponent implements OnInit {
     public isEditable = true;
     public recargo: Recargo;
     public generandoPlanilla: Boolean; // Bandera
+    public planillaChanged: Boolean; // Bandera para indicar cuando se proceso un agente
 
     public get agenteSearchParams() {
         return this._extraSearchParams;
     }
 
     // Permisos
-    public get puedeProcesar():Boolean{
-        return (this.recargo && this.recargo.estado == '1');
+    /**
+     * Si el recargo se encuentra en estado "confirmado" o "parcialmente procesado"
+     * entonces se puede procesar.
+     */
+    public get puedeProcesar():Boolean {
+        return (this.recargo && (this.recargo.estado == '1' || this.recargo.estado == '2'));
     } 
+
+    
     public get puedeGuardar():Boolean{
         return (this.recargo && !this.recargo.estado || this.recargo.estado == '0');
     }
 
-    public get puedeConfirmar():Boolean{
+    public get puedeConfirmar():Boolean {
         return this.puedeGuardar;
     }
 
-    public get puedeAgregarAgente():Boolean{
+    public get puedeAgregarAgente():Boolean {
         return (this.recargo && !this.recargo.estado || this.recargo.estado == '0' || this.recargo.estado == '1');
     }
 
     public get puedeEditarPlanilla():Boolean{
         return this.puedeAgregarAgente;
+    }
+
+    public get title():String {
+        let titulo = 'Alta nueva planilla';
+        if (this.recargo && this.recargo._id) {
+            titulo = 'Edición de planilla ';
+            switch(this.recargo.estado) {
+                case '0':
+                    titulo +=  '(Recargo sin Confirmar)';
+                    break;
+                case '1':
+                    titulo +=  '(Recargo Confirmado)';
+                    break;
+                case '2':
+                    titulo +=  '(Recargo Procesado Parcialmente)';
+                    break;
+                default:
+                    titulo +=  '(Recargo Procesado Totalmente)';
+            }
+            return titulo;
+        }
+        
     }
 
 
@@ -289,9 +318,16 @@ export class RecargoCreateUpdateComponent implements OnInit {
 
     public async onProcesar(){
         if (await this.isRecargoFormValid()){
-            return this.updateRecargo('validar');
+            return this.updateRecargo('procesar');
         }
     }
+
+    public async onProcesarParcialmente(){
+        if (await this.isRecargoFormValid()){
+            return this.updateRecargo('procesar_parcialmente');
+        }
+    }
+
 
     public onCerrar(){
         this.location.back();
@@ -324,7 +360,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
      /**
      * Idem addRecargo
      * 
-     * @param actionType  'guardar', 'confirmar', 'validar'
+     * @param actionType  'guardar', 'confirmar', 'procesar_parcialmente', 'procesar'
      */
     private updateRecargo(actionType:String){
         switch (actionType){
@@ -340,7 +376,15 @@ export class RecargoCreateUpdateComponent implements OnInit {
                         this.infoConfirmarOk(recargo);
                     });
                 break;
-            case 'validar':
+            case 'procesar_parcialmente':
+                this.recargoService.putAndProcesarParcialmente(this.recargo)
+                    .subscribe( recargo => {
+                        this.infoProcesarParcialmenteOk(recargo);
+                    },
+                    error=>{ //TODO  
+                    });
+                break;
+            case 'procesar':
                 this.recargoService.putAndProcesar(this.recargo)
                     .subscribe( recargo => {
                         this.infoProcesarOk(recargo);
@@ -370,10 +414,28 @@ export class RecargoCreateUpdateComponent implements OnInit {
 
     private infoProcesarOk(recargo){
         this.plex
-            .info('success', `Recargo procesado correctamente.`)
+            .info('success', `Recargo Procesado Totalmente.`)
             .then( confirm => {
                 this.location.back();
             });
+    }
+
+    private infoProcesarParcialmenteOk(recargo){
+        this.recargo = recargo;
+        let totalmenteProcesado = true;
+        for (const item of recargo.planilla) {
+            if (!item.procesado){
+                totalmenteProcesado = false;
+                break;
+            }
+        }
+        if (!totalmenteProcesado){
+            this.plex.info('success', `Recargo procesado parcialmente correctamente.`)
+        }
+        else{
+            this.infoProcesarOk(recargo);
+        }
+        
     }
 
     private infoRecargoDuplicado(){

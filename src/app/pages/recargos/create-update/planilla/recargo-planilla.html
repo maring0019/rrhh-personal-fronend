@@ -8,42 +8,48 @@
         [actions]="[]"
         [botonera]="false">
         <plex-label
-            class="wp-15" 
+            class="wp-10 mr-4" 
             titulo="{{ itemAgente.agente?.apellido }}, {{ itemAgente.agente?.nombre }}" subtitulo="Nro: {{ itemAgente.agente?.numero }}" 
             [tituloBold]="true">
         </plex-label>
-        <div class="wp-12 mr-4">
+        <div class="wp-10 mr-4">
             <plex-datetime
+                class="input-sm"
                 type="date"
                 name="fecha"
                 [(ngModel)]="item.fecha"
-                class="input-sm">
+                (change)="rollbackProcesar(itemAgente)">
             </plex-datetime>
         </div>
         <plex-select
-            class="wp-15 mr-4"
+            class="wp-12 mr-4"
             [data]="turnoOpciones"
             [idField]="'_id'"
             name="turno"
             [(ngModel)]="item.turno"
             label=""
-            placeholder="Seleccione...">
+            placeholder="Seleccione..."
+            (change)="rollbackProcesar(itemAgente)">
         </plex-select>
         <plex-select 
-            class="wp-20 mr-4"
+            class="wp-15 mr-4"
             [data]="justificacionOpciones"
             [idField]="'_id'"
             name="justificacion"
             [(ngModel)]="item.justificacion"
             label=""
-            placeholder="Seleccione...">
+            placeholder="Seleccione..."
+            (change)="rollbackProcesar(itemAgente)">
         </plex-select>
         <plex-text 
             class="wp-15 mr-4"
             name="observaciones" 
             [(ngModel)]="item.observaciones"
-            placeholder="">
+            placeholder=""
+            (change)="rollbackProcesar(itemAgente)">
         </plex-text>
+        <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
         <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
         <div class="item-column item-botonera">
             <div class="d-flex flex-row justify-content-end align-items-center"> 
@@ -65,7 +71,21 @@
         </div>    
     </list-item>
     <list-item [actions]="[]" [botonera]="false">
-        <div class="wp-77"></div>
-        <plex-label class="wp-5" titulo="{{itemAgente.items.length }}" [tituloBold]="true"></plex-label>
+        <div class="wp-80"></div>
+        <plex-label class="wp-5" titulo="{{itemAgente.hsNormales }}" [tituloBold]="true"></plex-label>
+        <plex-label class="wp-5" titulo="{{itemAgente.hsExcedidos }}" [tituloBold]="true"></plex-label>
+        <plex-label class="wp-5" titulo="{{itemAgente.hsTotales }}" [tituloBold]="true"></plex-label>
+        <div class="item-column item-botonera">
+            <div class="d-flex flex-row justify-content-end align-items-center">
+                <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
+                    <plex-bool
+                        type="slide"
+                        (change)="changeProcesado($event)"
+                        [(ngModel)]="itemAgente.procesado"
+                        label="Procesado?">
+                    </plex-bool> 
+                </ng-template>
+            </div>
+        </div>
     </list-item>
 </ng-container>

@@ -39,16 +39,16 @@
             <plex-label class="wp-20" titulo="{{item.anio | title }}" [tituloBold]="false"></plex-label>
             <plex-label class="wp-40" titulo="{{item.servicio?.nombre | title }}" [tituloBold]="false"></plex-label>
             <div class="wp-20" [ngSwitch]="item.estado">
-                <plex-badge *ngSwitchCase="0" type="warning" size="sm">
-                    <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
+                <plex-badge *ngSwitchCase="0" type="info" size="sm">
                     SIN CONFIRMAR
                 </plex-badge>
                 <plex-badge *ngSwitchCase="1" type="danger" size="sm">
-                    <plex-icon name="mdi mdi-clipboard-text" title="Confirmada"></plex-icon>
                     CONFIRMADO
                 </plex-badge>
+                <plex-badge *ngSwitchCase="2" type="warning" size="sm">
+                    PARCIALMENTE PROCESADO
+                </plex-badge>
                 <plex-badge *ngSwitchDefault type="success" size="sm">
-                    <plex-icon name="mdi mdi-clipboard-text" title="Procesada"></plex-icon>
                     PROCESADO
                 </plex-badge>
             </div>
@@ -65,7 +65,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:view_recargo'">
                         <plex-button
-                            *ngIf="item.estado && item.estado == 2"
+                            *ngIf="item.estado && item.estado == 3"
                             title="Ver detalle"
                             type="info"
                             icon="mdi mdi-eye"
@@ -85,7 +85,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
                         <plex-button
-                            *ngIf="item.estado && item.estado == 1"
+                            *ngIf="item.estado && (item.estado == 1 || item.estado == 2)"
                             title="Procesar Recargo"
                             type="success"
                             size="sm"
