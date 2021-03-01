@@ -7,6 +7,7 @@ import { ObjectService } from 'src/app/services/tm/object.service';
 import { RecargoService } from 'src/app/services/recargo.service';
 import { Auth } from 'src/app/services/auth.service';
 import { ReportesService } from 'src/app/services/reportes.service';
+import { Recargo } from 'src/app/models/Recargo';
 
 
 @Component({
@@ -83,8 +84,25 @@ export class RecargoListComponent extends ABMListComponent {
     }
 
     public onItemImprimir(item){
+        const recargo = new Recargo(item);
         this.printing = true;
-        this.reportesService.print({ tipoReporte:this.reportName, _id:item._id })
+        this.reportesService.print({ tipoReporte:this.reportName, _id:recargo._id })
+            .subscribe(data => {           
+                this.reportesService.descargarArchivo(data);
+                if (recargo.tieneAgentesExcedidos()){
+                    this.imprimirExcedidos(recargo);
+                }     
+                this.printing = false;
+            }, error => {
+                this.printing = false;
+                console.log('download error:', JSON.stringify(error));
+            });
+
+
+    }
+
+    public imprimirExcedidos(recargo){
+        this.reportesService.print({ tipoReporte:"recargos_excedidos", _id:recargo._id })
             .subscribe(data => {           
                 this.reportesService.descargarArchivo(data);     
                 this.printing = false;

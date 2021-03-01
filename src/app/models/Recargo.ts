@@ -56,6 +56,10 @@ export class RecargoItemPlanilla {
         };
         this.procesado = item.procesado; 
     }
+
+    tieneExcedidos() {
+          return this.hsExcedidos > 0; 
+    }
 }
 
 export class Recargo {
@@ -103,5 +107,16 @@ export class Recargo {
         this.estado = recargo.estado ;
         this.responsableEntrega = recargo.responsableEntrega;
         this.responsableProcesamiento = recargo.responsableProcesamiento;
+    }
+
+    tieneAgentesExcedidos(){
+        let existenExcedidos = false;
+        for (const itemAgente of this.planilla) {
+            if (itemAgente.tieneExcedidos()){
+                existenExcedidos = true;
+                break;
+            }
+        }
+        return existenExcedidos;
     }
 }
