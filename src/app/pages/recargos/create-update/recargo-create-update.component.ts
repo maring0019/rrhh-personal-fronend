@@ -178,20 +178,9 @@ export class RecargoCreateUpdateComponent implements OnInit {
     
     private actualizarRecargo(changedValue:any){
         this.recargo.planilla = [];
-        if ('mes' in changedValue || 'anio' in changedValue) {
-            this.generandoPlanilla = true;
-            this.recargo.mes = ('mes' in changedValue)? changedValue.mes:this.recargo.mes; 
-            this.recargo.anio = ('anio' in changedValue)? changedValue.anio.id:this.recargo.anio;
-        }
-        else{
-            // Actualizamos los datos del recargo con el valor modificado
-            Object.keys(changedValue).forEach( key => {
-                if (key == 'servicio') this.recargo.servicio = changedValue[key];
-            });
-        }
-        window.setTimeout(() => {
-            this.generandoPlanilla = false;
-       }, 500);
+        if ('mes' in changedValue) this.recargo.mes = changedValue.mes; 
+        if ('anio' in changedValue) this.recargo.anio = changedValue.anio.id;
+        if ('servicio' in changedValue) this.recargo.servicio = changedValue.servicio;
     }
 
     private async isRecargoUnique(){

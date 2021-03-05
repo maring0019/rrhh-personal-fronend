@@ -8,9 +8,15 @@
         [actions]="[]"
         [botonera]="false">
         <plex-label
+            *ngIf="j==0"
             class="wp-10 mr-4" 
             titulo="{{ itemAgente.agente?.apellido }}, {{ itemAgente.agente?.nombre }}" subtitulo="Nro: {{ itemAgente.agente?.numero }}" 
             [tituloBold]="true">
+        </plex-label>
+        <plex-label
+            *ngIf="j!=0"
+            class="wp-10 mr-4" 
+            titulo="">
         </plex-label>
         <div class="wp-10 mr-4">
             <plex-datetime

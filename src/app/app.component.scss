@@ -25,12 +25,22 @@
         /* enables scrolling for tall modals */
         overflow: auto;
 
-        .jw-modal-body {
+        .jw-modal-body-lg {
             padding: 20px;
             background: #fff;
 
             /* margin exposes part of the modal background */
             margin: 100px;
+            border-radius: 5px;
+            min-height: 500px;
+        }
+        
+        .jw-modal-body-sm {
+            padding: 20px;
+            background: #fff;
+
+            /* margin exposes part of the modal background */
+            margin: 100px 300px;
             border-radius: 5px;
             min-height: 500px;
         }

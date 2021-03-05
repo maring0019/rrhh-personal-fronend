@@ -5,7 +5,7 @@ import { ModalService } from 'src/app/services/modal.service';
     selector: 'jw-modal',
     template: 
         `<div class="jw-modal">
-            <div class="jw-modal-body">
+            <div class="jw-modal-body-{{size}}">
                 <ng-content></ng-content>
             </div>
         </div>
@@ -13,6 +13,7 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;
+    @Input() size: 'sm' | 'lg' = 'lg';
     private element: any;
 
     constructor(private modalService: ModalService, private el: ElementRef) {
