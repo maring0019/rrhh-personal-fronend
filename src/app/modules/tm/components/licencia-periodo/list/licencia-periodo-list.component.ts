@@ -51,6 +51,10 @@ export class LicenciaPeriodoListComponent extends ABMListComponent {
             super(router, objectService);
          }
 
+    public ngOnInit() {
+        // Prevengo busqueda por defecto
+    }
+
     protected get dataService(){
         return this.indicadorService;
     }

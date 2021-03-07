@@ -6,9 +6,14 @@ export class IndicadorLicencia {
         apellido: String,
         numero: String
     };
+    articulo: {
+        _id: String,
+        codigo: String
+    }
     vigencia: Number;
     totales: number;
     ejecutadas: number;
+    vencido: Boolean;
     
     get disponibles(){
         return (this.totales && this.ejecutadas)? this.totales - this.ejecutadas:0;
@@ -21,6 +26,7 @@ export class IndicadorLicencia {
         this.vigencia = indicador.vigencia;
         this.totales = indicador.totales;
         this.ejecutadas = indicador.ejecutadas;
+        this.vencido = indicador.vencido;
     }
 }
 
