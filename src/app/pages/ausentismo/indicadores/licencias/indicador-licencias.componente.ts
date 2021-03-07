@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
-import { AgenteService } from 'src/app/services/agente.service';
+import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.service';
 
 @Component({
     selector: 'app-indicador-licencias',
@@ -17,11 +17,11 @@ export class IndicadorLicenciasComponent {
     
     public indicadores = [];
 
-    constructor(private agenteService:AgenteService){}
+    constructor(private indicadorLicenciaService: IndicadorLicenciaService){}
 
     
     initIndicadores(agente:Agente){
-        this.agenteService.getLicenciasTotales(agente._id).subscribe((data) => {
+        this.indicadorLicenciaService.getLicenciasTotales(agente._id).subscribe((data) => {
             if (data && data.length){
                 let ind = data[0];
                 this.indicadores = [

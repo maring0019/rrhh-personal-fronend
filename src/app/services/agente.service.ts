@@ -123,6 +123,10 @@ export class AgenteService {
         return this.server.get(url);
     }
 
+    /**
+     * Deprecated
+     * @param agenteId 
+     */
     getLicenciasTotales(agenteId): Observable<any[]> {
         const url = `${this.agenteUrl}/${agenteId}/licencias/totales`;
         return this.server.get(url);

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { Agente } from 'src/app/models/Agente';
-import { AusentismoService } from 'src/app/services/ausentismo.service';
 import { Router } from '@angular/router';
+import { IndicadorLicenciaService } from 'src/app/services/indicador-licencia.service';
 
 
 @Component({
@@ -20,10 +20,13 @@ export class IndicadorLicenciasDetalleComponent {
     
     public indicadores;
 
-    constructor(private ausentismoService:AusentismoService, private router: Router){}
+    constructor(
+        private indicadorLicenciaService: IndicadorLicenciaService,
+        private router: Router
+        ){}
 
     initIndicadores(agente:Agente){
-        this.ausentismoService.getLicenciasByAgente(agente._id)
+        this.indicadorLicenciaService.getLicenciasByAgente(agente._id)
             .subscribe( data => this.indicadores = data);
     }
 
@@ -32,14 +35,11 @@ export class IndicadorLicenciasDetalleComponent {
     }
 
     public licenciasAsignadas(item){
-        return item.intervalos[0]? item.intervalos[0].totales:0;
+        return item.totales? item.totales:0;
     }
 
     public licenciasTomadas(item){
-        if (item.intervalos[0]){
-            return item.intervalos[0].ejecutadas? item.intervalos[0].ejecutadas:0;
-        }
-        return 0
+        return item.ejecutadas? item.ejecutadas:0;
     }
 
     public licenciasDisponibles(item){
