@@ -28,7 +28,7 @@ export class LicenciaPeriodoSearchComponent extends ABMSearchComponent {
 
     ngOnInit() {
         this.initFilterForm();
-        this.search();
+        if (this.searchText!="") this.search();
     }
     
 

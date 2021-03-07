@@ -16,6 +16,7 @@ import { AgenteService } from 'src/app/services/agente.service';
 })
 export class LicenciaPeriodoCreateUpdateComponent extends ABMCreateUpdateComponent {
     titulo = "Licencia Periodos";
+    modelName = 'indicador-licencias';
 
     constructor(
         protected router: Router,
