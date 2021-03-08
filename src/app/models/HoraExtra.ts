@@ -39,6 +39,7 @@ export class HoraExtra {
     anio: Number;
     servicio: Ubicacion;
     planilla: HoraExtraItemPlanilla[];
+    observaciones: String;
     estado: String;
     responsableEntrega: {    // Agente Jefe de Servicio
         _id: String,
@@ -58,21 +59,22 @@ export class HoraExtra {
         return localDate(this.fechaHoraProcesamiento);
     }
 
-    constructor(recargo?)
+    constructor(horaExtra?)
     {
-        recargo = recargo || {};
-        this._id = recargo._id;
-        this.mes = recargo.mes;
-        this.anio = recargo.anio;
-        this.servicio = recargo.servicio? new Ubicacion(recargo.servicio): null;
+        horaExtra = horaExtra || {};
+        this._id = horaExtra._id;
+        this.mes = horaExtra.mes;
+        this.anio = horaExtra.anio;
+        this.servicio = horaExtra.servicio? new Ubicacion(horaExtra.servicio): null;
         this.planilla = [];
-        if (recargo.planilla && recargo.planilla.length){
-            recargo.planilla.forEach(e => {
+        if (horaExtra.planilla && horaExtra.planilla.length){
+            horaExtra.planilla.forEach(e => {
                 this.planilla.push(new HoraExtraItemPlanilla(e));
             });
-        }      
-        this.estado = recargo.estado ;
-        this.responsableEntrega = recargo.responsableEntrega;
-        this.responsableProcesamiento = recargo.responsableProcesamiento;
+        };
+        this.observaciones = horaExtra.observaciones || '';      
+        this.estado = horaExtra.estado ;
+        this.responsableEntrega = horaExtra.responsableEntrega;
+        this.responsableProcesamiento = horaExtra.responsableProcesamiento;
     }
 }

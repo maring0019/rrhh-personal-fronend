@@ -97,8 +97,6 @@ export class RecargoListComponent extends ABMListComponent {
                 this.printing = false;
                 console.log('download error:', JSON.stringify(error));
             });
-
-
     }
 
     public imprimirExcedidos(recargo){

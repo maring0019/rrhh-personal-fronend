@@ -16,7 +16,7 @@ import { HoraExtraService } from 'src/app/services/horas-extras.service';
 export class HoraExtraListComponent extends ABMListComponent {
 
     public modelName = 'horaextra';
-    public reportName = 'horasextras';
+    public reportName = 'horas_extras';
     public printing = false;
 
     public columnDef =
