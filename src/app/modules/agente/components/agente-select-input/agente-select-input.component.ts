@@ -3,7 +3,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { AgenteService } from "src/app/services/agente.service";
 import { FormGroup } from "@angular/forms";
 import { Agente } from "src/app/models/Agente";
+import { Ubicacion } from 'src/app/models/Ubicacion';
 import { getAgenteSearchParams } from 'src/app/utils/searchUtils';
+
 
 @Component({
     selector: "app-agente-select-input",
@@ -14,6 +16,7 @@ export class AgenteSelectInputComponent implements OnInit {
     @Input() editable: Boolean = true;
     @Input() required: Boolean = false;
     @Input() agente: Agente;
+    @Input() serviciosAllowed: Ubicacion[];
     @Output() change: EventEmitter<any> = new EventEmitter<any>();
 
     private timeoutHandle: number;
@@ -38,6 +41,10 @@ export class AgenteSelectInputComponent implements OnInit {
             }
             // Preparamos los nuevos filtros
             params = getAgenteSearchParams(params, textoLibre);
+            // Filtramos los agentes en funcion de los servicios permitidos
+            if (this.serviciosAllowed && this.serviciosAllowed.length){
+                params['situacionLaboral.cargo.ubicacion._id'] = this.serviciosAllowed.map(i=>i._id)
+            }
             this.timeoutHandle = window.setTimeout(() => {
                 this.timeoutHandle = null;
                 this.agenteService.search(params).subscribe(
