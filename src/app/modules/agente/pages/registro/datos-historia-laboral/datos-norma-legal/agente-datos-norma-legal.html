@@ -44,11 +44,11 @@
         </div>
     </div>
     <div class="mt-4 mb-4"></div>
-    <app-file-manager
-        *ngIf="normaLegal"
-        [title]="'Adjuntos Norma Legal'"
-        [size]="'sm'"
-        [filesOwner]="normaLegal"
-        [editable]="editable">
-    </app-file-manager>
 </form>
+<app-file-manager
+    *ngIf="normaLegal"
+    [title]="'Adjuntos Norma Legal'"
+    [size]="'sm'"
+    [filesOwner]="normaLegal"
+    [editable]="editable">
+</app-file-manager>
