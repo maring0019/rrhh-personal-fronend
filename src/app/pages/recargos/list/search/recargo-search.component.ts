@@ -19,7 +19,7 @@ export class RecargoSearchFormComponent extends ABMSearchComponent{
     // Search form select options
     public anioOpciones = getAniosOptions();
     public mesOpciones = getMesesOptions();
-    public servicioOpciones = []
+    public servicioOpciones = [];
     public estadoOpciones = [];
     public serviciosAllowed; // Id de los servicios del jefe de servicio
 

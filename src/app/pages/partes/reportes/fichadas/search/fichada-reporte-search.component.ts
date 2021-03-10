@@ -4,6 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { CRUDSearchFormComponent } from 'src/app/modules/tm/components/crud/list/search/crud-search.component';
 
 import { ParteService } from 'src/app/services/parte.service';
+import { Auth } from 'src/app/services/auth.service';
+import { UbicacionService } from 'src/app/services/ubicacion.service';
 
 @Component({
     selector: 'app-fichada-reporte-search-form',
@@ -11,15 +13,32 @@ import { ParteService } from 'src/app/services/parte.service';
 })
 export class FichadaReporteSearchFormComponent extends CRUDSearchFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    // Permisos especiales. Si el usuario logueado dispone de este permiso podra
+    // consultar libremente en el modulo. Caso contrario estará restringido a los 
+    // servicios disponibles como jefe de servicio/dpto/etc.    
+    public canProcesarParte:Boolean = false;
     
+    // Id de los servicios del jefe de servicio / servicio alias ubicacion
+    public serviciosAllowed;
+    
+    // Search form select options
+    public servicioOpciones = []
+
     constructor(
-        formBuilder: FormBuilder,
-        private objectService: ParteService) {
-            super(formBuilder);
+            formBuilder: FormBuilder,
+            private objectService: ParteService,
+            private authService: Auth,
+            private ubicacionService: UbicacionService) {
+        super(formBuilder);
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    async ngOnInit() {
+        this.autoFocus = this.autoFocus + 1;
+        this.canProcesarParte = await this.authService.check('partes:parte:procesar_parte');
+        this.serviciosAllowed = this.getServiciosAllowed();
+        this.initFormSelectOptions();
+        this.searchForm = this.initSearchForm();
+        this.buscar();
     }
 
     ngAfterViewInit(){
@@ -38,7 +57,16 @@ export class FichadaReporteSearchFormComponent extends CRUDSearchFormComponent i
         super.ngOnDestroy();
     }
 
-    initFormSelectOptions(){}
+    initFormSelectOptions(){
+        if (this.canProcesarParte){
+            this.ubicacionService.get({}).subscribe(servicios =>
+                this.servicioOpciones = servicios)
+        }
+        
+        if (this.serviciosAllowed && this.serviciosAllowed.length){
+            this.servicioOpciones = this.serviciosAllowed;
+        }       
+    }
 
     initSearchForm(){
         return this.formBuilder.group({
@@ -85,5 +113,18 @@ export class FichadaReporteSearchFormComponent extends CRUDSearchFormComponent i
         else{
             this.searchEnd.emit([])
         }
+    }
+
+    /**
+     * Si el usuario tiene otorgado el permiso para procesar partes, entonces
+     * esta autorizado a visualizar todas los partes de todos los servicios.
+     * Caso contrario solo puede visualizar los partes de su servicio/s. Este
+     * metodo debe ser llamado luego de haber determinado si el usuario puede
+     * procesar un parte.
+     */
+    getServiciosAllowed(){
+        if (this.serviciosAllowed) return this.serviciosAllowed;
+        
+        return (!this.canProcesarParte)? this.authService.servicios: [];
     }
 }

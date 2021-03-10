@@ -24,12 +24,15 @@
                 </plex-datetime>
             </div>
             <div class="col-md-4">
-                <app-ubicacion-form-select
-                    [parent]="searchForm"
-                    [label]="'Ubicación'"
-                    [placeholder]="'Seleccione...'"
+                <plex-select
+                    [idField]="'_id'"
+                    [data]="servicioOpciones"
+                    formControlName="ubicacion"
+                    name="ubicacion"
+                    label="Ubicación"
+                    placeholder="Seleccione ubicación..."
                     (change)="buscar($event)">
-                </app-ubicacion-form-select>
+                </plex-select>
             </div>
             <div class="col-md-4">
                 <app-agente-select-input

@@ -43,7 +43,7 @@ export class AgenteSelectInputComponent implements OnInit {
                 this.agenteService.search(params).subscribe(
                     (agentes) => {
                         agentes.map((dato: any) => {
-                            dato.data = `${dato.numero} - ${dato.apellido}, ${dato.nombre}`;
+                            dato.data = `${dato.numero} - ${dato.apellido}, ${dato.nombre} (${dato.activo? 'Activo':'Baja'})`;
                         });
                         event.callback(agentes);
                     },
