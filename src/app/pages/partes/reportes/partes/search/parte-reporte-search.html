@@ -1,5 +1,5 @@
 <header>
-    <form name="filterForm" [formGroup]="filterForm">
+    <form  *ngIf="filterForm" name="filterForm" [formGroup]="filterForm">
         <div class="row">
             <div class="col-md-3">
                 <plex-datetime
@@ -27,6 +27,7 @@
                 <app-agente-select-input
                     *ngIf="filterForm"
                     [form]="filterForm"
+                    [serviciosAllowed]="serviciosAllowed"
                     (change)="search()"
                     [required]="true">
                 </app-agente-select-input>
