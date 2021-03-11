@@ -77,6 +77,13 @@ export class MenuService {
             icono: "mdi-account-multiple-outline",
             permiso: ["config:puesto:view_puesto"],
         },
+        {
+            titulo: "Organigrama - SubPuestos",
+            subtitulo: "Configuracion",
+            url: "/configuracion/subpuestos",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:subpuesto:view_subpuesto"],
+        },
     ];
 
     private menuPartes = [

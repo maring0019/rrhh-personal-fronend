@@ -267,7 +267,9 @@ import { RecargoJustificacionCreateUpdateComponent } from './modules/tm/componen
 import { PuestoListComponent } from './modules/tm/components/puesto/list/puesto-list.component';
 import { PuestoSearchComponent } from './modules/tm/components/puesto/list/search/puesto-search.component';
 import { PuestoCreateUpdateComponent } from './modules/tm/components/puesto/create-update/puesto-create-update.component';
-
+import { SubPuestoListComponent } from './modules/tm/components/subpuesto/list/subpuesto-list.component';
+import { SubPuestoSearchComponent } from './modules/tm/components/subpuesto/list/search/subpuesto-search.component';
+import { SubPuestoCreateUpdateComponent } from './modules/tm/components/subpuesto/create-update/subpuesto-create-update.component';
 
 // Auditoria
 import { AuditSearchComponent } from "src/app/components/audit/list/search/audit-search.component";
@@ -323,6 +325,10 @@ const ADMIN_COMPONENTS = [
     PuestoListComponent,
     PuestoSearchComponent,
     PuestoCreateUpdateComponent,
+
+    SubPuestoListComponent,
+    SubPuestoSearchComponent,
+    SubPuestoCreateUpdateComponent,
 ];
 
 @NgModule({

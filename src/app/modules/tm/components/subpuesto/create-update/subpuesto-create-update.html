@@ -1,0 +1,29 @@
+<plex-layout main="12">
+    <plex-layout-main>
+        
+        <app-crud-header
+            *ngIf="object"
+            [action]="(object?._id)? 'update':'create'"
+            [titulo]="titulo"
+            [subtitulo]="subtitulo"
+            (save)="onSave()"
+            (cancel)="onCancel()"
+            (history)="onHistoria()">
+        </app-crud-header>
+        
+        <form *ngIf='form' name="form" [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <plex-text 
+                        name="nombre" 
+                        formControlName="nombre"
+                        label="Nombre"
+                        [required]="true"
+                        placeholder="Ingrese nombre para el subpuesto">
+                    </plex-text>
+                </div>
+            </div>
+        </form>
+
+    </plex-layout-main>
+</plex-layout>

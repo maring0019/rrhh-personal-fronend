@@ -65,6 +65,9 @@ import { LicenciaPeriodoCreateUpdateComponent } from "src/app/modules/tm/compone
 
 import { PuestoListComponent } from './modules/tm/components/puesto/list/puesto-list.component';
 import { PuestoCreateUpdateComponent } from './modules/tm/components/puesto/create-update/puesto-create-update.component';
+import { SubPuestoListComponent } from './modules/tm/components/subpuesto/list/subpuesto-list.component';
+import { SubPuestoCreateUpdateComponent } from './modules/tm/components/subpuesto/create-update/subpuesto-create-update.component';
+
 
 // Seguridad
 import { UsuarioListComponent } from "src/app/pages/seguridad/usuario/list/usuario-list.component";
@@ -260,6 +263,23 @@ const routes: Routes = [
     {
         path: "configuracion/puestos/editar/:id",
         component: PuestoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
+     // Configuracion SubPuestos
+     {
+        path: "configuracion/subpuestos",
+        component: SubPuestoListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/subpuestos/crear",
+        component: SubPuestoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/subpuestos/editar/:id",
+        component: SubPuestoCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
 
