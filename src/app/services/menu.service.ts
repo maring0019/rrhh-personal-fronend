@@ -70,6 +70,13 @@ export class MenuService {
             icono: "mdi-account-multiple-outline",
             permiso: ["config:recargo_justificacion:view_justificacion"],
         },
+        {
+            titulo: "Organigrama - Puestos",
+            subtitulo: "Configuracion",
+            url: "/configuracion/puestos",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:puesto:view_puesto"],
+        },
     ];
 
     private menuPartes = [

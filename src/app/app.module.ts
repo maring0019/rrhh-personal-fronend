@@ -264,6 +264,10 @@ import { RecargoTurnoCreateUpdateComponent } from './modules/tm/components/recar
 import { RecargoJustificacionListComponent } from './modules/tm/components/recargo-justificacion/list/recargo-justificacion-list.component';
 import { RecargoJustificacionSearchComponent } from './modules/tm/components/recargo-justificacion/list/search/recargo-justificacion-search.component';
 import { RecargoJustificacionCreateUpdateComponent } from './modules/tm/components/recargo-justificacion/create-update/recargo-justificacion-create-update.component';
+import { PuestoListComponent } from './modules/tm/components/puesto/list/puesto-list.component';
+import { PuestoSearchComponent } from './modules/tm/components/puesto/list/search/puesto-search.component';
+import { PuestoCreateUpdateComponent } from './modules/tm/components/puesto/create-update/puesto-create-update.component';
+
 
 // Auditoria
 import { AuditSearchComponent } from "src/app/components/audit/list/search/audit-search.component";
@@ -315,6 +319,10 @@ const ADMIN_COMPONENTS = [
     RecargoJustificacionListComponent,
     RecargoJustificacionSearchComponent,
     RecargoJustificacionCreateUpdateComponent,
+
+    PuestoListComponent,
+    PuestoSearchComponent,
+    PuestoCreateUpdateComponent,
 ];
 
 @NgModule({

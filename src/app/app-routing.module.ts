@@ -63,6 +63,10 @@ import { RegimenHorarioCreateUpdateComponent } from "src/app/modules/tm/componen
 import { LicenciaPeriodoListComponent } from "src/app/modules/tm/components/licencia-periodo/list/licencia-periodo-list.component";
 import { LicenciaPeriodoCreateUpdateComponent } from "src/app/modules/tm/components/licencia-periodo/create-update/licencia-periodo-create-update.component";
 
+import { PuestoListComponent } from './modules/tm/components/puesto/list/puesto-list.component';
+import { PuestoCreateUpdateComponent } from './modules/tm/components/puesto/create-update/puesto-create-update.component';
+
+// Seguridad
 import { UsuarioListComponent } from "src/app/pages/seguridad/usuario/list/usuario-list.component";
 import { UsuarioCreateUpdateComponent } from "src/app/pages/seguridad/usuario/create-update/usuario-create-update.component";
 
@@ -242,6 +246,23 @@ const routes: Routes = [
         component: LicenciaPeriodoCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
+    // Configuracion Puestos
+    {
+        path: "configuracion/puestos",
+        component: PuestoListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/puestos/crear",
+        component: PuestoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/puestos/editar/:id",
+        component: PuestoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
     // Reportes
     {
         path: "reportes",
