@@ -84,6 +84,13 @@ export class MenuService {
             icono: "mdi-account-multiple-outline",
             permiso: ["config:subpuesto:view_subpuesto"],
         },
+        {
+            titulo: "General - Paises",
+            subtitulo: "Configuracion",
+            url: "/configuracion/paises",
+            icono: "mdi-account-multiple-outline",
+            permiso: ["config:pais:view_pais"],
+        },
     ];
 
     private menuPartes = [

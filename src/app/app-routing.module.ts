@@ -67,6 +67,8 @@ import { PuestoListComponent } from './modules/tm/components/puesto/list/puesto-
 import { PuestoCreateUpdateComponent } from './modules/tm/components/puesto/create-update/puesto-create-update.component';
 import { SubPuestoListComponent } from './modules/tm/components/subpuesto/list/subpuesto-list.component';
 import { SubPuestoCreateUpdateComponent } from './modules/tm/components/subpuesto/create-update/subpuesto-create-update.component';
+import { PaisListComponent } from './modules/tm/components/pais/list/pais-list.component';
+import { PaisCreateUpdateComponent } from './modules/tm/components/pais/create-update/pais-create-update.component';
 
 
 // Seguridad
@@ -267,7 +269,7 @@ const routes: Routes = [
     },
 
      // Configuracion SubPuestos
-     {
+    {
         path: "configuracion/subpuestos",
         component: SubPuestoListComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
@@ -280,6 +282,23 @@ const routes: Routes = [
     {
         path: "configuracion/subpuestos/editar/:id",
         component: SubPuestoCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+
+     // Configuracion Paises
+     {
+        path: "configuracion/paises",
+        component: PaisListComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/paises/crear",
+        component: PaisCreateUpdateComponent,
+        canActivate: [RoutingNavBar, RoutingGuard],
+    },
+    {
+        path: "configuracion/paises/editar/:id",
+        component: PaisCreateUpdateComponent,
         canActivate: [RoutingNavBar, RoutingGuard],
     },
 

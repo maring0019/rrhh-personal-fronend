@@ -270,6 +270,9 @@ import { PuestoCreateUpdateComponent } from './modules/tm/components/puesto/crea
 import { SubPuestoListComponent } from './modules/tm/components/subpuesto/list/subpuesto-list.component';
 import { SubPuestoSearchComponent } from './modules/tm/components/subpuesto/list/search/subpuesto-search.component';
 import { SubPuestoCreateUpdateComponent } from './modules/tm/components/subpuesto/create-update/subpuesto-create-update.component';
+import { PaisListComponent } from './modules/tm/components/pais/list/pais-list.component';
+import { PaisCreateUpdateComponent } from './modules/tm/components/pais/create-update/pais-create-update.component';
+import { PaisSearchComponent } from './modules/tm/components/pais/list/search/pais-search.component';
 
 // Auditoria
 import { AuditSearchComponent } from "src/app/components/audit/list/search/audit-search.component";
@@ -329,6 +332,10 @@ const ADMIN_COMPONENTS = [
     SubPuestoListComponent,
     SubPuestoSearchComponent,
     SubPuestoCreateUpdateComponent,
+
+    PaisListComponent,
+    PaisSearchComponent,
+    PaisCreateUpdateComponent,
 ];
 
 @NgModule({
