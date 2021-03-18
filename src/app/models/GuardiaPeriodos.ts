@@ -22,13 +22,21 @@ export class GuardiaPeriodo {
         let range = [];
         if (_fechaDesde && this.fechaHasta){
             while (_fechaDesde.getTime() <= this.fechaHasta.getTime()) {
-                const tomorrow = this.addOneDay(_fechaDesde);
+                let tomorrow = this.addOneDay(_fechaDesde);
                 if ( tomorrow.getMonth() != _fechaDesde.getMonth()){
+                    // LLegamos al cambio de mes
+                    range.push(_fechaDesde);
                     let dayNumber = _fechaDesde.getDate();
                     while (dayNumber < 31){
+                        // Si el primer mes tiene menos de 31 dias 
+                        // rellenamos con valores nulos
                         range.push(null);
                         dayNumber +=1;
                     }
+                    // Incrementamos el puntero y continuamos con el 
+                    // mes siguiente
+                    _fechaDesde = tomorrow;
+                    tomorrow = this.addOneDay(tomorrow);
                 }
                 range.push(_fechaDesde);
                 _fechaDesde = tomorrow;
