@@ -2,18 +2,35 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!guardia?._id">
-                    <strong>Guardias |</strong> Alta nueva planilla
-                </h5>
-                <h5 class="align-self-center" *ngIf="guardia?._id">
-                        <strong>Guardias |</strong>
-                        {{ (isEditable)? 'Edición de planilla (Guardia sin Confirmar)' : 'Detalle de planilla (Guardia Confirmada)' }}
+                <div class="d-flex flex-row justify-content-start">
+                    <h5 class="align-self-center" *ngIf="!guardia?._id">
+                        <strong>Guardias |</strong> Alta nueva planilla
                     </h5>
+                    <h5 class="align-self-center" *ngIf="guardia?._id">
+                            <strong>Guardias |</strong>
+                            {{ (isEditable)? 'Edición de planilla' : 'Detalle de planilla' }}
+                    </h5>
+                    <div *ngIf="guardia" [ngSwitch]="guardia.estado" class="ml-2">
+                        <plex-badge *ngSwitchCase="0" type="warning" size="sm">
+                            <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
+                            GUARDIA SIN CONFIRMAR
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="1" type="danger" size="sm">
+                            <plex-icon name="mdi mdi-clipboard-text" title="Confirmada"></plex-icon>
+                            GUARDIA CONFIRMADA
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="2" type="success" size="sm">
+                            <plex-icon name="mdi mdi-clipboard-text" title="Procesada"></plex-icon>
+                            GUARDIA PROCESADA
+                        </plex-badge>
+                    </div>
+                </div>
+
                 <div class="d-flex flex-row justify-content-end"> 
                     <ng-template [ngxPermissionsOnly]="'guardias:guardia:add_guardia'">
                         <plex-button 
                             *ngIf="guardia && puedeGuardar"
-                            label="Guardar"
+                            label="Guardar y Continuar Editando"
                             type="success"
                             (click)="onGuardar()"
                             class="mx-2" title="Guardar y Continuar Editando">
@@ -21,7 +38,7 @@
                     
                         <plex-button
                             *ngIf="guardia && puedeConfirmar" 
-                            label="Confirmar Guardia" 
+                            label="Confirmar" 
                             type="warning" 
                             (click)="onConfirmar()"
                             title="Guardar y Confirmar">
@@ -44,6 +61,7 @@
         </header>
         
         <!-- Formulario Encabezado de la Guardia -->
+        <br>
         <app-guardia-form
             *ngIf="guardia"
             #guardiaForm
@@ -68,22 +86,29 @@
 
         <!-- Planilla de guardias por agente -->
         <ng-container *ngIf="!generandoPlanilla && guardia?.periodo">
+            <br>
+            <header class="d-flex flex-row justify-content-between subheader">
+                <div>
+                    <h5>Planilla. Listado de Agentes</h5>
+                </div>
+                <div class="d-flex flex-row justify-content-end">
+                    <div *ngIf="puedeAgregarAgente">
+                        <plex-button
+                            label="Agregar Agente"
+                            type="info"
+                            icon="mdi mdi-plus"
+                            (click)="onAddAgente()">
+                        </plex-button>
+                    </div> 
+                </div>
+            </header>
+        
             <app-guardia-planilla
                 [guardia]="guardia"
                 [editable]="puedeEditarPlanilla"
                 (deleted)="onRemoveItemPlanilla($event)">
             </app-guardia-planilla>  
             <br>
-            <div class="d-flex flex-row justify-content-end">
-                <div *ngIf="puedeAgregarAgente">
-                    <plex-button
-                        label="Agregar Agente"
-                        type="info"
-                        icon="mdi mdi-plus"
-                        (click)="onAddAgente()">
-                    </plex-button>
-                </div> 
-            </div>
         </ng-container>
         
         <!-- Modal para la seleccion/carga de agentes a la planilla -->

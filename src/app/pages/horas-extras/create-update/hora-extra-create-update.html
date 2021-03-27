@@ -2,18 +2,34 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!horaExtra?._id">
-                    <strong>Horas Extras |</strong> Alta nueva planilla
-                </h5>
-                <h5 class="align-self-center" *ngIf="horaExtra?._id">
-                        <strong>Horas Extras |</strong>
-                        {{ (isEditable)? 'Edición de planilla (Horas Extras sin Confirmar)' : 'Detalle de planilla (Horas Extras Confirmadas)' }}
+                <div class="d-flex flex-row justify-content-start">
+                    <h5 class="align-self-center" *ngIf="!horaExtra?._id">
+                        <strong>Horas Extras |</strong> Alta nueva planilla
                     </h5>
+                    <h5 class="align-self-center" *ngIf="horaExtra?._id">
+                            <strong>Horas Extras |</strong>
+                            {{ (isEditable)? 'Edición de planilla' : 'Detalle de planilla' }}
+                    </h5>
+                    <div *ngIf="horaExtra" [ngSwitch]="horaExtra.estado" class="ml-2">
+                        <plex-badge *ngSwitchCase="0" type="warning" size="sm">
+                            <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
+                            HS. EXTRAS SIN CONFIRMAR
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="1" type="danger" size="sm">
+                            <plex-icon name="mdi mdi-clipboard-text" title="Confirmada"></plex-icon>
+                            HS. EXTRAS CONFIRMADAS
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="2" type="success" size="sm">
+                            <plex-icon name="mdi mdi-clipboard-text" title="Procesada"></plex-icon>
+                            HS. EXTRAS PROCESADAS
+                        </plex-badge>
+                    </div>
+                </div>
                 <div class="d-flex flex-row justify-content-end"> 
                     <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:add_hora_extra'">
                         <plex-button 
                             *ngIf="horaExtra && puedeGuardar"
-                            label="Guardar"
+                            label="Guardar y Continuar Editando"
                             type="success"
                             (click)="onGuardar()"
                             class="mx-2" title="Guardar y Continuar Editando">
@@ -22,7 +38,7 @@
                     <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:confirmar_hora_extra'">
                         <plex-button
                             *ngIf="horaExtra && puedeConfirmar" 
-                            label="Confirmar Horas Extras" 
+                            label="Confirmar" 
                             type="warning" 
                             (click)="onConfirmar()"
                             title="Guardar y Confirmar">
@@ -45,6 +61,7 @@
         </header>
         
         <!-- Formulario Encabezado del Horas Extras -->
+        <br>
         <app-hora-extra-form
             *ngIf="horaExtra"
             #formComponent
@@ -63,9 +80,20 @@
 
         <!-- Planilla de horaExtras por agente -->
         <ng-container *ngIf="!generandoPlanilla && horaExtra?.planilla">
+            <br>
             <header class="d-flex flex-row justify-content-between subheader">
                 <div>
-                    <h5>Planilla</h5>
+                    <h5>Planilla. Listado de Agentes</h5>
+                </div>
+                <div class="d-flex flex-row justify-content-end">
+                    <div *ngIf="puedeAgregarAgente">
+                        <plex-button
+                            label="Agregar Agente"
+                            type="info"
+                            icon="mdi mdi-plus"
+                            (click)="onAddAgente()">
+                        </plex-button>
+                    </div>  
                 </div>
             </header>
             
@@ -88,17 +116,6 @@
                     </div>
                 </div>
             </form>
-            <br>
-            <div class="d-flex flex-row justify-content-end">
-                <div *ngIf="puedeAgregarAgente">
-                    <plex-button
-                        label="Agregar Agente"
-                        type="info"
-                        icon="mdi mdi-plus"
-                        (click)="onAddAgente()">
-                    </plex-button>
-                </div> 
-            </div>
         </ng-container>
 
         

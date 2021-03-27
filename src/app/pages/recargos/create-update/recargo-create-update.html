@@ -2,18 +2,34 @@
     <plex-layout-main>
         <header>
             <section class="d-flex flex-row justify-content-between mb-2">
-                <h5 class="align-self-center" *ngIf="!recargo?._id">
-                    <strong>Recargos |</strong> Alta nueva planilla
-                </h5>
-                <h5 class="align-self-center" *ngIf="recargo?._id">
-                        <strong>Recargos |</strong>
-                        {{ title }}
+                <div class="d-flex flex-row justify-content-start">
+                    <h5 class="align-self-center" *ngIf="!recargo?._id">
+                        <strong>Recargos |</strong> Alta nueva planilla
                     </h5>
+                    <h5 class="align-self-center" *ngIf="recargo?._id">
+                        <strong>Recargos |</strong> {{ title }}
+                    </h5>
+                    <div *ngIf="recargo" [ngSwitch]="recargo.estado" class="ml-2">
+                        <plex-badge *ngSwitchCase="0" type="info" size="sm">
+                            SIN CONFIRMAR
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="1" type="danger" size="sm">
+                            CONFIRMADO
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="2" type="warning" size="sm">
+                            PARCIALMENTE PROCESADO
+                        </plex-badge>
+                        <plex-badge *ngSwitchCase="3" type="success" size="sm">
+                            PROCESADO
+                        </plex-badge>
+                    </div>
+                </div>
+
                 <div class="d-flex flex-row justify-content-end"> 
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:add_recargo'">
                         <plex-button 
                             *ngIf="recargo && puedeGuardar"
-                            label="Guardar"
+                            label="Guardar y Continur Editando"
                             type="success"
                             (click)="onGuardar()"
                             class="mx-2" title="Guardar y Continuar Editando">
@@ -22,7 +38,7 @@
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:confirmar_recargo'">
                         <plex-button
                             *ngIf="recargo && puedeConfirmar" 
-                            label="Confirmar Recargo" 
+                            label="Confirmar" 
                             type="warning" 
                             (click)="onConfirmar()"
                             title="Guardar y Confirmar">
@@ -45,6 +61,7 @@
         </header>
         
         <!-- Formulario Encabezado del Recargo -->
+        <br>
         <app-recargo-form
             *ngIf="recargo"
             #recargoForm
@@ -61,30 +78,29 @@
             type="ball-beat">
         </plex-loader>
 
-        <!-- <app-search-leyenda
-            *ngIf="!recargo?.mes || !recargo?.anio"
-            [header]="'Seleccione un periodo para comenzar a trabajar!'"
-            [subHeader]="' - '">
-        </app-search-leyenda> -->
-        <br>
         <!-- Planilla de recargos por agente -->
         <ng-container *ngIf="!generandoPlanilla && recargo?.planilla">
+            <br>
+            <header class="d-flex flex-row justify-content-between subheader">
+                <div>
+                    <h5>Planilla. Listado de Agentes</h5>
+                </div>
+                <div class="d-flex flex-row justify-content-end">
+                    <div *ngIf="puedeAgregarAgente">
+                        <plex-button
+                            label="Agregar Agente"
+                            type="info"
+                            icon="mdi mdi-plus"
+                            (click)="onAddAgente()">
+                        </plex-button>
+                    </div> 
+                </div>
+            </header>
             <app-recargo-planilla
                 [recargo]="recargo"
                 (deleted)="onRemoveItemPlanilla($event)"
                 (procesar)="onProcesarParcialmente($event)">
             </app-recargo-planilla>
-            <br>
-            <div class="d-flex flex-row justify-content-end">
-                <div *ngIf="puedeAgregarAgente">
-                    <plex-button
-                        label="Agregar Agente"
-                        type="info"
-                        icon="mdi mdi-plus"
-                        (click)="onAddAgente()">
-                    </plex-button>
-                </div> 
-            </div>
         </ng-container>
        
         

@@ -20,12 +20,15 @@
             <div [ngSwitch]="object.estado">
                 <plex-badge *ngSwitchCase="0" type="warning" size="sm">
                     <plex-icon name="mdi mdi-clipboard-text" title="Sin Confirmar"></plex-icon>
+                    SIN CONFIRMAR
                 </plex-badge>
                 <plex-badge *ngSwitchCase="1" type="danger" size="sm">
                     <plex-icon name="mdi mdi-clipboard-text" title="Confirmada"></plex-icon>
+                    CONFIRMADA
                 </plex-badge>
                 <plex-badge *ngSwitchDefault type="success" size="sm">
                     <plex-icon name="mdi mdi-clipboard-text" title="Procesada"></plex-icon>
+                    PROCESADA
                 </plex-badge>
             </div>
             <plex-label titulo="{{object.fechaHoraEntrega | fecha:'diahora' }}" [tituloBold]="false"></plex-label>

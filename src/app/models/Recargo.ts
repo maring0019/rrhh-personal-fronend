@@ -71,7 +71,7 @@ export class Recargo {
     anio: Number;
     servicio: Ubicacion;
     planilla: RecargoItemPlanilla[];
-    estado: String;
+    estado: string;
     responsableEntrega: {    // Agente Jefe de Servicio
         _id: String,
         nombre: String,

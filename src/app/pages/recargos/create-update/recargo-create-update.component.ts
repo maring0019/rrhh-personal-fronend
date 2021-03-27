@@ -58,26 +58,12 @@ export class RecargoCreateUpdateComponent implements OnInit {
 
     public get title():String {
         let titulo = 'Alta nueva planilla';
-        if (this.recargo && this.recargo._id) {
-            titulo = 'Edición de planilla ';
-            switch(this.recargo.estado) {
-                case '0':
-                    titulo +=  '(Recargo sin Confirmar)';
-                    break;
-                case '1':
-                    titulo +=  '(Recargo Confirmado)';
-                    break;
-                case '2':
-                    titulo +=  '(Recargo Procesado Parcialmente)';
-                    break;
-                default:
-                    titulo +=  '(Recargo Procesado Totalmente)';
+        if (this.recargo && this.recargo._id) {            
+            titulo = (parseInt(this.recargo.estado) < 2)? 'Edición de planilla ': 'Detalle de Planilla';
+
             }
             return titulo;
-        }
-        
     }
-
 
     /**
      * Contiene los valores reales de los parametros extras a utilizar
