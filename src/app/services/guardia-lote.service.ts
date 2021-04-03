@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Server } from '@andes/shared';
@@ -12,7 +13,16 @@ export class GuardiaLoteService {
     constructor(private server: Server) { }
 
     get(params?: any): Observable<GuardiaLote[]> {
-        return this.server.get(this.url, { params: params, showError: true });
+        return this.server.get(this.url, { params: params, showError: true })
+            .pipe(
+                map(res => {
+                    // Forzamos que los datos retornado sean instancias de 
+                    // GuardiaLote. Esto simplifica algunas acciones posteriores
+                    let newRes = []
+                    res.forEach(lote => newRes.push(new GuardiaLote(lote)));
+                    return newRes;
+                })
+            );
     }
 
     getByID(objectId?: any): Observable<GuardiaLote> {

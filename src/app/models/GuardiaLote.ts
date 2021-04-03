@@ -8,6 +8,12 @@ export class GuardiaLote {
     tipoGuardia: String;
     categoria: Agrupamiento;
 
+    get nombre(){
+        return `Lote Nro: ${this.numero}   |   Servicio: ${this.servicio.nombre}   |   
+                Tipo de Guardia: ${this.tipoGuardia.toUpperCase()}   |   Categoria: ${this.categoria.nombre.toUpperCase()}`
+        
+    }
+
     constructor(lote?)
     {
         lote = lote || {};

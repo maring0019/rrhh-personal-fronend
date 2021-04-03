@@ -132,13 +132,12 @@ export class GuardiaCreateUpdateComponent implements OnInit {
                         this.actualizarGuardia(newValue);
                     }
                     else{
+                        // El usuario canceló el cambio
                         // Hacemos un rollback de los cambios realizados al form
                         this.guardiaForm.form.patchValue(
                             {
                                 periodo : this.guardia.periodo,
-                                servicio : this.guardia.lote.servicio,
-                                categoria : this.guardia.lote.categoria,
-                                tipoGuardia : this.guardia.lote.tipoGuardia
+                                lote: this.guardia.lote,
                             },
                             { emitEvent: false }); // Prevent infinite loop
                     }
@@ -146,7 +145,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
         else{
             this.actualizarGuardia(newValue);
-            await this.isLoteValido();
             await this.isGuardiaUnique();
         }
     }
@@ -162,33 +160,15 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         }
         else{
             // Actualizamos los datos del lote de la guardia con el valor ingresado
-            Object.keys(changedValue).forEach( key => {
-                // Horrible
-                if (key == 'servicio') this.guardia.lote.servicio = changedValue[key];
-                if (key == 'categoria') this.guardia.lote.categoria = changedValue[key];
-                if (key == 'tipoGuardia') this.guardia.lote.tipoGuardia = changedValue[key]? changedValue[key].id: null;
-            });
+            this.guardia.lote = changedValue['lote'];
         }
         window.setTimeout(() => {
             this.generandoPlanilla = false;
        }, 500);
     }
 
-    private async isLoteValido(){
-        if (this.guardia.lote.servicio && this.guardia.lote.categoria && this.guardia.lote.tipoGuardia){   
-            const lote = await this.findLoteGuardia();
-            if (!lote){
-                this.infoLoteInvalido()
-                return false;
-            }
-            // Asignamos a la guardia el lote valido encontrado.
-            this.guardia.lote = lote;
-            return true;
-        }
-    }
-
     private async isGuardiaUnique(){
-        if (this.guardia.lote.servicio && this.guardia.lote.categoria && this.guardia.lote.tipoGuardia){
+        if (this.guardia.lote && this.guardia.lote._id){
             const guardiaExistente = await this.findGuardia();
             if (guardiaExistente && !this._objectID ){
                 this.infoGuardiaDuplicada();
@@ -206,9 +186,6 @@ export class GuardiaCreateUpdateComponent implements OnInit {
 
     /**
      * Valida que esten presentes todos los datos del formulario.
-     * Ademas valida que el servicio, categoria y tipo de guardia
-     * corresponda con un lote existente. Si el lote no existe no
-     * se puede crear la guardia.
      */
     private async isGuardiaFormValid(){
         const form = this.guardiaForm.form;
@@ -220,17 +197,9 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         return true;
     }
 
-
-    private async findLoteGuardia(){
-        const loteSearchParams = {
-            'servicio._id': this.guardia.lote.servicio._id,
-            'categoria._id': this.guardia.lote.categoria._id,
-            'tipoGuardia': this.guardia.lote.tipoGuardia
-        }      
-        const response = await this.guardiaLoteService.get(loteSearchParams).toPromise();
-        return (response.length)? response[0]:null;
-    }
-
+    /**
+     * Helper method. Se uttiliza para buscar guardias duplicadas
+     */
     private async findGuardia(){
         const searchParams = {
             'periodo._id': this.guardia.periodo._id,
@@ -254,8 +223,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
         const form = this.guardiaForm.form;
         if ( await this.isGuardiaFormValid()) {
             this._extraSearchParams = {
-                'situacionLaboral.cargo.servicio.ubicacion': form.value.servicio.codigo,
-                'situacionLaboral.cargo.agrupamiento._id': form.value.categoria._id,
+                'situacionLaboral.cargo.servicio.ubicacion': form.value.lote.servicio.codigo,
+                'situacionLaboral.cargo.agrupamiento._id': form.value.lote.categoria._id,
                 'activo': true
             }
             this.modalService.open('modal-add-agente');
@@ -306,7 +275,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * guardia, o guardar una guardia existente que ha sido modificada.
      */
     public async onGuardar(){
-        if (await this.isGuardiaFormValid() && await this.isLoteValido() && await this.isGuardiaUnique()){
+        if (await this.isGuardiaFormValid() && await this.isGuardiaUnique()){
             return this._objectID? this.updateGuardia('guardar'): this.addGuardia('guardar');
         }
         
@@ -316,7 +285,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
      * Idem que guardar pero con la accion 'Confirmar'
      */
     public async onConfirmar(){
-        if (await this.isGuardiaFormValid() && await this.isLoteValido() && await this.isGuardiaUnique()){
+        if (await this.isGuardiaFormValid() && await this.isGuardiaUnique()){
             this.plex.confirm(`Al confirmar se habilita al Dpto. de Gestión de Personal
                 a realizar las validaciones correspondientes para su aprobación final.
                 Durante esta etapa no podrá volver a editar la información ingresada.`)
@@ -415,24 +384,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
             });
     }
 
-    private infoLoteInvalido(){
-        this.plex.info('danger', `Lote Inválido. Verifique que el Servicio, 
-                                    Categoría y Tipo de Guardia pertenezcan
-                                    a un Lote existente.`);
-    }
-
-
     private infoGuardiaDuplicada(){
         this.plex.info('danger', `Guardia Duplicada. Los datos ingresados no podran ser almacenados.`);
     }
-
-
-
-    
-    //TODO: 
-    //   Ver de realizar validaciones segun alguna configuracion a definiar 
-    //   Ver como calcular los dias de un agente en otraaaas planillas para el mismo periodo?
-    //   Incluir info de las ausencias!!!!
-    
 
 }

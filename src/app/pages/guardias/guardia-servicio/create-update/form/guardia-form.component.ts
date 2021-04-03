@@ -5,12 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { pairwise, startWith } from 'rxjs/operators';
 
 import  *  as formUtils from 'src/app/utils/formUtils';
-import * as enumerados from 'src/app/models/enumerados';
 import { Guardia } from 'src/app/models/Guardia';
 
-import { AgrupamientoService } from 'src/app/services/agrupamiento.service';
 import { GuardiaPeriodoService } from 'src/app/services/guardia-periodo.service';
 import { Auth } from 'src/app/services/auth.service';
+import { GuardiaLoteService } from 'src/app/services/guardia-lote.service';
 
 
 @Component({
@@ -32,16 +31,14 @@ export class GuardiaFormComponent implements OnInit {
     public form: FormGroup;
 
     // Form select options
-    public tipoGuardiaOpciones = enumerados.getObjTipos(enumerados.TipoGuardia);
     public periodoOpciones$ = this.guardiaPeriodoService.get({});
-    public servicioOpciones = this.authService.servicios;
-    public categoriaOpciones$ = this.categoriaService.get({});
+    public loteOpciones$ = this.getLoteOptions();
 
     
     constructor(
         public formBuilder: FormBuilder,
         private authService: Auth,
-        private categoriaService: AgrupamientoService,
+        private guardiaLoteService: GuardiaLoteService,
         private guardiaPeriodoService: GuardiaPeriodoService
     ){}
 
@@ -52,8 +49,13 @@ export class GuardiaFormComponent implements OnInit {
     }
 
 
-    private initFormSelectOptions(){
+    private initFormSelectOptions(){}
 
+    public getLoteOptions(){
+        const loteSearchParams = {
+            'servicio._id': this.authService.servicios.map(i=>i._id),
+        }
+        return this.guardiaLoteService.get(loteSearchParams);
     }
 
     /**
@@ -73,13 +75,10 @@ export class GuardiaFormComponent implements OnInit {
     }
 
     private initForm(){
-        const lote = this.guardia.lote;
         return this.formBuilder.group({
             _id             : [this.guardia._id],
             periodo         : [this.guardia.periodo],
-            servicio        : [lote? lote.servicio:null],
-            categoria       : [lote? lote.categoria:null],
-            tipoGuardia     : [lote? lote.tipoGuardia:null]
+            lote            : [this.guardia.lote._id? this.guardia.lote:null],
         });
     }
     

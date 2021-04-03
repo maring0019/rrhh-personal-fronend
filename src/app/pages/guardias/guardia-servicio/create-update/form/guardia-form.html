@@ -13,37 +13,14 @@
                     [readonly]="!editable">
                 </plex-select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-9">
                 <plex-select
                     [idField]="'_id'"
-                    [data]="servicioOpciones"
-                    formControlName="servicio"
-                    name="servicio"
-                    label="Servicio"
-                    placeholder="Seleccione servicio"
-                    [required]="true"
-                    [readonly]="!editable">
-                </plex-select>
-            </div>
-            <div class="col-md-3">
-                <plex-select
-                    [idField]="'_id'"
-                    [data]="categoriaOpciones$ | async"
-                    formControlName="categoria"
-                    name="categoria"
-                    label="Categoría"
-                    placeholder="Seleccione categoría"
-                    [required]="true"
-                    [readonly]="!editable">
-                </plex-select>
-            </div>
-            <div class="col-md-3">
-                <plex-select
-                    [data]="tipoGuardiaOpciones"
-                    formControlName="tipoGuardia"
-                    name="tipoGuardia"
-                    label="Tipo de Guardia"
-                    placeholder="Seleccione un tipo de guardia"
+                    [data]="loteOpciones$ | async"
+                    formControlName="lote"
+                    name="lote"
+                    label="Lote"
+                    placeholder="Seleccione un lote"
                     [required]="true"
                     [readonly]="!editable">
                 </plex-select>
