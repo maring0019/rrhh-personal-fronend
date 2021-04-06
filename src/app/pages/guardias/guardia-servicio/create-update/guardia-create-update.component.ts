@@ -203,9 +203,7 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     private async findGuardia(){
         const searchParams = {
             'periodo._id': this.guardia.periodo._id,
-            'lote.servicio._id': this.guardia.lote.servicio._id,
-            'lote.categoria._id': this.guardia.lote.categoria._id,
-            'lote.tipoGuardia': this.guardia.lote.tipoGuardia
+            'lote._id': this.guardia.lote._id,
         } 
         const response = await this.guardiaService.get(searchParams).toPromise();
         return (response.length)? response[0]:null;        
@@ -214,10 +212,8 @@ export class GuardiaCreateUpdateComponent implements OnInit {
     /**
      * Abre un modal con el componente de seleccion de agentes.El agente
      * que se selecciona se incorporara luego a la planilla de guardias.
-     * Los agentes a mostrar para seleccionar deben estar restringidos a 
-     * los datos que se hayan ingresado en el encabezado (como por ej el
-     * servicio y categoria)por esta razon antes de permitir seleccionar
-     * agentes se valida que este presente la información necesaria.
+     * Los agentes a mostrar para seleccionar NO deben estar restringidos a 
+     * los datos que se hayan ingresado en el encabezado 
      */
     public async onAddAgente(){
         const form = this.guardiaForm.form;
