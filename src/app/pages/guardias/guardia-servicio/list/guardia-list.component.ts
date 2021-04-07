@@ -39,4 +39,17 @@ export class GuardiaListComponent extends CRUDListComponent implements OnInit {
         this.router.navigate(['guardias/crear']);
     }
 
+    /**
+     * Utilizamos este evento en realidad se habilito la edicion de una
+     * guardia. Luego de habilitar la edicion queremos quitarla del 
+     * listado. 
+     * @param obj 
+     */
+    public onItemListDelete(obj:any){
+        const items = this.objects.filter(x => x._id != obj._id);
+        // Simulamos una nueva busqueda con los items ya filtrados
+        this.onSearchStart();
+        this.onSearchEnd(items);
+    }
+
 }

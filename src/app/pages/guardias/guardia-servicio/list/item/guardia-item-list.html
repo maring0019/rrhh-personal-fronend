@@ -45,7 +45,7 @@
                 </ng-template>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:procesar_guardia'">
                     <plex-button
-                        *ngIf="object.estado && object.estado == 1"
+                        *ngIf="object.estado && object.estado == GUARDIA_CONFIRMADA"
                         title="Procesar Guardia"
                         type="success"
                         size="sm"
@@ -55,7 +55,7 @@
                 </ng-template>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:change_guardia'">
                     <plex-button
-                        *ngIf="!object.estado || object.estado == 0"
+                        *ngIf="!object.estado || object.estado == GUARDIA_SIN_CONFIRMAR"
                         title="Editar Guardia"
                         type="warning"
                         size="sm"
@@ -65,12 +65,22 @@
                 </ng-template>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:view_guardia'">
                     <plex-button
-                        *ngIf="object.estado && object.estado == 2"
+                        *ngIf="object.estado && object.estado == GUARDIA_PROCESADA"
                         title="Ver Guardia"
                         type="info"
                         size="sm"
                         icon="mdi mdi-eye"
                         (click)="onNavigate(object)">
+                    </plex-button>
+                </ng-template>
+                <ng-template [ngxPermissionsOnly]="'guardias:guardia:procesar_guardia'">
+                    <plex-button
+                        *ngIf="object.estado && (object.estado == GUARDIA_PROCESADA || object.estado == GUARDIA_CONFIRMADA)"
+                        title="Habilitar Edicion"
+                        type="warning"
+                        size="sm"
+                        icon="mdi mdi-pencil"
+                        (click)="onHabilitarEdicion(object)">
                     </plex-button>
                 </ng-template>
                 

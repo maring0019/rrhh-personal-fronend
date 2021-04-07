@@ -14,6 +14,9 @@ import { Auth } from 'src/app/services/auth.service';
     templateUrl: './guardia-item-list.html',
 })
 export class GuardiaItemListComponent extends CRUDItemListComponent{
+    GUARDIA_SIN_CONFIRMAR = 0;
+    GUARDIA_CONFIRMADA = 1;
+    GUARDIA_PROCESADA = 2;
     
     constructor(
             public router: Router,
@@ -44,8 +47,28 @@ export class GuardiaItemListComponent extends CRUDItemListComponent{
         }
     }
 
+    public onHabilitarEdicion(object){
+        this.plex.confirm(`Al confirmar se habilita al Jefe de Servicio
+            a realizar modificaciones nuevamente sobre la guardia seleccionada.`)
+        .then( confirm => {
+            if (confirm) return this.updateGuardia(object);
+        });
+         
+    }
+
+    private updateGuardia(guardia){
+        this.guardiaService.putAndHabilitarEdicion(guardia)
+            .subscribe( guardiaActualizada => {
+                this.plex.info('success', `Guardia modificada correctamente.`);
+                this.delete.emit(guardiaActualizada);
+                },
+                error => this.plex
+                            .info('danger', 'No se pudo actualizar correctamente la Guardia')
+                );
+    }
+
     public onExportar(objeto) {
-        this.guardiaService.generarCsv(objeto)
+        this.guardiaService.generarCSV(objeto)
             .subscribe(data => {
                 this.descargarArchivo(data, { type: 'text/csv' });
             })

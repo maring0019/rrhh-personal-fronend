@@ -44,7 +44,12 @@ export class GuardiaService {
         return this.server.put(url, object);
     }
 
-    generarCsv(object: Guardia): Observable<Guardia> {
+    putAndHabilitarEdicion(object: Guardia): Observable<Guardia> {
+        const url = `${this.url}/${object._id}/habilitar-edicion`;
+        return this.server.put(url, object);
+    }
+
+    generarCSV(object: Guardia): Observable<Guardia> {
         const url = `${this.url}/${object._id}/generar-csv`;
         return this.server.get(url);
     }
