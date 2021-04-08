@@ -65,7 +65,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:view_hora_extra'">
                         <plex-button
-                            *ngIf="item.estado && item.estado == 2"
+                            *ngIf="item.estado && item.estado == HORA_EXTRA_PROCESADA"
                             title="Ver detalle"
                             type="info"
                             icon="mdi mdi-eye"
@@ -75,7 +75,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:change_hora_extra'">
                         <plex-button
-                            *ngIf="!item.estado || item.estado == 0"
+                            *ngIf="!item.estado || item.estado == HORA_EXTRA_SIN_CONFIRMAR"
                             title="Editar"
                             type="warning"
                             icon="mdi mdi-pencil"
@@ -85,12 +85,22 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:procesar_hora_extra'">
                         <plex-button
-                            *ngIf="item.estado && item.estado == 1"
+                            *ngIf="item.estado && item.estado == HORA_EXTRA_CONFIRMADA"
                             title="Procesar Recargo"
                             type="success"
                             size="sm"
                             icon="mdi mdi-play"
                             (click)="onItemProcesar(item)">
+                        </plex-button>
+                    </ng-template>
+                    <ng-template [ngxPermissionsOnly]="'horas_extras:hora_extra:procesar_hora_extra'">
+                        <plex-button
+                            *ngIf="item.estado && (item.estado == HORA_EXTRA_PROCESADA || item.estado == HORA_EXTRA_CONFIRMADA)"
+                            title="Habilitar Edicion"
+                            type="warning"
+                            size="sm"
+                            icon="mdi mdi-pencil"
+                            (click)="onHabilitarEdicion(item)">
                         </plex-button>
                     </ng-template>
                     <!-- <plex-button

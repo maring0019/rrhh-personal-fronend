@@ -15,6 +15,10 @@ import { HoraExtraService } from 'src/app/services/horas-extras.service';
 })
 export class HoraExtraListComponent extends ABMListComponent {
 
+    HORA_EXTRA_SIN_CONFIRMAR = 0;
+    HORA_EXTRA_CONFIRMADA = 1;
+    HORA_EXTRA_PROCESADA = 2;
+
     public modelName = 'horaextra';
     public reportName = 'horas_extras';
     public printing = false;
@@ -92,6 +96,25 @@ export class HoraExtraListComponent extends ABMListComponent {
                 this.printing = false;
                 console.log('download error:', JSON.stringify(error));
             }); 
+    }
+
+    public onHabilitarEdicion(object){
+        this.plex.confirm(`Al confirmar se habilita al Jefe de Servicio
+            a realizar modificaciones nuevamente sobre la planilla de Hs. Extras seleccionada.`)
+        .then( confirm => {
+            if (confirm) return this.updateHoraExtra(object);
+        });
+    }
+
+    private updateHoraExtra(horaExtra){
+        this.horaExtraService.putAndHabilitarEdicion(horaExtra)
+            .subscribe( horaExtraActualizada => {
+                this.plex.info('success', `Planilla de Horas Extras modificada correctamente.`);
+                this.removeItemFromList(horaExtra)
+                },
+                error => this.plex
+                            .info('danger', 'No se pudo actualizar correctamente la planilla de Horas Extras')
+                );
     }
 
 }

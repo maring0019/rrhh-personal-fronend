@@ -110,10 +110,14 @@ export abstract class ABMListComponent implements OnInit {
         this.objectService.delete(this.dataService, item._id)
             .subscribe(
                 data => {
-                    this.items = this.items.filter(x => x._id != item._id);
+                    this.removeItemFromList(item);
                 },
                 error => {}
             )
+    }
+
+    public removeItemFromList(item){
+        this.items = this.items.filter(x => x._id != item._id);
     }
 
     /**

@@ -21,8 +21,14 @@ export class HoraExtraService extends GenericService<HoraExtra> {
         return this.server.put(url, object);
     }
 
+    putAndHabilitarEdicion(object: HoraExtra): Observable<HoraExtra> {
+        const url = `${this.url}/${object._id}/habilitar-edicion`;
+        return this.server.put(url, object);
+    }
+
     postAndConfirmar(object: HoraExtra): Observable<HoraExtra> {
         let url = `${this.url}/confirmar`;
         return this.server.post(url, object);
     }
+
 }
