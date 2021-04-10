@@ -43,6 +43,15 @@
                         (click)="onExportar(object)">
                     </plex-button>
                 </ng-template>
+                <ng-template [ngxPermissionsOnly]="'guardias:guardia:exportar_pdf'">
+                    <plex-button
+                        title="Exportar a PDF"
+                        type="warning"
+                        size="sm"
+                        icon="mdi mdi-printer"
+                        (click)="onImprimir(object)">
+                    </plex-button>
+                </ng-template>
                 <ng-template [ngxPermissionsOnly]="'guardias:guardia:procesar_guardia'">
                     <plex-button
                         *ngIf="object.estado && object.estado == GUARDIA_CONFIRMADA"

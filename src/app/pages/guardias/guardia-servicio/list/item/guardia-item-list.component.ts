@@ -7,6 +7,7 @@ import { CRUDItemListComponent } from 'src/app/modules/tm/components/crud/list/i
 
 import { GuardiaService } from 'src/app/services/guardia.service';
 import { Auth } from 'src/app/services/auth.service';
+import { ReportesService } from 'src/app/services/reportes.service';
 
 
 @Component({
@@ -17,12 +18,15 @@ export class GuardiaItemListComponent extends CRUDItemListComponent{
     GUARDIA_SIN_CONFIRMAR = 0;
     GUARDIA_CONFIRMADA = 1;
     GUARDIA_PROCESADA = 2;
+
+    public printing = false;
     
     constructor(
             public router: Router,
             public plex: Plex,
             private guardiaService: GuardiaService,
-            private authService: Auth) {
+            private authService: Auth,
+            private reportesService: ReportesService) {
         super(router, plex);
     }
 
@@ -80,4 +84,21 @@ export class GuardiaItemListComponent extends CRUDItemListComponent{
         let nombreArchivo = 'guardia-exportada.csv';
         saveAs(blob, nombreArchivo);
     }
+
+    /**
+     * Impresion de una guardia en formato PDF
+     * @param item guardia a imprimir
+     */
+    public onImprimir(item){
+        this.printing = true;
+        this.reportesService.print({ tipoReporte:'guardias', _id:item._id })
+            .subscribe(data => {           
+                this.reportesService.descargarArchivo(data);     
+                this.printing = false;
+            }, error => {
+                this.printing = false;
+                console.log('download error:', JSON.stringify(error));
+            }); 
+    }
+
 } 
