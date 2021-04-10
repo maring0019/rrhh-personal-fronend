@@ -16,6 +16,11 @@ import { Recargo } from 'src/app/models/Recargo';
 })
 export class RecargoListComponent extends ABMListComponent {
 
+    RECARGO_SIN_CONFIRMAR = 0;
+    RECARGO_CONFIRMADO = 1;
+    RECARGO_PROCESADO_PARCIALMENTE = 2;
+    RECARGO_PROCESADO = 3;
+
     public modelName = 'recargo';
     public reportName = 'recargos';
     public printing = false;
@@ -108,6 +113,25 @@ export class RecargoListComponent extends ABMListComponent {
                 this.printing = false;
                 console.log('download error:', JSON.stringify(error));
             }); 
+    }
+
+    public onHabilitarEdicion(object){
+        this.plex.confirm(`Al confirmar se habilita al Jefe de Servicio
+            a realizar modificaciones nuevamente sobre la planilla de Recargos seleccionada.`)
+        .then( confirm => {
+            if (confirm) return this.updateRecargo(object);
+        });
+    }
+
+    private updateRecargo(recargo){
+        this.recargoService.putAndHabilitarEdicion(recargo)
+            .subscribe( recargoActualizada => {
+                this.plex.info('success', `Planilla de Recargos modificada correctamente.`);
+                this.removeItemFromList(recargo)
+                },
+                error => this.plex
+                            .info('danger', 'No se pudo actualizar correctamente la planilla de Recargos')
+                );
     }
 
 }

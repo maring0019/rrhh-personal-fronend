@@ -65,7 +65,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:view_recargo'">
                         <plex-button
-                            *ngIf="item.estado && item.estado == 3"
+                            *ngIf="item.estado && item.estado == RECARGO_PROCESADO"
                             title="Ver detalle"
                             type="info"
                             icon="mdi mdi-eye"
@@ -75,7 +75,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:change_recargo'">
                         <plex-button
-                            *ngIf="!item.estado || item.estado == 0"
+                            *ngIf="!item.estado || item.estado == RECARGO_SIN_CONFIRMAR"
                             title="Editar"
                             type="warning"
                             icon="mdi mdi-pencil"
@@ -85,7 +85,7 @@
                     </ng-template>
                     <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
                         <plex-button
-                            *ngIf="item.estado && (item.estado == 1 || item.estado == 2)"
+                            *ngIf="item.estado && (item.estado == RECARGO_CONFIRMADO || item.estado == RECARGO_PROCESADO_PARCIALMENTE)"
                             title="Procesar Recargo"
                             type="success"
                             size="sm"
@@ -93,13 +93,16 @@
                             (click)="onItemProcesar(item)">
                         </plex-button>
                     </ng-template>
-                    <!-- <plex-button
-                        title="Eliminar"
-                        type="danger"
-                        icon="mdi mdi-close"
-                        size="sm"
-                        (click)="deleteItem(item)">
-                    </plex-button> -->
+                    <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
+                        <plex-button
+                            *ngIf="item.estado && (item.estado == RECARGO_CONFIRMADO)"
+                            title="Habilitar Edicion"
+                            type="warning"
+                            size="sm"
+                            icon="mdi mdi-pencil"
+                            (click)="onHabilitarEdicion(item)">
+                        </plex-button>
+                    </ng-template>
                 </div>
             </div>
         </list-item>
