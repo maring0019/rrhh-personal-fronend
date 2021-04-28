@@ -1,0 +1,124 @@
+<div class="item-row" *ngIf="columnDef && columnDef.length">
+    <div [ngClass]="(botonera)? 'item-column': 'item-column-full'">
+        <div class="d-flex flex-row justify-content-start align-items-center">
+            <plex-label *ngFor="let col of columnDef; let i=index"
+                [ngClass]="col?.size ? 'wp-' + col?.size : ''"
+                titulo="{{ col.title }}">
+            </plex-label>
+            <div class="item-column item-botonera">
+                <div class="d-flex flex-row justify-content-end align-items-center"> 
+                    <plex-button
+                        *ngIf="editable"
+                        title="Agregar Recargo"
+                        type="info"
+                        size="sm"
+                        icon="mdi mdi-plus"
+                        (click)="addRecargo()">
+                    </plex-button>
+                    <plex-button
+                        *ngIf="editable && !modoEscritura"
+                        title="Editar"
+                        type="warning"
+                        icon="mdi mdi-pencil"
+                        size="sm"
+                        (click)="rollbackProcesar()">
+                    </plex-button>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>
+<list-item *ngFor="let item of recargoAgente.items; let j=index"
+    [item]="item"
+    [actions]="[]"
+    [botonera]="false">
+    <plex-label
+        *ngIf="j==0"
+        class="wp-10 mr-4" 
+        titulo="{{ recargoAgente.agente?.apellido }}, {{ recargoAgente.agente?.nombre }}" subtitulo="Nro: {{ recargoAgente.agente?.numero }}" 
+        [tituloBold]="true">
+    </plex-label>
+    <plex-label
+        *ngIf="j!=0"
+        class="wp-10 mr-4" 
+        titulo="">
+    </plex-label>
+    
+    <ng-container *ngIf="!modoEscritura">
+        <plex-label class="wp-13" titulo="{{ item.fecha | fecha:'utc' }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-12" titulo="{{ item.turno?.nombre | title }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-18" titulo="{{ item.justificacion?.nombre | title }}" [tituloBold]="false"></plex-label>
+        <plex-label class="wp-15" titulo="{{ item.observaciones | title }}" [tituloBold]="false"></plex-label>
+    </ng-container>
+    
+    
+    <ng-container *ngIf="modoEscritura">
+        <div class="wp-10 mr-4">
+            <plex-datetime
+                class="input-sm"
+                type="date"
+                name="fecha"
+                [(ngModel)]="item.fecha">
+            </plex-datetime>
+        </div>
+        <plex-select
+            class="wp-12 mr-4"
+            [data]="turnoOpciones"
+            [idField]="'_id'"
+            name="turno"
+            [(ngModel)]="item.turno"
+            label=""
+            placeholder="Seleccione...">
+        </plex-select>
+        <plex-select 
+            class="wp-15 mr-4"
+            [data]="justificacionOpciones"
+            [idField]="'_id'"
+            name="justificacion"
+            [(ngModel)]="item.justificacion"
+            label=""
+            placeholder="Seleccione...">
+        </plex-select>
+        <plex-text 
+            class="wp-15 mr-4"
+            name="observaciones" 
+            [(ngModel)]="item.observaciones"
+            placeholder="">
+        </plex-text>
+    </ng-container>
+
+    <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
+    <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
+    <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
+    <div class="item-column item-botonera">
+        <div class="d-flex flex-row justify-content-end align-items-center"> 
+            <plex-button
+                *ngIf="editable"
+                title="Eliminar"
+                type="danger"
+                icon="mdi mdi-close"
+                size="sm"
+                (click)="deleteItem(item, j, i)">
+            </plex-button>
+        </div>
+    </div>    
+    </list-item>
+    <list-item [actions]="[]" [botonera]="false">
+    <div class="wp-80"></div>
+    <plex-label class="wp-5" titulo="{{recargoAgente.hsNormales }}" [tituloBold]="true"></plex-label>
+    <plex-label class="wp-5" titulo="{{recargoAgente.hsExcedidos }}" [tituloBold]="true"></plex-label>
+    <plex-label class="wp-5" titulo="{{recargoAgente.hsTotales }}" [tituloBold]="true"></plex-label>
+    <div class="item-column item-botonera">
+        <div class="d-flex flex-row justify-content-end align-items-center">
+            <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
+                <plex-bool
+                    [readonly]="!editable"
+                    type="slide"
+                    (change)="changeProcesado($event)"
+                    [(ngModel)]="recargoAgente.procesado"
+                    label="Procesado?">
+                </plex-bool> 
+            </ng-template>
+        </div>
+    </div>
+</list-item>

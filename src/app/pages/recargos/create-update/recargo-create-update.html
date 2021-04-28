@@ -98,7 +98,8 @@
             </header>
             <app-recargo-planilla
                 [recargo]="recargo"
-                (deleted)="onRemoveItemPlanilla($event)"
+                [editable]='isEditable'
+                (deleted)="onRemoveAgentePlanilla($event)"
                 (procesar)="onProcesarParcialmente($event)">
             </app-recargo-planilla>
         </ng-container>

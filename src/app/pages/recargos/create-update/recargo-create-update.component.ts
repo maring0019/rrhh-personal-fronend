@@ -31,6 +31,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
     }
 
     // Permisos
+    
     /**
      * Si el recargo se encuentra en estado "confirmado" o "parcialmente procesado"
      * entonces se puede procesar.
@@ -49,7 +50,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
     }
 
     public get puedeAgregarAgente():Boolean {
-        return (this.recargo && !this.recargo.estado || this.recargo.estado == '0' || this.recargo.estado == '1');
+        return (this.recargo && !this.recargo.estado || this.recargo.estado != '3');
     }
 
     public get puedeEditarPlanilla():Boolean{
@@ -112,7 +113,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
                     this.agentesSeleccionados.push(item.agente);   
                 }
                 // Verificamos si la recargo es editable
-                if (this.recargo.estado == '0') this.isEditable = true;
+                if (this.recargo.estado != '3') this.isEditable = true;
             })
     }
     
@@ -120,9 +121,8 @@ export class RecargoCreateUpdateComponent implements OnInit {
         return list.filter(elem => elem._id != item._id);
     }
 
-    public onRemoveItemPlanilla(event){
-        this.recargo.planilla.splice(event.index, 1);
-        this.agentesSeleccionados = this.remoteItemFromList(this.agentesSeleccionados, event.item.agente);
+    public onRemoveAgentePlanilla(agente){
+        this.agentesSeleccionados = this.remoteItemFromList(this.agentesSeleccionados, agente);
     }
 
     /**
@@ -183,7 +183,6 @@ export class RecargoCreateUpdateComponent implements OnInit {
             }
             return true;
         }
-
     }
 
     /**
@@ -297,7 +296,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
         }
     }
 
-    public async onProcesarParcialmente(){
+    public async onProcesarParcialmente(value){
         if (await this.isRecargoFormValid()){
             return this.updateRecargo('procesar_parcialmente');
         }
@@ -396,7 +395,7 @@ export class RecargoCreateUpdateComponent implements OnInit {
     }
 
     private infoProcesarParcialmenteOk(recargo){
-        this.recargo = recargo;
+        this.recargo = new Recargo(recargo);
         let totalmenteProcesado = true;
         for (const item of recargo.planilla) {
             if (!item.procesado){

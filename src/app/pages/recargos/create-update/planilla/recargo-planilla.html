@@ -1,97 +1,12 @@
-<list-head
-    [columnDef]="columnDef"
-    [botonera]="true">
-</list-head>
 <ng-container *ngFor="let itemAgente of recargo.planilla; let i=index">
-    <list-item *ngFor="let item of itemAgente.items; let j=index"
-        [item]="item"
-        [actions]="[]"
-        [botonera]="false">
-        <plex-label
-            *ngIf="j==0"
-            class="wp-10 mr-4" 
-            titulo="{{ itemAgente.agente?.apellido }}, {{ itemAgente.agente?.nombre }}" subtitulo="Nro: {{ itemAgente.agente?.numero }}" 
-            [tituloBold]="true">
-        </plex-label>
-        <plex-label
-            *ngIf="j!=0"
-            class="wp-10 mr-4" 
-            titulo="">
-        </plex-label>
-        <div class="wp-10 mr-4">
-            <plex-datetime
-                class="input-sm"
-                type="date"
-                name="fecha"
-                [(ngModel)]="item.fecha"
-                (change)="rollbackProcesar(itemAgente)">
-            </plex-datetime>
-        </div>
-        <plex-select
-            class="wp-12 mr-4"
-            [data]="turnoOpciones"
-            [idField]="'_id'"
-            name="turno"
-            [(ngModel)]="item.turno"
-            label=""
-            placeholder="Seleccione..."
-            (change)="rollbackProcesar(itemAgente)">
-        </plex-select>
-        <plex-select 
-            class="wp-15 mr-4"
-            [data]="justificacionOpciones"
-            [idField]="'_id'"
-            name="justificacion"
-            [(ngModel)]="item.justificacion"
-            label=""
-            placeholder="Seleccione..."
-            (change)="rollbackProcesar(itemAgente)">
-        </plex-select>
-        <plex-text 
-            class="wp-15 mr-4"
-            name="observaciones" 
-            [(ngModel)]="item.observaciones"
-            placeholder=""
-            (change)="rollbackProcesar(itemAgente)">
-        </plex-text>
-        <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
-        <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
-        <plex-label class="wp-5" titulo="" [tituloBold]="false"></plex-label>
-        <div class="item-column item-botonera">
-            <div class="d-flex flex-row justify-content-end align-items-center"> 
-                <plex-button
-                    title="Agregar Agente"
-                    type="info"
-                    size="sm"
-                    icon="mdi mdi-plus"
-                    (click)="addItem(itemAgente, j)">
-                </plex-button>
-                <plex-button
-                    title="Eliminar"
-                    type="danger"
-                    icon="mdi mdi-close"
-                    size="sm"
-                    (click)="deleteItem(itemAgente, j, i)">
-                </plex-button>
-            </div>
-        </div>    
-    </list-item>
-    <list-item [actions]="[]" [botonera]="false">
-        <div class="wp-80"></div>
-        <plex-label class="wp-5" titulo="{{itemAgente.hsNormales }}" [tituloBold]="true"></plex-label>
-        <plex-label class="wp-5" titulo="{{itemAgente.hsExcedidos }}" [tituloBold]="true"></plex-label>
-        <plex-label class="wp-5" titulo="{{itemAgente.hsTotales }}" [tituloBold]="true"></plex-label>
-        <div class="item-column item-botonera">
-            <div class="d-flex flex-row justify-content-end align-items-center">
-                <ng-template [ngxPermissionsOnly]="'recargos:recargo:procesar_recargo'">
-                    <plex-bool
-                        type="slide"
-                        (change)="changeProcesado($event)"
-                        [(ngModel)]="itemAgente.procesado"
-                        label="Procesado?">
-                    </plex-bool> 
-                </ng-template>
-            </div>
-        </div>
-    </list-item>
+    <app-recargo-planilla-subitem
+        [recargoAgente]="itemAgente"
+        [justificacionOpciones]="justificacionOpciones"
+        [turnoOpciones]="turnoOpciones"
+        [editable]="editable"
+        [modoEscritura]="recargo._id? false: true"
+        (procesar)="onProcesar($event)"
+        (deleted)="onRecargoDeleted($event, i)">
+    </app-recargo-planilla-subitem>
+    <br>
 </ng-container>

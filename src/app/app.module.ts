@@ -232,6 +232,7 @@ import { RecargoSearchFormComponent } from './pages/recargos/list/search/recargo
 import { RecargoCreateUpdateComponent } from './pages/recargos/create-update/recargo-create-update.component';
 import { RecargoFormComponent } from './pages/recargos/create-update/form/recargo-form.component';
 import { RecargoPlanillaComponent } from './pages/recargos/create-update/planilla/recargo-planilla.component';
+import { RecargoPlanillaSubItemComponent } from './pages/recargos/create-update/planilla/recargo-planilla-subitem.component';
 
 // Horas Extras
 import { HoraExtraSearchFormComponent } from './pages/horas-extras/list/search/hora-extra-search.component';
@@ -431,6 +432,7 @@ const ADMIN_COMPONENTS = [
         RecargoCreateUpdateComponent,
         RecargoFormComponent,
         RecargoPlanillaComponent,
+        RecargoPlanillaSubItemComponent,
 
         // Horas Extras
         HoraExtraListComponent,
