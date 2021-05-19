@@ -25,7 +25,11 @@
         <plex-tabs>
             <plex-tab label="1. SELECCION DE AGENTES">
                 <div>
-                    <app-reporte-agente-filters #agenteFilters></app-reporte-agente-filters>
+                    <app-reporte-agente-filters
+                        #agenteFilters
+                        *ngIf="serviciosAllowed"
+                        [serviciosAllowed]="serviciosAllowed">
+                    </app-reporte-agente-filters>
                 </div>
             </plex-tab>
             <plex-tab label="2. FILTROS DE BÚSQUEDA">

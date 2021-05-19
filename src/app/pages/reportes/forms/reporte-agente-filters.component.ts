@@ -1,11 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Ubicacion } from 'src/app/models/Ubicacion';
+import { UbicacionService } from 'src/app/services/ubicacion.service';
 
 @Component({
     selector: 'app-reporte-agente-filters',
     templateUrl: './reporte-agente-filters.html',
 })
 export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
+
+    @Input() serviciosAllowed: Ubicacion[];
 
     public form: FormGroup;
     private timeoutHandle: number;
@@ -20,10 +24,12 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
     public opcionesAgenteTodos;
     public opcionesAgenteLugarTrabajo;
     public opcionesAgente;
+    public opcionesServicios;
     public filtrosTiposEstados;
 
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private ubicacionService: UbicacionService,
         ){}
     
     ngOnInit() {
@@ -48,6 +54,19 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
             {id:'baja', nombre:'Sólo agentes inactivos'},
             {id:'todos', nombre:'Todos (activos e inactivos)'}
         ];
+
+        
+        // Inicializamos las ubicaciones/servicios disponibles para filtrar
+        if (this.serviciosAllowed && this.serviciosAllowed.length){
+            this.opcionesServicios = this.serviciosAllowed;
+        }
+        else{
+            // Si serviciosAllowed = [], implica que tiene acceso a todos los
+            // servicios.
+            this.ubicacionService.get({}).subscribe(servicios =>
+                this.opcionesServicios = servicios)
+        }       
+        
     }
 
     initAgenteFilterForm()
@@ -73,6 +92,10 @@ export class ReporteAgenteFiltersComponent implements OnInit, OnDestroy {
         }
         if (form.optionAgente){
             params['_id'] = form.agente._id;
+        }
+        if (!form.optionAgenteLugarTrabajo && !form.optionAgente && this.serviciosAllowed.length){
+            // Controlamos que solo pueda filtrar por los servicios permitidos
+            params['situacionLaboral.cargo.sector.ubicacion'] = this.serviciosAllowed.map(i=>i.codigo);
         }
         if (form.activo){
             if (form.activo.id == 'activo') params['activo'] = true;

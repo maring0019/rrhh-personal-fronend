@@ -43,7 +43,7 @@ export class AgenteSelectInputComponent implements OnInit {
             params = getAgenteSearchParams(params, textoLibre);
             // Filtramos los agentes en funcion de los servicios permitidos
             if (this.serviciosAllowed && this.serviciosAllowed.length){
-                params['situacionLaboral.cargo.ubicacion._id'] = this.serviciosAllowed.map(i=>i._id)
+                params['situacionLaboral.cargo.ubicacion.codigo'] = this.serviciosAllowed.map(i=>i.codigo)
             }
             this.timeoutHandle = window.setTimeout(() => {
                 this.timeoutHandle = null;

@@ -1,18 +1,29 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { Plex } from "@andes/plex";
 import * as formUtils from "src/app/utils/formUtils";
 import { ReporteAgenteFiltersComponent } from "./forms/reporte-agente-filters.component";
 import { ReporteSeleccionTipoComponent } from "./forms/reporte-seleccion-tipo.component";
 
+import { Auth } from 'src/app/services/auth.service';
 import { ReportesService } from "src/app/services/reportes.service";
 import { ModalService } from "src/app/services/modal.service";
 import { ReporteSeleccionFiltros } from "src/app/pages/reportes/forms/reporte-seleccion-filtros.component";
-import { Plex } from "@andes/plex";
+
 
 @Component({
     selector: "app-reporte-search",
     templateUrl: "reporte-search.html",
 })
 export class ReporteSearchComponent implements OnInit {
+    
+    // Permisos especiales. Si el usuario logueado dispone de este permiso podra
+    // consultar libremente en el modulo. Caso contrario estará restringido a los 
+    // servicios disponibles como jefe de servicio/dpto/etc.    
+    public canViewAllServices:Boolean = false;
+
+    // Listado de servicios permitidos para consultar / servicio alias ubicacion 
+    public serviciosAllowed;
+    
     public generandoReporte = false; // Flag al momento de generar el reporte
     public htmlReport; // Contenedor para el reporte generado en formato html
 
@@ -25,12 +36,28 @@ export class ReporteSearchComponent implements OnInit {
     tipoReporteComponent: ReporteSeleccionTipoComponent;
 
     constructor(
+        private authService: Auth,
         private reportesService: ReportesService,
         private modalService: ModalService,
         private plex: Plex
     ) {}
 
-    public ngOnInit() {}
+    async ngOnInit() {
+        this.canViewAllServices = await this.authService.check('reportes:reporte:servicios_query_all');
+        this.serviciosAllowed = this.getServiciosAllowed();
+    }
+
+   
+    private getServiciosAllowed(){
+        if (this.serviciosAllowed) return this.serviciosAllowed;
+        
+        if (this.canViewAllServices){
+            return []; // Una lista vacia implica que puede ver todos los servicios!
+        }
+        else{
+            return this.authService.servicios;
+        }
+    }
 
     public onSearch() {
         if (this.agenteFiltersComponent.form.invalid) {
