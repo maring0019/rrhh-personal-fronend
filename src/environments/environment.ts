@@ -4,7 +4,6 @@
 //ver
 export const environment = {
     production: false,
-    environmentName: 'demo',
     API: '//localhost:3004/api'
 };
 
