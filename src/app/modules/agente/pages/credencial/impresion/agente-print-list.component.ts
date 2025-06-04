@@ -14,6 +14,7 @@ export class AgentePrintListComponent{
     }
 
     public onActionCall(){
+        debugger;
         this.action.emit();
     }
 }
